@@ -398,20 +398,20 @@ namespace MetadataExtractor.Formats.Photoshop
                             break;
                         case 1:
                         case 2:
+                        {
+                            Knot knot;
+                            if (selector == 1)
+                                knot = new Knot("Linked");
+                            else
+                                knot = new Knot("Unlinked");
+                            // Insert each point into cSubpath - points are 32-bit signed, fixed point numbers and have 8-bits before the point
+                            for (int j = 0; j < 6; j++)
                             {
-                                Knot knot;
-                                if (selector == 1)
-                                    knot = new Knot("Linked");
-                                else
-                                    knot = new Knot("Unlinked");
-                                // Insert each point into cSubpath - points are 32-bit signed, fixed point numbers and have 8-bits before the point
-                                for (int j = 0; j < 6; j++)
-                                {
-                                    knot[j] = reader.GetByte((j * 4) + 2 + recordSpacer) + (reader.GetInt24((j * 4) + 3 + recordSpacer) / Math.Pow(2.0, 24.0));
-                                }
-                                cSubpath.Add(knot);
-                                break;
+                                knot[j] = reader.GetByte((j * 4) + 2 + recordSpacer) + (reader.GetInt24((j * 4) + 3 + recordSpacer) / Math.Pow(2.0, 24.0));
                             }
+                            cSubpath.Add(knot);
+                            break;
+                        }
                         case 3:
                             // Insert previous Paths if there are any
                             if (oSubpath.KnotCount != 0)
@@ -424,20 +424,20 @@ namespace MetadataExtractor.Formats.Photoshop
                             break;
                         case 4:
                         case 5:
+                        {
+                            Knot knot;
+                            if (selector == 4)
+                                knot = new Knot("Linked");
+                            else
+                                knot = new Knot("Unlinked");
+                            // Insert each point into oSubpath - points are 32-bit signed, fixed point numbers and have 8-bits before the point
+                            for (int j = 0; j < 6; j++)
                             {
-                                Knot knot;
-                                if (selector == 4)
-                                    knot = new Knot("Linked");
-                                else
-                                    knot = new Knot("Unlinked");
-                                // Insert each point into oSubpath - points are 32-bit signed, fixed point numbers and have 8-bits before the point
-                                for (int j = 0; j < 6; j++)
-                                {
-                                    knot[j] = reader.GetByte((j * 4) + 2 + recordSpacer) + (reader.GetInt24((j * 4) + 3 + recordSpacer) / Math.Pow(2.0, 24.0));
-                                }
-                                oSubpath.Add(knot);
-                                break;
+                                knot[j] = reader.GetByte((j * 4) + 2 + recordSpacer) + (reader.GetInt24((j * 4) + 3 + recordSpacer) / Math.Pow(2.0, 24.0));
                             }
+                            oSubpath.Add(knot);
+                            break;
+                        }
                         case 6:
                             break;
                         case 7:
@@ -474,7 +474,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 str.Append(paths.Count).Append(paths.Count == 1 ? " subpath:" : " subpaths:");
 
-                foreach(Subpath path in paths)
+                foreach (Subpath path in paths)
                 {
                     str.Append($"\n- {path.Type} with { paths.Count}").Append(paths.Count == 1 ? " knot:" : " knots:");
 

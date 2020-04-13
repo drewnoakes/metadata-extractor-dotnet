@@ -591,7 +591,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             int faceCount = reader.GetUInt16(0);
 
-            if (faceCount == 0 || bytes.Length < firstRecordOffset + faceCount*recordLength)
+            if (faceCount == 0 || bytes.Length < firstRecordOffset + faceCount * recordLength)
                 yield break;
 
             posOffset += firstRecordOffset;

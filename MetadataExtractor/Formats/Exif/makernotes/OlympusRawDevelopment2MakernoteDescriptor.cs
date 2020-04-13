@@ -69,10 +69,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var sb = new StringBuilder();
             var v = (ushort)value;
 
+#pragma warning disable format
             if ((v        & 1) != 0) sb.Append("Noise Reduction, ");
             if (((v >> 1) & 1) != 0) sb.Append("Noise Filter, ");
             if (((v >> 2) & 1) != 0) sb.Append("Noise Filter (ISO Boost), ");
             if (((v >> 3) & 1) != 0) sb.Append("Noise Filter (Auto), ");
+#pragma warning restore format
 
             if (sb.Length > 2)
                 sb.Length -= 2;

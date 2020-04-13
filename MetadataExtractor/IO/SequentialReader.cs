@@ -96,6 +96,8 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException"/>
         public sbyte GetSByte() => unchecked((sbyte)GetByte());
 
+#pragma warning disable format
+
         /// <summary>Returns an unsigned 16-bit int calculated from the next two bytes of the sequence.</summary>
         /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>
         /// <exception cref="System.IO.IOException"/>
@@ -235,6 +237,8 @@ namespace MetadataExtractor.IO
                 (ulong)GetByte() << 48 |
                 (ulong)GetByte() << 56;
         }
+
+#pragma warning restore format
 
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
         /// <remarks>

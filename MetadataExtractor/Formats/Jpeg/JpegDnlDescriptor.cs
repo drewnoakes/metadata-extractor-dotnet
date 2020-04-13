@@ -13,7 +13,7 @@ namespace MetadataExtractor.Formats.Jpeg
     {
         public JpegDnlDescriptor(JpegDnlDirectory directory)
             : base(directory)
-        {}
+        { }
 
         public override string? GetDescription(int tagType)
         {

@@ -23,7 +23,7 @@ namespace MetadataExtractor.Formats.Adobe
     {
         public const string JpegSegmentPreamble = "Adobe";
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppE };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.AppE };
 
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {

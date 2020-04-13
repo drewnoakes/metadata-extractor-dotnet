@@ -26,8 +26,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetQualityDescription();
                 case LeicaMakernoteDirectory.TagUserProfile:
                     return GetUserProfileDescription();
-//              case LeicaMakernoteDirectory.TagSerial:
-//                  return GetSerialNumberDescription();
                 case LeicaMakernoteDirectory.TagWhiteBalance:
                     return GetWhiteBalanceDescription();
                 case LeicaMakernoteDirectory.TagExternalSensorBrightnessValue:

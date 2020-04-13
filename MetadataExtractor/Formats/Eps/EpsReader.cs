@@ -59,7 +59,7 @@ namespace MetadataExtractor.Formats.Eps
 
             switch (reader.GetInt32(0))
             {
-                case unchecked ((int)0xC5D0D3C6):
+                case unchecked((int)0xC5D0D3C6):
                     reader = reader.WithByteOrder(isMotorolaByteOrder: false);
                     int postScriptOffset = reader.GetInt32(4);
                     int postScriptLength = reader.GetInt32(8);
@@ -175,7 +175,8 @@ namespace MetadataExtractor.Formats.Eps
 
             var tag = EpsDirectory._tagIntegerMap[name];
 
-            switch (tag) {
+            switch (tag)
+            {
                 case EpsDirectory.TagImageData:
                     ExtractImageData(directory, value);
                     break;
@@ -183,10 +184,13 @@ namespace MetadataExtractor.Formats.Eps
                     directory.Set(_previousTag, directory.GetString(_previousTag) + " " + value);
                     break;
                 default:
-                    if (EpsDirectory._tagNameMap.ContainsKey(tag) && !directory.ContainsTag(tag)) {
+                    if (EpsDirectory._tagNameMap.ContainsKey(tag) && !directory.ContainsTag(tag))
+                    {
                         directory.Set(tag, value);
                         _previousTag = tag;
-                    } else {
+                    }
+                    else
+                    {
                         // Set previous tag to an Integer that doesn't exist in EpsDirectory
                         _previousTag = 0;
                     }
@@ -276,7 +280,8 @@ namespace MetadataExtractor.Formats.Eps
             int length = sentinel.Length;
             int depth = 0;
 
-            while (depth != length) {
+            while (depth != length)
+            {
                 byte b = reader.GetByte();
                 if (b == sentinel[depth])
                     depth++;
@@ -342,12 +347,16 @@ namespace MetadataExtractor.Formats.Eps
             bool done = false;
 
             byte b = 0;
-            while (!done) {
+            while (!done)
+            {
                 b = reader.GetByte();
 
-                switch (state) {
-                    case AwaitingPercent: {
-                        switch (b) {
+                switch (state)
+                {
+                    case AwaitingPercent:
+                    {
+                        switch (b)
+                        {
                             case (byte)'\r':
                             case (byte)'\n':
                             case (byte)' ':
@@ -361,8 +370,10 @@ namespace MetadataExtractor.Formats.Eps
                         }
                         break;
                     }
-                    case AwaitingSpace: {
-                        switch (b) {
+                    case AwaitingSpace:
+                    {
+                        switch (b)
+                        {
                             case (byte)' ':
                                 state = AwaitingHex1;
                                 break;
@@ -372,19 +383,26 @@ namespace MetadataExtractor.Formats.Eps
                         }
                         break;
                     }
-                    case AwaitingHex1: {
+                    case AwaitingHex1:
+                    {
                         int i = TryHexToInt(b);
-                        if (i != -1) {
+                        if (i != -1)
+                        {
                             carry = i * 16;
                             state = AwaitingHex2;
-                        } else if (b == '\r' || b == '\n') {
+                        }
+                        else if (b == '\r' || b == '\n')
+                        {
                             state = AwaitingPercent;
-                        } else {
+                        }
+                        else
+                        {
                             return null;
                         }
                         break;
                     }
-                    case AwaitingHex2: {
+                    case AwaitingHex2:
+                    {
                         int i = TryHexToInt(b);
                         if (i == -1)
                             return null;

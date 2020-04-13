@@ -112,6 +112,8 @@ namespace MetadataExtractor.IO
             return unchecked((sbyte)GetByte(index));
         }
 
+#pragma warning disable format
+
         /// <summary>Returns an unsigned 16-bit int calculated from two bytes of data at the specified index.</summary>
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>
@@ -253,6 +255,8 @@ namespace MetadataExtractor.IO
                 (long)GetByte(index + 1) <<  8 |
                       GetByte(index    );
         }
+
+#pragma warning restore format
 
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
         /// <remarks>

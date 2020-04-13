@@ -33,7 +33,7 @@ namespace MetadataExtractor.Util
         /// <summary>Gets the maximum depth stored in this trie.</summary>
         public int MaxDepth { get; private set; }
 
-        public ByteTrie() {}
+        public ByteTrie() { }
 
         public ByteTrie(T defaultValue) => SetDefaultValue(defaultValue);
 

@@ -56,8 +56,8 @@ namespace MetadataExtractor
         public static double[] DecimalToDegreesMinutesSeconds(double value)
         {
             var d = (int)value;
-            var m = Math.Abs((value%1)*60);
-            var s = (m%1)*60;
+            var m = Math.Abs((value % 1) * 60);
+            var s = (m % 1) * 60;
             return new[] { d, (int)m, s };
         }
 
@@ -69,7 +69,7 @@ namespace MetadataExtractor
         [Pure]
         public static double? DegreesMinutesSecondsToDecimal(Rational degs, Rational mins, Rational secs, bool isNegative)
         {
-            var value = Math.Abs(degs.ToDouble()) + mins.ToDouble()/60.0d + secs.ToDouble()/3600.0d;
+            var value = Math.Abs(degs.ToDouble()) + mins.ToDouble() / 60.0d + secs.ToDouble() / 3600.0d;
             if (double.IsNaN(value))
                 return null;
             if (isNegative)
@@ -93,7 +93,7 @@ namespace MetadataExtractor
             return obj is GeoLocation location && Equals(location);
         }
 
-        public override int GetHashCode() => unchecked((Latitude.GetHashCode()*397) ^ Longitude.GetHashCode());
+        public override int GetHashCode() => unchecked((Latitude.GetHashCode() * 397) ^ Longitude.GetHashCode());
 
         #endregion
 

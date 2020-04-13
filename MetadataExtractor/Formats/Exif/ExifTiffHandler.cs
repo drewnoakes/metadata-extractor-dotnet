@@ -27,15 +27,19 @@ namespace MetadataExtractor.Formats.Exif
     {
         public ExifTiffHandler(List<Directory> directories)
             : base(directories)
-        {}
+        { }
 
         /// <exception cref="TiffProcessingException"/>
         public override void SetTiffMarker(int marker)
         {
+#pragma warning disable format
+
             const int standardTiffMarker     = 0x002A;
             const int olympusRawTiffMarker   = 0x4F52; // for ORF files
             const int olympusRawTiffMarker2  = 0x5352; // for ORF files
             const int panasonicRawTiffMarker = 0x0055; // for RAW, RW2, and RWL files
+
+#pragma warning restore format
 
             switch (marker)
             {
@@ -298,7 +302,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             if ((ushort)formatCode == 13u)
             {
-                byteCount = 4L*componentCount;
+                byteCount = 4L * componentCount;
                 return true;
             }
 
@@ -313,13 +317,14 @@ namespace MetadataExtractor.Formats.Exif
             return false;
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         private bool ProcessMakernote(int makernoteOffset, ICollection<int> processedIfdOffsets, IndexedReader reader)
         {
             Debug.Assert(makernoteOffset >= 0, "makernoteOffset >= 0");
 
             var cameraMake = Directories.OfType<ExifIfd0Directory>().FirstOrDefault()?.GetString(ExifDirectoryBase.TagMake);
 
+#pragma warning disable format
             var firstTwoChars    = reader.GetString(makernoteOffset, 2, Encoding.UTF8);
             var firstThreeChars  = reader.GetString(makernoteOffset, 3, Encoding.UTF8);
             var firstFourChars   = reader.GetString(makernoteOffset, 4, Encoding.UTF8);
@@ -330,6 +335,7 @@ namespace MetadataExtractor.Formats.Exif
             var firstNineChars   = reader.GetString(makernoteOffset, 9, Encoding.UTF8);
             var firstTenChars    = reader.GetString(makernoteOffset, 10, Encoding.UTF8);
             var firstTwelveChars = reader.GetString(makernoteOffset, 12, Encoding.UTF8);
+#pragma warning restore format
 
             if (string.Equals("OLYMP\0", firstSixChars, StringComparison.Ordinal) ||
                 string.Equals("EPSON", firstFiveChars, StringComparison.Ordinal) ||
@@ -526,13 +532,15 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(new PentaxMakernoteDirectory());
                 TiffReader.ProcessIfd(this, reader.WithShiftedBaseOffset(makernoteOffset), processedIfdOffsets, 0);
             }
-//          else if ("KC" == firstTwoChars || "MINOL" == firstFiveChars || "MLY" == firstThreeChars || "+M+M+M+M" == firstEightChars)
-//          {
-//              // This Konica data is not understood.  Header identified in accordance with information at this site:
-//              // http://www.ozhiker.com/electronics/pjmt/jpeg_info/minolta_mn.html
-//              // TODO add support for minolta/konica cameras
-//              exifDirectory.addError("Unsupported Konica/Minolta data ignored.");
-//          }
+            /*
+            else if ("KC" == firstTwoChars || "MINOL" == firstFiveChars || "MLY" == firstThreeChars || "+M+M+M+M" == firstEightChars)
+            {
+                // This Konica data is not understood.  Header identified in accordance with information at this site:
+                // http://www.ozhiker.com/electronics/pjmt/jpeg_info/minolta_mn.html
+                // TODO add support for minolta/konica cameras
+                exifDirectory.addError("Unsupported Konica/Minolta data ignored.");
+            }
+            */
             else if (string.Equals("SANYO\x0\x1\x0", firstEightChars, StringComparison.Ordinal))
             {
                 PushDirectory(new SanyoMakernoteDirectory());
@@ -696,9 +704,9 @@ namespace MetadataExtractor.Formats.Exif
                     if (i < byteCount - 1 && directory.HasTagName(i + 1))
                     {
                         if (issigned)
-                            directory.Set(i, reader.GetInt16(tagValueOffset + i*byteSize));
+                            directory.Set(i, reader.GetInt16(tagValueOffset + i * byteSize));
                         else
-                            directory.Set(i, reader.GetUInt16(tagValueOffset + i*byteSize));
+                            directory.Set(i, reader.GetUInt16(tagValueOffset + i * byteSize));
                     }
                     else
                     {
@@ -707,14 +715,14 @@ namespace MetadataExtractor.Formats.Exif
                         {
                             var val = new short[arrayLength];
                             for (var j = 0; j < val.Length; j++)
-                                val[j] = reader.GetInt16(tagValueOffset + (i + j)*byteSize);
+                                val[j] = reader.GetInt16(tagValueOffset + (i + j) * byteSize);
                             directory.Set(i, val);
                         }
                         else
                         {
                             var val = new ushort[arrayLength];
                             for (var j = 0; j < val.Length; j++)
-                                val[j] = reader.GetUInt16(tagValueOffset + (i + j)*byteSize);
+                                val[j] = reader.GetUInt16(tagValueOffset + (i + j) * byteSize);
                             directory.Set(i, val);
                         }
 
@@ -731,6 +739,7 @@ namespace MetadataExtractor.Formats.Exif
             var dataOffset = tagValueOffset + 8;
             try
             {
+#pragma warning disable format
                 directory.Set(KodakMakernoteDirectory.TagKodakModel,           reader.GetString(dataOffset, 8, Encoding.UTF8));
                 directory.Set(KodakMakernoteDirectory.TagQuality,              reader.GetByte(dataOffset + 9));
                 directory.Set(KodakMakernoteDirectory.TagBurstMode,            reader.GetByte(dataOffset + 10));
@@ -757,6 +766,7 @@ namespace MetadataExtractor.Formats.Exif
                 directory.Set(KodakMakernoteDirectory.TagColorMode,            reader.GetUInt16(dataOffset + 102));
                 directory.Set(KodakMakernoteDirectory.TagDigitalZoom,          reader.GetUInt16(dataOffset + 104));
                 directory.Set(KodakMakernoteDirectory.TagSharpness,            reader.GetSByte(dataOffset + 107));
+#pragma warning restore format
             }
             catch (IOException ex)
             {

@@ -67,7 +67,7 @@ namespace MetadataExtractor
             {
                 return int.Parse(ToString());
             }
-            catch(Exception)
+            catch (Exception)
             {
                 long val = 0;
                 foreach (var b in Bytes)

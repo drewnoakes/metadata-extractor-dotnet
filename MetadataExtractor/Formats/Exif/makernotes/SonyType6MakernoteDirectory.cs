@@ -12,7 +12,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     {
         public const int TagMakernoteThumbOffset = 0x0513;
         public const int TagMakernoteThumbLength = 0x0514;
-//      public const int TagUnknown1 = 0x0515;
         public const int TagMakernoteThumbVersion = 0x2000;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>

@@ -26,6 +26,8 @@ namespace MetadataExtractor.Formats.Exif
         {
             // TODO order case blocks and corresponding methods in the same order as the TAG_* values are defined
 
+#pragma warning disable format
+
             return tagType switch
             {
                 TagInteropIndex                  => GetInteropIndexDescription(),
@@ -101,6 +103,8 @@ namespace MetadataExtractor.Formats.Exif
                 TagLensSpecification             => GetLensSpecificationDescription(),
                 _                                => base.GetDescription(tagType),
             };
+
+#pragma warning restore format
         }
 
         public string? GetInteropVersionDescription()

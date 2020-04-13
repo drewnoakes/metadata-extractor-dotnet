@@ -28,7 +28,7 @@ namespace MetadataExtractor.Formats.Jfxx
     {
         public const string JpegSegmentPreamble = "JFXX";
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App0 };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.App0 };
 
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {

@@ -99,34 +99,34 @@ namespace MetadataExtractor.Formats.Icc
                         var geometryType = reader.GetInt32(24);
                         var flare = reader.GetS15Fixed16(28);
                         var illuminantType = reader.GetInt32(32);
-                            var observerString = observerType switch
-                            {
-                                0 => "Unknown",
-                                1 => "1931 2\u00b0",
-                                2 => "1964 10\u00b0",
-                                _ => $"Unknown ({observerType})",
-                            };
-                            var geometryString = geometryType switch
-                            {
-                                0 => "Unknown",
-                                1 => "0/45 or 45/0",
-                                2 => "0/d or d/0",
-                                _ => $"Unknown ({observerType})",
-                            };
-                            var illuminantString = illuminantType switch
-                            {
-                                0 => "unknown",
-                                1 => "D50",
-                                2 => "D65",
-                                3 => "D93",
-                                4 => "F2",
-                                5 => "D55",
-                                6 => "A",
-                                7 => "Equi-Power (E)",
-                                8 => "F8",
-                                _ => $"Unknown ({illuminantType})",
-                            };
-                            return $"{observerString} Observer, Backing ({x:0.###}, {y:0.###}, {z:0.###}), Geometry {geometryString}, Flare {(long)Math.Round(flare*100)}%, Illuminant {illuminantString}";
+                        var observerString = observerType switch
+                        {
+                            0 => "Unknown",
+                            1 => "1931 2\u00b0",
+                            2 => "1964 10\u00b0",
+                            _ => $"Unknown ({observerType})",
+                        };
+                        var geometryString = geometryType switch
+                        {
+                            0 => "Unknown",
+                            1 => "0/45 or 45/0",
+                            2 => "0/d or d/0",
+                            _ => $"Unknown ({observerType})",
+                        };
+                        var illuminantString = illuminantType switch
+                        {
+                            0 => "unknown",
+                            1 => "D50",
+                            2 => "D65",
+                            3 => "D93",
+                            4 => "F2",
+                            5 => "D55",
+                            6 => "A",
+                            7 => "Equi-Power (E)",
+                            8 => "F8",
+                            _ => $"Unknown ({illuminantType})",
+                        };
+                        return $"{observerString} Observer, Backing ({x:0.###}, {y:0.###}, {z:0.###}), Geometry {geometryString}, Flare {(long)Math.Round(flare * 100)}%, Illuminant {illuminantString}";
                     }
 
                     case IccTagType.XyzArray:

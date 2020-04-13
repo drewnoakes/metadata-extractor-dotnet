@@ -15,10 +15,10 @@ namespace MetadataExtractor.Formats.QuickTime
         public static string Get4ccString(this SequentialReader reader)
         {
             var sb = new StringBuilder(4);
-            sb.Append((char) reader.GetByte());
-            sb.Append((char) reader.GetByte());
-            sb.Append((char) reader.GetByte());
-            sb.Append((char) reader.GetByte());
+            sb.Append((char)reader.GetByte());
+            sb.Append((char)reader.GetByte());
+            sb.Append((char)reader.GetByte());
+            sb.Append((char)reader.GetByte());
             return sb.ToString();
         }
 

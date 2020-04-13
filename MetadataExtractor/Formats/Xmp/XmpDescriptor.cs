@@ -11,6 +11,6 @@ namespace MetadataExtractor.Formats.Xmp
     {
         public XmpDescriptor(XmpDirectory directory)
             : base(directory)
-        {}
+        { }
     }
 }

@@ -65,9 +65,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var sb = new StringBuilder();
             var v = (ushort)value;
 
-            if ((v        & 1) != 0) sb.Append("Noise Reduction, ");
+#pragma warning disable format
+            if ((v & 1) != 0) sb.Append("Noise Reduction, ");
             if (((v >> 1) & 1) != 0) sb.Append("Noise Filter, ");
             if (((v >> 2) & 1) != 0) sb.Append("Noise Filter (ISO Boost), ");
+#pragma warning restore format
 
             return sb.ToString(0, sb.Length - 2);
         }
@@ -102,7 +104,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var sb = new StringBuilder();
             var v = (ushort)value;
 
-            if ((v        & 1) != 0) sb.Append("WB Color Temp, ");
+#pragma warning disable format
+            if ((v & 1) != 0) sb.Append("WB Color Temp, ");
             if (((v >> 1) & 1) != 0) sb.Append("WB Gray Point, ");
             if (((v >> 2) & 1) != 0) sb.Append("Saturation, ");
             if (((v >> 3) & 1) != 0) sb.Append("Contrast, ");
@@ -110,6 +113,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (((v >> 5) & 1) != 0) sb.Append("Color Space, ");
             if (((v >> 6) & 1) != 0) sb.Append("High Function, ");
             if (((v >> 7) & 1) != 0) sb.Append("Noise Reduction, ");
+#pragma warning restore format
 
             return sb.ToString(0, sb.Length - 2);
         }

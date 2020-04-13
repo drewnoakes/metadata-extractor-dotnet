@@ -24,6 +24,7 @@ namespace MetadataExtractor.Formats.Tiff
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class TiffDataFormat
     {
+#pragma warning disable format
         public static readonly TiffDataFormat Int8U     = new TiffDataFormat("BYTE",      TiffDataFormatCode.Int8U,     1);
         public static readonly TiffDataFormat String    = new TiffDataFormat("STRING",    TiffDataFormatCode.String,    1);
         public static readonly TiffDataFormat Int16U    = new TiffDataFormat("USHORT",    TiffDataFormatCode.Int16U,    2);
@@ -36,6 +37,7 @@ namespace MetadataExtractor.Formats.Tiff
         public static readonly TiffDataFormat RationalS = new TiffDataFormat("SRATIONAL", TiffDataFormatCode.RationalS, 8);
         public static readonly TiffDataFormat Single    = new TiffDataFormat("SINGLE",    TiffDataFormatCode.Single,    4);
         public static readonly TiffDataFormat Double    = new TiffDataFormat("DOUBLE",    TiffDataFormatCode.Double,    8);
+#pragma warning restore format
 
         public static TiffDataFormat? FromTiffFormatCode(TiffDataFormatCode tiffFormatCode)
         {

@@ -207,7 +207,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var values = Directory.GetInt32Array(tagType);
             if (values == null || values.Length < 3 || values[2] == 0)
                 return null;
-            return $"{(sbyte)values[0]*(sbyte)values[1]/(double)(sbyte)values[2]:0.##} EV";
+            return $"{(sbyte)values[0] * (sbyte)values[1] / (double)(sbyte)values[2]:0.##} EV";
         }
 
         public string? GetIsoSettingDescription()

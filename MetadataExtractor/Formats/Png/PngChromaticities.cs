@@ -20,7 +20,7 @@ namespace MetadataExtractor.Formats.Png
         /// <exception cref="PngProcessingException"/>
         public PngChromaticities(byte[] bytes)
         {
-            if (bytes.Length != 8*4)
+            if (bytes.Length != 8 * 4)
                 throw new PngProcessingException("Invalid number of bytes");
 
             var reader = new SequentialByteArrayReader(bytes);

@@ -31,7 +31,7 @@ namespace MetadataExtractor.Formats.Photoshop
     {
         public const string JpegSegmentPreamble = "Photoshop 3.0";
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppD };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.AppD };
 
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {

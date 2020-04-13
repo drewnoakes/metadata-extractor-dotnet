@@ -29,7 +29,7 @@ namespace MetadataExtractor.Formats.FileType
             SetDescriptor(new FileTypeDescriptor(this));
 
             var name = fileType.GetName();
-                        
+
             Set(TagDetectedFileTypeName, name);
             Set(TagDetectedFileTypeLongName, fileType.GetLongName());
 

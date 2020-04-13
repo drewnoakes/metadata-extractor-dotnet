@@ -206,6 +206,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 }
                 else
                 {
+#pragma warning disable format
                     if (( value1       & 1) > 0) sb.Append("S-AF, ");
                     if (((value1 >> 2) & 1) > 0) sb.Append("C-AF, ");
                     if (((value1 >> 4) & 1) > 0) sb.Append("MF, ");
@@ -213,6 +214,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     if (((value1 >> 6) & 1) > 0) sb.Append("Imager AF, ");
                     if (((value1 >> 7) & 1) > 0) sb.Append("Live View Magnification Frame, ");
                     if (((value1 >> 8) & 1) > 0) sb.Append("AF sensor, ");
+#pragma warning restore format
 
                     sb.Remove(sb.Length - 2, 2);
                 }
@@ -311,10 +313,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (vals.Length == 5 && vals[0].ToInt64() == 0)
                 index = 1;
 
+#pragma warning disable format
             var p1 = (int)(vals[index    ].ToDouble() * 100);
             var p2 = (int)(vals[index + 1].ToDouble() * 100);
             var p3 = (int)(vals[index + 2].ToDouble() * 100);
             var p4 = (int)(vals[index + 3].ToDouble() * 100);
+#pragma warning restore format
 
             if (p1 + p2 + p3 + p4 == 0)
                 return "n/a";
@@ -340,12 +344,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var sb = new StringBuilder();
             var v = (ushort)value;
 
+#pragma warning disable format
             if (( v       & 1) != 0) sb.Append("On, ");
             if (((v >> 1) & 1) != 0) sb.Append("Fill-in, ");
             if (((v >> 2) & 1) != 0) sb.Append("Red-eye, ");
             if (((v >> 3) & 1) != 0) sb.Append("Slow-sync, ");
             if (((v >> 4) & 1) != 0) sb.Append("Forced On, ");
             if (((v >> 5) & 1) != 0) sb.Append("2nd Curtain, ");
+#pragma warning restore format
 
             return sb.ToString(0, sb.Length - 2);
         }
@@ -931,11 +937,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values[0] == 5 && values.Length >= 3)
             {
                 var c = values[2];
+#pragma warning disable format
                 if (( c       & 1) > 0) a.Append("AE");
                 if (((c >> 1) & 1) > 0) a.Append("WB");
                 if (((c >> 2) & 1) > 0) a.Append("FL");
                 if (((c >> 3) & 1) > 0) a.Append("MF");
                 if (((c >> 6) & 1) > 0) a.Append("Focus");
+#pragma warning restore format
 
                 a.Append(" Bracketing");
             }
@@ -1024,7 +1032,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagManometerPressure, out int value))
                 return null;
 
-            return $"{value/10.0} kPa";
+            return $"{value / 10.0} kPa";
         }
 
         /// <remarks>
@@ -1036,7 +1044,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!(Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagManometerReading) is int[] values) || values.Length < 2)
                 return null;
 
-            return $"{values[0]/10.0} m, {values[1]/10.0} ft";
+            return $"{values[0] / 10.0} m, {values[1] / 10.0} ft";
         }
 
         public string? GetExtendedWBDetectDescription()

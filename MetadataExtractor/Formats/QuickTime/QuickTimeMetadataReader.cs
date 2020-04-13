@@ -42,8 +42,8 @@ namespace MetadataExtractor.Formats.QuickTime
                         var directory = new QuickTimeTrackHeaderDirectory();
                         directory.Set(QuickTimeTrackHeaderDirectory.TagVersion, a.Reader.GetByte());
                         directory.Set(QuickTimeTrackHeaderDirectory.TagFlags, a.Reader.GetBytes(3));
-                        directory.Set(QuickTimeTrackHeaderDirectory.TagCreated, _epoch.AddTicks(TimeSpan.TicksPerSecond*a.Reader.GetUInt32()));
-                        directory.Set(QuickTimeTrackHeaderDirectory.TagModified, _epoch.AddTicks(TimeSpan.TicksPerSecond*a.Reader.GetUInt32()));
+                        directory.Set(QuickTimeTrackHeaderDirectory.TagCreated, _epoch.AddTicks(TimeSpan.TicksPerSecond * a.Reader.GetUInt32()));
+                        directory.Set(QuickTimeTrackHeaderDirectory.TagModified, _epoch.AddTicks(TimeSpan.TicksPerSecond * a.Reader.GetUInt32()));
                         directory.Set(QuickTimeTrackHeaderDirectory.TagTrackId, a.Reader.GetUInt32());
                         a.Reader.Skip(4L);
                         directory.Set(QuickTimeTrackHeaderDirectory.TagDuration, a.Reader.GetUInt32());
@@ -207,11 +207,11 @@ namespace MetadataExtractor.Formats.QuickTime
                         var directory = new QuickTimeMovieHeaderDirectory();
                         directory.Set(QuickTimeMovieHeaderDirectory.TagVersion, a.Reader.GetByte());
                         directory.Set(QuickTimeMovieHeaderDirectory.TagFlags, a.Reader.GetBytes(3));
-                        directory.Set(QuickTimeMovieHeaderDirectory.TagCreated, _epoch.AddTicks(TimeSpan.TicksPerSecond*a.Reader.GetUInt32()));
-                        directory.Set(QuickTimeMovieHeaderDirectory.TagModified, _epoch.AddTicks(TimeSpan.TicksPerSecond*a.Reader.GetUInt32()));
+                        directory.Set(QuickTimeMovieHeaderDirectory.TagCreated, _epoch.AddTicks(TimeSpan.TicksPerSecond * a.Reader.GetUInt32()));
+                        directory.Set(QuickTimeMovieHeaderDirectory.TagModified, _epoch.AddTicks(TimeSpan.TicksPerSecond * a.Reader.GetUInt32()));
                         var timeScale = a.Reader.GetUInt32();
                         directory.Set(QuickTimeMovieHeaderDirectory.TagTimeScale, timeScale);
-                        directory.Set(QuickTimeMovieHeaderDirectory.TagDuration, TimeSpan.FromSeconds(a.Reader.GetUInt32()/(double) timeScale));
+                        directory.Set(QuickTimeMovieHeaderDirectory.TagDuration, TimeSpan.FromSeconds(a.Reader.GetUInt32() / (double)timeScale));
                         directory.Set(QuickTimeMovieHeaderDirectory.TagPreferredRate, a.Reader.Get32BitFixedPoint());
                         directory.Set(QuickTimeMovieHeaderDirectory.TagPreferredVolume, a.Reader.Get16BitFixedPoint());
                         a.Reader.Skip(10);
@@ -246,20 +246,22 @@ namespace MetadataExtractor.Formats.QuickTime
                         QuickTimeReader.ProcessAtoms(stream, MetaDataHandler, a.BytesLeft);
                         break;
                     }
-//                    case "clip":
-//                    {
-//                        QuickTimeReader.ProcessAtoms(stream, clipHandler, a.BytesLeft);
-//                        break;
-//                    }
-//                    case "prfl":
-//                    {
-//                        a.Reader.Skip(4L);
-//                        var partId = a.Reader.GetUInt32();
-//                        var featureCode = a.Reader.GetUInt32();
-//                        var featureValue = string.Join(" ", a.Reader.GetBytes(4).Select(v => v.ToString("X2")).ToArray());
-//                        Debug.WriteLine($"PartId={partId} FeatureCode={featureCode} FeatureValue={featureValue}");
-//                        break;
-//                    }
+                    /*
+                    case "clip":
+                    {
+                        QuickTimeReader.ProcessAtoms(stream, clipHandler, a.BytesLeft);
+                        break;
+                    }
+                    case "prfl":
+                    {
+                        a.Reader.Skip(4L);
+                        var partId = a.Reader.GetUInt32();
+                        var featureCode = a.Reader.GetUInt32();
+                        var featureValue = string.Join(" ", a.Reader.GetBytes(4).Select(v => v.ToString("X2")).ToArray());
+                        Debug.WriteLine($"PartId={partId} FeatureCode={featureCode} FeatureValue={featureValue}");
+                        break;
+                    }
+                    */
                 }
             }
 

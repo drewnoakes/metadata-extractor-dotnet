@@ -334,7 +334,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             // converted to degrees of clockwise camera rotation
-            return ((short)value/10.0).ToString();
+            return ((short)value / 10.0).ToString();
         }
 
         public string? GetPitchAngleDescription()
@@ -343,7 +343,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             // converted to degrees of upward camera tilt
-            return (-(short)value/10.0).ToString();
+            return (-(short)value / 10.0).ToString();
         }
 
         public string? GetSweepPanoramaDirectionDescription()
@@ -582,42 +582,42 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 case 0:
                 {
-                        return (value[1]) switch
-                        {
-                            1 => "Spot Mode On",
-                            16 => "Spot Mode Off",
-                            _ => "Unknown (" + value[0] + " " + value[1] + ")",
-                        };
-                    }
+                    return (value[1]) switch
+                    {
+                        1 => "Spot Mode On",
+                        16 => "Spot Mode Off",
+                        _ => "Unknown (" + value[0] + " " + value[1] + ")",
+                    };
+                }
                 case 1:
                 {
-                        return (value[1]) switch
-                        {
-                            0 => "Spot Focusing",
-                            1 => "5-area",
-                            _ => "Unknown (" + value[0] + " " + value[1] + ")",
-                        };
-                    }
+                    return (value[1]) switch
+                    {
+                        0 => "Spot Focusing",
+                        1 => "5-area",
+                        _ => "Unknown (" + value[0] + " " + value[1] + ")",
+                    };
+                }
                 case 16:
                 {
-                        return (value[1]) switch
-                        {
-                            0 => "1-area",
-                            16 => "1-area (high speed)",
-                            _ => "Unknown (" + value[0] + " " + value[1] + ")",
-                        };
-                    }
+                    return (value[1]) switch
+                    {
+                        0 => "1-area",
+                        16 => "1-area (high speed)",
+                        _ => "Unknown (" + value[0] + " " + value[1] + ")",
+                    };
+                }
                 case 32:
                 {
-                        return (value[1]) switch
-                        {
-                            0 => "Auto or Face Detect",
-                            1 => "3-area (left)",
-                            2 => "3-area (center)",
-                            3 => "3-area (right)",
-                            _ => "Unknown (" + value[0] + " " + value[1] + ")",
-                        };
-                    }
+                    return (value[1]) switch
+                    {
+                        0 => "Auto or Face Detect",
+                        1 => "3-area (left)",
+                        2 => "3-area (center)",
+                        3 => "3-area (right)",
+                        _ => "Unknown (" + value[0] + " " + value[1] + ")",
+                    };
+                }
                 case 64:
                     return "Face Detect";
                 default:

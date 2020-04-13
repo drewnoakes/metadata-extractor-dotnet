@@ -69,7 +69,7 @@ namespace MetadataExtractor.Formats.Png
 
             foreach (var chunk in chunks)
             {
-                if(directories == null)
+                if (directories == null)
                     directories = new List<Directory>();
 
                 try
@@ -248,7 +248,7 @@ namespace MetadataExtractor.Formats.Png
                 {
                     foreach (var directory in ProcessTextChunk(keyword, textBytes))
                     {
-                        yield return directory; 
+                        yield return directory;
                     }
                 }
             }
@@ -509,7 +509,7 @@ namespace MetadataExtractor.Formats.Png
                         var n2 = ParseHexNibble(c2);
 
                         length--;
-                        textBytes[writeIndex++] = (byte) ((n1 << 4) | n2);
+                        textBytes[writeIndex++] = (byte)((n1 << 4) | n2);
                     }
 
                     return writeIndex == byteCount;

@@ -40,6 +40,8 @@ namespace MetadataExtractor.Formats.Tiff
             Directories.Add(CurrentDirectory);
         }
 
+#pragma warning disable format
+
         public void Warn(string message)  => GetCurrentOrErrorDirectory().AddError(message);
         public void Error(string message) => GetCurrentOrErrorDirectory().AddError(message);
 
@@ -75,6 +77,8 @@ namespace MetadataExtractor.Formats.Tiff
         public void SetInt32SArray(int tagId, int[] array)        => CurrentDirectory!.Set(tagId, array);
         public void SetInt32U(int tagId, uint int32U)             => CurrentDirectory!.Set(tagId, int32U);
         public void SetInt32UArray(int tagId, uint[] array)       => CurrentDirectory!.Set(tagId, array);
+
+#pragma warning restore format
 
         public abstract bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount);
 

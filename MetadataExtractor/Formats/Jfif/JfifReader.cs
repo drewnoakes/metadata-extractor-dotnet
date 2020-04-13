@@ -28,7 +28,7 @@ namespace MetadataExtractor.Formats.Jfif
     {
         public const string JpegSegmentPreamble = "JFIF";
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App0 };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.App0 };
 
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
@@ -50,12 +50,14 @@ namespace MetadataExtractor.Formats.Jfif
             try
             {
                 // For JFIF the tag number is the value's byte offset
+#pragma warning disable format
                 directory.Set(JfifDirectory.TagVersion,     reader.GetUInt16(JfifDirectory.TagVersion));
                 directory.Set(JfifDirectory.TagUnits,       reader.GetByte(JfifDirectory.TagUnits));
                 directory.Set(JfifDirectory.TagResX,        reader.GetUInt16(JfifDirectory.TagResX));
                 directory.Set(JfifDirectory.TagResY,        reader.GetUInt16(JfifDirectory.TagResY));
                 directory.Set(JfifDirectory.TagThumbWidth,  reader.GetByte(JfifDirectory.TagThumbWidth));
                 directory.Set(JfifDirectory.TagThumbHeight, reader.GetByte(JfifDirectory.TagThumbHeight));
+#pragma warning restore format
             }
             catch (IOException e)
             {

@@ -163,8 +163,8 @@ namespace MetadataExtractor.Formats.Heif
         {
             return DirectProperties(primaryId, associations, props).Concat(
                 (from associationBox in associations.Entries.Where(i => secondary.Contains(i.ItemId))
-                    from propIndex in associationBox.Properties
-                    select props.ElementAt(propIndex.Index - 1))
+                 from propIndex in associationBox.Properties
+                 select props.ElementAt(propIndex.Index - 1))
                 .Where(i => i is DecoderConfigurationBox || i is ColorInformationBox)
                 .Distinct());
         }
@@ -172,8 +172,8 @@ namespace MetadataExtractor.Formats.Heif
         private static IEnumerable<Box> DirectProperties(uint primaryId, ItemPropertyAssociationBox associations, IList<Box> props)
         {
             return from associationBox in associations.Entries.Where(i => i.ItemId == primaryId)
-                from propIndex in associationBox.Properties
-                select props.ElementAt(propIndex.Index - 1);
+                   from propIndex in associationBox.Properties
+                   select props.ElementAt(propIndex.Index - 1);
         }
 
         private void ParsePropertyBoxes(string propertyBoxTitle, IEnumerable<Box> props)
@@ -268,7 +268,7 @@ namespace MetadataExtractor.Formats.Heif
 
         private void ParseQuickTimeTest()
         {
-            if (_sourceBoxes.Descendant<FileTypeBox>() is {} ftype)
+            if (_sourceBoxes.Descendant<FileTypeBox>() is { } ftype)
             {
                 var dir = new QuickTimeFileTypeDirectory();
                 if (ftype.MajorBrand > 0)

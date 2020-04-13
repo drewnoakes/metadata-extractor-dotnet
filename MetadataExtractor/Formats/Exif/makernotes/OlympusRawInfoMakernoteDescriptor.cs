@@ -49,9 +49,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var ret = new Rational[values.Length / 2];
-            for(var i = 0; i < values.Length / 2; i++)
+            for (var i = 0; i < values.Length / 2; i++)
             {
-                ret[i] = new Rational(values[2*i], values[2*i + 1]);
+                ret[i] = new Rational(values[2 * i], values[2 * i + 1]);
             }
 
             return string.Join(" ", ret.Select(r => r.ToDecimal().ToString()).ToArray());

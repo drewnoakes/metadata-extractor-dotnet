@@ -76,6 +76,8 @@ namespace MetadataExtractor
 
             var directories = new List<Directory>();
 
+#pragma warning disable format
+
             directories.AddRange(fileType switch
             {
                 FileType.Arw       => TiffMetadataReader.ReadMetadata(stream),
@@ -106,6 +108,8 @@ namespace MetadataExtractor
                 FileType.Unknown   => throw new ImageProcessingException("File format could not be determined"),
                 _                  => Enumerable.Empty<Directory>()
             });
+
+#pragma warning restore format
 
             directories.Add(new FileTypeDirectory(fileType));
 

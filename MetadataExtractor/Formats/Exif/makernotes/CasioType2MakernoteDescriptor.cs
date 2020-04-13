@@ -162,7 +162,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             if (!Directory.TryGetDouble(CasioType2MakernoteDirectory.TagFocalLength, out double value))
                 return null;
-            return GetFocalLengthDescription(value/10d);
+            return GetFocalLengthDescription(value / 10d);
         }
 
         public string? GetWhiteBalance1Description()

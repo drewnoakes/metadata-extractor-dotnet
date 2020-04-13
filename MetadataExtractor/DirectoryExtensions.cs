@@ -450,7 +450,7 @@ namespace MetadataExtractor
             if (o is StringValue[] stringValues)
                 return stringValues;
             if (o is StringValue sv)
-                return new [] { sv };
+                return new[] { sv };
 
             return null;
         }
@@ -927,7 +927,7 @@ namespace MetadataExtractor
         public static StringValue GetStringValue(this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
-            
+
             if (o is StringValue value)
                 return value;
 

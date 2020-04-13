@@ -15,6 +15,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class CanonMakernoteDirectory : Directory
     {
+#pragma warning disable format
         // These TAG_*_ARRAY Exif tags map to arrays of int16 values which are split out into separate 'fake' tags.
         // When an attempt is made to set one of these on the directory, it is split and the corresponding offset added to the tagType.
         // So the resulting tag is the offset + the index into the array.
@@ -87,6 +88,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagAmbianceInfoArray           = 0x4020;
         public const int TagCanonImageType              = 0x0006;
         public const int TagFilterInfoArray             = 0x4024;
+#pragma warning restore format
 
         // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         public static class CameraSettings
@@ -320,108 +322,110 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagSubjectDistance = Offset + 0x13;
         }
 
-//        // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
-//        public static class CustomFunction
-//        {
-//            /**
-//             * Long Exposure Noise Reduction
-//             * 0 = Off
-//             * 1 = On
-//             */
-//            public const int TagLongExposureNoiseReduction = 0xC301;
-//
-//            /**
-//             * Shutter/Auto Exposure-lock buttons
-//             * 0 = AF/AE lock
-//             * 1 = AE lock/AF
-//             * 2 = AF/AF lock
-//             * 3 = AE+release/AE+AF
-//             */
-//            public const int TagShutterAutoExposureLockButtons = 0xC302;
-//
-//            /**
-//             * Mirror lockup
-//             * 0 = Disable
-//             * 1 = Enable
-//             */
-//            public const int TagMirrorLockup = 0xC303;
-//
-//            /**
-//             * Tv/Av and exposure level
-//             * 0 = 1/2 stop
-//             * 1 = 1/3 stop
-//             */
-//            public const int TagTvAvAndExposureLevel = 0xC304;
-//
-//            /**
-//             * AF-assist light
-//             * 0 = On (Auto)
-//             * 1 = Off
-//             */
-//            public const int TagAfAssistLight = 0xC305;
-//
-//            /**
-//             * Shutter speed in Av mode
-//             * 0 = Automatic
-//             * 1 = 1/200 (fixed)
-//             */
-//            public const int TagShutterSpeedInAvMode = 0xC306;
-//
-//            /**
-//             * Auto-Exposure Bracketing sequence/auto cancellation
-//             * 0 = 0,-,+ / Enabled
-//             * 1 = 0,-,+ / Disabled
-//             * 2 = -,0,+ / Enabled
-//             * 3 = -,0,+ / Disabled
-//             */
-//            public const int TagBracketing = 0xC307;
-//
-//            /**
-//             * Shutter Curtain Sync
-//             * 0 = 1st Curtain Sync
-//             * 1 = 2nd Curtain Sync
-//             */
-//            public const int TagShutterCurtainSync = 0xC308;
-//
-//            /**
-//             * Lens Auto-Focus stop button Function Switch
-//             * 0 = AF stop
-//             * 1 = Operate AF
-//             * 2 = Lock AE and start timer
-//             */
-//            public const int TagAfStop = 0xC309;
-//
-//            /**
-//             * Auto reduction of fill flash
-//             * 0 = Enable
-//             * 1 = Disable
-//             */
-//            public const int TagFillFlashReduction = 0xC30A;
-//
-//            /**
-//             * Menu button return position
-//             * 0 = Top
-//             * 1 = Previous (volatile)
-//             * 2 = Previous
-//             */
-//            public const int TagMenuButtonReturn = 0xC30B;
-//
-//            /**
-//             * SET button function when shooting
-//             * 0 = Not Assigned
-//             * 1 = Change Quality
-//             * 2 = Change ISO Speed
-//             * 3 = Select Parameters
-//             */
-//            public const int TagSetButtonFunction = 0xC30C;
-//
-//            /**
-//             * Sensor cleaning
-//             * 0 = Disable
-//             * 1 = Enable
-//             */
-//            public const int TagSensorCleaning = 0xC30D;
-//        }
+        /*
+        // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
+        public static class CustomFunction
+        {
+            /**
+             * Long Exposure Noise Reduction
+             * 0 = Off
+             * 1 = On
+             #1#
+            public const int TagLongExposureNoiseReduction = 0xC301;
+
+            /**
+             * Shutter/Auto Exposure-lock buttons
+             * 0 = AF/AE lock
+             * 1 = AE lock/AF
+             * 2 = AF/AF lock
+             * 3 = AE+release/AE+AF
+             #1#
+            public const int TagShutterAutoExposureLockButtons = 0xC302;
+
+            /**
+             * Mirror lockup
+             * 0 = Disable
+             * 1 = Enable
+             #1#
+            public const int TagMirrorLockup = 0xC303;
+
+            /**
+             * Tv/Av and exposure level
+             * 0 = 1/2 stop
+             * 1 = 1/3 stop
+             #1#
+            public const int TagTvAvAndExposureLevel = 0xC304;
+
+            /**
+             * AF-assist light
+             * 0 = On (Auto)
+             * 1 = Off
+             #1#
+            public const int TagAfAssistLight = 0xC305;
+
+            /**
+             * Shutter speed in Av mode
+             * 0 = Automatic
+             * 1 = 1/200 (fixed)
+             #1#
+            public const int TagShutterSpeedInAvMode = 0xC306;
+
+            /**
+             * Auto-Exposure Bracketing sequence/auto cancellation
+             * 0 = 0,-,+ / Enabled
+             * 1 = 0,-,+ / Disabled
+             * 2 = -,0,+ / Enabled
+             * 3 = -,0,+ / Disabled
+             #1#
+            public const int TagBracketing = 0xC307;
+
+            /**
+             * Shutter Curtain Sync
+             * 0 = 1st Curtain Sync
+             * 1 = 2nd Curtain Sync
+             #1#
+            public const int TagShutterCurtainSync = 0xC308;
+
+            /**
+             * Lens Auto-Focus stop button Function Switch
+             * 0 = AF stop
+             * 1 = Operate AF
+             * 2 = Lock AE and start timer
+             #1#
+            public const int TagAfStop = 0xC309;
+
+            /**
+             * Auto reduction of fill flash
+             * 0 = Enable
+             * 1 = Disable
+             #1#
+            public const int TagFillFlashReduction = 0xC30A;
+
+            /**
+             * Menu button return position
+             * 0 = Top
+             * 1 = Previous (volatile)
+             * 2 = Previous
+             #1#
+            public const int TagMenuButtonReturn = 0xC30B;
+
+            /**
+             * SET button function when shooting
+             * 0 = Not Assigned
+             * 1 = Change Quality
+             * 2 = Change ISO Speed
+             * 3 = Select Parameters
+             #1#
+            public const int TagSetButtonFunction = 0xC30C;
+
+            /**
+             * Sensor cleaning
+             * 0 = Disable
+             * 1 = Enable
+             #1#
+            public const int TagSensorCleaning = 0xC30D;
+        }
+        */
 
         // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         public static class ShotInfo
@@ -755,7 +759,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                             }
                             case AfInfo.TagAfPointsInFocus:
                             {
-                                var pointsInFocus = new short[(afPointCount + 15)/16];
+                                var pointsInFocus = new short[(afPointCount + 15) / 16];
 
                                 // There could be incorrect data in the array, so boundary check
                                 if (array.Length - 1 >= idx + pointsInFocus.Length)
@@ -780,14 +784,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 }
 
                 // TODO the interpretation of the custom functions tag depends upon the camera model
-//                case TAG_CANON_CUSTOM_FUNCTIONS_ARRAY:
-//                {
-//                    int subTagTypeBase = 0xC300;
-//                    // we intentionally skip the first array member
-//                    for (int i = 1; i < ints.length; i++)
-//                        setInt(subTagTypeBase + i + 1, ints[i] & 0x0F);
-//                    break;
-//                }
+                /*
+                case TAG_CANON_CUSTOM_FUNCTIONS_ARRAY:
+                {
+                    int subTagTypeBase = 0xC300;
+                    // we intentionally skip the first array member
+                    for (int i = 1; i < ints.length; i++)
+                        setInt(subTagTypeBase + i + 1, ints[i] & 0x0F);
+                    break;
+                }
+                */
 
                 default:
                 {

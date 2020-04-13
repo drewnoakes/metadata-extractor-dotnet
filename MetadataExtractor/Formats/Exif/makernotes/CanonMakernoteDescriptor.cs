@@ -104,7 +104,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 : null;
         }
 
-/*
+        /*
         @Nullable
         public String getLongExposureNoiseReductionDescription()
         {
@@ -281,7 +281,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 default:    return "Unknown (" + value + ")";
             }
         }
-*/
+        */
+
         public string? GetFlashBiasDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.FocalLength.TagFlashBias, out int value))
@@ -355,10 +356,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFlashDetails, out int value))
                 return null;
 
+#pragma warning disable format
             if (((value >> 14) & 1) > 0) return "External E-TTL";
             if (((value >> 13) & 1) > 0) return "Internal flash";
             if (((value >> 11) & 1) > 0) return "FP sync used";
             if (((value >>  4) & 1) > 0) return "FP sync enabled";
+#pragma warning restore format
 
             return "Unknown (" + value + ")";
         }
@@ -532,7 +535,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             // TODO find an image that tests this calculation
             return value == 0
                 ? "Self timer not used"
-                : $"{value*0.1d} sec";
+                : $"{value * 0.1d} sec";
         }
 
         public string? GetMacroModeDescription()

@@ -94,7 +94,7 @@ namespace MetadataExtractor.Formats.Jpeg
             0xEA, 0xF2, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7, 0xF8,
             0xF9, 0xFA
         };
-        
+
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagNumberOfTables, "Number of Tables" }

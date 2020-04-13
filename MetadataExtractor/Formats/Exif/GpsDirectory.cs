@@ -101,7 +101,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagDifferential = 0x001E;
 
-         /// <summary>GPSHPositioningError	Horizontal positioning error RATIONAL 1</summary>
+        /// <summary>GPSHPositioningError	Horizontal positioning error RATIONAL 1</summary>
         public const int TagHPositioningError = 0x001F;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();
@@ -179,8 +179,10 @@ namespace MetadataExtractor.Formats.Exif
             if (latitudeRef == null || longitudeRef == null)
                 return null;
 
+#pragma warning disable format
             var lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0],  latitudes[1],  latitudes[2],  latitudeRef.Equals("S", StringComparison.OrdinalIgnoreCase));
             var lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals("W", StringComparison.OrdinalIgnoreCase));
+#pragma warning restore format
 
             // This can return null, in cases where the conversion was not possible
             if (lat == null || lon == null)

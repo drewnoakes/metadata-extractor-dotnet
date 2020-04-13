@@ -29,12 +29,12 @@ namespace MetadataExtractor
             try
             {
                 return new Age(
-                    years: int.Parse(s.Substring (0, 4 - 0)),
-                    months: int.Parse(s.Substring (5, 7 - 5)),
-                    days: int.Parse(s.Substring (8, 10 - 8)),
-                    hours: int.Parse(s.Substring (11, 13 - 11)),
-                    minutes: int.Parse(s.Substring (14, 16 - 14)),
-                    seconds: int.Parse(s.Substring (17, 19 - 17)));
+                    years: int.Parse(s.Substring(0, 4 - 0)),
+                    months: int.Parse(s.Substring(5, 7 - 5)),
+                    days: int.Parse(s.Substring(8, 10 - 8)),
+                    hours: int.Parse(s.Substring(11, 13 - 11)),
+                    minutes: int.Parse(s.Substring(14, 16 - 14)),
+                    seconds: int.Parse(s.Substring(17, 19 - 17)));
             }
             catch (FormatException)
             {
@@ -108,11 +108,11 @@ namespace MetadataExtractor
             unchecked
             {
                 var hashCode = Years;
-                hashCode = (hashCode*397) ^ Months;
-                hashCode = (hashCode*397) ^ Days;
-                hashCode = (hashCode*397) ^ Hours;
-                hashCode = (hashCode*397) ^ Minutes;
-                hashCode = (hashCode*397) ^ Seconds;
+                hashCode = (hashCode * 397) ^ Months;
+                hashCode = (hashCode * 397) ^ Days;
+                hashCode = (hashCode * 397) ^ Hours;
+                hashCode = (hashCode * 397) ^ Minutes;
+                hashCode = (hashCode * 397) ^ Seconds;
                 return hashCode;
             }
         }

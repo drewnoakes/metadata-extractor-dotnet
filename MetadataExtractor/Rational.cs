@@ -39,11 +39,11 @@ namespace MetadataExtractor
 
         /// <summary>Returns the value of the specified number as a <see cref="double"/>.</summary>
         /// <remarks>This may involve rounding.</remarks>
-        public double ToDouble() => Numerator == 0 ? 0.0 : Numerator/(double)Denominator;
+        public double ToDouble() => Numerator == 0 ? 0.0 : Numerator / (double)Denominator;
 
         /// <summary>Returns the value of the specified number as a <see cref="float"/>.</summary>
         /// <remarks>May incur rounding.</remarks>
-        public float ToSingle() => Numerator == 0 ? 0.0f : Numerator/(float)Denominator;
+        public float ToSingle() => Numerator == 0 ? 0.0f : Numerator / (float)Denominator;
 
         /// <summary>Returns the value of the specified number as a <see cref="byte"/>.</summary>
         /// <remarks>
@@ -162,7 +162,7 @@ namespace MetadataExtractor
         /// <summary>
         /// Checks if this <see cref="Rational"/> number is expressible as an integer, either positive or negative.
         /// </summary>
-        public bool IsInteger => Denominator == 1 || (Denominator != 0 && Numerator%Denominator == 0) || (Denominator == 0 && Numerator == 0);
+        public bool IsInteger => Denominator == 1 || (Denominator != 0 && Numerator % Denominator == 0) || (Denominator == 0 && Numerator == 0);
 
         /// <summary>
         /// True if either <see cref="Denominator"/> or <see cref="Numerator"/> are zero.
@@ -188,10 +188,10 @@ namespace MetadataExtractor
             if (IsInteger)
                 return ToInt32().ToString(provider);
 
-            if (Numerator != 1 && Denominator%Numerator == 0)
+            if (Numerator != 1 && Denominator % Numerator == 0)
             {
                 // common factor between denominator and numerator
-                var newDenominator = Denominator/Numerator;
+                var newDenominator = Denominator / Numerator;
                 return new Rational(1, newDenominator).ToSimpleString(allowDecimal, provider);
             }
 
@@ -243,7 +243,7 @@ namespace MetadataExtractor
             return obj is Rational rational && Equals(rational);
         }
 
-        public override int GetHashCode() => unchecked(Denominator.GetHashCode()*397) ^ Numerator.GetHashCode();
+        public override int GetHashCode() => unchecked(Denominator.GetHashCode() * 397) ^ Numerator.GetHashCode();
 
         #endregion
 
@@ -286,12 +286,12 @@ namespace MetadataExtractor
 
         #region Equality operators
 
-        public static bool operator==(Rational a, Rational b)
+        public static bool operator ==(Rational a, Rational b)
         {
             return Equals(a, b);
         }
 
-        public static bool operator!=(Rational a, Rational b)
+        public static bool operator !=(Rational a, Rational b)
         {
             return !Equals(a, b);
         }

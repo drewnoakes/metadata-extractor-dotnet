@@ -19,23 +19,5 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             : base(directory)
         {
         }
-
-        public override string? GetDescription(int tagType)
-        {
-            switch (tagType)
-            {
-                default:
-                {
-//                  case RicohMakernoteDirectory.TagProprietaryThumbnail:
-//                      return GetProprietaryThumbnailDataDescription();
-                    return base.GetDescription(tagType);
-                }
-            }
-        }
-//
-//        public string? GetProprietaryThumbnailDataDescription()
-//        {
-//            return GetByteLengthDescription(RicohMakernoteDirectory.TagProprietaryThumbnail);
-//        }
     }
 }

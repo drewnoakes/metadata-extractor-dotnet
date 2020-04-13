@@ -27,7 +27,7 @@ namespace MetadataExtractor.Formats.Iptc
     {
         // TODO consider storing each IPTC record in a separate directory
 
-/*
+        /*
         public static final int DIRECTORY_IPTC = 2;
 
         public static final int ENVELOPE_RECORD = 1;
@@ -39,11 +39,11 @@ namespace MetadataExtractor.Formats.Iptc
         public static final int PRE_DATA_RECORD = 7;
         public static final int DATA_RECORD = 8;
         public static final int POST_DATA_RECORD = 9;
-*/
+        */
 
         private const byte IptcMarkerByte = 0x1c;
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppD };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.AppD };
 
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
@@ -107,7 +107,8 @@ namespace MetadataExtractor.Formats.Iptc
                     directoryType = reader.GetByte();
                     tagType = reader.GetByte();
                     tagByteCount = reader.GetUInt16();
-                    if (tagByteCount > 0x7FFF) {
+                    if (tagByteCount > 0x7FFF)
+                    {
                         // Extended DataSet Tag (see 1.5(c), p14, IPTC-IIMV4.2.pdf)
                         tagByteCount = ((tagByteCount & 0x7FFF) << 16) | reader.GetUInt16();
                         offset += 2;

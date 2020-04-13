@@ -405,7 +405,7 @@ namespace MetadataExtractor.Formats.Gif
                 reader.Skip(length);
             }
         }
-        
+
         #endregion
     }
 }

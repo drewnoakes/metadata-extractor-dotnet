@@ -11,9 +11,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AppleMakernoteDirectory : Directory
     {
+#pragma warning disable format
         public const int TagRunTime      = 0x0003;
         public const int TagHdrImageType = 0x000a;
         public const int TagBurstUuid    = 0x000b;
+#pragma warning restore format
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {

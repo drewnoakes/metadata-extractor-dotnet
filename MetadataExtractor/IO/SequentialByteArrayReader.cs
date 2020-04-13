@@ -84,8 +84,8 @@ namespace MetadataExtractor.IO
         }
 
         public override bool IsCloserToEnd(long numberOfBytes)
-		{
-			return _index + numberOfBytes > _bytes.Length;
-		}
-	}
+        {
+            return _index + numberOfBytes > _bytes.Length;
+        }
+    }
 }

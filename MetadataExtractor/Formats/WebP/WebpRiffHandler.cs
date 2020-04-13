@@ -77,12 +77,15 @@ namespace MetadataExtractor.Formats.WebP
                     try
                     {
                         // Flags
-//                      var hasFragments = reader.GetBit(0);
+                        // bit 0: has fragments
+                        // bit 1: is animation
+                        // bit 2: has XMP
+                        // bit 3: has Exif
+                        // bit 4: has alpha
+                        // big 5: has ICC
                         isAnimation = reader.GetBit(1);
-//                      var hasXmp = reader.GetBit(2);
-//                      var hasExif = reader.GetBit(3);
                         hasAlpha = reader.GetBit(4);
-//                      var hasIcc = reader.GetBit(5);
+
                         // Image size
                         widthMinusOne = reader.GetInt24(4);
                         heightMinusOne = reader.GetInt24(7);
