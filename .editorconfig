@@ -76,6 +76,12 @@ csharp_prefer_braces = true:silent
 csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = true
 
+# Disallow "this." unless required
+dotnet_style_qualification_for_field = false:error
+dotnet_style_qualification_for_property = false:error
+dotnet_style_qualification_for_method = false:error
+dotnet_style_qualification_for_event = false:error
+
 # IDE0004: Remove unnecessary cast
 dotnet_diagnostic.IDE0004.severity = warning
 

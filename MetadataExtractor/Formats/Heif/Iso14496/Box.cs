@@ -11,13 +11,13 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
 
         private readonly BoxLocation _location;
 
-        public uint Type => this._location.Type;
-        public ulong Origin => this._location.Origin;
-        public ulong Length => this._location.Length;
-        public ulong NextPosition => this._location.NextPosition;
+        public uint Type => _location.Type;
+        public ulong Origin => _location.Origin;
+        public ulong Length => _location.Length;
+        public ulong NextPosition => _location.NextPosition;
         public string TypeString => TypeStringConverter.ToTypeString(Type);
 
-        public Box(BoxLocation location) => this._location = location;
+        public Box(BoxLocation location) => _location = location;
 
         public void SkipRemainingData(SequentialReader sr)
         {
@@ -26,7 +26,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
 
         public byte[] ReadRemainingData(SequentialReader sr)
         {
-            return sr.GetBytes((int)((long)this.NextPosition - sr.Position));
+            return sr.GetBytes((int)((long)NextPosition - sr.Position));
         }
 
         public virtual IEnumerable<Box> Children() => _emptyChildren;
