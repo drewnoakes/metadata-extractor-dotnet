@@ -46,4 +46,9 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
+  <!-- Analyzers -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="3.6.0-3.20168.1" PrivateAssets="all" />
+  </ItemGroup>
+
 </Project>
