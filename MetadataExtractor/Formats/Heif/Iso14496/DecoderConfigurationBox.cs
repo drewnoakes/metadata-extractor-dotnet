@@ -37,7 +37,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
 
         public DecoderConfigurationBox(BoxLocation location, SequentialReader sr) : base(location)
         {
-            var bitReader = new BitsReader(sr);
+            var bitReader = new BitReader(sr);
             ConfigurationVersion = bitReader.GetByte(8);
             GeneralProfileSpace = bitReader.GetByte(2);
             GeneralTierTag = bitReader.GetByte(1);

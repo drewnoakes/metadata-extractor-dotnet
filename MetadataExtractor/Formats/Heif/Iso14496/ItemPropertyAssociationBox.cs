@@ -17,7 +17,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
 
         private ItemPropertyAssociationEntry[] ParseEntries(SequentialReader sr)
         {
-            var bits = new BitsReader(sr);
+            var bits = new BitReader(sr);
             var ret = new ItemPropertyAssociationEntry[EntryCount];
             for (int i = 0; i < ret.Length; i++)
             {
@@ -27,14 +27,14 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
             return ret;
         }
 
-        private ItemPropertyAssociationEntry ParseAssociationEntry(BitsReader bits)
+        private ItemPropertyAssociationEntry ParseAssociationEntry(BitReader bits)
         {
             return new ItemPropertyAssociationEntry(
                 bits.GetUInt32(ItemIndexWidth),
                 ReadAssociatedItems(bits));
         }
 
-        private AssociatedProperty[] ReadAssociatedItems(BitsReader bits)
+        private AssociatedProperty[] ReadAssociatedItems(BitReader bits)
         {
             var ret = new AssociatedProperty[bits.GetByte(8)];
             for (int i = 0; i < ret.Length; i++)
@@ -45,7 +45,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
             return ret;
         }
 
-        private AssociatedProperty ParseAssociatedItem(BitsReader bits)
+        private AssociatedProperty ParseAssociatedItem(BitReader bits)
         {
             return new AssociatedProperty(
                 bits.GetBit(),

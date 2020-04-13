@@ -16,7 +16,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
 
         public ItemLocationBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
         {
-            var reader = new BitsReader(sr);
+            var reader = new BitReader(sr);
             OffsetSize = reader.GetByte(4);
             LengthSize = reader.GetByte(4);
             BaseOffsetSize = reader.GetByte(4);

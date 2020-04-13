@@ -1,25 +1,25 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Diagnostics;
-using MetadataExtractor.IO;
+using System;
 
-namespace MetadataExtractor.Formats.Heif.Iso14496
+namespace MetadataExtractor.IO
 {
-    public class BitsReader
+    public sealed class BitReader
     {
         private readonly SequentialReader _source;
 
         private byte _mask = 0;
         private byte _currentByte = 0;
 
-        public BitsReader(SequentialReader source)
+        public BitReader(SequentialReader source)
         {
             _source = source;
         }
 
         public ulong GetUInt64(int bits)
         {
-            Debug.Assert(bits <= 64);
+            if (bits > 64)
+                throw new ArgumentOutOfRangeException(nameof(bits), bits, "Must be less than or equal to 64.");
             ulong ret = 0;
             for (int i = 0; i < bits; i++)
             {
@@ -35,19 +35,22 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
 
         public uint GetUInt32(int bits)
         {
-            Debug.Assert(bits <= 32);
+            if (bits > 32)
+                throw new ArgumentOutOfRangeException(nameof(bits), bits, "Must be less than or equal to 32.");
             return (uint)GetUInt64(bits);
         }
 
         public ushort GetUInt16(int bits)
         {
-            Debug.Assert(bits <= 32);
+            if (bits > 16)
+                throw new ArgumentOutOfRangeException(nameof(bits), bits, "Must be less than or equal to 16.");
             return (ushort)GetUInt64(bits);
         }
 
         public byte GetByte(int bits)
         {
-            Debug.Assert(bits <= 8);
+            if (bits > 8)
+                throw new ArgumentOutOfRangeException(nameof(bits), bits, "Must be less than or equal to 8.");
             return (byte)GetUInt64(bits);
         }
 
