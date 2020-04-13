@@ -215,7 +215,7 @@ namespace MetadataExtractor.Util
             new[] { "eps", "epsf", "epsi" },
             new[] { "tga", "icb", "vda", "vst" },
             new[] { "mp3" },
-            new [] {"heic", "heif", "avci"}
+            new[] { "heic", "heif", "avci" }
         };
 
         public static string GetName(this FileType fileType)
