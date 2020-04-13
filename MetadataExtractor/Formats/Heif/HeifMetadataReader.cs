@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using MetadataExtractor.Formats.Exif;
-using MetadataExtractor.Formats.Heif.Iso14496Parser;
+using MetadataExtractor.Formats.Heif.Iso14496;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.IO;

@@ -2,7 +2,7 @@
 
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Heif.Iso14496Parser
+namespace MetadataExtractor.Formats.Heif.Iso14496
 {
     public class ColorInformationBox : Box
     {

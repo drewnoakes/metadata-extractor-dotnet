@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using MetadataExtractor.Formats.Heif.Iso14496Parser;
+using MetadataExtractor.Formats.Heif.Iso14496;
 using MetadataExtractor.IO;
 using Xunit;
 
