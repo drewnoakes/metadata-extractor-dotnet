@@ -3,25 +3,33 @@ using MetadataExtractor.Formats.Heif.Iso14496Parser;
 
 namespace MetadataExtractor.Formats.Heif
 {
-    public class HeicImagePropertyDescriptor : ITagDescriptor
+    public class HeicImagePropertyDescriptor : TagDescriptor<HeicImagePropertiesDirectory>
     {
-        private readonly HeicImagePropertiesDirectory dir;
-
-        public HeicImagePropertyDescriptor(HeicImagePropertiesDirectory dir)
+        public HeicImagePropertyDescriptor(HeicImagePropertiesDirectory directory)
+            : base(directory)
         {
-            this.dir = dir;
         }
 
-        public string? GetDescription(int tagType) => tagType switch
+        public override string? GetDescription(int tagType)
         {
-            HeicImagePropertiesDirectory.Rotation => dir.GetString(tagType) + " degrees",
-            HeicImagePropertiesDirectory.PixelDepths => string.Join(" ", ((byte[])dir.GetObject(HeicImagePropertiesDirectory.PixelDepths)).Select(i => i.ToString()).ToArray()),
-            HeicImagePropertiesDirectory.ColorFormat => TypeStringConverter.ToTypeString(dir.GetUInt32(HeicImagePropertiesDirectory.ColorFormat)),
-            HeicImagePropertiesDirectory.ColorPrimaries => ColorPrimary(dir.GetUInt16(HeicImagePropertiesDirectory.ColorPrimaries)),
-            HeicImagePropertiesDirectory.ColorTransferCharacteristics => ColorTransfer(dir.GetUInt16(HeicImagePropertiesDirectory.ColorTransferCharacteristics)),
-            HeicImagePropertiesDirectory.ColorMatrixCharacteristics => ColorMatrixCoeffs(dir.GetUInt16(HeicImagePropertiesDirectory.ColorMatrixCharacteristics)),
-            _ => dir.GetString(tagType)
-        };
+            switch (tagType)
+            {
+                case HeicImagePropertiesDirectory.Rotation:
+                    return Directory.GetString(tagType) + " degrees";
+                case HeicImagePropertiesDirectory.PixelDepths:
+                    return string.Join(" ", ((byte[])Directory.GetObject(HeicImagePropertiesDirectory.PixelDepths)).Select(i => i.ToString()).ToArray());
+                case HeicImagePropertiesDirectory.ColorFormat:
+                    return TypeStringConverter.ToTypeString(Directory.GetUInt32(HeicImagePropertiesDirectory.ColorFormat));
+                case HeicImagePropertiesDirectory.ColorPrimaries:
+                    return ColorPrimary(Directory.GetUInt16(HeicImagePropertiesDirectory.ColorPrimaries));
+                case HeicImagePropertiesDirectory.ColorTransferCharacteristics:
+                    return ColorTransfer(Directory.GetUInt16(HeicImagePropertiesDirectory.ColorTransferCharacteristics));
+                case HeicImagePropertiesDirectory.ColorMatrixCharacteristics:
+                    return ColorMatrixCoeffs(Directory.GetUInt16(HeicImagePropertiesDirectory.ColorMatrixCharacteristics));
+                default:
+                    return base.GetDescription(tagType);
+            }
+        }
 
         private static string? ColorMatrixCoeffs(ushort value) =>
             value switch

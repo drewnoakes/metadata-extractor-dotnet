@@ -24,16 +24,11 @@ namespace MetadataExtractor.Formats.Heif
             _tagNameMap.TryGetValue(tagType, out tagName);
     }
 
-    public class HeicThumbnailTagDescriptor : ITagDescriptor
+    public class HeicThumbnailTagDescriptor : TagDescriptor<HeicThumbnailDirectory>
     {
-        private readonly HeicThumbnailDirectory _heicThumbnailDirectory;
-
-        public HeicThumbnailTagDescriptor(HeicThumbnailDirectory heicThumbnailDirectory)
+        public HeicThumbnailTagDescriptor(HeicThumbnailDirectory directory)
+            : base(directory)
         {
-            _heicThumbnailDirectory = heicThumbnailDirectory;
         }
-
-        public string? GetDescription(int tagType) =>
-            _heicThumbnailDirectory.GetObject(tagType)?.ToString() ?? "";
     }
 }
