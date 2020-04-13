@@ -88,7 +88,7 @@ namespace MetadataExtractor.Util
         /// <summary>MPEG-1 / MPEG-2 Audio Layer III.</summary>
         Mp3 = 25,
 
-        // <summary>High Efficency Image File Format.</summary>
+        // <summary>High Efficiency Image File Format.</summary>
         Heif = 26,
     }
 
