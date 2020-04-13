@@ -25,9 +25,9 @@ namespace MetadataExtractor.Formats.Heif
 
         public static DirectoryList ReadMetadata(Stream stream) => new HeifMetadataReader(stream).Process();
 
-        private List<Box> _sourceBoxes = new List<Box>();
+        private readonly List<Box> _sourceBoxes = new List<Box>();
         private readonly Stream _stream;
-        List<Directory> _directories = new List<Directory>();
+        readonly List<Directory> _directories = new List<Directory>();
 
         private HeifMetadataReader(Stream stream)
         {

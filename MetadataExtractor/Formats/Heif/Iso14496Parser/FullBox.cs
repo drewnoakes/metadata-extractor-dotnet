@@ -4,7 +4,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
 {
     public class FullBox : Box
     {
-        private uint typeAndFlags;
+        private readonly uint typeAndFlags;
         public byte Version => (byte)(typeAndFlags >> 24);
         public uint Flags => typeAndFlags & 0x00FFFFFF;
 

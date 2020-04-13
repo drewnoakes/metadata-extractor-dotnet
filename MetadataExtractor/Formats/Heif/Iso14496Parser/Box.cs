@@ -6,9 +6,9 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
 {
     public class Box
     {
-        private static Box[] EmptyChildren = new Box[0];
+        private static readonly Box[] EmptyChildren = new Box[0];
 
-        private BoxLocation location;
+        private readonly BoxLocation location;
 
         public uint Type => location.Type;
         public ulong Origin => location.Origin;
