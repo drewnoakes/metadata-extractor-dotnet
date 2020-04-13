@@ -178,7 +178,7 @@ namespace MetadataExtractor.Formats.Heif
         {
             var dir = new HeicImagePropertiesDirectory(propertyBoxTitle);
             bool hasProp = false;
-            _directories.Add(dir); // add now so it will preceed the ICC profile directory
+            _directories.Add(dir); // add now so it will precede the ICC profile directory
             foreach (var prop in props)
             {
                 switch (prop)
