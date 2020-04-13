@@ -11,13 +11,13 @@ namespace MetadataExtractor.Tests.Formats.Xmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class XmpReaderTest
     {
-        private const int expectedPropertyCount = 167;
+        private const int ExpectedPropertyCount = 167;
 
         private readonly XmpDirectory _directory;
 
         public XmpReaderTest()
         {
-            var jpegSegments = new [] { new JpegSegment(JpegSegmentType.App1, TestDataUtil.GetBytes("Data/withXmpAndIptc.jpg.app1.1"), offset: 0) };
+            var jpegSegments = new[] { new JpegSegment(JpegSegmentType.App1, TestDataUtil.GetBytes("Data/withXmpAndIptc.jpg.app1.1"), offset: 0) };
             var directories = new XmpReader().ReadJpegSegments(jpegSegments);
             _directory = directories.OfType<XmpDirectory>().ToList().Single();
             Assert.False(_directory.HasError);
@@ -32,7 +32,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         [Fact]
         public void Extract_PropertyCount()
         {
-            Assert.Equal(expectedPropertyCount, _directory.GetInt32(XmpDirectory.TagXmpValueCount));
+            Assert.Equal(ExpectedPropertyCount, _directory.GetInt32(XmpDirectory.TagXmpValueCount));
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         {
             var propertyMap = _directory.GetXmpProperties();
 
-            Assert.Equal(expectedPropertyCount, propertyMap.Count);
+            Assert.Equal(ExpectedPropertyCount, propertyMap.Count);
 
             Assert.True(propertyMap.ContainsKey("photoshop:Country"));
             Assert.Equal("Deutschland", propertyMap["photoshop:Country"]);

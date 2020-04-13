@@ -117,6 +117,7 @@ namespace MetadataExtractor.Tests
         [Fact]
         public void IConvertible()
         {
+#pragma warning disable format
             Assert.Equal(15,  Convert.ToByte (new Rational(150, 10)));
             Assert.Equal(15,  Convert.ToInt16(new Rational(150, 10)));
             Assert.Equal(15,  Convert.ToInt32(new Rational(150, 10)));
@@ -130,6 +131,7 @@ namespace MetadataExtractor.Tests
             Assert.Equal(15.5f, Convert.ToSingle(new Rational(155, 10)));
             Assert.Equal(15.5d, Convert.ToDouble(new Rational(155, 10)));
             Assert.Equal(15.5m, Convert.ToDecimal(new Rational(155, 10)));
+#pragma warning restore format
 
             Assert.Equal("123/10", Convert.ToString(new Rational(123, 10)));
 

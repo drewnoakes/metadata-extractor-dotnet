@@ -32,12 +32,14 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal(JpegSegmentType.App2, segments[4].Type);
             Assert.Equal(JpegSegmentType.AppE, segments[5].Type);
 
+#pragma warning disable format
             Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"),   segments[0].Bytes);
             Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.0"), segments[1].Bytes);
             Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appd"),   segments[2].Bytes);
             Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.1"), segments[3].Bytes);
             Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"),   segments[4].Bytes);
             Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appe"),   segments[5].Bytes);
+#pragma warning restore format
         }
 
         [Fact]

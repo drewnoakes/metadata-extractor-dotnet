@@ -35,7 +35,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         public void TestGetNumberOfTables()
         {
             _directory.Set(HuffmanTablesDirectory.TagNumberOfTables, 9);
-            Assert.Equal(9,_directory.GetNumberOfTables());
+            Assert.Equal(9, _directory.GetNumberOfTables());
             Assert.Equal("9 Huffman tables", _directory.GetDescription(HuffmanTablesDirectory.TagNumberOfTables));
         }
 

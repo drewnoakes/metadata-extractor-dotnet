@@ -16,15 +16,15 @@ namespace MetadataExtractor.Tests
             var directory = new MockDirectory();
             var descriptor = new TagDescriptor<MockDirectory>(directory);
 
-            const int tagType = 1;
+            const int TagType = 1;
 
-            directory.Set(tagType, Enumerable.Range(0, 16).Select(i => i).ToArray());
+            directory.Set(TagType, Enumerable.Range(0, 16).Select(i => i).ToArray());
 
-            Assert.Equal("0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15", descriptor.GetDescription(tagType));
+            Assert.Equal("0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15", descriptor.GetDescription(TagType));
 
-            directory.Set(tagType, Enumerable.Range(0, 17).Select(i => i).ToArray());
+            directory.Set(TagType, Enumerable.Range(0, 17).Select(i => i).ToArray());
 
-            Assert.Equal("[17 values]", descriptor.GetDescription(tagType));
+            Assert.Equal("[17 values]", descriptor.GetDescription(TagType));
         }
 
         [Fact]

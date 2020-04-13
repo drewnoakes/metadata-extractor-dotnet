@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+using System;
 using System.Globalization;
 using System.Reflection;
 using Xunit.Sdk;
@@ -34,7 +36,7 @@ namespace MetadataExtractor.Tests
         /// </remarks>
         public UseCultureAttribute(string culture)
             : this(culture, culture)
-        {}
+        { }
 
         /// <summary>
         /// Replaces the culture and UI culture of the current thread with

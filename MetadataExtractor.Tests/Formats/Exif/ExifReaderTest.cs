@@ -48,7 +48,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void ReadJpegSegmentWithNoExifData()
         {
             var badExifSegment = new JpegSegment(JpegSegmentType.App1, new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, offset: 0);
-            var directories = new ExifReader().ReadJpegSegments(new [] { badExifSegment });
+            var directories = new ExifReader().ReadJpegSegments(new[] { badExifSegment });
             Assert.Equal(0, directories.Count);
         }
 
@@ -136,7 +136,8 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal(1, ifd0Directory.GetInt32(ExifDirectoryBase.TagOrientation));
             Assert.Equal(8, thumbnailDirectory.GetInt32(ExifDirectoryBase.TagOrientation));
         }
-/*
+
+        /*
         public void testUncompressedYCbCrThumbnail() throws Exception
         {
             String fileName = "withUncompressedYCbCrThumbnail.jpg";
@@ -170,6 +171,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             ExifSubIFDDirectory directory = (ExifSubIFDDirectory)metadata.getOrCreateDirectory(ExifSubIFDDirectory.class);
             directory.writeThumbnail(thumbnailFileName);
         }
-*/
+        */
     }
 }

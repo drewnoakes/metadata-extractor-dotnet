@@ -55,6 +55,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
                 [Nikon Makernote] Unknown 15 = 78/10 78/10
             */
 
+#pragma warning disable format
             Assert.Equal("48 50 48 48",               directory.GetString(NikonType2MakernoteDirectory.TagFirmwareVersion));
             Assert.Equal("0 320",                     directory.GetString(NikonType2MakernoteDirectory.TagIso1));
             Assert.Equal("0 320",                     directory.GetString(NikonType2MakernoteDirectory.TagIsoRequested));
@@ -75,6 +76,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal("0",                         directory.GetString(NikonType2MakernoteDirectory.TagCameraHueAdjustment));
             Assert.Equal("OFF ",                      directory.GetString(NikonType2MakernoteDirectory.TagNoiseReduction));
             Assert.Equal("78/10 78/10",               directory.GetString(NikonType2MakernoteDirectory.TagSensorPixelSize));
+#pragma warning restore format
 
             var descriptor = new NikonType2MakernoteDescriptor(directory);
 
@@ -164,7 +166,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.NotNull(nikonPrintImDirectory);
 
             Assert.Equal(expectedData.Count, nikonPrintImDirectory.Tags.Count);
-            foreach(var expected in expectedData)
+            foreach (var expected in expectedData)
             {
                 Assert.Equal(expected.Value, nikonPrintImDirectory.GetDescription(expected.Key));
             }

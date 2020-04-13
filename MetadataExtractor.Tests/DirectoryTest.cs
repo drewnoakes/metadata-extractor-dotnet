@@ -97,6 +97,7 @@ namespace MetadataExtractor.Tests
 
             // TODO revisit these commented cases and introduce GetDateTimeOffset impl/test
 
+#pragma warning disable format
             Test("2002:01:30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
             Test("2002:01:30 23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
             Test("2002-01-30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
@@ -110,6 +111,7 @@ namespace MetadataExtractor.Tests
             Test("2002-01-30",                    new DateTime(2002, 1, 30,  0,  0,  0,     DateTimeKind.Unspecified));
             Test("2002-01",                       new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
             Test("2002",                          new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
+#pragma warning restore format
         }
 
         [Fact]

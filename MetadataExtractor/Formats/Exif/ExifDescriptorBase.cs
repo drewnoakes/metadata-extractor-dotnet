@@ -163,7 +163,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetOrientationDescription()
         {
-            return base.GetOrientationDescription(TagOrientation);
+            return GetOrientationDescription(TagOrientation);
         }
 
         public string? GetResolutionDescription()
