@@ -45,7 +45,7 @@ namespace MetadataExtractor.Formats.Heif
             { TagPixelDepths, "Pixel Depth in Bits" },
             { TagConfigurationVersion, "HEVC Configuration Version" },
             { TagGeneralProfileSpace, "General Profile Space" },
-            { TagGeneralTierTag, "General Tiler Tag" },
+            { TagGeneralTierTag, "General Tier Tag" },
             { TagGeneralProfileIdc, "General Profile" },
             { TagGeneralProfileCompatibilityTag, "General Profile Compatibility" },
             { TagGeneralLevelIdc, "General Level" },
