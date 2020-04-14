@@ -65,7 +65,7 @@ namespace MetadataExtractor.Formats.Jpeg
             }
         }
 
-        private byte[] GetBytes(SequentialReader reader, int count)
+        private static byte[] GetBytes(SequentialReader reader, int count)
         {
             byte[] bytes = new byte[count];
             for (int i = 0; i < count; i++)
