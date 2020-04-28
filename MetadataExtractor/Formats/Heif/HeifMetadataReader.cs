@@ -94,7 +94,9 @@ namespace MetadataExtractor.Formats.Heif
 
         private void ParseExif(ulong extentOffset, ulong extentLength, SequentialStreamReader reader)
         {
-            if ((long)extentLength + (long)extentOffset - reader.Position > reader.Available()) return;
+            if ((long)extentLength + (long)extentOffset - reader.Position > reader.Available())
+                return;
+
             reader.Skip((long)extentOffset - reader.Position);
             var exifBytes = GetExifBytes(extentLength, reader);
 
