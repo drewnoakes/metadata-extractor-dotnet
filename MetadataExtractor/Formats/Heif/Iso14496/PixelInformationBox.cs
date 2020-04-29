@@ -4,19 +4,16 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class PixelInformationBox : FullBox
+    internal sealed class PixelInformationBox : FullBox
     {
         public byte ChannelCount { get; }
         public byte[] BitsPerChannel { get; }
 
-        public PixelInformationBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
+        public PixelInformationBox(BoxLocation location, SequentialReader reader)
+            : base(location, reader)
         {
-            ChannelCount = sr.GetByte();
-            BitsPerChannel = new byte[ChannelCount];
-            for (int i = 0; i < BitsPerChannel.Length; i++)
-            {
-                BitsPerChannel[i] = sr.GetByte();
-            }
+            ChannelCount = reader.GetByte();
+            BitsPerChannel = reader.GetBytes(ChannelCount);
         }
     }
 }

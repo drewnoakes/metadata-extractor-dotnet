@@ -4,15 +4,16 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class ItemPropertyAssociationBox : FullBox
+    internal sealed class ItemPropertyAssociationBox : FullBox
     {
         public uint EntryCount { get; }
         public ItemPropertyAssociationEntry[] Entries { get; }
 
-        public ItemPropertyAssociationBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
+        public ItemPropertyAssociationBox(BoxLocation location, SequentialReader reader)
+            : base(location, reader)
         {
-            EntryCount = sr.GetUInt32();
-            Entries = ParseEntries(sr);
+            EntryCount = reader.GetUInt32();
+            Entries = ParseEntries(reader);
         }
 
         private ItemPropertyAssociationEntry[] ParseEntries(SequentialReader sr)

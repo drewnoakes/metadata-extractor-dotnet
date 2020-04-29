@@ -5,13 +5,14 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class MetaBox : FullBox
+    internal sealed class MetaBox : FullBox
     {
         public IList<Box> Boxes { get; }
 
-        public MetaBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
+        public MetaBox(BoxLocation location, SequentialReader reader)
+            : base(location, reader)
         {
-            Boxes = BoxReader.BoxList(loc, sr);
+            Boxes = BoxReader.ReadBoxes(reader, location);
         }
 
         public override IEnumerable<Box> Children() => Boxes;

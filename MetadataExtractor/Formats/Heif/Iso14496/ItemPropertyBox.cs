@@ -11,7 +11,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
 
         public ItemPropertyBox(BoxLocation loc, SequentialReader sr) : base(loc)
         {
-            Boxes = BoxReader.BoxList(loc, sr);
+            Boxes = BoxReader.ReadBoxes(sr, loc);
         }
 
         public override IEnumerable<Box> Children() => Boxes;

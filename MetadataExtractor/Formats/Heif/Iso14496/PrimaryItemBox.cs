@@ -4,13 +4,14 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class PrimaryItemBox : FullBox
+    internal sealed class PrimaryItemBox : FullBox
     {
         public uint PrimaryItem { get; }
 
-        public PrimaryItemBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
+        public PrimaryItemBox(BoxLocation location, SequentialReader reader)
+            : base(location, reader)
         {
-            PrimaryItem = Version == 0 ? sr.GetUInt16() : sr.GetUInt32();
+            PrimaryItem = Version == 0 ? reader.GetUInt16() : reader.GetUInt32();
         }
     }
 }

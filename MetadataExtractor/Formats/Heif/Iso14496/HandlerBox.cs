@@ -5,21 +5,20 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class HandlerBox : FullBox
+    internal sealed class HandlerBox : FullBox
     {
         public uint HandlerType { get; }
         public string TrackType { get; }
 
-        public string HandlerTypeString => TypeStringConverter.ToTypeString(HandlerType);
-
-        public HandlerBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
+        public HandlerBox(BoxLocation location, SequentialReader reader)
+            : base(location, reader)
         {
-            sr.GetUInt32(); // should be Zero
-            HandlerType = sr.GetUInt32();
-            sr.GetUInt32(); // should be Zero
-            sr.GetUInt32(); // should be Zero
-            sr.GetUInt32(); // should be Zero
-            TrackType = sr.GetString((int)loc.BytesLeft(sr), Encoding.UTF8);
+            reader.GetUInt32(); // should be Zero
+            HandlerType = reader.GetUInt32();
+            reader.GetUInt32(); // should be Zero
+            reader.GetUInt32(); // should be Zero
+            reader.GetUInt32(); // should be Zero
+            TrackType = reader.GetString((int)location.BytesLeft(reader), Encoding.UTF8);
         }
     }
 }

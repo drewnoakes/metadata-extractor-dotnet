@@ -4,15 +4,16 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class ImageSpatialExtentsBox : FullBox
+    internal sealed class ImageSpatialExtentsBox : FullBox
     {
         public uint X { get; }
         public uint Y { get; }
 
-        public ImageSpatialExtentsBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
+        public ImageSpatialExtentsBox(BoxLocation location, SequentialReader reader)
+            : base(location, reader)
         {
-            X = sr.GetUInt32();
-            Y = sr.GetUInt32();
+            X = reader.GetUInt32();
+            Y = reader.GetUInt32();
         }
     }
 }

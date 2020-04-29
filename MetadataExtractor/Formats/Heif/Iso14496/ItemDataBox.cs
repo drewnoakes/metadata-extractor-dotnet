@@ -4,11 +4,12 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class ItemDataBox : Box
+    internal sealed class ItemDataBox : Box
     {
         public byte[] Data { get; }
 
-        public ItemDataBox(BoxLocation location, SequentialReader sr) : base(location)
+        public ItemDataBox(BoxLocation location, SequentialReader sr)
+            : base(location)
         {
             Data = ReadRemainingData(sr);
         }

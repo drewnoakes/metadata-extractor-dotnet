@@ -4,16 +4,17 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class FullBox : Box
+    internal abstract class FullBox : Box
     {
         private readonly uint _typeAndFlags;
 
         public byte Version => (byte)(_typeAndFlags >> 24);
         public uint Flags => _typeAndFlags & 0x00FFFFFF;
 
-        public FullBox(BoxLocation loc, SequentialReader sr) : base(loc)
+        protected FullBox(BoxLocation location, SequentialReader reader)
+            : base(location)
         {
-            _typeAndFlags = sr.GetUInt32();
+            _typeAndFlags = reader.GetUInt32();
         }
     }
 }

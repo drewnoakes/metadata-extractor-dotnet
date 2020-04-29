@@ -4,21 +4,30 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class ColorInformationBox : Box
+    internal sealed class ColorInformationBox : Box
     {
+#if NET35 || NET45
+        private static readonly byte[] _emptyByteArray = new byte[0];
+#else
+        private static readonly byte[] _emptyByteArray = System.Array.Empty<byte>();
+#endif
+
+        public const uint NclxTag = 0x6E636C78; // nclx
+        public const uint RICCTag = 0x72494343; // rICC
+        public const uint ProfTag = 0x70726F66; // prof
+
         public uint ColorType { get; }
         public ushort ColorPrimaries { get; }
         public ushort TransferCharacteristics { get; }
         public ushort MatrixCharacteristics { get; }
         public bool FullRangeFlag { get; }
         public byte[] IccProfile { get; }
-        public const uint NclxTag = 0x6E636C78; // nclx
-        public const uint RICCTag = 0x72494343; // rICC
-        public const uint ProfTag = 0x70726F66; // prof
 
-        public ColorInformationBox(BoxLocation location, SequentialReader sr) : base(location)
+        public ColorInformationBox(BoxLocation location, SequentialReader sr)
+            : base(location)
         {
             ColorType = sr.GetUInt32();
+
             switch (ColorType)
             {
                 case NclxTag:
@@ -27,7 +36,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
                     TransferCharacteristics = sr.GetUInt16();
                     MatrixCharacteristics = sr.GetUInt16();
                     FullRangeFlag = (sr.GetByte() & 128) == 128;
-                    IccProfile = new byte[0];
+                    IccProfile = _emptyByteArray;
                     break;
                 }
                 case RICCTag:
@@ -38,7 +47,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
                 }
                 default:
                 {
-                    IccProfile = new byte[0];
+                    IccProfile = _emptyByteArray;
                     break;
                 }
             }

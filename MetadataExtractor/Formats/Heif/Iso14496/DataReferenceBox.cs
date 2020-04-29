@@ -5,15 +5,16 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class DataReferenceBox : FullBox
+    internal sealed class DataReferenceBox : FullBox
     {
         public IList<Box> Boxes { get; }
         public uint BoxCount { get; }
 
-        public DataReferenceBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
+        public DataReferenceBox(BoxLocation location, SequentialReader reader)
+            : base(location, reader)
         {
-            BoxCount = sr.GetUInt32();
-            Boxes = BoxReader.BoxList(loc, sr);
+            BoxCount = reader.GetUInt32();
+            Boxes = BoxReader.ReadBoxes(reader, location);
         }
 
         public override IEnumerable<Box> Children() => Boxes;

@@ -5,7 +5,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class ItemInfoEntryBox : FullBox
+    internal sealed class ItemInfoEntryBox : FullBox
     {
         public uint ItemId { get; }
         public ushort ItemProtectionIndex { get; }
@@ -23,56 +23,56 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
         public byte GroupIdCount { get; }
         public uint[] GroupIds { get; } = new uint[0];
         public uint ItemType { get; }
-        public string ItemTypeString => TypeStringConverter.ToTypeString(ItemType);
         public string ItemUri { get; } = "";
 
         private const uint FdelTag = 0x6664656C; // fdel
         private const uint MimeTag = 0x6D696D65; // fdel
         private const uint UriTag = 0x75726920; // fdel
 
-        public ItemInfoEntryBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
+        public ItemInfoEntryBox(BoxLocation location, SequentialReader reader)
+            : base(location, reader)
         {
             if (Version <= 1)
             {
-                ItemId = sr.GetUInt16();
-                ItemProtectionIndex = sr.GetUInt16();
-                ItemName = sr.GetNullTerminatedString((int)loc.BytesLeft(sr), Encoding.UTF8);
+                ItemId = reader.GetUInt16();
+                ItemProtectionIndex = reader.GetUInt16();
+                ItemName = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
             }
 
             if (Version == 1)
             {
-                ExtensionType = sr.GetUInt32();
+                ExtensionType = reader.GetUInt32();
                 if (ExtensionType == FdelTag)
                 {
-                    Location = sr.GetNullTerminatedString((int)loc.BytesLeft(sr), Encoding.UTF8);
-                    MD5 = sr.GetNullTerminatedString((int)loc.BytesLeft(sr), Encoding.UTF8);
-                    ContentLength = sr.GetUInt64();
-                    TransferLength = sr.GetUInt64();
-                    GroupIdCount = sr.GetByte();
+                    Location = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
+                    MD5 = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
+                    ContentLength = reader.GetUInt64();
+                    TransferLength = reader.GetUInt64();
+                    GroupIdCount = reader.GetByte();
                     GroupIds = new uint[GroupIdCount];
                     for (int i = 0; i < GroupIdCount; i++)
                     {
-                        GroupIds[i] = sr.GetUInt32();
+                        GroupIds[i] = reader.GetUInt32();
                     }
                 }
             }
 
             if (Version >= 2)
             {
-                ItemId = Version == 2 ? sr.GetUInt16() : sr.GetUInt32();
-                ItemProtectionIndex = sr.GetUInt16();
-                ItemType = sr.GetUInt32();
-                ItemName = sr.GetNullTerminatedString((int)loc.BytesLeft(sr), Encoding.UTF8);
+                ItemId = Version == 2 ? reader.GetUInt16() : reader.GetUInt32();
+                ItemProtectionIndex = reader.GetUInt16();
+                ItemType = reader.GetUInt32();
+                ItemName = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
 
                 if (ItemType == MimeTag)
                 {
-                    ContentType = sr.GetNullTerminatedString((int)loc.BytesLeft(sr), Encoding.UTF8);
-                    ContentEncoding = sr.GetNullTerminatedString((int)loc.BytesLeft(sr), Encoding.UTF8);
+                    ContentType = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
+                    ContentEncoding = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
                 }
 
                 if (ItemType == UriTag)
                 {
-                    ItemUri = sr.GetNullTerminatedString((int)loc.BytesLeft(sr), Encoding.UTF8);
+                    ItemUri = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
                 }
             }
         }

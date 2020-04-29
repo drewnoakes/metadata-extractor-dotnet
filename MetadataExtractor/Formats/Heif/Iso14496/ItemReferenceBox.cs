@@ -8,16 +8,17 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class ItemReferenceBox : FullBox
+    internal sealed class ItemReferenceBox : FullBox
     {
         public IList<SingleItemTypeReferenceBox> Boxes { get; }
 
-        public ItemReferenceBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
+        public ItemReferenceBox(BoxLocation location, SequentialReader reader)
+            : base(location, reader)
         {
             var list = new List<SingleItemTypeReferenceBox>();
-            while (!loc.DoneReading(sr))
+            while (!location.DoneReading(reader))
             {
-                var box = BoxReader.ReadBox(sr, (l, r) => new SingleItemTypeReferenceBox(l, r, Version));
+                var box = BoxReader.ReadBox(reader, (l, r) => new SingleItemTypeReferenceBox(l, r, Version));
                 if (box != null)
                     list.Add((SingleItemTypeReferenceBox)box);
             }

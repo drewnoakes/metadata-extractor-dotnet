@@ -7,24 +7,20 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
 {
     internal class Box
     {
+#if NET35 || NET45
         private static readonly Box[] _emptyChildren = new Box[0];
+#else
+        private static readonly Box[] _emptyChildren = System.Array.Empty<Box>();
+#endif
 
         private readonly BoxLocation _location;
 
         public uint Type => _location.Type;
-        public ulong Origin => _location.Origin;
-        public ulong Length => _location.Length;
         public ulong NextPosition => _location.NextPosition;
-        public string TypeString => TypeStringConverter.ToTypeString(Type);
 
         public Box(BoxLocation location) => _location = location;
 
-        public void SkipRemainingData(SequentialReader sr)
-        {
-            sr.Skip((long)NextPosition - sr.Position);
-        }
-
-        public byte[] ReadRemainingData(SequentialReader sr)
+        protected byte[] ReadRemainingData(SequentialReader sr)
         {
             return sr.GetBytes((int)((long)NextPosition - sr.Position));
         }

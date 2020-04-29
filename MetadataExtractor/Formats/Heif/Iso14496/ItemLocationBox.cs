@@ -5,7 +5,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    internal class ItemLocationBox : FullBox
+    internal sealed class ItemLocationBox : FullBox
     {
         public byte OffsetSize { get; }
         public byte LengthSize { get; }
@@ -14,23 +14,24 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
         public uint ItemCount { get; }
         public ItemLocation[] ItemLocations { get; }
 
-        public ItemLocationBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
+        public ItemLocationBox(BoxLocation location, SequentialReader reader)
+            : base(location, reader)
         {
-            var reader = new BitReader(sr);
-            OffsetSize = reader.GetByte(4);
-            LengthSize = reader.GetByte(4);
-            BaseOffsetSize = reader.GetByte(4);
+            var bitReader = new BitReader(reader);
+            OffsetSize = bitReader.GetByte(4);
+            LengthSize = bitReader.GetByte(4);
+            BaseOffsetSize = bitReader.GetByte(4);
             if (Version == 1 || Version == 2)
             {
-                IndexSize = reader.GetByte(4);
+                IndexSize = bitReader.GetByte(4);
             }
             else
             {
-                reader.GetByte(4);
+                bitReader.GetByte(4);
             }
 
-            ItemCount = (Version < 2) ? reader.GetUInt32(16) : reader.GetUInt32(32);
-            ItemLocations = ParseLocationArray(sr);
+            ItemCount = Version < 2 ? bitReader.GetUInt32(16) : bitReader.GetUInt32(32);
+            ItemLocations = ParseLocationArray(reader);
         }
 
         private ItemLocation[] ParseLocationArray(SequentialReader sr)
@@ -62,7 +63,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
                 0 => 0,
                 4 => sr.GetUInt32(),
                 8 => sr.GetUInt64(),
-                _ => throw new InvalidDataException("Pointer size must be 0,4,or 8 bytes")
+                _ => throw new InvalidDataException("Pointer size must be 0, 4, or 8 bytes")
             };
 
         private ItemLocationExtent[] ReadExtentList(SequentialReader sr)
@@ -85,14 +86,14 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
             (Version == 1 || Version == 2) ? ReadSizedPointer(sr, IndexSize) : 0;
     }
 
-    public enum ConstructionMethod
+    internal enum ConstructionMethod
     {
         FileOffset = 0,
         IdatOffset = 1,
         ItemOffset = 2,
     }
 
-    public class ItemLocation
+    internal class ItemLocation
     {
         public uint ItemId { get; }
         public ConstructionMethod ConstructionMethod { get; }
@@ -115,7 +116,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
         }
     }
 
-    public class ItemLocationExtent
+    internal class ItemLocationExtent
     {
         public ulong ExtentIndex { get; }
         public ulong ExtentOffset { get; }
