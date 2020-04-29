@@ -3,17 +3,15 @@
 using System.Collections.Generic;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Heif.Iso14496
+namespace MetadataExtractor.Formats.Heif.Iso14496.Boxes
 {
-    internal sealed class ItemInformationBox : FullBox
+    internal sealed class MetaBox : FullBox
     {
-        public uint Count { get; }
         public IList<Box> Boxes { get; }
 
-        public ItemInformationBox(BoxLocation location, SequentialReader reader)
+        public MetaBox(BoxLocation location, SequentialReader reader)
             : base(location, reader)
         {
-            Count = Version == 0 ? reader.GetUInt16() : reader.GetUInt32();
             Boxes = BoxReader.ReadBoxes(reader, location);
         }
 

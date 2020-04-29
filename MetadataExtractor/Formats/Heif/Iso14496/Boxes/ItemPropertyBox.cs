@@ -3,18 +3,15 @@
 using System.Collections.Generic;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Heif.Iso14496
+namespace MetadataExtractor.Formats.Heif.Iso14496.Boxes
 {
-    internal sealed class DataReferenceBox : FullBox
+    internal class ItemPropertyBox : Box
     {
         public IList<Box> Boxes { get; }
-        public uint BoxCount { get; }
 
-        public DataReferenceBox(BoxLocation location, SequentialReader reader)
-            : base(location, reader)
+        public ItemPropertyBox(BoxLocation loc, SequentialReader sr) : base(loc)
         {
-            BoxCount = reader.GetUInt32();
-            Boxes = BoxReader.ReadBoxes(reader, location);
+            Boxes = BoxReader.ReadBoxes(sr, loc);
         }
 
         public override IEnumerable<Box> Children() => Boxes;

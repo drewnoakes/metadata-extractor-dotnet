@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using MetadataExtractor.Formats.Heif.Iso14496.Boxes;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
@@ -68,7 +69,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
             }
         }
 
-        public static Box? ReadBox(SequentialReader sr, Func<BoxLocation, SequentialReader, Box> parseBox)
+        internal static Box? ReadBox(SequentialReader sr, Func<BoxLocation, SequentialReader, Box> parseBox)
         {
             if (sr.Available() < 8)
                 return null;

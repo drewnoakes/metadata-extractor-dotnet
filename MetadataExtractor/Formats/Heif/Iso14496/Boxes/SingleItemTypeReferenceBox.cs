@@ -2,7 +2,7 @@
 
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Heif.Iso14496
+namespace MetadataExtractor.Formats.Heif.Iso14496.Boxes
 {
     internal class SingleItemTypeReferenceBox : Box
     {

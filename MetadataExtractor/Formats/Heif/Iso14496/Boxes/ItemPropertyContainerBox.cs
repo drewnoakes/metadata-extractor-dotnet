@@ -3,13 +3,14 @@
 using System.Collections.Generic;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Heif.Iso14496
+namespace MetadataExtractor.Formats.Heif.Iso14496.Boxes
 {
-    internal class ItemPropertyBox : Box
+    internal class ItemPropertyContainerBox : Box
     {
         public IList<Box> Boxes { get; }
 
-        public ItemPropertyBox(BoxLocation loc, SequentialReader sr) : base(loc)
+        public ItemPropertyContainerBox(BoxLocation loc, SequentialReader sr)
+            : base(loc)
         {
             Boxes = BoxReader.ReadBoxes(sr, loc);
         }

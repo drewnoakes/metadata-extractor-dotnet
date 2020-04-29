@@ -3,7 +3,7 @@
 using System.IO;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Heif.Iso14496
+namespace MetadataExtractor.Formats.Heif.Iso14496.Boxes
 {
     internal sealed class ItemLocationBox : FullBox
     {
