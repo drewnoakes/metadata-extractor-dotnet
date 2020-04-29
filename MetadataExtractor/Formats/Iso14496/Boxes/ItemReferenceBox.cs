@@ -6,7 +6,7 @@ using MetadataExtractor.IO;
 using System.Linq;
 #endif
 
-namespace MetadataExtractor.Formats.Heif.Iso14496.Boxes
+namespace MetadataExtractor.Formats.Iso14496.Boxes
 {
     internal sealed class ItemReferenceBox : FullBox
     {

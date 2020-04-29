@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MetadataExtractor.Formats.Heif.Iso14496
+namespace MetadataExtractor.Formats.Iso14496
 {
     internal static class BoxQuery
     {

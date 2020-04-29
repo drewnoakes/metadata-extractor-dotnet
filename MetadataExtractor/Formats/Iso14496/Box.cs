@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Heif.Iso14496
+namespace MetadataExtractor.Formats.Iso14496
 {
     internal class Box
     {

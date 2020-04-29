@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Heif.Iso14496.Boxes
+namespace MetadataExtractor.Formats.Iso14496.Boxes
 {
     internal class FileTypeBox : Box
     {

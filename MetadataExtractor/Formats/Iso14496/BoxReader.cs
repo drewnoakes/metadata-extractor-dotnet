@@ -2,10 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using MetadataExtractor.Formats.Heif.Iso14496.Boxes;
+using MetadataExtractor.Formats.Iso14496.Boxes;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Heif.Iso14496
+namespace MetadataExtractor.Formats.Iso14496
 {
     internal static class BoxReader
     {
