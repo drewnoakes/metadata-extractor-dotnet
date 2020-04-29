@@ -18,7 +18,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
             reader.GetUInt32(); // should be Zero
             reader.GetUInt32(); // should be Zero
             reader.GetUInt32(); // should be Zero
-            TrackType = reader.GetString((int)location.BytesLeft(reader), Encoding.UTF8);
+            TrackType = reader.GetString((int)reader.BytesRemainingInBox(location), Encoding.UTF8);
         }
     }
 }

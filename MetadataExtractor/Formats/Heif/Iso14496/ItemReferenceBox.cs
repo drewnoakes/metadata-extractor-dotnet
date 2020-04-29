@@ -16,7 +16,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
             : base(location, reader)
         {
             var list = new List<SingleItemTypeReferenceBox>();
-            while (!location.DoneReading(reader))
+            while (reader.IsWithinBox(location))
             {
                 var box = BoxReader.ReadBox(reader, (l, r) => new SingleItemTypeReferenceBox(l, r, Version));
                 if (box != null)

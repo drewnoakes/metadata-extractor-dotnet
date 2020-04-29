@@ -24,7 +24,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
         public static List<Box> ReadBoxes(SequentialReader sr, BoxLocation loc)
         {
             var ret = new List<Box>();
-            while (!loc.DoneReading(sr))
+            while (sr.IsWithinBox(loc))
             {
                 var box = ReadBox(sr);
                 if (box != null)

@@ -36,7 +36,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
             {
                 ItemId = reader.GetUInt16();
                 ItemProtectionIndex = reader.GetUInt16();
-                ItemName = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
+                ItemName = reader.GetNullTerminatedString((int)reader.BytesRemainingInBox(location), Encoding.UTF8);
             }
 
             if (Version == 1)
@@ -44,8 +44,8 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
                 ExtensionType = reader.GetUInt32();
                 if (ExtensionType == FdelTag)
                 {
-                    Location = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
-                    MD5 = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
+                    Location = reader.GetNullTerminatedString((int)reader.BytesRemainingInBox(location), Encoding.UTF8);
+                    MD5 = reader.GetNullTerminatedString((int)reader.BytesRemainingInBox(location), Encoding.UTF8);
                     ContentLength = reader.GetUInt64();
                     TransferLength = reader.GetUInt64();
                     GroupIdCount = reader.GetByte();
@@ -62,17 +62,17 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
                 ItemId = Version == 2 ? reader.GetUInt16() : reader.GetUInt32();
                 ItemProtectionIndex = reader.GetUInt16();
                 ItemType = reader.GetUInt32();
-                ItemName = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
+                ItemName = reader.GetNullTerminatedString((int)reader.BytesRemainingInBox(location), Encoding.UTF8);
 
                 if (ItemType == MimeTag)
                 {
-                    ContentType = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
-                    ContentEncoding = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
+                    ContentType = reader.GetNullTerminatedString((int)reader.BytesRemainingInBox(location), Encoding.UTF8);
+                    ContentEncoding = reader.GetNullTerminatedString((int)reader.BytesRemainingInBox(location), Encoding.UTF8);
                 }
 
                 if (ItemType == UriTag)
                 {
-                    ItemUri = reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
+                    ItemUri = reader.GetNullTerminatedString((int)reader.BytesRemainingInBox(location), Encoding.UTF8);
                 }
             }
         }

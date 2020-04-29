@@ -24,7 +24,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
             MinorBrand = sr.GetUInt32();
             var cBrands = new List<uint>();
             CompatibleBrands = cBrands;
-            while (!loc.DoneReading(sr))
+            while (sr.IsWithinBox(loc))
             {
                 cBrands.Add(sr.GetUInt32());
             }

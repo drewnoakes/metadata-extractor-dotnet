@@ -9,18 +9,24 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
         public uint Type { get; }
 
         /// <summary>
-        /// The offset within the file at which the box resides.
+        /// Gets the offset within the file at which the box resides.
         /// </summary>
         public ulong Origin { get; }
+
+        /// <summary>
+        /// Gets the length of this box in bytes.
+        /// </summary>
         public ulong Length { get; }
 
+        /// <summary>
+        /// Gets the offset within the file at which the next box resides.
+        /// </summary>
         public ulong NextPosition => Origin + Length;
 
+        /// <summary>
+        /// Gets the four character code which identifies this box.
+        /// </summary>
         public string TypeString => TypeStringConverter.ToTypeString(Type);
-
-        public ulong BytesLeft(SequentialReader sr) => NextPosition - (ulong)sr.Position;
-
-        public bool DoneReading(SequentialReader sr) => (ulong)sr.Position >= NextPosition;
 
         public BoxLocation(SequentialReader reader)
         {

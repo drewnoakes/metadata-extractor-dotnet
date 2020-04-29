@@ -13,8 +13,8 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
         public DataEntryLocationBox(BoxLocation location, SequentialReader reader, bool hasName)
             : base(location, reader)
         {
-            Name = hasName ? reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8) : "";
-            Location = location.DoneReading(reader) ? "" : reader.GetNullTerminatedString((int)location.BytesLeft(reader), Encoding.UTF8);
+            Name = hasName ? reader.GetNullTerminatedString((int)reader.BytesRemainingInBox(location), Encoding.UTF8) : "";
+            Location = !reader.IsWithinBox(location) ? "" : reader.GetNullTerminatedString((int)reader.BytesRemainingInBox(location), Encoding.UTF8);
         }
     }
 }
