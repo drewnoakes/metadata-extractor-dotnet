@@ -299,7 +299,7 @@ namespace MetadataExtractor.Formats.Heif
                             }
 
                             reader.Skip((int)headerLength);
-                            return reader.GetBytes((int)extentLength);
+                            return reader.GetBytes((int)extentLength - 4);
                         }
                     }
                 }
