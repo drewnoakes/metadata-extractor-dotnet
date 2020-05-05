@@ -88,7 +88,7 @@ namespace MetadataExtractor.Formats.Iso14496
 
             if (unreadBytes < 0)
             {
-                throw new Exception($"Reader for box with type {location.TypeString} read beyond end of allocated space.");
+                throw new ImageProcessingException($"Reader for box with type {location.TypeString} read beyond end of allocated space.");
             }
 
             if (unreadBytes > 0)
