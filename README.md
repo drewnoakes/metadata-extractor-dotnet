@@ -5,7 +5,7 @@
 [![MetadataExtractor NuGet version](https://img.shields.io/nuget/v/MetadataExtractor.svg)](https://www.nuget.org/packages/MetadataExtractor/)
 <!--[![MetadataExtractor NuGet pre-release version](https://img.shields.io/nuget/vpre/MetadataExtractor.svg)](https://www.nuget.org/packages/MetadataExtractor/)-->
 
-_MetadataExtractor_ is a straightforward .NET library for reading metadata from image and movie files.
+_MetadataExtractor_ is a straightforward .NET library for reading metadata from image, movie and audio files.
 
 ## Installation
 
@@ -82,26 +82,39 @@ The library understands several formats of metadata, many of which may be presen
 * [ICO](https://en.wikipedia.org/wiki/ICO_(file_format)) properties
 * [PCX](http://en.wikipedia.org/wiki/PCX) properties
 
-It will process files of type:
+It supports various file types.
 
-* JPEG
-* TIFF
-* WebP
-* PSD
-* PNG
-* BMP
-* GIF
-* ICO
-* PCX
-* Netpbm
-* Camera Raw
-  * NEF (Nikon)
-  * CR2 (Canon)
-  * ORF (Olympus)
-  * ARW (Sony)
-  * RW2 (Panasonic)
-  * RWL (Leica)
-  * SRW (Samsung)
+* Images
+  * BMP
+  * EPS
+  * GIF
+  * HEIF / HEIC
+  * ICO
+  * JPEG / JFIF
+  * Netpbm
+  * PCX
+  * PNG
+  * PSD
+  * TGA
+  * TIFF
+  * WebP
+  * Camera Raw
+    * ARW (Sony)
+    * CR2 (Canon)
+    * NEF (Nikon)
+    * ORF (Olympus)
+    * RW2 (Panasonic)
+    * RWL (Leica)
+    * SRW (Samsung)
+
+* Movies
+  * AVCI
+  * AVI
+  * MOV (QuickTime)
+  * MP4
+
+* Audio
+  * WAV
 
 Camera-specific "makernote" data is decoded for cameras manufactured by:
 
