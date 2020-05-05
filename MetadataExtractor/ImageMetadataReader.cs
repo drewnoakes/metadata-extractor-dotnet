@@ -97,6 +97,7 @@ namespace MetadataExtractor
                 FileType.Png       => PngMetadataReader.ReadMetadata(stream),
                 FileType.Psd       => PsdMetadataReader.ReadMetadata(stream),
                 FileType.QuickTime => QuickTimeMetadataReader.ReadMetadata(stream),
+                FileType.Mp4       => QuickTimeMetadataReader.ReadMetadata(stream),
                 FileType.Raf       => RafMetadataReader.ReadMetadata(stream),
                 FileType.Rw2       => TiffMetadataReader.ReadMetadata(stream),
                 FileType.Tga       => TgaMetadataReader.ReadMetadata(stream),
