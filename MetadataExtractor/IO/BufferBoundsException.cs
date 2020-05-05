@@ -27,6 +27,10 @@ namespace MetadataExtractor.IO
         {
         }
 
+        public BufferBoundsException()
+        {
+        }
+
         private static string GetMessage(int index, int bytesRequested, long bufferLength)
         {
             if (index < 0)
