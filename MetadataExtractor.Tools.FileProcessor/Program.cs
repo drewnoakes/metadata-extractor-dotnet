@@ -52,7 +52,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         /// </remarks>
         /// <param name="argArray">the command line arguments</param>
         /// <exception cref="MetadataException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         private static int ProcessFileList(string[] argArray)
         {
             var args = argArray.ToList();
