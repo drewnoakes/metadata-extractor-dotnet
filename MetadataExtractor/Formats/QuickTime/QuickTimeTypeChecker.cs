@@ -18,6 +18,7 @@ namespace MetadataExtractor.Formats.QuickTime
             { Util.FileType.QuickTime, Encoding.UTF8.GetBytes("mdat") },
             { Util.FileType.QuickTime, Encoding.UTF8.GetBytes("free") },
             { Util.FileType.QuickTime, Encoding.UTF8.GetBytes("qt  ") },
+            { Util.FileType.QuickTime, Encoding.UTF8.GetBytes("3g2a") },
 
             // MP4
             { Util.FileType.Mp4, Encoding.UTF8.GetBytes("avc1") },
