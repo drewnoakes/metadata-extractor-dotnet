@@ -98,8 +98,7 @@ namespace MetadataExtractor.Util
                     if (bytesRead >= fixedChecker.ByteCount)
                     {
                         fileType = fixedChecker.CheckType(bytes);
-                        if (fileType == FileType.QuickTime && HeifChecker.IsHeicStream(stream))
-                            return FileType.Heif;
+
                         if (fileType != FileType.Unknown)
                             return fileType;
                     }
