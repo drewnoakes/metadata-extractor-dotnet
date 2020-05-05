@@ -9,25 +9,25 @@ namespace MetadataExtractor.Formats.Avi
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AviDirectory : Directory
     {
-        public const int TAG_FRAMES_PER_SECOND = 1;
-        public const int TAG_SAMPLES_PER_SECOND = 2;
-        public const int TAG_DURATION = 3;
-        public const int TAG_VIDEO_CODEC = 4;
-        public const int TAG_AUDIO_CODEC = 5;
-        public const int TAG_WIDTH = 6;
-        public const int TAG_HEIGHT = 7;
-        public const int TAG_STREAMS = 8;
+        public const int TagFramesPerSecond = 1;
+        public const int TagSamplesPerSecond = 2;
+        public const int TagDuration = 3;
+        public const int TagVideoCodec = 4;
+        public const int TagAudioCodec = 5;
+        public const int TagWidth = 6;
+        public const int TagHeight = 7;
+        public const int TagStreams = 8;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
-            {TAG_FRAMES_PER_SECOND, "Frames Per Second"},
-            {TAG_SAMPLES_PER_SECOND, "Samples Per Second"},
-            {TAG_DURATION, "Duration"},
-            {TAG_VIDEO_CODEC, "Video Codec"},
-            {TAG_AUDIO_CODEC, "Audio Codec"},
-            {TAG_WIDTH, "Width"},
-            {TAG_HEIGHT, "Height"},
-            {TAG_STREAMS, "Stream Count"}
+            {TagFramesPerSecond, "Frames Per Second"},
+            {TagSamplesPerSecond, "Samples Per Second"},
+            {TagDuration, "Duration"},
+            {TagVideoCodec, "Video Codec"},
+            {TagAudioCodec, "Audio Codec"},
+            {TagWidth, "Width"},
+            {TagHeight, "Height"},
+            {TagStreams, "Stream Count"}
         };
 
         public AviDirectory()

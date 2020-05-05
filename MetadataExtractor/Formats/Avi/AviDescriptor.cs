@@ -17,8 +17,8 @@ namespace MetadataExtractor.Formats.Avi
         {
             switch (tagType)
             {
-                case AviDirectory.TAG_WIDTH:
-                case AviDirectory.TAG_HEIGHT:
+                case AviDirectory.TagWidth:
+                case AviDirectory.TagHeight:
                     return Directory.GetString(tagType) + " pixels";
                 default:
                     return base.GetDescription(tagType);
