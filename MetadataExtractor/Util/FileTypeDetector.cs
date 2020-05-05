@@ -109,23 +109,4 @@ namespace MetadataExtractor.Util
             return fileType;
         }
     }
-
-    internal static class ByteArrayExtensions
-    {
-        public static bool RegionEquals(this byte[] bytes, int offset, int count, byte[] comparand)
-        {
-            if (offset < 0 ||                   // invalid arg
-                count < 0 ||                    // invalid arg
-                bytes.Length < offset + count)  // extends beyond end
-                return false;
-
-            for (int i = 0, j = offset; i < count; i++, j++)
-            {
-                if (bytes[j] != comparand[i])
-                    return false;
-            }
-
-            return true;
-        }
-    }
 }
