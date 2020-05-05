@@ -10,25 +10,25 @@ using System.ComponentModel;
 
 namespace MetadataExtractor
 {
-    /// <summary>Immutable type for representing a rational number with <see cref="Int64"/> components.</summary>
+    /// <summary>Immutable type for representing a rational number with <see cref="UInt64"/> components.</summary>
     /// <remarks>
-    /// Note that any <see cref="Rational"/> with a numerator of zero will be treated as zero, even if the denominator is also zero.
+    /// Note that any <see cref="URational"/> with a numerator of zero will be treated as zero, even if the denominator is also zero.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
 #if !NETSTANDARD1_3
     [Serializable]
-    [TypeConverter(typeof(RationalConverter))]
+    [TypeConverter(typeof(URationalConverter))]
 #endif
-    public readonly struct Rational : IConvertible, IEquatable<Rational>
+    public readonly struct URational : IConvertible, IEquatable<URational>
     {
         /// <summary>Gets the denominator.</summary>
-        public long Denominator { get; }
+        public ulong Denominator { get; }
 
         /// <summary>Gets the numerator.</summary>
-        public long Numerator { get; }
+        public ulong Numerator { get; }
 
         /// <summary>Initialises a new instance with the <paramref name="numerator"/> and <paramref name="denominator"/>.</summary>
-        public Rational(long numerator, long denominator)
+        public URational(ulong numerator, ulong denominator)
         {
             Numerator = numerator;
             Denominator = denominator;
@@ -38,11 +38,11 @@ namespace MetadataExtractor
 
         /// <summary>Returns the value of the specified number as a <see cref="double"/>.</summary>
         /// <remarks>This may involve rounding.</remarks>
-        public double ToDouble() => Numerator == 0 ? 0.0 : Numerator / (double)Denominator;
+        public double ToDouble() => Numerator == 0 ? 0.0 : Numerator/(double)Denominator;
 
         /// <summary>Returns the value of the specified number as a <see cref="float"/>.</summary>
         /// <remarks>May incur rounding.</remarks>
-        public float ToSingle() => Numerator == 0 ? 0.0f : Numerator / (float)Denominator;
+        public float ToSingle() => Numerator == 0 ? 0.0f : Numerator/(float)Denominator;
 
         /// <summary>Returns the value of the specified number as a <see cref="byte"/>.</summary>
         /// <remarks>
@@ -154,14 +154,14 @@ namespace MetadataExtractor
 
         #endregion
 
-        /// <summary>Gets the reciprocal value of this object as a new <see cref="Rational"/>.</summary>
+        /// <summary>Gets the reciprocal value of this object as a new <see cref="URational"/>.</summary>
         /// <value>the reciprocal in a new object</value>
-        public Rational Reciprocal => new Rational(Denominator, Numerator);
+        public URational Reciprocal => new URational(Denominator, Numerator);
 
         /// <summary>
-        /// Checks if this <see cref="Rational"/> number is expressible as an integer, either positive or negative.
+        /// Checks if this <see cref="URational"/> number is expressible as an integer, either positive or negative.
         /// </summary>
-        public bool IsInteger => Denominator == 1 || (Denominator != 0 && Numerator % Denominator == 0) || (Denominator == 0 && Numerator == 0);
+        public bool IsInteger => Denominator == 1 || (Denominator != 0 && Numerator%Denominator == 0) || (Denominator == 0 && Numerator == 0);
 
         /// <summary>
         /// True if either <see cref="Denominator"/> or <see cref="Numerator"/> are zero.
@@ -177,7 +177,7 @@ namespace MetadataExtractor
         public string ToString(IFormatProvider? provider) => Numerator.ToString(provider) + "/" + Denominator.ToString(provider);
 
         /// <summary>
-        /// Returns the simplest representation of this <see cref="Rational"/>'s value possible.
+        /// Returns the simplest representation of this <see cref="URational"/>'s value possible.
         /// </summary>
         public string ToSimpleString(bool allowDecimal = true, IFormatProvider? provider = null)
         {
@@ -187,11 +187,11 @@ namespace MetadataExtractor
             if (IsInteger)
                 return ToInt32().ToString(provider);
 
-            if (Numerator != 1 && Denominator % Numerator == 0)
+            if (Numerator != 1 && Denominator%Numerator == 0)
             {
                 // common factor between denominator and numerator
-                var newDenominator = Denominator / Numerator;
-                return new Rational(1, newDenominator).ToSimpleString(allowDecimal, provider);
+                var newDenominator = Denominator/Numerator;
+                return new URational(1, newDenominator).ToSimpleString(allowDecimal, provider);
             }
 
             var simplifiedInstance = GetSimplifiedInstance();
@@ -220,7 +220,7 @@ namespace MetadataExtractor
         /// </remarks>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(Rational other) => other.ToDecimal().Equals(ToDecimal());
+        public bool Equals(URational other) => other.ToDecimal().Equals(ToDecimal());
 
         /// <summary>
         /// Indicates whether this instance and <paramref name="other"/> have identical
@@ -229,25 +229,25 @@ namespace MetadataExtractor
         /// <remarks>
         /// For example, <c>1/2</c> is not equal to <c>10/20</c> by this method.
         /// Similarly, <c>1/0</c> is not equal to <c>100/0</c> by this method.
-        /// To test numerically equivalence, use <see cref="Equals(Rational)"/>.
+        /// To test numerically equivalence, use <see cref="Equals(MetadataExtractor.URational)"/>.
         /// </remarks>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool EqualsExact(Rational other) => Denominator == other.Denominator && Numerator == other.Numerator;
+        public bool EqualsExact(URational other) => Denominator == other.Denominator && Numerator == other.Numerator;
 
         public override bool Equals(object obj)
         {
             if (obj is null)
                 return false;
-            return obj is Rational rational && Equals(rational);
+            return obj is URational rational && Equals(rational);
         }
 
-        public override int GetHashCode() => unchecked(Denominator.GetHashCode() * 397) ^ Numerator.GetHashCode();
+        public override int GetHashCode() => unchecked(Denominator.GetHashCode()*397) ^ Numerator.GetHashCode();
 
         #endregion
 
         /// <summary>
-        /// Simplifies the representation of this <see cref="Rational"/> number.
+        /// Simplifies the representation of this <see cref="URational"/> number.
         /// </summary>
         /// <remarks>
         /// For example, <c>5/10</c> simplifies to <c>1/2</c> because both <see cref="Numerator"/>
@@ -258,15 +258,10 @@ namespace MetadataExtractor
         /// <returns>
         /// A simplified instance if one exists, otherwise a copy of the original value.
         /// </returns>
-        public Rational GetSimplifiedInstance()
+        public URational GetSimplifiedInstance()
         {
-            static long GCD(long a, long b)
+            static ulong GCD(ulong a, ulong b)
             {
-                if (a < 0)
-                    a = -a;
-                if (b < 0)
-                    b = -b;
-
                 while (a != 0 && b != 0)
                 {
                     if (a > b)
@@ -280,32 +275,32 @@ namespace MetadataExtractor
 
             var gcd = GCD(Numerator, Denominator);
 
-            return new Rational(Numerator / gcd, Denominator / gcd);
+            return new URational(Numerator / gcd, Denominator / gcd);
         }
 
         #region Equality operators
 
-        public static bool operator ==(Rational a, Rational b)
+        public static bool operator==(URational a, URational b)
         {
             return Equals(a, b);
         }
 
-        public static bool operator !=(Rational a, Rational b)
+        public static bool operator!=(URational a, URational b)
         {
             return !Equals(a, b);
         }
 
         #endregion
 
-        #region RationalConverter
+        #region URationalConverter
 
 #if !NETSTANDARD1_3
-        private sealed class RationalConverter : TypeConverter
+        private sealed class URationalConverter : TypeConverter
         {
             public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
             {
                 if (sourceType == typeof(string) ||
-                    sourceType == typeof(Rational) ||
+                    sourceType == typeof(URational) ||
                     typeof(IConvertible).IsAssignableFrom(sourceType) ||
                     (sourceType.IsArray && typeof(IConvertible).IsAssignableFrom(sourceType.GetElementType())))
                     return true;
@@ -323,11 +318,11 @@ namespace MetadataExtractor
                 if (type == typeof(string))
                 {
                     var v = ((string)value).Split('/');
-                    if (v.Length == 2 && long.TryParse(v[0], out long numerator) && long.TryParse(v[1], out long denominator))
-                        return new Rational(numerator, denominator);
+                    if (v.Length == 2 && ulong.TryParse(v[0], out ulong numerator) && ulong.TryParse(v[1], out ulong denominator))
+                        return new URational(numerator, denominator);
                 }
 
-                if (type == typeof(Rational))
+                if (type == typeof(URational))
                     return value;
 
                 if (type.IsArray)
@@ -335,13 +330,13 @@ namespace MetadataExtractor
                     var array = (Array)value;
                     if (array.Rank == 1 && (array.Length == 1 || array.Length == 2))
                     {
-                        return new Rational(
-                            numerator: Convert.ToInt64(array.GetValue(0)),
-                            denominator: array.Length == 2 ? Convert.ToInt64(array.GetValue(1)) : 1);
+                        return new URational(
+                            numerator: Convert.ToUInt64(array.GetValue(0)),
+                            denominator: array.Length == 2 ? Convert.ToUInt64(array.GetValue(1)) : 1);
                     }
                 }
 
-                return new Rational(Convert.ToInt64(value), 1);
+                return new URational(Convert.ToUInt64(value), 1);
             }
 
             public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => false;

@@ -20,8 +20,9 @@ namespace MetadataExtractor.Formats.Tiff
         Double = 12
     }
 
-    /// <summary>An enumeration of data formats used by the TIFF specification.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <summary>
+    /// An enumeration of data formats used by the TIFF specification.
+    /// </summary>
     public sealed class TiffDataFormat
     {
 #pragma warning disable format
