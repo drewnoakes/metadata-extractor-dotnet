@@ -82,7 +82,7 @@ namespace MetadataExtractor.Formats.Avi
                     {
                         if (fccType == "vids")
                         {
-                            directory.Set(AviDirectory.TAG_FRAMES_PER_SECOND, (dwRate / dwScale));
+                            directory.Set(AviDirectory.TagFramesPerSecond, (dwRate / dwScale));
 
                             double duration = dwLength / (dwRate / dwScale);
                             int hours = (int)duration / (int)(Math.Pow(60, 2));
@@ -90,13 +90,13 @@ namespace MetadataExtractor.Formats.Avi
                             int seconds = (int)Math.Round((duration / (Math.Pow(60, 0))) - (minutes * 60));
                             string time = new DateTime(new TimeSpan(hours, minutes, seconds).Ticks).ToString("HH:mm:ss");
 
-                            directory.Set(AviDirectory.TAG_DURATION, time);
-                            directory.Set(AviDirectory.TAG_VIDEO_CODEC, fccHandler!);
+                            directory.Set(AviDirectory.TagDuration, time);
+                            directory.Set(AviDirectory.TagVideoCodec, fccHandler!);
                         }
                         else
                         if (fccType == "auds")
                         {
-                            directory.Set(AviDirectory.TAG_SAMPLES_PER_SECOND, (dwRate / dwScale));
+                            directory.Set(AviDirectory.TagSamplesPerSecond, (dwRate / dwScale));
                         }
                     }
                     else
@@ -133,9 +133,9 @@ namespace MetadataExtractor.Formats.Avi
                     var directory = new AviDirectory();
                     if (error == null)
                     {
-                        directory.Set(AviDirectory.TAG_WIDTH, dwWidth);
-                        directory.Set(AviDirectory.TAG_HEIGHT, dwHeight);
-                        directory.Set(AviDirectory.TAG_STREAMS, dwStreams);
+                        directory.Set(AviDirectory.TagWidth, dwWidth);
+                        directory.Set(AviDirectory.TagHeight, dwHeight);
+                        directory.Set(AviDirectory.TagStreams, dwStreams);
                     }
                     else
                         directory.AddError(error);

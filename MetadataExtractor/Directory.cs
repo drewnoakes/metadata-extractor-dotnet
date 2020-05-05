@@ -176,7 +176,7 @@ namespace MetadataExtractor
 
         public ErrorDirectory(string error) => AddError(error);
 
-        protected override bool TryGetTagName(int tagType, out string? tagName)
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             tagName = null;
             return false;

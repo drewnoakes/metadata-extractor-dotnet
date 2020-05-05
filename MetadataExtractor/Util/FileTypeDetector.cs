@@ -69,14 +69,9 @@ namespace MetadataExtractor.Util
             new MpegAudioTypeChecker()
         };
 
-        private static readonly int _bytesNeeded;
-
-        static FileTypeDetector()
-        {
-            _bytesNeeded = Math.Max(
+        private static readonly int _bytesNeeded = Math.Max(
                 _root.MaxDepth,
                 _fixedCheckers.Max(checker => checker.ByteCount));
-        }
 
         /// <summary>Examines the file's first bytes and estimates the file's type.</summary>
         /// <exception cref="ArgumentException">Stream does not support seeking.</exception>

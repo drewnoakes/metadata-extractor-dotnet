@@ -18,7 +18,7 @@ namespace MetadataExtractor
     public class TagDescriptor<T> : ITagDescriptor
         where T : Directory
     {
-        protected readonly T Directory;
+        protected T Directory { get; }
 
         public TagDescriptor(T directory)
         {

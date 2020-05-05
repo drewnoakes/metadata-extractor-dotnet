@@ -17,7 +17,7 @@ namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Reads Photoshop "ducky" segments, created during Save-for-Web.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class DuckyReader : IJpegSegmentMetadataReader
+    public sealed class DuckyReader : IJpegSegmentMetadataReader
     {
         public const string JpegSegmentPreamble = "Ducky";
 

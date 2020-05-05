@@ -4,3 +4,4 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Style", "IDE0004:Remove Unnecessary Cast", Justification = "Makes code clearer", Scope = "member", Target = "~F:MetadataExtractor.Tests.DirectoryExtensionsTest._singleValues")]
 [assembly: SuppressMessage("Style", "IDE0004:Remove Unnecessary Cast", Justification = "Makes code clearer", Scope = "member", Target = "~F:MetadataExtractor.Tests.DirectoryExtensionsTest._singleZeroValues")]
+[assembly: SuppressMessage("Style", "IDE0073:The file header does not match the required text", Justification = "Other license", Scope = "namespace", Target = "~N:System.Diagnostics.CodeAnalysis")]

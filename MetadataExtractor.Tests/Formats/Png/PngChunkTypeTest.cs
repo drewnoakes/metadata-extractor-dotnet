@@ -42,7 +42,7 @@ namespace MetadataExtractor.Tests.Formats.Png
             foreach (var validString in validStrings)
             {
                 // ReSharper disable once ObjectCreationAsStatement
-                new PngChunkType(validString);
+                _ = new PngChunkType(validString);
             }
         }
 
