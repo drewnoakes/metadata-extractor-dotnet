@@ -25,6 +25,11 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
   </PropertyGroup>
 
   <ItemGroup>
+    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Unshipped.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Annotations.cs" Link="Annotations.cs" />
   </ItemGroup>
 
@@ -51,6 +56,7 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
     <PackageReference Include="Microsoft.NetCore.Analyzers" Version="3.0.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="3.0.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="3.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.0.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
