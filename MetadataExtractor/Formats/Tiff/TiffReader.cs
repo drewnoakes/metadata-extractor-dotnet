@@ -25,7 +25,7 @@ namespace MetadataExtractor.Formats.Tiff
             {
                 0x4d4d => reader.WithByteOrder(isMotorolaByteOrder: true),
                 0x4949 => reader.WithByteOrder(isMotorolaByteOrder: false),
-                _ => throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + reader.GetInt16(0)),
+                _ => throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + byteOrder),
             };
 
             // Check the next two values for correctness.
