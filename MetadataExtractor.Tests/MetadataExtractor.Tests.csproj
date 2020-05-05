@@ -28,7 +28,6 @@
 
   <!-- Analyzers -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="3.6.0-3.20168.1" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
