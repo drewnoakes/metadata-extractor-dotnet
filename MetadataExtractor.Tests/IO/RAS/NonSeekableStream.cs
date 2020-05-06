@@ -1,12 +1,14 @@
-﻿using System;
+﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+using System;
 using System.IO;
 
 namespace MetadataExtractor.Tests.IO
 {
-    public class NonSeekableStream : Stream
+    internal class NonSeekableStream : Stream
     {
         Stream m_stream;
-        public NonSeekableStream(Stream baseStream)
+        internal NonSeekableStream(Stream baseStream)
         {
             m_stream = baseStream;
         }

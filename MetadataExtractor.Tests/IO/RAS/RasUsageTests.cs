@@ -64,7 +64,7 @@ namespace MetadataExtractor.Tests.IO
             // nonseekable stream inputs shouldn't be seekable
             Assert.False(ras.CanSeek);
             // can't know the length of a nonseekable stream if it isn't supplied
-            Assert.Equal(int.MaxValue, ras.Length);
+            Assert.Equal(RandomAccessStream.UnknownLengthValue, ras.Length);
         }
 
         [Fact]

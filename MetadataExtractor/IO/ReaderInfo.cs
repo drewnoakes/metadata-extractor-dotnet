@@ -211,7 +211,7 @@ namespace MetadataExtractor.IO
         public byte[] GetBytes(int count) => GetBytes(SequentialFlag, count);
 
         /// <summary>Returns the required number of bytes from the specified index from the underlying source.</summary>
-        /// <param name="index">The index from which the bytes begins in the underlying source</param>
+        /// <param name="index">The index from which the bytes begin in the underlying source</param>
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>
         /// <exception cref="BufferBoundsException">if the requested bytes extend beyond the end of the underlying data source</exception>

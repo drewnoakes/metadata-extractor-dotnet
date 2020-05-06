@@ -18,6 +18,8 @@ namespace MetadataExtractor.IO
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class RandomAccessStream
     {
+        public const long UnknownLengthValue = long.MaxValue;
+
         private Stream? p_inputStream;
         private long p_streamLength = -1;
 
@@ -34,7 +36,7 @@ namespace MetadataExtractor.IO
                 throw new ArgumentNullException(nameof(stream));
 
             if (streamLength == -1)
-                streamLength = stream.CanSeek ? stream.Length : int.MaxValue;
+                streamLength = stream.CanSeek ? stream.Length : UnknownLengthValue;
 
             p_inputStream = stream;
             CanSeek = stream.CanSeek;
@@ -61,6 +63,15 @@ namespace MetadataExtractor.IO
 
         public bool CanSeek { get; private set; } = false;
 
+        /// <summary>
+        /// Returns the length of the underlying data source
+        /// </summary>
+        /// <remarks>
+        /// Length is always known when the data source is an array. For data sources derived from <see cref="Stream"/>,
+        /// the CanSeek property is checked. If the value is true, the <see cref="Stream"/>'s Length property is used.
+        /// If the value is false, it is assumed the length cannot be determined from the <see cref="Stream"/> itself and
+        /// long.MaxValue is used instead.
+        /// </remarks>
         public long Length
         {
             get
@@ -141,7 +152,20 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public byte GetByte(long index, bool isSequential)
         {
-            ValidateIndex(index, 1, isSequential);
+            return GetByte(index, isSequential, true);
+        }
+
+        /// <summary>Returns an unsigned byte at an index in the sequence.</summary>
+        /// <returns>the 8 bit int value, between 0 and 255</returns>
+        /// <param name="index">position within the data buffer to read byte</param>
+        /// <param name="isSequential">flag indicating if caller is using sequential access</param>
+        /// <param name="validateIndex">allows for skipping validation if already done by the caller</param>
+        /// <exception cref="BufferBoundsException"/>
+        /// <exception cref="IOException"/>
+        private byte GetByte(long index, bool isSequential, bool validateIndex)
+        {
+            if(validateIndex)
+                ValidateIndex(index, 1, isSequential);
 
             // This bypasses a lot of checks particularly when the input was a byte[]
             if (p_isStreamFinished && p_chunks.Count == 1)
@@ -165,20 +189,19 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public ushort GetUInt16(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
-            var bytes = new byte[2];
-            Read(index, bytes, 0, bytes.Length, isSequential, false);
+            ValidateIndex(index, 2, isSequential);
 
             if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first
                 return (ushort)
-                    (bytes[0] << 8 |
-                     bytes[1]);
+                    (GetByte(index, isSequential, false) << 8 |
+                     GetByte(index + 1, isSequential, false));
             }
             // Intel ordering - LSB first
             return (ushort)
-                (bytes[1] << 8 |
-                 bytes[0]);
+                (GetByte(index + 1, isSequential, false) << 8 |
+                 GetByte(index    , isSequential, false));
         }
 
         /// <summary>Returns a signed 16-bit int calculated from two bytes of data (MSB, LSB).</summary>
@@ -190,20 +213,19 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public short GetInt16(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
-            var bytes = new byte[2];
-            Read(index, bytes, 0, bytes.Length, isSequential, false);
+            ValidateIndex(index, 2, isSequential);
 
             if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first
                 return (short)
-                    (bytes[0] << 8 |
-                     bytes[1]);
+                    (GetByte(index    , isSequential, false) << 8 |
+                     GetByte(index + 1, isSequential, false));
             }
             // Intel ordering - LSB first
             return (short)
-                (bytes[1] << 8 |
-                 bytes[0]);
+                (GetByte(index + 1, isSequential, false) << 8 |
+                 GetByte(index    , isSequential, false));
         }
 
         /// <summary>Get a 24-bit unsigned integer from the buffer, returning it as an int.</summary>
@@ -215,22 +237,21 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public int GetInt24(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
-            var bytes = new byte[3];
-            Read(index, bytes, 0, bytes.Length, isSequential, false);
+            ValidateIndex(index, 3, isSequential);
 
             if (IsMotorolaByteOrder)
             {
-                // Motorola - MSB first (big endian)
+                // Motorola - MSB first
                 return
-                    bytes[0] << 16 |
-                    bytes[1] << 8 |
-                    bytes[2];
+                    GetByte(index    , isSequential, false) << 16 |
+                    GetByte(index + 1, isSequential, false) << 8 |
+                    GetByte(index + 2, isSequential, false);
             }
-            // Intel ordering - LSB first (little endian)
+            // Intel ordering - LSB first
             return
-                bytes[2] << 16 |
-                bytes[1] << 8 |
-                bytes[0];
+                GetByte(index + 2, isSequential, false) << 16 |
+                GetByte(index + 1, isSequential, false) << 8 |
+                GetByte(index    , isSequential, false);
         }
 
         /// <summary>Get a 32-bit unsigned integer from the buffer, returning it as a long.</summary>
@@ -242,24 +263,23 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public uint GetUInt32(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
-            var bytes = new byte[4];
-            Read(index, bytes, 0, bytes.Length, isSequential, false);
+            ValidateIndex(index, 4, isSequential);
 
             if (IsMotorolaByteOrder)
             {
-                // Motorola - MSB first (big endian)
+                // Motorola - MSB first
                 return (uint)
-                    (bytes[0] << 24 |
-                     bytes[1] << 16 |
-                     bytes[2] << 8 |
-                     bytes[3]);
+                    (GetByte(index    , isSequential, false) << 24 |
+                     GetByte(index + 1, isSequential, false) << 16 |
+                     GetByte(index + 2, isSequential, false) << 8 |
+                     GetByte(index + 3, isSequential, false));
             }
-            // Intel ordering - LSB first (little endian)
+            // Intel ordering - LSB first
             return (uint)
-                (bytes[3] << 24 |
-                 bytes[2] << 16 |
-                 bytes[1] << 8 |
-                 bytes[0]);
+                (GetByte(index + 3, isSequential, false) << 24 |
+                 GetByte(index + 2, isSequential, false) << 16 |
+                 GetByte(index + 1, isSequential, false) << 8 |
+                 GetByte(index    , isSequential, false));
         }
 
         /// <summary>Returns a signed 32-bit integer from four bytes of data.</summary>
@@ -271,24 +291,23 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public int GetInt32(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
-            var bytes = new byte[4];
-            Read(index, bytes, 0, bytes.Length, isSequential, false);
+            ValidateIndex(index, 4, isSequential);
 
             if (IsMotorolaByteOrder)
             {
-                // Motorola - MSB first (big endian)
+                // Motorola - MSB first
                 return
-                    bytes[0] << 24 |
-                    bytes[1] << 16 |
-                    bytes[2] << 8 |
-                    bytes[3];
+                    GetByte(index    , isSequential, false) << 24 |
+                    GetByte(index + 1, isSequential, false) << 16 |
+                    GetByte(index + 2, isSequential, false) << 8 |
+                    GetByte(index + 3, isSequential, false);
             }
-            // Intel ordering - LSB first (little endian)
+            // Intel ordering - LSB first
             return
-                bytes[3] << 24 |
-                bytes[2] << 16 |
-                bytes[1] << 8 |
-                bytes[0];
+                GetByte(index + 3, isSequential, false) << 24 |
+                GetByte(index + 2, isSequential, false) << 16 |
+                GetByte(index + 1, isSequential, false) << 8 |
+                GetByte(index    , isSequential, false);
         }
 
         /// <summary>Get a signed 64-bit integer from the buffer.</summary>
@@ -300,32 +319,31 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public long GetInt64(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
-            var bytes = new byte[8];
-            Read(index, bytes, 0, bytes.Length, isSequential, false);
+            ValidateIndex(index, 8, isSequential);
 
             if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first
                 return
-                    (long)bytes[0] << 56 |
-                    (long)bytes[1] << 48 |
-                    (long)bytes[2] << 40 |
-                    (long)bytes[3] << 32 |
-                    (long)bytes[4] << 24 |
-                    (long)bytes[5] << 16 |
-                    (long)bytes[6] << 8 |
-                          bytes[7];
+                    (long)GetByte(index    , isSequential, false) << 56 |
+                    (long)GetByte(index + 1, isSequential, false) << 48 |
+                    (long)GetByte(index + 2, isSequential, false) << 40 |
+                    (long)GetByte(index + 3, isSequential, false) << 32 |
+                    (long)GetByte(index + 4, isSequential, false) << 24 |
+                    (long)GetByte(index + 5, isSequential, false) << 16 |
+                    (long)GetByte(index + 6, isSequential, false) << 8 |
+                          GetByte(index + 7, isSequential, false);
             }
             // Intel ordering - LSB first
             return
-                (long)bytes[7] << 56 |
-                (long)bytes[6] << 48 |
-                (long)bytes[5] << 40 |
-                (long)bytes[4] << 32 |
-                (long)bytes[3] << 24 |
-                (long)bytes[2] << 16 |
-                (long)bytes[1] << 8 |
-                      bytes[0];
+                (long)GetByte(index + 7, isSequential, false) << 56 |
+                (long)GetByte(index + 6, isSequential, false) << 48 |
+                (long)GetByte(index + 5, isSequential, false) << 40 |
+                (long)GetByte(index + 4, isSequential, false) << 32 |
+                (long)GetByte(index + 3, isSequential, false) << 24 |
+                (long)GetByte(index + 2, isSequential, false) << 16 |
+                (long)GetByte(index + 1, isSequential, false) << 8 |
+                      GetByte(index    , isSequential, false);
         }
 
         /// <summary>Get an usigned 64-bit integer from the buffer.</summary>
@@ -337,32 +355,31 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public ulong GetUInt64(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
-            var bytes = new byte[8];
-            Read(index, bytes, 0, bytes.Length, isSequential, false);
+            ValidateIndex(index, 8, isSequential);
 
             if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first
                 return
-                    (ulong)bytes[0] << 56 |
-                    (ulong)bytes[1] << 48 |
-                    (ulong)bytes[2] << 40 |
-                    (ulong)bytes[3] << 32 |
-                    (ulong)bytes[4] << 24 |
-                    (ulong)bytes[5] << 16 |
-                    (ulong)bytes[6] << 8 |
-                           bytes[7];
+                    (ulong)GetByte(index    , isSequential, false) << 56 |
+                    (ulong)GetByte(index + 1, isSequential, false) << 48 |
+                    (ulong)GetByte(index + 2, isSequential, false) << 40 |
+                    (ulong)GetByte(index + 3, isSequential, false) << 32 |
+                    (ulong)GetByte(index + 4, isSequential, false) << 24 |
+                    (ulong)GetByte(index + 5, isSequential, false) << 16 |
+                    (ulong)GetByte(index + 6, isSequential, false) << 8 |
+                           GetByte(index + 7, isSequential, false);
             }
             // Intel ordering - LSB first
             return
-                (ulong)bytes[7] << 56 |
-                (ulong)bytes[6] << 48 |
-                (ulong)bytes[5] << 40 |
-                (ulong)bytes[4] << 32 |
-                (ulong)bytes[3] << 24 |
-                (ulong)bytes[2] << 16 |
-                (ulong)bytes[1] << 8 |
-                       bytes[0];
+                (ulong)GetByte(index + 7, isSequential, false) << 56 |
+                (ulong)GetByte(index + 6, isSequential, false) << 48 |
+                (ulong)GetByte(index + 5, isSequential, false) << 40 |
+                (ulong)GetByte(index + 4, isSequential, false) << 32 |
+                (ulong)GetByte(index + 3, isSequential, false) << 24 |
+                (ulong)GetByte(index + 2, isSequential, false) << 16 |
+                (ulong)GetByte(index + 1, isSequential, false) << 8 |
+                       GetByte(index    , isSequential, false);
         }
 
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
@@ -379,20 +396,18 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public float GetS15Fixed16(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
-            var bytes = new byte[4];
-            Read(index, bytes, 0, bytes.Length, isSequential, false);
-
+            ValidateIndex(index, 4, isSequential);
             if (IsMotorolaByteOrder)
             {
-                float res = bytes[0] << 8 | bytes[1];
-                var d = bytes[2] << 8 | bytes[3];
+                float res = GetByte(index, isSequential, false) << 8 | GetByte(index + 1, isSequential, false);
+                var d = GetByte(index + 2, isSequential, false) << 8 | GetByte(index + 3, isSequential, false);
                 return (float)(res + d / 65536.0);
             }
             else
             {
                 // this particular branch is untested
-                var d = bytes[1] << 8 | bytes[0];
-                float res = bytes[3] << 8 | bytes[2];
+                var d = GetByte(index + 1, isSequential, false) << 8 | GetByte(index, isSequential, false);
+                float res = GetByte(index + 3, isSequential, false) << 8 | GetByte(index + 2, isSequential, false);
                 return (float)(res + d / 65536.0);
             }
         }
@@ -414,8 +429,10 @@ namespace MetadataExtractor.IO
         /// Ensures that the buffered bytes extend to cover the specified index. If not, an attempt is made
         /// to read to that point.
         /// </summary>
+        /// <returns>The number of bytes available out of the number of bytes requested</returns>
         /// <remarks>
         /// If the stream ends before the point is reached, a <see cref="BufferBoundsException"/> is raised.
+        /// Requesting more bytes than available raises an exception if <paramref name="allowPartial"/> is false
         /// </remarks>
         /// <param name="index">the index from which the required bytes start</param>
         /// <param name="bytesRequested">the number of bytes which are required</param>
@@ -423,7 +440,7 @@ namespace MetadataExtractor.IO
         /// <param name="allowPartial">flag indicating whether count should be enforced when validating the index</param>
         /// <exception cref="BufferBoundsException">negative index, less than 0 bytes, or too many bytes are requested</exception>
         /// <exception cref="IOException">if the stream ends before the required number of bytes are acquired</exception>
-        public long ValidateIndex(long index, long bytesRequested, bool isSequential, bool allowPartial = false)
+        internal long ValidateIndex(long index, long bytesRequested, bool isSequential, bool allowPartial = false)
         {
             long available = BytesAvailable(index, bytesRequested);
             if (available != bytesRequested && !allowPartial)
