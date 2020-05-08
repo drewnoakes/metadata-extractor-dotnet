@@ -52,10 +52,11 @@ namespace MetadataExtractor.Formats.Riff
         {
             // Processing chunks. Each chunk is 8 bytes header (4 bytes CC code + 4 bytes length of chunk) + data of the chunk
 
-            while (reader.Position < sizeLeft)
+            while (sizeLeft > 0)
             {
                 // Check if end of the file is closer then 8 bytes
-                if (reader.IsCloserToEnd(8)) return;
+                if (sizeLeft < 8)
+                    break;
 
                 string chunkFourCc = reader.GetString(4, Encoding.ASCII);
                 int chunkSize = reader.GetInt32();
@@ -67,7 +68,8 @@ namespace MetadataExtractor.Formats.Riff
                     throw new RiffProcessingException("Invalid RIFF chunk size");
 
                 // Check if end of the file is closer then chunkSize bytes
-                if (reader.IsCloserToEnd(chunkSize)) return;
+                if (sizeLeft < chunkSize)
+                    break;
 
                 if (chunkFourCc == "LIST" || chunkFourCc == "RIFF")
                 {
