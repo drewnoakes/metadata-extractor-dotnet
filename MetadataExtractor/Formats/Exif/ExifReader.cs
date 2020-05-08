@@ -24,7 +24,7 @@ namespace MetadataExtractor.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifReader : IJpegSegmentMetadataReader
     {
-        /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble.</summary>
+        /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble "Exif\0\0".</summary>
         public const string JpegSegmentPreamble = "Exif\x0\x0";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.App1 };
@@ -32,9 +32,17 @@ namespace MetadataExtractor.Formats.Exif
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             return segments
-                .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble)
+                .Where(segment => StartsWithJpegExifPreamble(segment.Bytes))
                 .SelectMany(segment => Extract(new ByteArrayReader(segment.Bytes, baseOffset: JpegSegmentPreamble.Length)))
                 .ToList();
+        }
+
+        /// <summary>
+        /// Indicates whether <paramref name="bytes"/> starts with <see cref="JpegSegmentPreamble"/>.
+        /// </summary>
+        public static bool StartsWithJpegExifPreamble(byte[] bytes)
+        {
+            return bytes.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(bytes, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble;
         }
 
         /// <summary>
