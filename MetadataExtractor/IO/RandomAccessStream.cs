@@ -105,7 +105,7 @@ namespace MetadataExtractor.IO
 
         
         /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
-        /// <param name="index">position within the data buffer to read byte.</param>
+        /// <param name="index">position within the data buffer to start reading.</param>
         /// <param name="buffer">array to write bytes to.</param>
         /// <param name="offset">starting position within <paramref name="buffer"/> to write to.</param>
         /// <param name="count">number of bytes to be written.</param>
@@ -117,7 +117,7 @@ namespace MetadataExtractor.IO
         }
 
         /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
-        /// <param name="index">position within the data buffer to read byte.</param>
+        /// <param name="index">position within the data buffer to start reading.</param>
         /// <param name="buffer">array to write bytes to.</param>
         /// <param name="offset">starting position within <paramref name="buffer"/> to write to.</param>
         /// <param name="count">number of bytes to be written.</param>
@@ -126,7 +126,10 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public int Read(long index, byte[] buffer, int offset, int count, bool allowPartial)
         {
-            count = (int)ValidateRange(index, count, allowPartial);
+            if (allowPartial)
+                count = (int)BytesAvailable(index, count);  // skips validation overhead
+            else
+                count = (int)ValidateRange(index, count);
 
             // This bypasses a lot of checks particularly when the input was a byte[]
             // TODO: good spot to try Span<T>
@@ -422,12 +425,11 @@ namespace MetadataExtractor.IO
         /// </remarks>
         /// <param name="index">the index from which the required bytes start</param>
         /// <param name="bytesRequested">the number of bytes which are required</param>
-        /// <param name="allowPartial">flag indicating whether count should be enforced when validating the index</param>
         /// <exception cref="BufferBoundsException">negative index, less than 0 bytes, or too many bytes are requested</exception>
-        internal long ValidateRange(long index, long bytesRequested, bool allowPartial = false)
+        internal long ValidateRange(long index, long bytesRequested)
         {
             long available = BytesAvailable(index, bytesRequested);
-            if (available != bytesRequested && !allowPartial)
+            if (available != bytesRequested)
             {
                 if (index < 0)
                     throw new BufferBoundsException($"Attempt to read from buffer using a negative index ({index})");
