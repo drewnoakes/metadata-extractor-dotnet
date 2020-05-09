@@ -122,7 +122,7 @@ namespace MetadataExtractor.IO
         /// <param name="offset">starting position within <paramref name="buffer"/> to write to.</param>
         /// <param name="count">number of bytes to be written.</param>
         /// <param name="allowPartial">flag indicating whether count should be enforced when validating the index</param>
-        /// <returns>The requested bytes, or as many as can be retrieved if <paramref name="allowPartial"/> is true</returns>
+        /// <returns>The requested bytes read into <paramref name="buffer"/>, and either the count of bytes read or as many as can be retrieved if <paramref name="allowPartial"/> is true</returns>
         /// <exception cref="BufferBoundsException"/>
         public int Read(long index, byte[] buffer, int offset, int count, bool allowPartial)
         {
@@ -160,19 +160,17 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public byte GetByte(long index)
         {
-            return GetByte(index, true);
+            ValidateIndex(index, 1);
+
+            return GetByteNoValidation(index);
         }
 
-        /// <summary>Returns an unsigned byte at an index in the sequence.</summary>
+        /// <summary>Returns an unsigned byte at an index in the sequence. The index is not validated before reading</summary>
         /// <returns>the 8 bit int value, between 0 and 255</returns>
         /// <param name="index">position within the data buffer to read byte</param>
-        /// <param name="validateIndex">allows for skipping validation if already done by the caller</param>
         /// <exception cref="BufferBoundsException"/>
-        private byte GetByte(long index, bool validateIndex)
+        private byte GetByteNoValidation(long index)
         {
-            if (validateIndex)
-                ValidateIndex(index, 1);
-
             // This bypasses a lot of checks particularly when the input was a byte[]
             if (p_isStreamFinished && p_chunks.Count == 1)
                 return p_chunks[0][index];
@@ -199,13 +197,13 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return (ushort)
-                    (GetByte(index, false) << 8 |
-                     GetByte(index + 1, false));
+                    (GetByteNoValidation(index    ) << 8 |
+                     GetByteNoValidation(index + 1));
             }
             // Intel ordering - LSB first
             return (ushort)
-                (GetByte(index + 1, false) << 8 |
-                 GetByte(index    , false));
+                (GetByteNoValidation(index + 1) << 8 |
+                 GetByteNoValidation(index    ));
         }
 
         /// <summary>Returns a signed 16-bit int calculated from two bytes of data (MSB, LSB).</summary>
@@ -221,13 +219,13 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return (short)
-                    (GetByte(index    , false) << 8 |
-                     GetByte(index + 1, false));
+                    (GetByteNoValidation(index    ) << 8 |
+                     GetByteNoValidation(index + 1));
             }
             // Intel ordering - LSB first
             return (short)
-                (GetByte(index + 1, false) << 8 |
-                 GetByte(index    , false));
+                (GetByteNoValidation(index + 1) << 8 |
+                 GetByteNoValidation(index    ));
         }
 
         /// <summary>Get a 24-bit unsigned integer from the buffer, returning it as an int.</summary>
@@ -243,15 +241,15 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return
-                    GetByte(index    , false) << 16 |
-                    GetByte(index + 1, false) << 8 |
-                    GetByte(index + 2, false);
+                    GetByteNoValidation(index    ) << 16 |
+                    GetByteNoValidation(index + 1) << 8 |
+                    GetByteNoValidation(index + 2);
             }
             // Intel ordering - LSB first
             return
-                GetByte(index + 2, false) << 16 |
-                GetByte(index + 1, false) << 8 |
-                GetByte(index    , false);
+                GetByteNoValidation(index + 2) << 16 |
+                GetByteNoValidation(index + 1) << 8 |
+                GetByteNoValidation(index    );
         }
 
         /// <summary>Get a 32-bit unsigned integer from the buffer, returning it as a long.</summary>
@@ -267,17 +265,17 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return (uint)
-                    (GetByte(index    , false) << 24 |
-                     GetByte(index + 1, false) << 16 |
-                     GetByte(index + 2, false) << 8 |
-                     GetByte(index + 3, false));
+                    (GetByteNoValidation(index    ) << 24 |
+                     GetByteNoValidation(index + 1) << 16 |
+                     GetByteNoValidation(index + 2) << 8 |
+                     GetByteNoValidation(index + 3));
             }
             // Intel ordering - LSB first
             return (uint)
-                (GetByte(index + 3, false) << 24 |
-                 GetByte(index + 2, false) << 16 |
-                 GetByte(index + 1, false) << 8 |
-                 GetByte(index    , false));
+                (GetByteNoValidation(index + 3) << 24 |
+                 GetByteNoValidation(index + 2) << 16 |
+                 GetByteNoValidation(index + 1) << 8 |
+                 GetByteNoValidation(index    ));
         }
 
         /// <summary>Returns a signed 32-bit integer from four bytes of data.</summary>
@@ -293,17 +291,17 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return
-                    GetByte(index    , false) << 24 |
-                    GetByte(index + 1, false) << 16 |
-                    GetByte(index + 2, false) << 8 |
-                    GetByte(index + 3, false);
+                    GetByteNoValidation(index    ) << 24 |
+                    GetByteNoValidation(index + 1) << 16 |
+                    GetByteNoValidation(index + 2) << 8 |
+                    GetByteNoValidation(index + 3);
             }
             // Intel ordering - LSB first
             return
-                GetByte(index + 3, false) << 24 |
-                GetByte(index + 2, false) << 16 |
-                GetByte(index + 1, false) << 8 |
-                GetByte(index    , false);
+                GetByteNoValidation(index + 3) << 24 |
+                GetByteNoValidation(index + 2) << 16 |
+                GetByteNoValidation(index + 1) << 8 |
+                GetByteNoValidation(index    );
         }
 
         /// <summary>Get a signed 64-bit integer from the buffer.</summary>
@@ -319,25 +317,25 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return
-                    (long)GetByte(index    , false) << 56 |
-                    (long)GetByte(index + 1, false) << 48 |
-                    (long)GetByte(index + 2, false) << 40 |
-                    (long)GetByte(index + 3, false) << 32 |
-                    (long)GetByte(index + 4, false) << 24 |
-                    (long)GetByte(index + 5, false) << 16 |
-                    (long)GetByte(index + 6, false) << 8 |
-                          GetByte(index + 7, false);
+                    (long)GetByteNoValidation(index    ) << 56 |
+                    (long)GetByteNoValidation(index + 1) << 48 |
+                    (long)GetByteNoValidation(index + 2) << 40 |
+                    (long)GetByteNoValidation(index + 3) << 32 |
+                    (long)GetByteNoValidation(index + 4) << 24 |
+                    (long)GetByteNoValidation(index + 5) << 16 |
+                    (long)GetByteNoValidation(index + 6) << 8 |
+                          GetByteNoValidation(index + 7);
             }
             // Intel ordering - LSB first
             return
-                (long)GetByte(index + 7, false) << 56 |
-                (long)GetByte(index + 6, false) << 48 |
-                (long)GetByte(index + 5, false) << 40 |
-                (long)GetByte(index + 4, false) << 32 |
-                (long)GetByte(index + 3, false) << 24 |
-                (long)GetByte(index + 2, false) << 16 |
-                (long)GetByte(index + 1, false) << 8 |
-                      GetByte(index    , false);
+                (long)GetByteNoValidation(index + 7) << 56 |
+                (long)GetByteNoValidation(index + 6) << 48 |
+                (long)GetByteNoValidation(index + 5) << 40 |
+                (long)GetByteNoValidation(index + 4) << 32 |
+                (long)GetByteNoValidation(index + 3) << 24 |
+                (long)GetByteNoValidation(index + 2) << 16 |
+                (long)GetByteNoValidation(index + 1) << 8 |
+                      GetByteNoValidation(index    );
         }
 
         /// <summary>Get an usigned 64-bit integer from the buffer.</summary>
@@ -353,25 +351,25 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return
-                    (ulong)GetByte(index    , false) << 56 |
-                    (ulong)GetByte(index + 1, false) << 48 |
-                    (ulong)GetByte(index + 2, false) << 40 |
-                    (ulong)GetByte(index + 3, false) << 32 |
-                    (ulong)GetByte(index + 4, false) << 24 |
-                    (ulong)GetByte(index + 5, false) << 16 |
-                    (ulong)GetByte(index + 6, false) << 8 |
-                           GetByte(index + 7, false);
+                    (ulong)GetByteNoValidation(index    ) << 56 |
+                    (ulong)GetByteNoValidation(index + 1) << 48 |
+                    (ulong)GetByteNoValidation(index + 2) << 40 |
+                    (ulong)GetByteNoValidation(index + 3) << 32 |
+                    (ulong)GetByteNoValidation(index + 4) << 24 |
+                    (ulong)GetByteNoValidation(index + 5) << 16 |
+                    (ulong)GetByteNoValidation(index + 6) << 8 |
+                           GetByteNoValidation(index + 7);
             }
             // Intel ordering - LSB first
             return
-                (ulong)GetByte(index + 7, false) << 56 |
-                (ulong)GetByte(index + 6, false) << 48 |
-                (ulong)GetByte(index + 5, false) << 40 |
-                (ulong)GetByte(index + 4, false) << 32 |
-                (ulong)GetByte(index + 3, false) << 24 |
-                (ulong)GetByte(index + 2, false) << 16 |
-                (ulong)GetByte(index + 1, false) << 8 |
-                       GetByte(index    , false);
+                (ulong)GetByteNoValidation(index + 7) << 56 |
+                (ulong)GetByteNoValidation(index + 6) << 48 |
+                (ulong)GetByteNoValidation(index + 5) << 40 |
+                (ulong)GetByteNoValidation(index + 4) << 32 |
+                (ulong)GetByteNoValidation(index + 3) << 24 |
+                (ulong)GetByteNoValidation(index + 2) << 16 |
+                (ulong)GetByteNoValidation(index + 1) << 8 |
+                       GetByteNoValidation(index    );
         }
 
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
@@ -389,15 +387,15 @@ namespace MetadataExtractor.IO
             ValidateIndex(index, 4);
             if (isMotorolaByteOrder)
             {
-                float res = GetByte(index, false) << 8 | GetByte(index + 1, false);
-                var d = GetByte(index + 2, false) << 8 | GetByte(index + 3, false);
+                float res = GetByteNoValidation(index) << 8 | GetByteNoValidation(index + 1);
+                var d = GetByteNoValidation(index + 2) << 8 | GetByteNoValidation(index + 3);
                 return (float)(res + d / 65536.0);
             }
             else
             {
                 // this particular branch is untested
-                var d = GetByte(index + 1, false) << 8 | GetByte(index, false);
-                float res = GetByte(index + 3, false) << 8 | GetByte(index + 2, false);
+                var d = GetByteNoValidation(index + 1) << 8 | GetByteNoValidation(index);
+                float res = GetByteNoValidation(index + 3) << 8 | GetByteNoValidation(index + 2);
                 return (float)(res + d / 65536.0);
             }
         }
