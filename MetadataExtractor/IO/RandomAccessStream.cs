@@ -184,7 +184,7 @@ namespace MetadataExtractor.IO
             if (p_chunks.ContainsKey(chunkIndex))
                 return p_chunks[chunkIndex][innerIndex];
             else
-                return unchecked((byte)-1);
+                throw new IOException("End of data reached.");
         }
 
         /// <summary>Returns an unsigned 16-bit int calculated from the next two bytes of the sequence.</summary>
