@@ -49,8 +49,8 @@ namespace MetadataExtractor.Tests.IO
         {
             var reader = CreateReader(new byte[1]);
             reader.GetByte();
-            var ex = Assert.Throws<IOException>(() => reader.GetByte());
-            Assert.Equal("End of data reached.", ex.Message);
+            var ex = Assert.Throws<BufferBoundsException>(() => reader.GetByte());
+            Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 1, requested count: 1, max index: 0)", ex.Message);
         }
 
         [Fact]
@@ -93,8 +93,8 @@ namespace MetadataExtractor.Tests.IO
         public void GetUInt16_OutOfBounds()
         {
             var reader = CreateReader(new byte[1]);
-            var ex = Assert.Throws<IOException>(() => reader.GetUInt16());
-            Assert.Equal("End of data reached.", ex.Message);
+            var ex = Assert.Throws<BufferBoundsException>(() => reader.GetUInt16());
+            Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 2, max index: 0)", ex.Message);
         }
 
         [Fact]
@@ -140,8 +140,8 @@ namespace MetadataExtractor.Tests.IO
         public void GetInt32_OutOfBounds()
         {
             var reader = CreateReader(new byte[3]);
-            var ex = Assert.Throws<IOException>(() => reader.GetInt32());
-            Assert.Equal("End of data reached.", ex.Message);
+            var ex = Assert.Throws<BufferBoundsException>(() => reader.GetInt32());
+            Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 4, max index: 2)", ex.Message);
         }
 
         [Fact]
@@ -163,8 +163,8 @@ namespace MetadataExtractor.Tests.IO
         public void GetInt64_OutOfBounds()
         {
             var reader = CreateReader(new byte[7]);
-            var ex = Assert.Throws<IOException>(() => reader.GetInt64());
-            Assert.Equal("End of data reached.", ex.Message);
+            var ex = Assert.Throws<BufferBoundsException>(() => reader.GetInt64());
+            Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 8, max index: 6)", ex.Message);
         }
 
         [Fact]
@@ -186,8 +186,8 @@ namespace MetadataExtractor.Tests.IO
         public void GetUInt64_OutOfBounds()
         {
             var reader = CreateReader(new byte[7]);
-            var ex = Assert.Throws<IOException>(() => reader.GetUInt64());
-            Assert.Equal("End of data reached.", ex.Message);
+            var ex = Assert.Throws<BufferBoundsException>(() => reader.GetUInt64());
+            Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 8, max index: 6)", ex.Message);
         }
 
         [Fact]
@@ -253,8 +253,8 @@ namespace MetadataExtractor.Tests.IO
         public void OverflowBoundsCalculation()
         {
             var reader = CreateReader(new byte[10]);
-            var ex = Assert.Throws<IOException>(() => reader.GetBytes(15));
-            Assert.Equal("End of data reached.", ex.Message);
+            var ex = Assert.Throws<BufferBoundsException>(() => reader.GetBytes(15));
+            Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 15, max index: 9)", ex.Message);
         }
 
         [Fact]
@@ -266,7 +266,7 @@ namespace MetadataExtractor.Tests.IO
             reader.GetBytes(25);
             reader.GetBytes(25);
 
-            Assert.Throws<IOException>(() => CreateReader(new byte[50]).GetBytes(51));
+            Assert.Throws<BufferBoundsException>(() => CreateReader(new byte[50]).GetBytes(51));
         }
 
         [Fact]
@@ -280,7 +280,7 @@ namespace MetadataExtractor.Tests.IO
 
             reader = CreateReader(new byte[1]);
             reader.GetByte();
-            Assert.Throws<IOException>(() => reader.GetByte());
+            Assert.Throws<BufferBoundsException>(() => reader.GetByte());
         }
 
         [Fact]
@@ -294,18 +294,18 @@ namespace MetadataExtractor.Tests.IO
 
             reader = CreateReader(new byte[1]);
             reader.Skip(1);
-            Assert.Throws<IOException>(() => reader.Skip(1, true));
+            Assert.Throws<BufferBoundsException>(() => reader.Skip(1));
         }
 
         [Fact]
         public void TrySkipEof()
         {
-            Assert.True(CreateReader(new byte[1]).TrySkip(1, true));
+            Assert.True(CreateReader(new byte[1]).TrySkip(1));
 
             var reader = CreateReader(new byte[2]);
-            Assert.True(reader.TrySkip(1, true));
-            Assert.True(reader.TrySkip(1, true));
-            Assert.False(reader.TrySkip(1, true));
+            Assert.True(reader.TrySkip(1));
+            Assert.True(reader.TrySkip(1));
+            Assert.False(reader.TrySkip(1));
         }
     }
 }

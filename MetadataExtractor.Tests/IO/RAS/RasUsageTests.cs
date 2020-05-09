@@ -29,10 +29,10 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(bytes.Length, ras.Length);
 
             // bytes two thru five in motorola byte order
-            Assert.Equal(33752069, ras.GetInt32(2, true, false));
+            Assert.Equal(33752069, ras.GetInt32(2, true));
 
             // bytes two thru five in non-motorola byte order
-            Assert.Equal(84148994, ras.GetInt32(2, false, false));
+            Assert.Equal(84148994, ras.GetInt32(2, false));
         }
 
         [Fact]
@@ -47,10 +47,10 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(ms.Length, ras.Length);
 
             // first four bytes in motorola byte order
-            Assert.Equal(66051, ras.GetInt32(0, true, false));
+            Assert.Equal(66051, ras.GetInt32(0, true));
 
             // first four bytes in non-motorola byte order
-            Assert.Equal(50462976, ras.GetInt32(0, false, false));
+            Assert.Equal(50462976, ras.GetInt32(0, false));
         }
 
         [Fact]
