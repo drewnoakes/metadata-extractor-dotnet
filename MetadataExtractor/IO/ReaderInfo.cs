@@ -209,15 +209,14 @@ namespace MetadataExtractor.IO
         /// <param name="index">The index from which the bytes begin in the underlying source</param>
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>
-        /// <exception cref="BufferBoundsException">if the requested bytes extend beyond the end of the underlying data source</exception>
-        /// <exception cref="BufferBoundsException">if the byte is unable to be read</exception>
+        /// <exception cref="BufferBoundsException">if the requested bytes extend beyond the end of the underlying data source or if the byte is unable to be read</exception>
         public byte[] GetBytes(long index, int count)
         {
             // validate the index now to avoid creating a byte array that could cause a heap overflow
             bool isSeq = (index == SequentialFlag);
             long readat = isSeq ? GlobalPosition : (StartPosition + index);
 
-            long available = p_ras.ValidateIndex(readat, count, false);
+            long available = p_ras.ValidateRange(readat, count);
             if (available == 0)
                 return new byte[0];
 

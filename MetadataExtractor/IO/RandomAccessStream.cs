@@ -126,7 +126,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public int Read(long index, byte[] buffer, int offset, int count, bool allowPartial)
         {
-            count = (int)ValidateIndex(index, count, allowPartial);
+            count = (int)ValidateRange(index, count, allowPartial);
 
             // This bypasses a lot of checks particularly when the input was a byte[]
             // TODO: good spot to try Span<T>
@@ -160,7 +160,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public byte GetByte(long index)
         {
-            ValidateIndex(index, 1);
+            ValidateRange(index, 1);
 
             return GetByteNoValidation(index);
         }
@@ -191,7 +191,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public ushort GetUInt16(long index, bool isMotorolaByteOrder)
         {
-            ValidateIndex(index, 2);
+            ValidateRange(index, 2);
 
             if (isMotorolaByteOrder)
             {
@@ -213,7 +213,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public short GetInt16(long index, bool isMotorolaByteOrder)
         {
-            ValidateIndex(index, 2);
+            ValidateRange(index, 2);
 
             if (isMotorolaByteOrder)
             {
@@ -235,7 +235,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public int GetInt24(long index, bool isMotorolaByteOrder)
         {
-            ValidateIndex(index, 3);
+            ValidateRange(index, 3);
 
             if (isMotorolaByteOrder)
             {
@@ -259,7 +259,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public uint GetUInt32(long index, bool isMotorolaByteOrder)
         {
-            ValidateIndex(index, 4);
+            ValidateRange(index, 4);
 
             if (isMotorolaByteOrder)
             {
@@ -285,7 +285,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public int GetInt32(long index, bool isMotorolaByteOrder)
         {
-            ValidateIndex(index, 4);
+            ValidateRange(index, 4);
 
             if (isMotorolaByteOrder)
             {
@@ -311,7 +311,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public long GetInt64(long index, bool isMotorolaByteOrder)
         {
-            ValidateIndex(index, 8);
+            ValidateRange(index, 8);
 
             if (isMotorolaByteOrder)
             {
@@ -345,7 +345,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public ulong GetUInt64(long index, bool isMotorolaByteOrder)
         {
-            ValidateIndex(index, 8);
+            ValidateRange(index, 8);
 
             if (isMotorolaByteOrder)
             {
@@ -384,7 +384,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public float GetS15Fixed16(long index, bool isMotorolaByteOrder)
         {
-            ValidateIndex(index, 4);
+            ValidateRange(index, 4);
             if (isMotorolaByteOrder)
             {
                 float res = GetByteNoValidation(index) << 8 | GetByteNoValidation(index + 1);
@@ -408,7 +408,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException"/>
         public void Seek(long index)
         {
-            ValidateIndex((index == 0) ? 0 : (index - 1), 1);
+            ValidateRange((index == 0) ? 0 : (index - 1), 1);
         }
 
         /// <summary>
@@ -424,7 +424,7 @@ namespace MetadataExtractor.IO
         /// <param name="bytesRequested">the number of bytes which are required</param>
         /// <param name="allowPartial">flag indicating whether count should be enforced when validating the index</param>
         /// <exception cref="BufferBoundsException">negative index, less than 0 bytes, or too many bytes are requested</exception>
-        internal long ValidateIndex(long index, long bytesRequested, bool allowPartial = false)
+        internal long ValidateRange(long index, long bytesRequested, bool allowPartial = false)
         {
             long available = BytesAvailable(index, bytesRequested);
             if (available != bytesRequested && !allowPartial)
