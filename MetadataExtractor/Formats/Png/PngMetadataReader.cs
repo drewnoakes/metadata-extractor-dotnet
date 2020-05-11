@@ -69,8 +69,7 @@ namespace MetadataExtractor.Formats.Png
 
             foreach (var chunk in chunks)
             {
-                if (directories == null)
-                    directories = new List<Directory>();
+                directories ??= new List<Directory>();
 
                 try
                 {

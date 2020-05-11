@@ -27,8 +27,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
             foreach (var segment in segments)
             {
-                if (directory == null)
-                    directory = new HuffmanTablesDirectory();
+                directory ??= new HuffmanTablesDirectory();
 
                 Extract(new SequentialByteArrayReader(segment.Bytes), directory);
             }

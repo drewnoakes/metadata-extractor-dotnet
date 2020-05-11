@@ -68,8 +68,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="IOException"/>
         public static DirectoryList Process(Stream stream, ICollection<IJpegSegmentMetadataReader>? readers = null)
         {
-            if (readers == null)
-                readers = _allReaders;
+            readers ??= _allReaders;
 
             // Build the union of segment types desired by all readers
             var segmentTypes = new HashSet<JpegSegmentType>(readers.SelectMany(reader => reader.SegmentTypes));
