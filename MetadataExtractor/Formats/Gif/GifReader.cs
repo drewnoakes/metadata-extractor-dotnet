@@ -208,7 +208,7 @@ namespace MetadataExtractor.Formats.Gif
                 }
                 case 0xf9:
                 {
-                    directory = ReadControlBlock(reader, blockSizeBytes);
+                    directory = ReadControlBlock(reader);
                     break;
                 }
                 case 0xfe:
@@ -305,11 +305,8 @@ namespace MetadataExtractor.Formats.Gif
             }
         }
 
-        private static GifControlDirectory ReadControlBlock(SequentialReader reader, byte blockSizeBytes)
+        private static GifControlDirectory ReadControlBlock(SequentialReader reader)
         {
-            if (blockSizeBytes < 4)
-                blockSizeBytes = 4;
-
             var directory = new GifControlDirectory();
 
             byte packedFields = reader.GetByte();
