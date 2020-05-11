@@ -1,1 +1,2 @@
 ﻿#nullable enable
+static MetadataExtractor.Formats.Exif.ExifReader.StartsWithJpegExifPreamble(byte[]! bytes) -> bool
