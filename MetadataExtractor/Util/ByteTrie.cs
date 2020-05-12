@@ -98,8 +98,8 @@ namespace MetadataExtractor.Util
         /// </summary>
         public void SetDefaultValue(T defaultValue) => _root.SetValue(defaultValue);
 
-        IEnumerator<T> IEnumerable<T>.GetEnumerator() => throw new NotImplementedException();
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => throw new NotSupportedException();
 
-        IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
+        IEnumerator IEnumerable.GetEnumerator() => throw new NotSupportedException();
     }
 }
