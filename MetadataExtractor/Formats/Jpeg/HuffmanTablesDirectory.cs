@@ -271,7 +271,7 @@ namespace MetadataExtractor.Formats.Jpeg
             {
                 0 => HuffmanTableClass.DC,
                 1 => HuffmanTableClass.AC,
-                _ => HuffmanTableClass.UNKNOWN,
+                _ => HuffmanTableClass.Unknown,
             };
         }
     }
@@ -280,6 +280,6 @@ namespace MetadataExtractor.Formats.Jpeg
     {
         DC,
         AC,
-        UNKNOWN
+        Unknown
     }
 }

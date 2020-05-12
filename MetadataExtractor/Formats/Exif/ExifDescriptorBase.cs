@@ -488,7 +488,7 @@ namespace MetadataExtractor.Formats.Exif
         /// </remarks>
         public string? GetCfaPatternDescription()
         {
-            return FormatCFAPattern(DecodeCFAPattern(TagCfaPattern));
+            return FormatCfaPattern(DecodeCfaPattern(TagCfaPattern));
         }
 
         /// <summary>
@@ -518,13 +518,13 @@ namespace MetadataExtractor.Formats.Exif
 
                 Array.Copy(values, 0, intpattern, 2, values.Length);
 
-                return FormatCFAPattern(intpattern);
+                return FormatCfaPattern(intpattern);
             }
 
             return $"Unknown Pattern ({base.GetDescription(TagCfaPattern2)})";
         }
 
-        private static string? FormatCFAPattern(int[]? pattern)
+        private static string? FormatCfaPattern(int[]? pattern)
         {
             if (pattern == null)
                 return null;
@@ -570,7 +570,7 @@ namespace MetadataExtractor.Formats.Exif
         /// - Two short, being the grid width and height of the repeated pattern.
         /// - Next, for every pixel in that pattern, an identification code.
         /// </remarks>
-        private int[]? DecodeCFAPattern(int tagType)
+        private int[]? DecodeCfaPattern(int tagType)
         {
             int[] ret;
 

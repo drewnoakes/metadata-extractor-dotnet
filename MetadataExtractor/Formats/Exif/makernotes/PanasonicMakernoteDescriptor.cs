@@ -97,7 +97,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 PanasonicMakernoteDirectory.TagPitchAngle => GetPitchAngleDescription(),
                 PanasonicMakernoteDirectory.TagSweepPanoramaDirection => GetSweepPanoramaDirectionDescription(),
                 PanasonicMakernoteDirectory.TagTimerRecording => GetTimerRecordingDescription(),
-                PanasonicMakernoteDirectory.TagHDR => GetHDRDescription(),
+                PanasonicMakernoteDirectory.TagHdr => GetHdrDescription(),
                 PanasonicMakernoteDirectory.TagShutterType => GetShutterTypeDescription(),
                 PanasonicMakernoteDirectory.TagTouchAe => GetTouchAeDescription(),
 
@@ -358,9 +358,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     "Off", "Time Lapse", "Stop-motion Animation");
         }
 
-        public string? GetHDRDescription()
+        public string? GetHdrDescription()
         {
-            if (!Directory.TryGetUInt16(PanasonicMakernoteDirectory.TagHDR, out ushort value))
+            if (!Directory.TryGetUInt16(PanasonicMakernoteDirectory.TagHdr, out ushort value))
                 return null;
 
             return value switch

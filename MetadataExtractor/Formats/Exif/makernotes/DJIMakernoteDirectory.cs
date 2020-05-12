@@ -9,7 +9,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <remarks>Using information from https://metacpan.org/pod/distribution/Image-ExifTool/lib/Image/ExifTool/TagNames.pod#DJI-Tags</remarks>
     /// <author>Charlie Matherne, adapted from Drew Noakes https://drewnoakes.com</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public class DJIMakernoteDirectory : Directory
+    public class DjiMakernoteDirectory : Directory
     {
         // Retrieved from
         // Tag ID   Tag Name                             Writable
@@ -49,9 +49,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagCameraRoll, "Camera Roll" }
         };
 
-        public DJIMakernoteDirectory()
+        public DjiMakernoteDirectory()
         {
-            SetDescriptor(new DJIMakernoteDescriptor(this));
+            SetDescriptor(new DjiMakernoteDescriptor(this));
         }
 
         public override string Name => "DJI Makernote";

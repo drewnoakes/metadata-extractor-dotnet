@@ -1,2 +1,42 @@
 ﻿#nullable enable
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDescriptor
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDescriptor.DjiMakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory! directory) -> void
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.DjiMakernoteDirectory() -> void
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftPitch() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftRoll() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftSpeedX() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftSpeedY() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftSpeedZ() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftYaw() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetCameraPitch() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetCameraRoll() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetCameraYaw() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.GetHdrDescription() -> string?
+MetadataExtractor.Formats.Jpeg.HuffmanTableClass.Unknown = 2 -> MetadataExtractor.Formats.Jpeg.HuffmanTableClass
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagAircraftPitch = 6 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagAircraftRoll = 8 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagAircraftYaw = 7 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagCameraPitch = 9 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagCameraRoll = 11 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagCameraYaw = 10 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagMake = 1 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagSpeedX = 3 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagSpeedY = 4 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagSpeedZ = 5 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.TagHdr = 158 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagMakernoteId = 10 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagMakernotePublicId = 18 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagBitrate = 3 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagCopyright = 7 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagEmphasis = 6 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagFrameSize = 8 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagFrequency = 4 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagId = 1 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagLayer = 2 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagMode = 5 -> int
+override MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.Name.get -> string!
+override MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
 static MetadataExtractor.Formats.Exif.ExifReader.StartsWithJpegExifPreamble(byte[]! bytes) -> bool
+static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernoteId -> uint
+static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernotePublicId -> uint

@@ -7,25 +7,25 @@ namespace MetadataExtractor.Formats.Mpeg
 {
     public sealed class Mp3Directory : Directory
     {
-        public const int TAG_ID = 1;
-        public const int TAG_LAYER = 2;
-        public const int TAG_BITRATE = 3;
-        public const int TAG_FREQUENCY = 4;
-        public const int TAG_MODE = 5;
-        public const int TAG_EMPHASIS = 6;
-        public const int TAG_COPYRIGHT = 7;
-        public const int TAG_FRAME_SIZE = 8;
+        public const int TagId = 1;
+        public const int TagLayer = 2;
+        public const int TagBitrate = 3;
+        public const int TagFrequency = 4;
+        public const int TagMode = 5;
+        public const int TagEmphasis = 6;
+        public const int TagCopyright = 7;
+        public const int TagFrameSize = 8;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
-            { TAG_ID, "ID" },
-            { TAG_LAYER, "Layer" },
-            { TAG_BITRATE, "Bitrate" },
-            { TAG_FREQUENCY, "Frequency" },
-            { TAG_MODE, "Mode" },
-            { TAG_EMPHASIS, "Emphasis Method" },
-            { TAG_COPYRIGHT, "Copyright" },
-            { TAG_FRAME_SIZE, "Frame Size" }
+            { TagId, "ID" },
+            { TagLayer, "Layer" },
+            { TagBitrate, "Bitrate" },
+            { TagFrequency, "Frequency" },
+            { TagMode, "Mode" },
+            { TagEmphasis, "Emphasis Method" },
+            { TagCopyright, "Copyright" },
+            { TagFrameSize, "Frame Size" }
         };
 
         public Mp3Directory()

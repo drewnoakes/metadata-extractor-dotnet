@@ -23,11 +23,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 case ReconyxUltraFireMakernoteDirectory.TagLabel:
                     return Directory.GetString(tagType);
-                case ReconyxUltraFireMakernoteDirectory.TagMakernoteID:
+                case ReconyxUltraFireMakernoteDirectory.TagMakernoteId:
                     return "0x" + Directory.GetUInt32(tagType).ToString("x8");
                 case ReconyxUltraFireMakernoteDirectory.TagMakernoteSize:
                     return Directory.GetUInt32(tagType).ToString();
-                case ReconyxUltraFireMakernoteDirectory.TagMakernotePublicID:
+                case ReconyxUltraFireMakernoteDirectory.TagMakernotePublicId:
                     return "0x" + Directory.GetUInt32(tagType).ToString("x8");
                 case ReconyxUltraFireMakernoteDirectory.TagMakernotePublicSize:
                     return Directory.GetUInt16(tagType).ToString();

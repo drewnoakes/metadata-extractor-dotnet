@@ -14,17 +14,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <summary>
         /// Version number used for identifying makernotes from Reconyx UltraFire cameras.
         /// </summary>
-        public static readonly uint MakernoteID = 0x00010000;
+        public static readonly uint MakernoteId = 0x00010000;
 
         /// <summary>
         /// Version number used for identifying the public portion of makernotes from Reconyx UltraFire cameras.
         /// </summary>
-        public static readonly uint MakernotePublicID = 0x07f10001;
+        public static readonly uint MakernotePublicId = 0x07f10001;
 
         public const int TagLabel = 0;
-        public const int TagMakernoteID = 10;
+        public const int TagMakernoteId = 10;
         public const int TagMakernoteSize = 14;
-        public const int TagMakernotePublicID = 18;
+        public const int TagMakernotePublicId = 18;
         public const int TagMakernotePublicSize = 22;
         public const int TagCameraVersion = 24;
         public const int TagUibVersion = 31;
@@ -46,9 +46,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
              { TagLabel, "Makernote Label" },
-             { TagMakernoteID, "Makernote ID" },
+             { TagMakernoteId, "Makernote ID" },
              { TagMakernoteSize, "Makernote Size" },
-             { TagMakernotePublicID, "Makernote Public ID" },
+             { TagMakernotePublicId, "Makernote Public ID" },
              { TagMakernotePublicSize, "Makernote Public Size" },
              { TagCameraVersion, "Camera Version" },
              { TagUibVersion, "Uib Version" },

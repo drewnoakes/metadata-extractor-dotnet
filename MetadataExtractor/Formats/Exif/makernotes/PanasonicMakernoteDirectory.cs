@@ -384,7 +384,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagTimerRecording = 0x0096;
 
         public const int TagInternalNDFilter = 0x009d;
-        public const int TagHDR = 0x009e;
+        public const int TagHdr = 0x009e;
         public const int TagShutterType = 0x009f;
 
         public const int TagClearRetouchValue = 0x00a3;
@@ -542,7 +542,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagTimerRecording, "Timer Recording" },
 
             { TagInternalNDFilter, "Internal ND Filter" },
-            { TagHDR, "HDR" },
+            { TagHdr, "HDR" },
             { TagShutterType, "Shutter Type" },
             { TagClearRetouchValue, "Clear Retouch Value" },
             { TagTouchAe, "Touch AE" },

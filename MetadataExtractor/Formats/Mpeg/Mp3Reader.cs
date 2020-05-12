@@ -22,11 +22,11 @@ namespace MetadataExtractor.Formats.Mpeg
                 case 0:
                     throw new ImageProcessingException("MPEG-2.5 not supported.");
                 case 2:
-                    directory.Set(Mp3Directory.TAG_ID, "MPEG-2");
+                    directory.Set(Mp3Directory.TagId, "MPEG-2");
                     id = 2;
                     break;
                 case 3:
-                    directory.Set(Mp3Directory.TAG_ID, "MPEG-1");
+                    directory.Set(Mp3Directory.TagId, "MPEG-1");
                     id = 1;
                     break;
             }
@@ -36,16 +36,16 @@ namespace MetadataExtractor.Formats.Mpeg
             switch (layer)
             {
                 case 0:
-                    directory.Set(Mp3Directory.TAG_LAYER, "Not defined");
+                    directory.Set(Mp3Directory.TagLayer, "Not defined");
                     break;
                 case 1:
-                    directory.Set(Mp3Directory.TAG_LAYER, "Layer III");
+                    directory.Set(Mp3Directory.TagLayer, "Layer III");
                     break;
                 case 2:
-                    directory.Set(Mp3Directory.TAG_LAYER, "Layer II");
+                    directory.Set(Mp3Directory.TagLayer, "Layer II");
                     break;
                 case 3:
-                    directory.Set(Mp3Directory.TAG_LAYER, "Layer I");
+                    directory.Set(Mp3Directory.TagLayer, "Layer I");
                     break;
             }
 
@@ -55,7 +55,7 @@ namespace MetadataExtractor.Formats.Mpeg
             // Bitrate: depends on ID and Layer
             int bitrate = (header & 0x0000F000) >> 12;
             if (bitrate != 0 && bitrate != 15)
-                directory.Set(Mp3Directory.TAG_BITRATE, SetBitrate(bitrate, layer, id));
+                directory.Set(Mp3Directory.TagBitrate, SetBitrate(bitrate, layer, id));
 
             // Frequency: depends on ID
             int frequency = (header & 0x00000C00) >> 10;
@@ -66,12 +66,12 @@ namespace MetadataExtractor.Formats.Mpeg
             };
             if (id == 1)
             {
-                directory.Set(Mp3Directory.TAG_FREQUENCY, frequencyMapping[0, frequency]);
+                directory.Set(Mp3Directory.TagFrequency, frequencyMapping[0, frequency]);
                 frequency = frequencyMapping[0, frequency];
             }
             else if (id == 2)
             {
-                directory.Set(Mp3Directory.TAG_FREQUENCY, frequencyMapping[1, frequency]);
+                directory.Set(Mp3Directory.TagFrequency, frequencyMapping[1, frequency]);
                 frequency = frequencyMapping[1, frequency];
             }
 
@@ -83,16 +83,16 @@ namespace MetadataExtractor.Formats.Mpeg
             switch (mode)
             {
                 case 0:
-                    directory.Set(Mp3Directory.TAG_MODE, "Stereo");
+                    directory.Set(Mp3Directory.TagMode, "Stereo");
                     break;
                 case 1:
-                    directory.Set(Mp3Directory.TAG_MODE, "Joint stereo");
+                    directory.Set(Mp3Directory.TagMode, "Joint stereo");
                     break;
                 case 2:
-                    directory.Set(Mp3Directory.TAG_MODE, "Dual channel");
+                    directory.Set(Mp3Directory.TagMode, "Dual channel");
                     break;
                 case 3:
-                    directory.Set(Mp3Directory.TAG_MODE, "Mono");
+                    directory.Set(Mp3Directory.TagMode, "Mono");
                     break;
             }
 
@@ -101,10 +101,10 @@ namespace MetadataExtractor.Formats.Mpeg
             switch (copyright)
             {
                 case 0:
-                    directory.Set(Mp3Directory.TAG_COPYRIGHT, "False");
+                    directory.Set(Mp3Directory.TagCopyright, "False");
                     break;
                 case 1:
-                    directory.Set(Mp3Directory.TAG_COPYRIGHT, "True");
+                    directory.Set(Mp3Directory.TagCopyright, "True");
                     break;
             }
 
@@ -112,18 +112,18 @@ namespace MetadataExtractor.Formats.Mpeg
             switch (emphasis)
             {
                 case 0:
-                    directory.Set(Mp3Directory.TAG_EMPHASIS, "none");
+                    directory.Set(Mp3Directory.TagEmphasis, "none");
                     break;
                 case 1:
-                    directory.Set(Mp3Directory.TAG_EMPHASIS, "50/15ms");
+                    directory.Set(Mp3Directory.TagEmphasis, "50/15ms");
                     break;
                 case 3:
-                    directory.Set(Mp3Directory.TAG_EMPHASIS, "CCITT j.17");
+                    directory.Set(Mp3Directory.TagEmphasis, "CCITT j.17");
                     break;
             }
 
             int frameSize = SetBitrate(bitrate, layer, id) * 1000 * 144 / frequency;
-            directory.Set(Mp3Directory.TAG_FRAME_SIZE, frameSize + " bytes");
+            directory.Set(Mp3Directory.TagFrameSize, frameSize + " bytes");
 
             return directory;
         }

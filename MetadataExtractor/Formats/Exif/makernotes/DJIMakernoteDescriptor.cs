@@ -5,14 +5,14 @@ using System.Diagnostics.CodeAnalysis;
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a <see cref="DJIMakernoteDirectory"/>.
+    /// Provides human-readable string representations of tag values stored in a <see cref="DjiMakernoteDirectory"/>.
     /// </summary>
     /// <remarks>Using information from https://metacpan.org/pod/distribution/Image-ExifTool/lib/Image/ExifTool/TagNames.pod#DJI-Tags</remarks>
     /// <author>Charlie Matherne, adapted from Drew Noakes https://drewnoakes.com</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public class DJIMakernoteDescriptor : TagDescriptor<DJIMakernoteDirectory>
+    public class DjiMakernoteDescriptor : TagDescriptor<DjiMakernoteDirectory>
     {
-        public DJIMakernoteDescriptor(DJIMakernoteDirectory directory)
+        public DjiMakernoteDescriptor(DjiMakernoteDirectory directory)
             : base(directory)
         {
         }

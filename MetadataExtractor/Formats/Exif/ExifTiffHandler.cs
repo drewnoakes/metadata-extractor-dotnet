@@ -597,7 +597,7 @@ namespace MetadataExtractor.Formats.Exif
             }
             else if (string.Equals("DJI", cameraMake, StringComparison.Ordinal))
             {
-                PushDirectory(new DJIMakernoteDirectory());
+                PushDirectory(new DjiMakernoteDirectory());
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset);
             }
             else
@@ -846,19 +846,19 @@ namespace MetadataExtractor.Formats.Exif
         private static void ProcessReconyxUltraFireMakernote(ReconyxUltraFireMakernoteDirectory directory, int makernoteOffset, IndexedReader reader)
         {
             directory.Set(ReconyxUltraFireMakernoteDirectory.TagLabel, reader.GetString(makernoteOffset, 9, Encoding.UTF8));
-            uint makernoteID = ByteConvert.FromBigEndianToNative(reader.GetUInt32(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagMakernoteID));
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernoteID, makernoteID);
-            if (makernoteID != ReconyxUltraFireMakernoteDirectory.MakernoteID)
+            uint makernoteId = ByteConvert.FromBigEndianToNative(reader.GetUInt32(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagMakernoteId));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernoteId, makernoteId);
+            if (makernoteId != ReconyxUltraFireMakernoteDirectory.MakernoteId)
             {
-                directory.AddError("Error processing Reconyx UltraFire makernote data: unknown Makernote ID 0x" + makernoteID.ToString("x8"));
+                directory.AddError("Error processing Reconyx UltraFire makernote data: unknown Makernote ID 0x" + makernoteId.ToString("x8"));
                 return;
             }
             directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernoteSize, ByteConvert.FromBigEndianToNative(reader.GetUInt32(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagMakernoteSize)));
-            uint makernotePublicID = ByteConvert.FromBigEndianToNative(reader.GetUInt32(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagMakernotePublicID));
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernotePublicID, makernotePublicID);
-            if (makernotePublicID != ReconyxUltraFireMakernoteDirectory.MakernotePublicID)
+            uint makernotePublicId = ByteConvert.FromBigEndianToNative(reader.GetUInt32(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagMakernotePublicId));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernotePublicId, makernotePublicId);
+            if (makernotePublicId != ReconyxUltraFireMakernoteDirectory.MakernotePublicId)
             {
-                directory.AddError("Error processing Reconyx UltraFire makernote data: unknown Makernote Public ID 0x" + makernotePublicID.ToString("x8"));
+                directory.AddError("Error processing Reconyx UltraFire makernote data: unknown Makernote Public ID 0x" + makernotePublicId.ToString("x8"));
                 return;
             }
             directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernotePublicSize, ByteConvert.FromBigEndianToNative(reader.GetUInt16(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagMakernotePublicSize)));
