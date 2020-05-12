@@ -1,6 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Diagnostics.CodeAnalysis;
+using static MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -23,26 +24,26 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             return tagType switch
             {
-                SamsungType2MakernoteDirectory.TagMakerNoteVersion => GetMakernoteVersionDescription(),
-                SamsungType2MakernoteDirectory.TagDeviceType => GetDeviceTypeDescription(),
-                SamsungType2MakernoteDirectory.TagSamsungModelId => GetSamsungModelIdDescription(),
+                TagMakerNoteVersion => GetMakernoteVersionDescription(),
+                TagDeviceType => GetDeviceTypeDescription(),
+                TagSamsungModelId => GetSamsungModelIdDescription(),
 
-                SamsungType2MakernoteDirectory.TagCameraTemperature => GetCameraTemperatureDescription(),
+                TagCameraTemperature => GetCameraTemperatureDescription(),
 
-                SamsungType2MakernoteDirectory.TagFaceDetect => GetFaceDetectDescription(),
-                SamsungType2MakernoteDirectory.TagFaceRecognition => GetFaceRecognitionDescription(),
+                TagFaceDetect => GetFaceDetectDescription(),
+                TagFaceRecognition => GetFaceRecognitionDescription(),
                 _ => base.GetDescription(tagType),
             };
         }
 
         public string? GetMakernoteVersionDescription()
         {
-            return GetVersionBytesDescription(SamsungType2MakernoteDirectory.TagMakerNoteVersion, 2);
+            return GetVersionBytesDescription(TagMakerNoteVersion, 2);
         }
 
         public string? GetDeviceTypeDescription()
         {
-            if (!Directory.TryGetUInt32(SamsungType2MakernoteDirectory.TagDeviceType, out uint value))
+            if (!Directory.TryGetUInt32(TagDeviceType, out uint value))
                 return null;
 
             return value switch
@@ -58,7 +59,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetSamsungModelIdDescription()
         {
-            if (!Directory.TryGetUInt32(SamsungType2MakernoteDirectory.TagSamsungModelId, out uint value))
+            if (!Directory.TryGetUInt32(TagSamsungModelId, out uint value))
                 return null;
 
             return value switch
@@ -111,18 +112,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         private string? GetCameraTemperatureDescription()
         {
-            return GetFormattedInt(SamsungType2MakernoteDirectory.TagCameraTemperature, "{0} C");
+            return GetFormattedInt(TagCameraTemperature, "{0} C");
         }
 
         public string? GetFaceDetectDescription()
         {
-            return GetIndexedDescription(SamsungType2MakernoteDirectory.TagFaceDetect,
+            return GetIndexedDescription(TagFaceDetect,
                 "Off", "On");
         }
 
         public string? GetFaceRecognitionDescription()
         {
-            return GetIndexedDescription(SamsungType2MakernoteDirectory.TagFaceRecognition,
+            return GetIndexedDescription(TagFaceRecognition,
                 "Off", "On");
         }
 
