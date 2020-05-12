@@ -12,16 +12,32 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     public class AppleMakernoteDirectory : Directory
     {
 #pragma warning disable format
-        public const int TagRunTime      = 0x0003;
-        public const int TagHdrImageType = 0x000a;
-        public const int TagBurstUuid    = 0x000b;
+        public const int TagRunTime            = 0x0003;
+        /// <summary>
+        /// XYZ coordinates of the acceleration vector in units of g.
+        /// As viewed from the front of the phone,
+        /// positive X is toward the left side,
+        /// positive Y is toward the bottom,
+        /// positive Z points into the face of the phone
+        /// </summary>
+        public const int TagAccelerationVector = 0x0008;
+        public const int TagHdrImageType       = 0x000a;
+        /// <summary>
+        /// Unique ID for all images in a burst.
+        /// </summary>
+        public const int TagBurstUuid          = 0x000b;
+        public const int TagContentIdentifier  = 0x0011;
+        public const int TagImageUniqueId      = 0x0015;
 #pragma warning restore format
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagRunTime, "Run Time" },
+            { TagAccelerationVector, "Acceleration Vector" },
             { TagHdrImageType, "HDR Image Type" },
-            { TagBurstUuid, "Burst UUID" }
+            { TagBurstUuid, "Burst UUID" },
+            { TagContentIdentifier, "Burst UUID" },
+            { TagImageUniqueId, "Burst UUID" }
         };
 
         public AppleMakernoteDirectory()

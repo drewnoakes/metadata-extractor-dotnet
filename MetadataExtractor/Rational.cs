@@ -160,6 +160,11 @@ namespace MetadataExtractor
         public Rational Reciprocal => new Rational(Denominator, Numerator);
 
         /// <summary>
+        /// Gets the absolute value of this object as a new <see cref="Rational"/>.
+        /// </summary>
+        public Rational Absolute => new Rational(Math.Abs(Numerator), Math.Abs(Denominator));
+
+        /// <summary>
         /// Checks if this <see cref="Rational"/> number is expressible as an integer, either positive or negative.
         /// </summary>
         public bool IsInteger => Denominator == 1 || (Denominator != 0 && Numerator % Denominator == 0) || (Denominator == 0 && Numerator == 0);
@@ -168,6 +173,12 @@ namespace MetadataExtractor
         /// True if either <see cref="Denominator"/> or <see cref="Numerator"/> are zero.
         /// </summary>
         public bool IsZero => Denominator == 0 || Numerator == 0;
+
+        /// <summary>
+        /// True if <see cref="IsZero"/> is false and <see cref="Numerator"/> and <see cref="Denominator"/> are
+        /// either both positive or both negative.
+        /// </summary>
+        public bool IsPositive => !IsZero && (Numerator > 0 == Denominator > 0);
 
         #region Formatting
 

@@ -1,6 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Diagnostics.CodeAnalysis;
+using static MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -19,22 +20,27 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case AppleMakernoteDirectory.TagHdrImageType:
-                {
-                    return GetHdrImageTypeDescription();
-                }
-                default:
-                {
-                    return base.GetDescription(tagType);
-                }
-            }
+                TagHdrImageType => GetHdrImageTypeDescription(),
+                TagAccelerationVector => GetAccelerationVectorDescription(),
+                _ => base.GetDescription(tagType)
+            };
         }
 
-        private string? GetHdrImageTypeDescription()
+        public string? GetHdrImageTypeDescription()
         {
-            return GetIndexedDescription(AppleMakernoteDirectory.TagHdrImageType, 3, "HDR Image", "Original Image");
+            return GetIndexedDescription(TagHdrImageType, 3, "HDR Image", "Original Image");
+        }
+
+        public string? GetAccelerationVectorDescription()
+        {
+            var values = Directory.GetRationalArray(TagAccelerationVector);
+            if (values == null || values.Length != 3)
+                return null;
+            return $"{values[0].Absolute.ToDouble():N2}g {(values[0].IsPositive ? "left" : "right")}, " +
+                   $"{values[1].Absolute.ToDouble():N2}g {(values[1].IsPositive ? "down" : "up")}, " +
+                   $"{values[2].Absolute.ToDouble():N2}g {(values[2].IsPositive ? "forward" : "backward")}";
         }
     }
 }
