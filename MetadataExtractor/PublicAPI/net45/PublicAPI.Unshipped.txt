@@ -13,6 +13,13 @@ MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetCameraPitch()
 MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetCameraRoll() -> float?
 MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetCameraYaw() -> float?
 MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.GetHdrDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetCameraTemperatureDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetColorSpaceDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetLensTypeDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetRawDataByteOrderDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetRawDataCfaPatternDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetSmartRangeDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetWhiteBalanceSetupDescription() -> string?
 MetadataExtractor.Formats.Jpeg.HuffmanTableClass.Unknown = 2 -> MetadataExtractor.Formats.Jpeg.HuffmanTableClass
 const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagAircraftPitch = 6 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagAircraftRoll = 8 -> int
@@ -27,6 +34,27 @@ const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagSpeedZ 
 const MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.TagHdr = 158 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagMakernoteId = 10 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagMakernotePublicId = 18 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagColorSpace = 40977 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagEncryptionKey = 40992 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagExposureCompensation = 40979 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagExposureTime = 40984 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagFNumber = 40985 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagFocalLengthIn35MMFormat = 40986 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagInternalLensSerialNumber = 40965 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagIso = 40980 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagLensFirmware = 40964 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagLensType = 40963 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagLocalLocationName = 48 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagOrientationInfo = 17 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagPictureWizard = 33 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagPreviewIfd = 53 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagRawDataByteOrder = 64 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagRawDataCfaPattern = 80 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagSensorAreas = 40976 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagSerialNumber = 40962 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagSmartAlbumColor = 32 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagSmartRange = 40978 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagWhiteBalanceSetup = 65 -> int
 const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagBitrate = 3 -> int
 const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagCopyright = 7 -> int
 const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagEmphasis = 6 -> int

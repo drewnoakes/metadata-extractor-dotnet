@@ -28,10 +28,21 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 TagDeviceType => GetDeviceTypeDescription(),
                 TagSamsungModelId => GetSamsungModelIdDescription(),
 
+                TagRawDataByteOrder => GetRawDataByteOrderDescription(),
+                TagWhiteBalanceSetup => GetWhiteBalanceSetupDescription(),
+
                 TagCameraTemperature => GetCameraTemperatureDescription(),
+
+                TagRawDataCfaPattern => GetRawDataCfaPatternDescription(),
 
                 TagFaceDetect => GetFaceDetectDescription(),
                 TagFaceRecognition => GetFaceRecognitionDescription(),
+
+                TagLensType => GetLensTypeDescription(),
+
+                TagColorSpace => GetColorSpaceDescription(),
+                TagSmartRange => GetSmartRangeDescription(),
+
                 _ => base.GetDescription(tagType),
             };
         }
@@ -110,22 +121,81 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             };
         }
 
-        private string? GetCameraTemperatureDescription()
+        public string? GetRawDataByteOrderDescription()
+        {
+            return GetIndexedDescription(TagRawDataByteOrder, "Little-endian (Intel)", "Big-endian (Motorola)");
+        }
+
+        public string? GetWhiteBalanceSetupDescription()
+        {
+            return GetIndexedDescription(TagWhiteBalanceSetup, "Auto", "Manual");
+        }
+
+        public string? GetCameraTemperatureDescription()
         {
             return GetFormattedInt(TagCameraTemperature, "{0} C");
         }
 
+
+        public string? GetRawDataCfaPatternDescription()
+        {
+            if (!Directory.TryGetInt32(TagRawDataCfaPattern, out int value))
+                return null;
+
+            return value switch
+            {
+                0 => "Unchanged",
+                1 => "Swap",
+                65535 => "Roll",
+                _ => $"Unknown ({value})"
+            };
+        }
+
         public string? GetFaceDetectDescription()
         {
-            return GetIndexedDescription(TagFaceDetect,
-                "Off", "On");
+            return GetIndexedDescription(TagFaceDetect, "Off", "On");
         }
 
         public string? GetFaceRecognitionDescription()
         {
-            return GetIndexedDescription(TagFaceRecognition,
-                "Off", "On");
+            return GetIndexedDescription(TagFaceRecognition, "Off", "On");
         }
 
+        public string? GetLensTypeDescription()
+        {
+            return GetIndexedDescription(TagLensType,
+                "Built-in or Manual Lens",
+                "Samsung NX 30mm F2 Pancake",
+                "Samsung NX 18-55mm F3.5-5.6 OIS",
+                "Samsung NX 50-200mm F4-5.6 ED OIS",
+                "Samsung NX 20-50mm F3.5-5.6 ED",
+                "Samsung NX 20mm F2.8 Pancake",
+                "Samsung NX 18-200mm F3.5-6.3 ED OIS",
+                "Samsung NX 60mm F2.8 Macro ED OIS SSA",
+                "Samsung NX 16mm F2.4 Pancake",
+                "Samsung NX 85mm F1.4 ED SSA",
+                "Samsung NX 45mm F1.8",
+                "Samsung NX 45mm F1.8 2D/3D",
+                "Samsung NX 12-24mm F4-5.6 ED",
+                "Samsung NX 16-50mm F2-2.8 S ED OIS",
+                "Samsung NX 10mm F3.5 Fisheye",
+                "Samsung NX 16-50mm F3.5-5.6 Power Zoom ED OIS",
+                null,
+                null,
+                null,
+                null,
+                "Samsung NX 50-150mm F2.8 S ED OIS",
+                "Samsung NX 300mm F2.8 ED OIS");
+        }
+
+        public string? GetColorSpaceDescription()
+        {
+            return GetIndexedDescription(TagColorSpace, "sRGB", "Adobe RGB");
+        }
+
+        public string? GetSmartRangeDescription()
+        {
+            return GetIndexedDescription(TagSmartRange, "Off", "On");
+        }
     }
 }
