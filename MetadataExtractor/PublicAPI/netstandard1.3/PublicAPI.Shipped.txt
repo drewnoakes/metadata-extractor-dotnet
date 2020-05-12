@@ -316,19 +316,6 @@ MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDescriptor.GetWhite
 MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDescriptor.GetWhiteBalanceBiasDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDirectory
 MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDirectory.CasioType2MakernoteDirectory() -> void
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDescriptor
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDescriptor.DJIMakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory! directory) -> void
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.DJIMakernoteDirectory() -> void
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.GetAircraftPitch() -> float?
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.GetAircraftRoll() -> float?
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.GetAircraftSpeedX() -> float?
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.GetAircraftSpeedY() -> float?
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.GetAircraftSpeedZ() -> float?
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.GetAircraftYaw() -> float?
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.GetCameraPitch() -> float?
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.GetCameraRoll() -> float?
-MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.GetCameraYaw() -> float?
 MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDescriptor
 MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDescriptor.FujifilmMakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDirectory! directory) -> void
 MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDescriptor.GetAutoBracketingDescription() -> string?
@@ -663,7 +650,6 @@ MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.GetFlashC
 MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.GetFlashFiredDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.GetFlashWarningDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.GetFocusModeDescription() -> string?
-MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.GetHDRDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.GetImageStabilizationDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.GetIntelligentDRangeDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.GetIntelligentExposureDescription() -> string?
@@ -985,7 +971,6 @@ MetadataExtractor.Formats.Jpeg.HuffmanTable.ValueBytes.get -> byte[]!
 MetadataExtractor.Formats.Jpeg.HuffmanTableClass
 MetadataExtractor.Formats.Jpeg.HuffmanTableClass.AC = 1 -> MetadataExtractor.Formats.Jpeg.HuffmanTableClass
 MetadataExtractor.Formats.Jpeg.HuffmanTableClass.DC = 0 -> MetadataExtractor.Formats.Jpeg.HuffmanTableClass
-MetadataExtractor.Formats.Jpeg.HuffmanTableClass.UNKNOWN = 2 -> MetadataExtractor.Formats.Jpeg.HuffmanTableClass
 MetadataExtractor.Formats.Jpeg.HuffmanTablesDescriptor
 MetadataExtractor.Formats.Jpeg.HuffmanTablesDescriptor.GetNumberOfTablesDescription() -> string?
 MetadataExtractor.Formats.Jpeg.HuffmanTablesDescriptor.HuffmanTablesDescriptor(MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory! directory) -> void
@@ -2109,16 +2094,6 @@ const MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDirectory.Tag
 const MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDirectory.TagWhiteBalance1 = 25 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDirectory.TagWhiteBalance2 = 8210 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDirectory.TagWhiteBalanceBias = 8209 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.TagAircraftPitch = 6 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.TagAircraftRoll = 8 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.TagAircraftYaw = 7 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.TagCameraPitch = 9 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.TagCameraRoll = 11 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.TagCameraYaw = 10 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.TagMake = 1 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.TagSpeedX = 3 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.TagSpeedY = 4 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.TagSpeedZ = 5 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDirectory.TagAutoBracketing = 4352 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDirectory.TagAutoDynamicRange = 5131 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDirectory.TagAutoExposureWarning = 4866 -> int
@@ -2783,7 +2758,6 @@ const MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.TagF
 const MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.TagFlashFired = 32775 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.TagFlashWarning = 98 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.TagFocusMode = 7 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.TagHDR = 158 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.TagImageStabilization = 26 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.TagIntelligentDRange = 121 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.TagIntelligentExposure = 93 -> int
@@ -2909,8 +2883,6 @@ const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirecto
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagEventType = 52 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagFlash = 72 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagLabel = 0 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagMakernoteID = 10 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagMakernotePublicID = 18 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagMakernotePublicSize = 22 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagMakernoteSize = 14 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagMoonPhase = 67 -> int
@@ -3365,14 +3337,6 @@ const MetadataExtractor.Formats.Jpeg.JpegDirectory.TagImageHeight = 1 -> int
 const MetadataExtractor.Formats.Jpeg.JpegDirectory.TagImageWidth = 3 -> int
 const MetadataExtractor.Formats.Jpeg.JpegDirectory.TagNumberOfComponents = 5 -> int
 const MetadataExtractor.Formats.Jpeg.JpegDnlDirectory.TagImageHeight = 1 -> int
-const MetadataExtractor.Formats.Mpeg.Mp3Directory.TAG_BITRATE = 3 -> int
-const MetadataExtractor.Formats.Mpeg.Mp3Directory.TAG_COPYRIGHT = 7 -> int
-const MetadataExtractor.Formats.Mpeg.Mp3Directory.TAG_EMPHASIS = 6 -> int
-const MetadataExtractor.Formats.Mpeg.Mp3Directory.TAG_FRAME_SIZE = 8 -> int
-const MetadataExtractor.Formats.Mpeg.Mp3Directory.TAG_FREQUENCY = 4 -> int
-const MetadataExtractor.Formats.Mpeg.Mp3Directory.TAG_ID = 1 -> int
-const MetadataExtractor.Formats.Mpeg.Mp3Directory.TAG_LAYER = 2 -> int
-const MetadataExtractor.Formats.Mpeg.Mp3Directory.TAG_MODE = 5 -> int
 const MetadataExtractor.Formats.Netpbm.NetpbmHeaderDirectory.TagFormatType = 1 -> int
 const MetadataExtractor.Formats.Netpbm.NetpbmHeaderDirectory.TagHeight = 3 -> int
 const MetadataExtractor.Formats.Netpbm.NetpbmHeaderDirectory.TagMaximumValue = 4 -> int
@@ -3672,8 +3636,6 @@ override MetadataExtractor.Formats.Exif.Makernotes.CasioType1MakernoteDirectory.
 override MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
-override MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.DJIMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
@@ -4004,8 +3966,6 @@ static MetadataExtractor.Util.PhotographicConversions.ApertureToFStop(double ape
 static MetadataExtractor.Util.PhotographicConversions.ShutterSpeedToExposureTime(double shutterSpeed) -> double
 static readonly MetadataExtractor.Formats.Exif.Makernotes.OlympusMakernoteDirectory.OlympusCameraTypes -> System.Collections.Generic.Dictionary<string!, string!>!
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFireMakernoteDirectory.MakernoteVersion -> ushort
-static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernoteID -> uint
-static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernotePublicID -> uint
 static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcLengths -> byte[]!
 static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcValues -> byte[]!
 static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcLengths -> byte[]!
@@ -4085,3 +4045,72 @@ virtual MetadataExtractor.TagDescriptor<T>.GetDescription(int tagType) -> string
 ~MetadataExtractor.Formats.Bmp.BmpHeaderDirectory.RenderingIntent.LcsGmBusiness = 1 -> MetadataExtractor.Formats.Bmp.BmpHeaderDirectory.RenderingIntent
 ~MetadataExtractor.Formats.Bmp.BmpHeaderDirectory.RenderingIntent.LcsGmGraphics = 2 -> MetadataExtractor.Formats.Bmp.BmpHeaderDirectory.RenderingIntent
 ~MetadataExtractor.Formats.Bmp.BmpHeaderDirectory.RenderingIntent.LcsGmImages = 4 -> MetadataExtractor.Formats.Bmp.BmpHeaderDirectory.RenderingIntent
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDescriptor
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDescriptor.DjiMakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory! directory) -> void
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.DjiMakernoteDirectory() -> void
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftPitch() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftRoll() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftSpeedX() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftSpeedY() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftSpeedZ() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetAircraftYaw() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetCameraPitch() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetCameraRoll() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.GetCameraYaw() -> float?
+MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.GetHdrDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetCameraTemperatureDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetColorSpaceDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetLensTypeDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetRawDataByteOrderDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetRawDataCfaPatternDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetSmartRangeDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetWhiteBalanceSetupDescription() -> string?
+MetadataExtractor.Formats.Jpeg.HuffmanTableClass.Unknown = 2 -> MetadataExtractor.Formats.Jpeg.HuffmanTableClass
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagAircraftPitch = 6 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagAircraftRoll = 8 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagAircraftYaw = 7 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagCameraPitch = 9 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagCameraRoll = 11 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagCameraYaw = 10 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagMake = 1 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagSpeedX = 3 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagSpeedY = 4 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TagSpeedZ = 5 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.TagHdr = 158 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagMakernoteId = 10 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TagMakernotePublicId = 18 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagColorSpace = 40977 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagEncryptionKey = 40992 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagExposureCompensation = 40979 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagExposureTime = 40984 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagFNumber = 40985 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagFocalLengthIn35MMFormat = 40986 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagInternalLensSerialNumber = 40965 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagIso = 40980 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagLensFirmware = 40964 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagLensType = 40963 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagLocalLocationName = 48 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagOrientationInfo = 17 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagPictureWizard = 33 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagPreviewIfd = 53 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagRawDataByteOrder = 64 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagRawDataCfaPattern = 80 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagSensorAreas = 40976 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagSerialNumber = 40962 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagSmartAlbumColor = 32 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagSmartRange = 40978 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TagWhiteBalanceSetup = 65 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagBitrate = 3 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagCopyright = 7 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagEmphasis = 6 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagFrameSize = 8 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagFrequency = 4 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagId = 1 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagLayer = 2 -> int
+const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagMode = 5 -> int
+override MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.Name.get -> string!
+override MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+static MetadataExtractor.Formats.Exif.ExifReader.StartsWithJpegExifPreamble(byte[]! bytes) -> bool
+static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernoteId -> uint
+static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernotePublicId -> uint
