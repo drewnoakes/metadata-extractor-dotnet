@@ -17,6 +17,7 @@ namespace MetadataExtractor.Formats.Avi
         public const int TagWidth = 6;
         public const int TagHeight = 7;
         public const int TagStreams = 8;
+        public const int TagDateTimeOriginal = 320;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
@@ -27,7 +28,8 @@ namespace MetadataExtractor.Formats.Avi
             {TagAudioCodec, "Audio Codec"},
             {TagWidth, "Width"},
             {TagHeight, "Height"},
-            {TagStreams, "Stream Count"}
+            {TagStreams, "Stream Count"},
+            {TagDateTimeOriginal, "Date/Time Original"}
         };
 
         public AviDirectory()
@@ -35,7 +37,7 @@ namespace MetadataExtractor.Formats.Avi
             SetDescriptor(new AviDescriptor(this));
         }
 
-        public override string Name => "Avi";
+        public override string Name => "AVI";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

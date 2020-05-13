@@ -44,41 +44,31 @@ namespace MetadataExtractor.Formats.Riff
             if (!handler.ShouldAcceptRiffIdentifier(identifier))
                 return;
 
-            ProcessChunks(reader, sizeLeft, handler);
+            var maxPosition = reader.Position + sizeLeft;
+            ProcessChunks(reader, maxPosition, handler);
         }
 
         // PROCESS CHUNKS
-        public void ProcessChunks(SequentialReader reader, int sizeLeft, IRiffHandler handler)
+        private static void ProcessChunks(SequentialReader reader, long maxPosition, IRiffHandler handler)
         {
             // Processing chunks. Each chunk is 8 bytes header (4 bytes CC code + 4 bytes length of chunk) + data of the chunk
 
-            while (sizeLeft > 0)
+            while (reader.Position < maxPosition - 8)
             {
-                // Check if end of the file is closer then 8 bytes
-                if (sizeLeft < 8)
-                    break;
-
                 string chunkFourCc = reader.GetString(4, Encoding.ASCII);
                 int chunkSize = reader.GetInt32();
 
-                sizeLeft -= 8;
-
                 // NOTE we fail a negative chunk size here (greater than 0x7FFFFFFF) as we cannot allocate arrays larger than this
-                if (chunkSize < 0 || sizeLeft < chunkSize)
+                if (chunkSize < 0 || chunkSize + reader.Position > maxPosition)
                     throw new RiffProcessingException("Invalid RIFF chunk size");
-
-                // Check if end of the file is closer then chunkSize bytes
-                if (sizeLeft < chunkSize)
-                    break;
 
                 if (chunkFourCc == "LIST" || chunkFourCc == "RIFF")
                 {
                     string listName = reader.GetString(4, Encoding.ASCII);
                     if (handler.ShouldAcceptList(listName))
-                        ProcessChunks(reader, sizeLeft - 4, handler);
+                        ProcessChunks(reader, reader.Position + chunkSize - 4, handler);
                     else
-                        reader.Skip(sizeLeft - 4);
-                    sizeLeft -= chunkSize;
+                        reader.Skip(chunkSize - 4);
                 }
                 else
                 {
@@ -92,13 +82,10 @@ namespace MetadataExtractor.Formats.Riff
                         reader.Skip(chunkSize);
                     }
 
-                    sizeLeft -= chunkSize;
-
                     // Skip any padding byte added to keep chunks aligned to even numbers of bytes
                     if (chunkSize % 2 == 1)
                     {
                         reader.Skip(1);
-                        sizeLeft--;
                     }
                 }
             }

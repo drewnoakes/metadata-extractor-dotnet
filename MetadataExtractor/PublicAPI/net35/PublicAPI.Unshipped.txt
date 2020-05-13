@@ -3,6 +3,7 @@ MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAccelerati
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetHdrImageTypeDescription() -> string?
 MetadataExtractor.Rational.Absolute.get -> MetadataExtractor.Rational
 MetadataExtractor.Rational.IsPositive.get -> bool
+const MetadataExtractor.Formats.Avi.AviDirectory.TagDateTimeOriginal = 320 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAccelerationVector = 8 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagContentIdentifier = 17 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagImageUniqueId = 21 -> int

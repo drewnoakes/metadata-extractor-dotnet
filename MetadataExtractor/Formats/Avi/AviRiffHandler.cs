@@ -27,6 +27,7 @@ namespace MetadataExtractor.Formats.Avi
     public sealed class AviRiffHandler : IRiffHandler
     {
         private readonly List<Directory> _directories;
+        private AviDirectory? _directory;
 
         public AviRiffHandler(List<Directory> directories)
         {
@@ -35,12 +36,21 @@ namespace MetadataExtractor.Formats.Avi
 
         public bool ShouldAcceptRiffIdentifier(string identifier) => identifier == "AVI ";
 
-        public bool ShouldAcceptChunk(string fourCc) => fourCc == "strh" ||
-                                                        fourCc == "avih";
+        public bool ShouldAcceptChunk(string fourCc) => fourCc switch
+        {
+            "strh" => true,
+            "avih" => true,
+            "IDIT" => true,
+            _ => false
+        };
 
-        public bool ShouldAcceptList(string fourCc) => fourCc == "hdrl" ||
-                                                       fourCc == "strl" ||
-                                                       fourCc == "AVI ";
+        public bool ShouldAcceptList(string fourCc) => fourCc switch
+        {
+            "hdrl" => true,
+            "strl" => true,
+            "AVI " => true,
+            _ => false
+        };
 
         public void ProcessChunk(string fourCc, byte[] payload)
         {
@@ -48,38 +58,26 @@ namespace MetadataExtractor.Formats.Avi
             {
                 case "strh":
                 {
-                    string? error = null;
                     var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
-                    string? fccType = null;
-                    string? fccHandler = null;
-                    float dwScale = 0;
-                    float dwRate = 0;
-                    int dwLength = 0;
+
+                    var directory = GetOrCreateAviDirectory();
                     try
                     {
-                        fccType = reader.GetString(0, 4, Encoding.ASCII);
-                        fccHandler = reader.GetString(4, 4, Encoding.ASCII);
+                        var fccType = reader.GetString(0, 4, Encoding.ASCII);
+                        var fccHandler = reader.GetString(4, 4, Encoding.ASCII);
                         //int dwFlags = reader.GetInt32(8);
                         //int wPriority = reader.GetInt16(12);
                         //int wLanguage = reader.GetInt16(14);
                         //int dwInitialFrames = reader.GetInt32(16);
-                        dwScale = reader.GetFloat32(20);
-                        dwRate = reader.GetFloat32(24);
+                        var dwScale = reader.GetFloat32(20);
+                        var dwRate = reader.GetFloat32(24);
                         //int dwStart = reader.GetInt32(28);
-                        dwLength = reader.GetInt32(32);
+                        var dwLength = reader.GetInt32(32);
                         //int dwSuggestedBufferSize = reader.GetInt32(36);
                         //int dwQuality = reader.GetInt32(40);
                         //int dwSampleSize = reader.GetInt32(44);
                         //byte[] rcFrame = reader.GetBytes(48, 2);
-                    }
-                    catch (IOException e)
-                    {
-                        error = "Exception reading AviRiff chunk 'strh' : " + e.Message;
-                    }
 
-                    var directory = new AviDirectory();
-                    if (error == null)
-                    {
                         if (fccType == "vids")
                         {
                             directory.Set(AviDirectory.TagFramesPerSecond, (dwRate / dwScale));
@@ -93,24 +91,23 @@ namespace MetadataExtractor.Formats.Avi
                             directory.Set(AviDirectory.TagDuration, time);
                             directory.Set(AviDirectory.TagVideoCodec, fccHandler!);
                         }
-                        else
-                        if (fccType == "auds")
+                        else if (fccType == "auds")
                         {
                             directory.Set(AviDirectory.TagSamplesPerSecond, (dwRate / dwScale));
                         }
                     }
-                    else
-                        directory.AddError(error);
-                    _directories.Add(directory);
+                    catch (IOException e)
+                    {
+                        directory.AddError("Exception reading AviRiff chunk 'strh' : " + e.Message);
+                    }
+
                     break;
                 }
                 case "avih":
                 {
-                    string? error = null;
+                    var directory = GetOrCreateAviDirectory();
+
                     var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
-                    int dwStreams = 0;
-                    int dwWidth = 0;
-                    int dwHeight = 0;
                     try
                     {
                         //int dwMicroSecPerFrame = reader.GetInt32(0);
@@ -119,30 +116,47 @@ namespace MetadataExtractor.Formats.Avi
                         //int dwFlags = reader.GetInt32(12);
                         //int dwTotalFrames = reader.GetInt32(16);
                         //int dwInitialFrames = reader.GetInt32(20);
-                        dwStreams = reader.GetInt32(24);
+                        var dwStreams = reader.GetInt32(24);
                         //int dwSuggestedBufferSize = reader.GetInt32(28);
-                        dwWidth = reader.GetInt32(32);
-                        dwHeight = reader.GetInt32(36);
+                        var dwWidth = reader.GetInt32(32);
+                        var dwHeight = reader.GetInt32(36);
                         //byte[] dwReserved = reader.GetBytes(40, 4);
-                    }
-                    catch (IOException e)
-                    {
-                        error = "Exception reading AviRiff chunk 'avih' : " + e.Message;
-                    }
 
-                    var directory = new AviDirectory();
-                    if (error == null)
-                    {
                         directory.Set(AviDirectory.TagWidth, dwWidth);
                         directory.Set(AviDirectory.TagHeight, dwHeight);
                         directory.Set(AviDirectory.TagStreams, dwStreams);
                     }
-                    else
-                        directory.AddError(error);
-                    _directories.Add(directory);
+                    catch (IOException e)
+                    {
+                        directory.AddError("Exception reading AviRiff chunk 'avih' : " + e.Message);
+                    }
+
+                    break;
+                }
+                case "IDIT":
+                {
+                    var reader = new ByteArrayReader(payload);
+                    var str = reader.GetString(0, payload.Length, Encoding.ASCII);
+                    if (str.Length == 26 && str.EndsWith("\n\0"))
+                    {
+                        // ?0A 00? "New Line" + padded to nearest WORD boundary
+                        str = str.Substring(0, 24);
+                    }
+                    GetOrCreateAviDirectory().Set(AviDirectory.TagDateTimeOriginal, str);
                     break;
                 }
             }
+        }
+
+        private AviDirectory GetOrCreateAviDirectory()
+        {
+            if (_directory == null)
+            {
+                _directory = new AviDirectory();
+                _directories.Add(_directory);
+            }
+
+            return _directory;
         }
     }
 }

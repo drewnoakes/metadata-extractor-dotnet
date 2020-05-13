@@ -1276,7 +1276,6 @@ MetadataExtractor.Formats.Riff.RiffProcessingException.RiffProcessingException(S
 MetadataExtractor.Formats.Riff.RiffProcessingException.RiffProcessingException(string? message) -> void
 MetadataExtractor.Formats.Riff.RiffProcessingException.RiffProcessingException(string? message, System.Exception? innerException) -> void
 MetadataExtractor.Formats.Riff.RiffReader
-MetadataExtractor.Formats.Riff.RiffReader.ProcessChunks(MetadataExtractor.IO.SequentialReader! reader, int sizeLeft, MetadataExtractor.Formats.Riff.IRiffHandler! handler) -> void
 MetadataExtractor.Formats.Riff.RiffReader.ProcessRiff(MetadataExtractor.IO.SequentialReader! reader, MetadataExtractor.Formats.Riff.IRiffHandler! handler) -> void
 MetadataExtractor.Formats.Riff.RiffReader.RiffReader() -> void
 MetadataExtractor.Formats.Tga.TgaDeveloperDirectory
