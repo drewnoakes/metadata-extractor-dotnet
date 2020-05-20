@@ -36,8 +36,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagAccelerationVector, "Acceleration Vector" },
             { TagHdrImageType, "HDR Image Type" },
             { TagBurstUuid, "Burst UUID" },
-            { TagContentIdentifier, "Burst UUID" },
-            { TagImageUniqueId, "Burst UUID" }
+            { TagContentIdentifier, "Content Identifier" },
+            { TagImageUniqueId, "Image Unique ID" },
         };
 
         public AppleMakernoteDirectory()
