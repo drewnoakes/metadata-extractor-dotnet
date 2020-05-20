@@ -28,6 +28,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagBurstUuid          = 0x000b;
         public const int TagContentIdentifier  = 0x0011;
         public const int TagImageUniqueId      = 0x0015;
+        public const int TagLivePhotoId        = 0x0017;
 #pragma warning restore format
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
@@ -38,6 +39,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagBurstUuid, "Burst UUID" },
             { TagContentIdentifier, "Content Identifier" },
             { TagImageUniqueId, "Image Unique ID" },
+            { TagLivePhotoId, "Live Photo ID" }
         };
 
         public AppleMakernoteDirectory()
