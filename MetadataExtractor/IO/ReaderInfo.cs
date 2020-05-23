@@ -15,10 +15,10 @@ namespace MetadataExtractor.IO
         // this flag is compared to index inputs and indicates sequential access
         private const int SequentialFlag = int.MinValue;
 
-        private RandomAccessStream p_ras; // = null;
+        private IRandomAccessStream p_ras; // = null;
         private long p_length = -1;
 
-        public ReaderInfo(RandomAccessStream parent, long startPosition = 0, long localPosition = 0, long length = -1, bool isMotorolaByteOrder = true)
+        public ReaderInfo(IRandomAccessStream parent, long startPosition = 0, long localPosition = 0, long length = -1, bool isMotorolaByteOrder = true)
         {
             p_ras = parent;
             StartPosition = startPosition;
@@ -125,7 +125,7 @@ namespace MetadataExtractor.IO
         public int Read(byte[] buffer, int offset, int count) => Read(buffer, offset, SequentialFlag, count);
 
         /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
-        /// <remarks>Sequential access to the next byte is indicated by setting index to SequntialFlag</remarks>
+        /// <remarks>Sequential access to the next byte is indicated by setting index to SequentialFlag</remarks>
         /// <param name="buffer">array to write bytes to.</param>
         /// <param name="offset">starting position within <paramref name="buffer"/> to write to.</param>
         /// <param name="index">position within the data buffer to read byte.</param>

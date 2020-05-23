@@ -17,6 +17,11 @@ namespace MetadataExtractor.Tests.IO
             return ReaderInfo.CreateFromStream(new MemoryStream(bytes));
         }
 
+        private ReaderInfo CreateReader(Stream stream)
+        {
+            return ReaderInfo.CreateFromStream(stream);
+        }
+
         [Fact]
         public void TestRasByteArray()
         {
@@ -204,6 +209,26 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal("BCD", clone.GetNullTerminatedString(0, 3));
 
             Assert.Equal(reader.GetNullTerminatedString(1, 3), clone.GetNullTerminatedString(0, 3));
+        }
+
+        [Fact]
+        public void TestAllocateListSeekable()
+        {
+            var testStream = TestDataUtil.OpenRead("Data/manuallyAddedThumbnail.jpg");
+            var reader = CreateReader(testStream);
+
+            Assert.Equal(0x0d3c, reader.GetInt16(15000));
+            Assert.Equal(0x7306, reader.GetInt16(8000));
+        }
+
+        [Fact]
+        public void TestAllocateListNonseekable()
+        {
+            var testStream = new NonSeekableStream(TestDataUtil.OpenRead("Data/manuallyAddedThumbnail.jpg"));
+            var reader = CreateReader(testStream);
+
+            Assert.Equal(0x0d3c, reader.GetInt16(15000));
+            Assert.Equal(0x7306, reader.GetInt16(8000));
         }
 
     }

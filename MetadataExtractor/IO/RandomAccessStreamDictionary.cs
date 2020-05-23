@@ -16,7 +16,7 @@ namespace MetadataExtractor.IO
     /// </remarks>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class RandomAccessStream : IRandomAccessStream
+    public class RandomAccessStreamDictionary : IRandomAccessStream
     {
         public const long UnknownLengthValue = long.MaxValue;
 
@@ -28,12 +28,9 @@ namespace MetadataExtractor.IO
 
         private const int DefaultChunkLength = 4 * 1024;
         private readonly int p_chunkLength;
+        public Dictionary<long, byte[]> p_chunks = new Dictionary<long, byte[]>();
 
-        // Set initial chunk capacity to a factor of 2 that most metadata reading will reasonably require.
-        // Although not always expensive, avoids some internal array copies if the capacity changes.
-        private List<byte[]> p_chunks = new List<byte[]>(64);
-
-        public RandomAccessStream(Stream stream, long streamLength = -1)
+        public RandomAccessStreamDictionary(Stream stream, long streamLength = -1)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -61,7 +58,7 @@ namespace MetadataExtractor.IO
             p_streamLength = streamLength;
         }
 
-        public RandomAccessStream(byte[] bytes)
+        public RandomAccessStreamDictionary(byte[] bytes)
         {
             if (bytes == null)
                 throw new ArgumentNullException(nameof(bytes));
@@ -70,7 +67,7 @@ namespace MetadataExtractor.IO
 
             // Setting these values makes p_inputStream irrelevant
             // TODO: break the byte array up into DefaultChunkLength chunks
-            p_chunks.Add(bytes);
+            p_chunks.Add(0, bytes);
             p_chunkLength = bytes.Length;
 
             p_streamLength = bytes.Length;
@@ -181,11 +178,10 @@ namespace MetadataExtractor.IO
             if (p_isStreamFinished && p_chunks.Count == 1)
                 return p_chunks[0][index];
 
-            var chunkIndex = (int)(index / p_chunkLength);
+            var chunkIndex = index / p_chunkLength;
             var innerIndex = index % p_chunkLength;
 
-            //if (p_chunks.ContainsKey(chunkIndex))
-            if (p_chunks.Count - 1 >= chunkIndex)
+            if (p_chunks.ContainsKey(chunkIndex))
                 return p_chunks[chunkIndex][innerIndex];
             else
                 throw new IOException("End of data reached.");
@@ -476,27 +472,19 @@ namespace MetadataExtractor.IO
                 return 0;
 
             // zero-based
-            int chunkstart = (int)(index / p_chunkLength);
-            int chunkend = (int)( ((index + bytesRequested) / p_chunkLength) + 1 );
+            long chunkstart = index / p_chunkLength;
+            long chunkend = ((index + bytesRequested) / p_chunkLength) + 1;
 
-            if (p_chunks.Count - 1 < chunkstart || p_chunks[chunkstart] == null)
+
+            if (!p_chunks.ContainsKey(chunkstart))
             {
                 if (!CanSeek)
-                    chunkstart = p_chunks.Count;
-            }
-
-            // fill the chunks List with enough nulls to cover the start/end range
-            if (p_chunks.Count < chunkend)
-            {
-                for (int i = p_chunks.Count; i < chunkend; i++)
-                {
-                    p_chunks.Add(null);
-                }
+                    chunkstart = p_chunks.Count == 0 ? 0 : p_chunks.Keys.Max() + 1;
             }
 
             for (var i = chunkstart; i < chunkend; i++)
             {
-                if (p_chunks[i] == null)
+                if (!p_chunks.ContainsKey(i))
                 {
                     p_isStreamFinished = false;
 
@@ -523,7 +511,7 @@ namespace MetadataExtractor.IO
 #if DEBUG
                                 TotalBytesRead += totalBytesRead;
 #endif
-                                p_chunks[i] = chunk;
+                                p_chunks.Add(i, chunk);
                                 return (index + bytesRequested) <= p_streamLength ? bytesRequested : p_streamLength - index;
                             }
                         }
@@ -536,7 +524,7 @@ namespace MetadataExtractor.IO
 #if DEBUG
                     TotalBytesRead += totalBytesRead;
 #endif
-                    p_chunks[i] = chunk;
+                    p_chunks.Add(i, chunk);
                 }
             }
 
