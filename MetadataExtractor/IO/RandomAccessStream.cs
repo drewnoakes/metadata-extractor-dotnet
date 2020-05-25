@@ -175,13 +175,13 @@ namespace MetadataExtractor.IO
                 return p_chunks[0][index];
 
             // micro-optimization for benchmarks
-            var intIndex = (int)index;
+            //var intIndex = (int)index;
 
-            var chunkIndex = intIndex / p_chunkLength;
-            var innerIndex = intIndex % p_chunkLength;
+            //var chunkIndex = intIndex / p_chunkLength;
+            //var innerIndex = intIndex % p_chunkLength;
 
-            //var chunkIndex = (int)(index / p_chunkLength);
-            //var innerIndex = (int)(index % p_chunkLength);
+            var chunkIndex = (int)(index / p_chunkLength);
+            var innerIndex = (int)(index % p_chunkLength);
 
             if (p_chunks.Count - 1 >= chunkIndex)
                 return p_chunks[chunkIndex][innerIndex];
@@ -474,13 +474,13 @@ namespace MetadataExtractor.IO
                 return 0;
 
             // micro-optimization for benchmarks
-            var intIndex = (int)index;
+            //var intIndex = (int)index;
 
             // zero-based
-            int chunkstart = intIndex / p_chunkLength;
-            int chunkend = ((intIndex + bytesRequested) / p_chunkLength) + 1;
-            //int chunkstart = (int)(index / p_chunkLength);
-            //int chunkend = chunkstart + (bytesRequested / p_chunkLength) + 1;
+            //int chunkstart = intIndex / p_chunkLength;
+            //int chunkend = ((intIndex + bytesRequested) / p_chunkLength) + 1;
+            int chunkstart = (int)(index / p_chunkLength);
+            int chunkend = chunkstart + (bytesRequested / p_chunkLength) + 1;
 
             if (p_chunks.Count - 1 < chunkstart || p_chunks[chunkstart] == null)
             {
