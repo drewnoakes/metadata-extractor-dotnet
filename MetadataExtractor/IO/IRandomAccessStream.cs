@@ -29,6 +29,6 @@ namespace MetadataExtractor.IO
         void Seek(long index);
         byte[] ToArray(long index, int count);
 
-        long ValidateRange(long index, long bytesRequested);
+        int ValidateRange(long index, int bytesRequested);
     }
 }

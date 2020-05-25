@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.IO
 {
@@ -20,7 +19,7 @@ namespace MetadataExtractor.IO
     {
         public const long UnknownLengthValue = long.MaxValue;
 
-        private Stream? p_inputStream;
+        private readonly Stream p_inputStream;
         private long p_streamLength = -1;
 
         //private readonly List<ReaderInfo> rdrList = new List<ReaderInfo>();
@@ -28,6 +27,7 @@ namespace MetadataExtractor.IO
 
         private const int DefaultChunkLength = 4 * 1024;
         private readonly int p_chunkLength;
+
         public Dictionary<long, byte[]> p_chunks = new Dictionary<long, byte[]>();
 
         public RandomAccessStreamDictionary(Stream stream, long streamLength = -1)
@@ -178,8 +178,11 @@ namespace MetadataExtractor.IO
             if (p_isStreamFinished && p_chunks.Count == 1)
                 return p_chunks[0][index];
 
-            var chunkIndex = index / p_chunkLength;
-            var innerIndex = index % p_chunkLength;
+            // micro-optimization for benchmarks
+            var intIndex = (int)index;
+
+            var chunkIndex = intIndex / p_chunkLength;
+            var innerIndex = intIndex % p_chunkLength;
 
             if (p_chunks.ContainsKey(chunkIndex))
                 return p_chunks[chunkIndex][innerIndex];
@@ -425,9 +428,9 @@ namespace MetadataExtractor.IO
         /// <param name="index">the index from which the required bytes start</param>
         /// <param name="bytesRequested">the number of bytes which are required</param>
         /// <exception cref="BufferBoundsException">negative index, less than 0 bytes, or too many bytes are requested</exception>
-        public long ValidateRange(long index, long bytesRequested)
+        public int ValidateRange(long index, int bytesRequested)
         {
-            long available = BytesAvailable(index, bytesRequested);
+            var available = BytesAvailable(index, bytesRequested);
             if (available != bytesRequested)
             {
                 if (index < 0)
@@ -446,7 +449,7 @@ namespace MetadataExtractor.IO
             return available;
         }
 
-        private long BytesAvailable(long index, long bytesRequested)
+        private int BytesAvailable(long index, int bytesRequested)
         {
             if (index < 0 || bytesRequested < 0)
                 return 0;
@@ -460,7 +463,7 @@ namespace MetadataExtractor.IO
                 else if (index > p_streamLength)
                     return 0;
                 else
-                    return p_streamLength - index;
+                    return (int)(p_streamLength - index);
             }
 
 
@@ -471,15 +474,18 @@ namespace MetadataExtractor.IO
             if (endIndex > int.MaxValue)
                 return 0;
 
+            // micro-optimization for benchmarks
+            var intIndex = (int)index;
+
             // zero-based
-            long chunkstart = index / p_chunkLength;
-            long chunkend = ((index + bytesRequested) / p_chunkLength) + 1;
+            int chunkstart = intIndex / p_chunkLength;
+            int chunkend = ((intIndex + bytesRequested) / p_chunkLength) + 1;
 
 
             if (!p_chunks.ContainsKey(chunkstart))
             {
                 if (!CanSeek)
-                    chunkstart = p_chunks.Count == 0 ? 0 : p_chunks.Keys.Max() + 1;
+                    chunkstart = p_chunks.Count == 0 ? 0 : (int)p_chunks.Keys.Max() + 1;
             }
 
             for (var i = chunkstart; i < chunkend; i++)
@@ -512,7 +518,7 @@ namespace MetadataExtractor.IO
                                 TotalBytesRead += totalBytesRead;
 #endif
                                 p_chunks.Add(i, chunk);
-                                return (index + bytesRequested) <= p_streamLength ? bytesRequested : p_streamLength - index;
+                                return (index + bytesRequested) <= p_streamLength ? bytesRequested : (int)(p_streamLength - index);
                             }
                         }
                         else

@@ -3,8 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.IO
 {
@@ -20,7 +18,7 @@ namespace MetadataExtractor.IO
     {
         public const long UnknownLengthValue = long.MaxValue;
 
-        private Stream? p_inputStream;
+        private readonly Stream p_inputStream;
         private long p_streamLength = -1;
 
         //private readonly List<ReaderInfo> rdrList = new List<ReaderInfo>();
@@ -29,16 +27,11 @@ namespace MetadataExtractor.IO
         private const int DefaultChunkLength = 4 * 1024;
         private readonly int p_chunkLength;
 
-        // Set initial chunk capacity to a factor of 2 that most metadata reading will reasonably require.
-        // Although not always expensive, avoids some internal array copies if the capacity changes.
-        private List<byte[]> p_chunks = new List<byte[]>(64);
+        private List<byte[]> p_chunks = new List<byte[]>();
 
         public RandomAccessStream(Stream stream, long streamLength = -1)
         {
-            if (stream == null)
-                throw new ArgumentNullException(nameof(stream));
-
-            p_inputStream = stream;
+            p_inputStream = stream ?? throw new ArgumentNullException(nameof(stream));
             CanSeek = stream.CanSeek;
 
             if (streamLength == -1)
@@ -181,10 +174,15 @@ namespace MetadataExtractor.IO
             if (p_isStreamFinished && p_chunks.Count == 1)
                 return p_chunks[0][index];
 
-            var chunkIndex = (int)(index / p_chunkLength);
-            var innerIndex = index % p_chunkLength;
+            // micro-optimization for benchmarks
+            var intIndex = (int)index;
 
-            //if (p_chunks.ContainsKey(chunkIndex))
+            var chunkIndex = intIndex / p_chunkLength;
+            var innerIndex = intIndex % p_chunkLength;
+
+            //var chunkIndex = (int)(index / p_chunkLength);
+            //var innerIndex = (int)(index % p_chunkLength);
+
             if (p_chunks.Count - 1 >= chunkIndex)
                 return p_chunks[chunkIndex][innerIndex];
             else
@@ -429,9 +427,9 @@ namespace MetadataExtractor.IO
         /// <param name="index">the index from which the required bytes start</param>
         /// <param name="bytesRequested">the number of bytes which are required</param>
         /// <exception cref="BufferBoundsException">negative index, less than 0 bytes, or too many bytes are requested</exception>
-        public long ValidateRange(long index, long bytesRequested)
+        public int ValidateRange(long index, int bytesRequested)
         {
-            long available = BytesAvailable(index, bytesRequested);
+            var available = BytesAvailable(index, bytesRequested);
             if (available != bytesRequested)
             {
                 if (index < 0)
@@ -450,9 +448,9 @@ namespace MetadataExtractor.IO
             return available;
         }
 
-        private long BytesAvailable(long index, long bytesRequested)
+        private int BytesAvailable(long index, int bytesRequested)
         {
-            if (index < 0 || bytesRequested < 0)
+            if (index < 0L || bytesRequested < 0)
                 return 0;
 
             // if there's only one chunk, there's no need to calculate anything.
@@ -464,20 +462,25 @@ namespace MetadataExtractor.IO
                 else if (index > p_streamLength)
                     return 0;
                 else
-                    return p_streamLength - index;
+                    return (int)(p_streamLength - index);
             }
 
 
-            var endIndex = index + bytesRequested - 1;
-            if (endIndex < 0) endIndex = 0;
+            var endIndex = index + bytesRequested - 1L;
+            if (endIndex < 0L) endIndex = 0L;
 
             // Maybe don't check this?
             if (endIndex > int.MaxValue)
                 return 0;
 
+            // micro-optimization for benchmarks
+            var intIndex = (int)index;
+
             // zero-based
-            int chunkstart = (int)(index / p_chunkLength);
-            int chunkend = (int)( ((index + bytesRequested) / p_chunkLength) + 1 );
+            int chunkstart = intIndex / p_chunkLength;
+            int chunkend = ((intIndex + bytesRequested) / p_chunkLength) + 1;
+            //int chunkstart = (int)(index / p_chunkLength);
+            //int chunkend = chunkstart + (bytesRequested / p_chunkLength) + 1;
 
             if (p_chunks.Count - 1 < chunkstart || p_chunks[chunkstart] == null)
             {
@@ -524,7 +527,7 @@ namespace MetadataExtractor.IO
                                 TotalBytesRead += totalBytesRead;
 #endif
                                 p_chunks[i] = chunk;
-                                return (index + bytesRequested) <= p_streamLength ? bytesRequested : p_streamLength - index;
+                                return (index + bytesRequested) <= p_streamLength ? bytesRequested : (int)(p_streamLength - index);
                             }
                         }
                         else
