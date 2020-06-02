@@ -8,3 +8,4 @@ const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAccel
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagContentIdentifier = 17 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagImageUniqueId = 21 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagLivePhotoId = 23 -> int
+static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType!

@@ -12,6 +12,7 @@ using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Iptc;
+using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
@@ -42,7 +43,8 @@ namespace MetadataExtractor.Formats.Png
             PngChunkType.iTXt,
             PngChunkType.tIME,
             PngChunkType.pHYs,
-            PngChunkType.sBIT
+            PngChunkType.sBIT,
+            PngChunkType.eXIf
         };
 
         /// <exception cref="PngProcessingException"/>
@@ -317,7 +319,9 @@ namespace MetadataExtractor.Formats.Png
                     directory.Set(PngDirectory.TagLastModificationTime, time);
                 }
                 else
+                {
                     directory.AddError($"PNG tIME data describes an invalid date/time: year={year} month={month} day={day} hour={hour} minute={minute} second={second}");
+                }
                 yield return directory;
             }
             else if (chunkType == PngChunkType.pHYs)
@@ -337,6 +341,27 @@ namespace MetadataExtractor.Formats.Png
                 var directory = new PngDirectory(PngChunkType.sBIT);
                 directory.Set(PngDirectory.TagSignificantBits, bytes);
                 yield return directory;
+            }
+            else if (chunkType.Equals(PngChunkType.eXIf))
+            {
+                var directories = new List<Directory>();
+                try
+                {
+                    TiffReader.ProcessTiff(
+                        new ByteArrayReader(bytes),
+                        new ExifTiffHandler(directories));
+                }
+                catch (Exception ex)
+                {
+                    var directory = new PngDirectory(PngChunkType.eXIf);
+                    directory.AddError(ex.Message);
+                    directories.Add(directory);
+                }
+
+                foreach (var directory in directories)
+                {
+                    yield return directory;
+                }
             }
 
             yield break;

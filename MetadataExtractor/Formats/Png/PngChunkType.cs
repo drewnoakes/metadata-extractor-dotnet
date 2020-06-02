@@ -108,6 +108,8 @@ namespace MetadataExtractor.Formats.Png
 
         public static readonly PngChunkType zTXt = new PngChunkType("zTXt", true);
 
+        public static readonly PngChunkType eXIf = new PngChunkType("eXIf");
+
         #endregion
 
 #pragma warning restore IDE1006 // Naming Styles
