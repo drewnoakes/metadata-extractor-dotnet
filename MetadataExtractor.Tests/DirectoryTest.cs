@@ -106,6 +106,7 @@ namespace MetadataExtractor.Tests
             Test("2002-01-30T23:59:59.099",       new DateTime(2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified));
 //          test("2002-01-30T23:59:59-08:00",     new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
             Test("2002-01-30T23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
+            Test("2002-01-30T23:59:59+0100",      new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
 //          test("2002-01-30T23:59-08:00",        new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
             Test("2002-01-30T23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
             Test("2002-01-30",                    new DateTime(2002, 1, 30,  0,  0,  0,     DateTimeKind.Unspecified));
