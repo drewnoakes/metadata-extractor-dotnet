@@ -959,7 +959,7 @@ namespace MetadataExtractor
             if (o == null)
                 throw new MetadataException($"No value exists for tag {directory.GetTagName(tagType)}.");
 
-            throw new MetadataException($"Tag {tagType} cannot be converted to {typeof(T).Name}.  It is of type {o.GetType()} with value: {o}");
+            throw new MetadataException($"Tag {tagType} cannot be converted to {typeof(T).Name}. It is of type {o.GetType()} with value: {o}");
         }
     }
 }
