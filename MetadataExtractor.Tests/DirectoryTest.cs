@@ -91,11 +91,14 @@ namespace MetadataExtractor.Tests
         [InlineData("2002:01:30 23:59",              2002, 1, 30, 23, 59,  0,  0, DateTimeKind.Unspecified)]
         [InlineData("2002-01-30 23:59:59",           2002, 1, 30, 23, 59, 59,  0, DateTimeKind.Unspecified)]
         [InlineData("2002-01-30 23:59",              2002, 1, 30, 23, 59,  0,  0, DateTimeKind.Unspecified)]
-//      [InlineData("2002-01-30T23:59:59.099-08:00", 2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified)]
+        [InlineData("2002-01-30T23:59:59.099-08:00", 2002, 1, 31,  7, 59, 59, 99, DateTimeKind.Utc)]
+        [InlineData("2002-01-30T23:59:59.9",         2002, 1, 30, 23, 59, 59,900, DateTimeKind.Unspecified)]
+        [InlineData("2002-01-30T23:59:59.09",        2002, 1, 30, 23, 59, 59, 90, DateTimeKind.Unspecified)]
         [InlineData("2002-01-30T23:59:59.099",       2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified)]
-//      [InlineData("2002-01-30T23:59:59-08:00",     2002, 1, 30, 23, 59, 59,  0, DateTimeKind.Unspecified)]
+        [InlineData("2002-01-30T23:59:59-08:00",     2002, 1, 31,  7, 59, 59,  0, DateTimeKind.Utc)]
         [InlineData("2002-01-30T23:59:59",           2002, 1, 30, 23, 59, 59,  0, DateTimeKind.Unspecified)]
-//      [InlineData("2002-01-30T23:59-08:00",        2002, 1, 30, 23, 59,  0,  0, DateTimeKind.Unspecified)]
+        [InlineData("2002-01-30T23:59:59+0100",      2002, 1, 30, 22, 59, 59,  0, DateTimeKind.Utc)]
+        [InlineData("2002-01-30T23:59-08:00",        2002, 1, 31,  7, 59,  0,  0, DateTimeKind.Utc)]
         [InlineData("2002-01-30T23:59",              2002, 1, 30, 23, 59,  0,  0, DateTimeKind.Unspecified)]
         [InlineData("2002-01-30",                    2002, 1, 30,  0,  0,  0,  0, DateTimeKind.Unspecified)]
         [InlineData("2002-01",                       2002, 1,  1,  0,  0,  0,  0, DateTimeKind.Unspecified)]
@@ -103,10 +106,13 @@ namespace MetadataExtractor.Tests
 #pragma warning restore format
         public void SetStringAndGetDate(string str, int year, int month, int day, int hour, int minute, int second, int milli, DateTimeKind kind)
         {
-            var expected = new DateTime(year, month, day, hour, minute, second, milli, kind);
-
             _directory.Set(1, str);
-            Assert.Equal(expected, _directory.GetDateTime(1));
+
+            var expected = new DateTime(year, month, day, hour, minute, second, milli, kind);
+            var actual = _directory.GetDateTime(1);
+
+            Assert.Equal(expected.Kind, actual.Kind);
+            Assert.Equal(expected, actual);
 
             // TODO revisit these commented cases and introduce GetDateTimeOffset impl/test
         }
