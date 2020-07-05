@@ -593,7 +593,7 @@ namespace MetadataExtractor
 
         // This seems to cover all known Exif date strings
         // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
-        // Custom format reference: https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
+        // Custom format reference: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
         private static readonly string[] _datePatterns =
         {
             "yyyy:MM:dd HH:mm:ss.fff",
@@ -607,6 +607,7 @@ namespace MetadataExtractor
             "yyyy-MM-ddTHH:mm:ss.ff",
             "yyyy-MM-ddTHH:mm:ss.f",
             "yyyy-MM-ddTHH:mm:ss",
+            "yyyy-MM-ddTHH:mm:sszzz",
             "yyyy-MM-ddTHH:mm.fff",
             "yyyy-MM-ddTHH:mm.ff",
             "yyyy-MM-ddTHH:mm.f",
