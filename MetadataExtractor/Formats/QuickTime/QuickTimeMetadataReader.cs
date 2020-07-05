@@ -177,14 +177,8 @@ namespace MetadataExtractor.Formats.QuickTime
                                 a.Reader.Skip(atomSize - 20);
                                 continue;
                             }
-                            // Currently only the Default Country/Locale is supported
-                            var dataLocaleIndicator = a.Reader.GetUInt32();
-                            if (dataLocaleIndicator != 0)
-                            {
-                                directory.AddError($"Unsupported locale indicator \"{dataLocaleIndicator}\" for key \"{key}\"");
-                                a.Reader.Skip(atomSize - 24);
-                                continue;
-                            }
+                            // locale not supported yet.
+                            a.Reader.Skip(4);
                             var data = a.Reader.GetBytes((int)atomSize - 24);
                             if (directory.TryGetTag(key, out int tag))
                             {
