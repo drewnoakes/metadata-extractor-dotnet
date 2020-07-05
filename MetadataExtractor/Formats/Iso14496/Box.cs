@@ -26,5 +26,7 @@ namespace MetadataExtractor.Formats.Iso14496
         }
 
         public virtual IEnumerable<Box> Children() => _emptyChildren;
+
+        public override string ToString() => $"{TypeStringConverter.ToTypeString(Type)} @ {_location.NextPosition}";
     }
 }
