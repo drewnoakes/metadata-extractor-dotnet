@@ -617,7 +617,15 @@ namespace MetadataExtractor
         };
 
         /// <summary>Attempts to return the specified tag's value as a DateTime.</summary>
-        /// <remarks>If the underlying value is a <see cref="string"/>, then attempts will be made to parse it.</remarks>
+        /// <remarks>
+        /// <para>
+        /// If the underlying value is a <see cref="string"/>, then attempts will be made to parse it.
+        /// </para>
+        /// <para>
+        /// If that string contains a time-zone offset, the returned <see cref="DateTime"/> will have kind <see cref="DateTimeKind.Utc"/>,
+        /// otherwise it will be <see cref="DateTimeKind.Unspecified"/>.
+        /// </para>
+        /// </remarks>
         /// <returns><c>true</c> if a DateTime was returned, otherwise <c>false</c>.</returns>
         [Pure]
         public static bool TryGetDateTime(this Directory directory, int tagType /*, TimeZoneInfo? timeZone = null*/, out DateTime dateTime)
@@ -643,8 +651,10 @@ namespace MetadataExtractor
 
             if (s != null)
             {
-                if (DateTime.TryParseExact(s, _datePatterns, null, DateTimeStyles.AllowWhiteSpaces, out dateTime))
+                if (DateTime.TryParseExact(s, _datePatterns, null, DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AdjustToUniversal, out dateTime))
+                {
                     return true;
+                }
 
                 dateTime = default;
                 return false;
