@@ -85,33 +85,30 @@ namespace MetadataExtractor.Tests
             Assert.Equal(outputString.ToString(), _directory.GetString(tagType));
         }
 
-        [Fact]
-        public void SetStringAndGetDate()
+        [Theory]
+#pragma warning disable format
+        [InlineData("2002:01:30 23:59:59",           2002, 1, 30, 23, 59, 59,  0, DateTimeKind.Unspecified)]
+        [InlineData("2002:01:30 23:59",              2002, 1, 30, 23, 59,  0,  0, DateTimeKind.Unspecified)]
+        [InlineData("2002-01-30 23:59:59",           2002, 1, 30, 23, 59, 59,  0, DateTimeKind.Unspecified)]
+        [InlineData("2002-01-30 23:59",              2002, 1, 30, 23, 59,  0,  0, DateTimeKind.Unspecified)]
+//      [InlineData("2002-01-30T23:59:59.099-08:00", 2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified)]
+        [InlineData("2002-01-30T23:59:59.099",       2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified)]
+//      [InlineData("2002-01-30T23:59:59-08:00",     2002, 1, 30, 23, 59, 59,  0, DateTimeKind.Unspecified)]
+        [InlineData("2002-01-30T23:59:59",           2002, 1, 30, 23, 59, 59,  0, DateTimeKind.Unspecified)]
+//      [InlineData("2002-01-30T23:59-08:00",        2002, 1, 30, 23, 59,  0,  0, DateTimeKind.Unspecified)]
+        [InlineData("2002-01-30T23:59",              2002, 1, 30, 23, 59,  0,  0, DateTimeKind.Unspecified)]
+        [InlineData("2002-01-30",                    2002, 1, 30,  0,  0,  0,  0, DateTimeKind.Unspecified)]
+        [InlineData("2002-01",                       2002, 1,  1,  0,  0,  0,  0, DateTimeKind.Unspecified)]
+        [InlineData("2002",                          2002, 1,  1,  0,  0,  0,  0, DateTimeKind.Unspecified)]
+#pragma warning restore format
+        public void SetStringAndGetDate(string str, int year, int month, int day, int hour, int minute, int second, int milli, DateTimeKind kind)
         {
-            // ReSharper disable once UnusedParameter.Local
-            void Test(string str, DateTime expected)
-            {
-                _directory.Set(1, str);
-                Assert.Equal(expected, _directory.GetDateTime(1));
-            }
+            var expected = new DateTime(year, month, day, hour, minute, second, milli, kind);
+
+            _directory.Set(1, str);
+            Assert.Equal(expected, _directory.GetDateTime(1));
 
             // TODO revisit these commented cases and introduce GetDateTimeOffset impl/test
-
-#pragma warning disable format
-            Test("2002:01:30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
-            Test("2002:01:30 23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
-            Test("2002-01-30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
-            Test("2002-01-30 23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
-//          test("2002-01-30T23:59:59.099-08:00", new DateTime(2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified));
-            Test("2002-01-30T23:59:59.099",       new DateTime(2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified));
-//          test("2002-01-30T23:59:59-08:00",     new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
-            Test("2002-01-30T23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
-//          test("2002-01-30T23:59-08:00",        new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
-            Test("2002-01-30T23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
-            Test("2002-01-30",                    new DateTime(2002, 1, 30,  0,  0,  0,     DateTimeKind.Unspecified));
-            Test("2002-01",                       new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
-            Test("2002",                          new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
-#pragma warning restore format
         }
 
         [Fact]
