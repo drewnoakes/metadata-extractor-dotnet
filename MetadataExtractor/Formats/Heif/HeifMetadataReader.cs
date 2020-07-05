@@ -21,7 +21,7 @@ namespace MetadataExtractor.Formats.Heif
     {
         private const int Hvc1Tag = 0x68766331; // hvc1
         private const int ExifTag = 0x45786966; // Exif
-
+        private const int MimeTag = 0x6D696D65;
         public static DirectoryList ReadMetadata(Stream stream)
         {
             var directories = new List<Directory>();
@@ -42,7 +42,7 @@ namespace MetadataExtractor.Formats.Heif
 
             uint primaryItem = boxes.Descendant<PrimaryItemBox>()?.PrimaryItem ?? uint.MaxValue;
             var itemRefs = (boxes.Descendant<ItemReferenceBox>()?.Boxes ?? new SingleItemTypeReferenceBox[0])
-                .Where(i => i.Type == BoxTypes.ThmbTag || i.Type == BoxTypes.CdscTag).ToList();
+                .Where(i => i.Type == BoxTypes.ThmbTag || i.Type == BoxTypes.CdscTag || i.Type == BoxTypes.MimeTag).ToList();
 
             ParseImageProperties();
 
@@ -260,6 +260,9 @@ namespace MetadataExtractor.Formats.Heif
                         case ExifTag:
                             ParseExif();
                             break;
+                        case MimeTag:
+                            ParseXmp();
+                            break;
                     }
 
                     return;
@@ -299,8 +302,19 @@ namespace MetadataExtractor.Formats.Heif
                             }
 
                             reader.Skip((int)headerLength);
-                            return reader.GetBytes((int)extentLength - 4);
+                            return reader.GetBytes((int)extentLength - 4 - (int)headerLength);
                         }
+                    }
+
+                    void ParseXmp()
+                    {
+                        if ((long)extentLength + (long)extentOffset - reader.Position > reader.Available())
+                            return;
+
+                        reader.Skip((long)extentOffset - reader.Position);
+                        var bytes = reader.GetBytes((int)extentLength);
+                        var xmpDir = (new Formats.Xmp.XmpReader()).Extract(bytes);
+                        directories.Add(xmpDir);
                     }
                 }
             }
