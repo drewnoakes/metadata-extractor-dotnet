@@ -120,6 +120,23 @@ namespace MetadataExtractor.Formats.QuickTime
                 }
             }
 
+            void UserDataHandler(AtomCallbackArgs a)
+            {
+                switch (a.TypeString)
+                {
+                    case "?xyz":
+                        var directory = new QuickTimeMetadataHeaderDirectory();
+                        var stringSize = a.Reader.GetUInt16();
+                        var languageCode = a.Reader.GetUInt16();
+                        var stringValue = a.Reader.GetBytes(stringSize);
+                        var s = Encoding.UTF8.GetString(stringValue);
+
+                        directory.Set(QuickTimeMetadataHeaderDirectory.TagGpsLocation, s);
+                        directories.Add(directory);
+                        break;
+                }
+            }
+
             void MetaDataHandler(AtomCallbackArgs a)
             {
                 // see https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/Metadata/Metadata.html
@@ -247,6 +264,11 @@ namespace MetadataExtractor.Formats.QuickTime
                     case "meta":
                     {
                         QuickTimeReader.ProcessAtoms(stream, MetaDataHandler, a.BytesLeft);
+                        break;
+                    }
+                    case "udta":
+                    {
+                        QuickTimeReader.ProcessAtoms(stream, UserDataHandler, a.BytesLeft);
                         break;
                     }
                     /*
