@@ -48,6 +48,7 @@ namespace MetadataExtractor.Formats.Heif
 
             if (stream.CanSeek)
             {
+                stream.Seek(0, SeekOrigin.Begin);
                 ParseItemSegments();
             }
 
@@ -231,7 +232,8 @@ namespace MetadataExtractor.Formats.Heif
                                 Info = information.Boxes.OfType<ItemInfoEntryBox>().First(j => j.ItemId == i.FromItemId),
                                 Location = locations.ItemLocations.First(j => j.ItemId == i.FromItemId)
                             })
-                    .OrderBy(i => i.Location.BaseOffset);
+                    .OrderBy(i => i.Location.BaseOffset)
+                    .ThenBy(i => i.Location.ExtentList.FirstOrDefault()?.ExtentOffset);
 
                 foreach (var segment in segments)
                 {
