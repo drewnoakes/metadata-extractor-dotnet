@@ -1246,7 +1246,6 @@ MetadataExtractor.Formats.QuickTime.QuickTimeFileTypeDirectory
 MetadataExtractor.Formats.QuickTime.QuickTimeFileTypeDirectory.QuickTimeFileTypeDirectory() -> void
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.QuickTimeMetadataHeaderDirectory() -> void
-MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TryGetTag(string! name, out int tagType) -> bool
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataReader
 MetadataExtractor.Formats.QuickTime.QuickTimeMovieHeaderDirectory
 MetadataExtractor.Formats.QuickTime.QuickTimeMovieHeaderDirectory.QuickTimeMovieHeaderDirectory() -> void

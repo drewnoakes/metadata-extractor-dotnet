@@ -8,6 +8,7 @@ using MetadataExtractor.Formats.Iso14496;
 using MetadataExtractor.Formats.Iso14496.Boxes;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.QuickTime;
+using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
@@ -19,8 +20,9 @@ namespace MetadataExtractor.Formats.Heif
 {
     public static class HeifMetadataReader
     {
-        private const int Hvc1Tag = 0x68766331; // hvc1
-        private const int ExifTag = 0x45786966; // Exif
+        private const int Hvc1Tag = 0x68766331; // "hvc1"
+        private const int ExifTag = 0x45786966; // "Exif"
+        private const int MimeTag = 0x6D696D65; // "mime"
 
         public static DirectoryList ReadMetadata(Stream stream)
         {
@@ -42,12 +44,13 @@ namespace MetadataExtractor.Formats.Heif
 
             uint primaryItem = boxes.Descendant<PrimaryItemBox>()?.PrimaryItem ?? uint.MaxValue;
             var itemRefs = (boxes.Descendant<ItemReferenceBox>()?.Boxes ?? new SingleItemTypeReferenceBox[0])
-                .Where(i => i.Type == BoxTypes.ThmbTag || i.Type == BoxTypes.CdscTag).ToList();
+                .Where(i => i.Type == BoxTypes.ThmbTag || i.Type == BoxTypes.CdscTag || i.Type == BoxTypes.MimeTag).ToList();
 
             ParseImageProperties();
 
             if (stream.CanSeek)
             {
+                stream.Seek(0, SeekOrigin.Begin);
                 ParseItemSegments();
             }
 
@@ -231,7 +234,8 @@ namespace MetadataExtractor.Formats.Heif
                                 Info = information.Boxes.OfType<ItemInfoEntryBox>().First(j => j.ItemId == i.FromItemId),
                                 Location = locations.ItemLocations.First(j => j.ItemId == i.FromItemId)
                             })
-                    .OrderBy(i => i.Location.BaseOffset);
+                    .OrderBy(i => i.Location.BaseOffset)
+                    .ThenBy(i => i.Location.ExtentList.FirstOrDefault()?.ExtentOffset);
 
                 foreach (var segment in segments)
                 {
@@ -259,6 +263,9 @@ namespace MetadataExtractor.Formats.Heif
                             break;
                         case ExifTag:
                             ParseExif();
+                            break;
+                        case MimeTag:
+                            ParseXmp();
                             break;
                     }
 
@@ -299,8 +306,19 @@ namespace MetadataExtractor.Formats.Heif
                             }
 
                             reader.Skip((int)headerLength);
-                            return reader.GetBytes((int)extentLength - 4);
+                            return reader.GetBytes((int)extentLength - 4 - (int)headerLength);
                         }
+                    }
+
+                    void ParseXmp()
+                    {
+                        if ((long)extentLength + (long)extentOffset - reader.Position > reader.Available())
+                            return;
+
+                        reader.Skip((long)extentOffset - reader.Position);
+                        var bytes = reader.GetBytes((int)extentLength);
+                        var xmpDir = new XmpReader().Extract(bytes);
+                        directories.Add(xmpDir);
                     }
                 }
             }

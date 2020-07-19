@@ -30,6 +30,17 @@ namespace MetadataExtractor.Formats.QuickTime
         public const int TagRating = 20;
         public const int TagMake = 21;
         public const int TagModel = 22;
+        public const int TagLocationName = 23;
+        public const int TagLocationBody = 24;
+        public const int TagLocationNote = 25;
+        public const int TagLocationRole = 26;
+        public const int TagLocationDate = 27;
+        public const int TagDirectionFacing = 28;
+        public const int TagDirectionMotion = 29;
+        public const int TagDisplayName = 30;
+        public const int TagContentIdentifier = 31;
+        public const int TagOriginatingSignature = 32;
+        public const int TagPixelDensity = 33;
 
         public override string Name => "QuickTime Metadata Header";
 
@@ -55,8 +66,19 @@ namespace MetadataExtractor.Formats.QuickTime
             { TagYear,              "Year"},
             { TagCollection,        "Collection"},
             { TagRating,            "Rating"},
+            { TagLocationName,      "Location Name" },
+            { TagLocationBody,      "Location Body" },
+            { TagLocationNote,      "Location Note" },
+            { TagLocationRole,      "Location Role" },
+            { TagLocationDate,      "Location Date" },
+            { TagDirectionFacing,   "Direction Facing" },
+            { TagDirectionMotion,   "Direction Motion" },
+            { TagDisplayName,       "Display Name" },
+            { TagContentIdentifier, "Content Identifier" },
             { TagMake,              "Make"},
-            { TagModel,             "Model"}
+            { TagModel,             "Model"},
+            { TagOriginatingSignature, "Originating Signature" },
+            { TagPixelDensity,         "Pixel Density" },
         };
 
         private static readonly Dictionary<string, int> _nameTagMap = new Dictionary<string, int>
@@ -81,13 +103,24 @@ namespace MetadataExtractor.Formats.QuickTime
             { "com.apple.quicktime.year",               TagYear},
             { "com.apple.quicktime.collection.user",    TagCollection},
             { "com.apple.quicktime.rating.user",        TagRating},
+            { "com.apple.quicktime.location.name",      TagLocationName },
+            { "com.apple.quicktime.location.body",      TagLocationBody },
+            { "com.apple.quicktime.location.note",      TagLocationNote },
+            { "com.apple.quicktime.location.role",      TagLocationRole },
+            { "com.apple.quicktime.location.date",      TagLocationDate },
+            { "com.apple.quicktime.direction.facing",   TagDirectionFacing },
+            { "com.apple.quicktime.direction.motion",   TagDirectionMotion },
+            { "com.apple.quicktime.displayname",        TagDisplayName },
+            { "com.apple.quicktime.content.identifier", TagContentIdentifier },
             { "com.apple.quicktime.make",               TagMake},
             { "com.apple.quicktime.model",              TagModel},
+            { "com.apple.photos.originating.signature", TagOriginatingSignature },
+            { "com.apple.quicktime.pixeldensity",       TagPixelDensity }
         };
 
         public QuickTimeMetadataHeaderDirectory()
         {
-            SetDescriptor(new TagDescriptor<QuickTimeMetadataHeaderDirectory>(this));
+            SetDescriptor(new QuickTimeMetadataHeaderDescriptor(this));
         }
 
         protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
@@ -95,7 +128,7 @@ namespace MetadataExtractor.Formats.QuickTime
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }
 
-        public bool TryGetTag(string name, out int tagType)
+        public static bool TryGetTag(string name, out int tagType)
         {
             return _nameTagMap.TryGetValue(name, out tagType);
         }

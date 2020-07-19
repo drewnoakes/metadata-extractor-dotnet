@@ -1,6 +1,10 @@
 ﻿#nullable enable
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAccelerationVectorDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetHdrImageTypeDescription() -> string?
+MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor
+MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetArtworkDescription() -> string?
+MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetLocationRoleDescription() -> string?
+MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.QuickTimeMetadataHeaderDescriptor(MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory! directory) -> void
 MetadataExtractor.Rational.Absolute.get -> MetadataExtractor.Rational
 MetadataExtractor.Rational.IsPositive.get -> bool
 const MetadataExtractor.Formats.Avi.AviDirectory.TagDateTimeOriginal = 320 -> int
@@ -8,4 +12,17 @@ const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAccel
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagContentIdentifier = 17 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagImageUniqueId = 21 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagLivePhotoId = 23 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagContentIdentifier = 31 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagDirectionFacing = 28 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagDirectionMotion = 29 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagDisplayName = 30 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagLocationBody = 24 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagLocationDate = 27 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagLocationName = 23 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagLocationNote = 25 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagLocationRole = 26 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagOriginatingSignature = 32 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagPixelDensity = 33 -> int
+override MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetDescription(int tagType) -> string?
+static MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TryGetTag(string! name, out int tagType) -> bool
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType!
