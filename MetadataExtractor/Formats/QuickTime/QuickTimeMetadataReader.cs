@@ -125,13 +125,15 @@ namespace MetadataExtractor.Formats.QuickTime
                 switch (a.TypeString)
                 {
                     case "?xyz":
-                        var directory = new QuickTimeMetadataHeaderDirectory();
                         var stringSize = a.Reader.GetUInt16();
-                        var languageCode = a.Reader.GetUInt16();
-                        var stringValue = a.Reader.GetBytes(stringSize);
-                        var s = Encoding.UTF8.GetString(stringValue);
+                        a.Reader.Skip(2); // uint16 language code
+                        var stringBytes = a.Reader.GetBytes(stringSize);
 
-                        directory.Set(QuickTimeMetadataHeaderDirectory.TagGpsLocation, s);
+                        // TODO parse ISO 6709 string into GeoLocation? GeoLocation does not (currently) support altitude, where ISO 6709 does
+                        var directory = new QuickTimeMetadataHeaderDirectory();
+                        directory.Set(
+                            QuickTimeMetadataHeaderDirectory.TagGpsLocation,
+                            new StringValue(stringBytes, Encoding.UTF8));
                         directories.Add(directory);
                         break;
                 }
@@ -144,14 +146,13 @@ namespace MetadataExtractor.Formats.QuickTime
                 {
                     case "keys":
                     {
-                        var version = a.Reader.GetByte();
-                        var flags = a.Reader.GetBytes(3);
+                        a.Reader.Skip(4); // 1 byte version, 3 bytes flags
                         var entryCount = a.Reader.GetUInt32();
                         for (int i = 1; i <= entryCount; i++)
                         {
                             var keySize = a.Reader.GetUInt32();
                             var keyValueSize = (int)keySize - 8;
-                            var keyNamespace = a.Reader.GetUInt32();
+                            a.Reader.Skip(4); // uint32: key namespace
                             var keyValue = a.Reader.GetBytes(keyValueSize);
                             metaDataKeys.Add(Encoding.UTF8.GetString(keyValue));
                         }
@@ -183,8 +184,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             var key = metaDataKeys[(int)atomType - 1];
 
                             // Value Atom
-                            var typeIndicator = a.Reader.GetUInt32();
-                            var localeIndicator = a.Reader.GetUInt32();
+                            a.Reader.Skip(8); // uint32 type indicator, uint32 locale indicator
 
                             // Data Atom
                             var dataTypeIndicator = a.Reader.GetUInt32();
