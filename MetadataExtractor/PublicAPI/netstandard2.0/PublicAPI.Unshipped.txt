@@ -12,6 +12,7 @@ const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAccel
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagContentIdentifier = 17 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagImageUniqueId = 21 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagLivePhotoId = 23 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagAndroidVersion = 34 -> int
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagContentIdentifier = 31 -> int
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagDirectionFacing = 28 -> int
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagDirectionMotion = 29 -> int
