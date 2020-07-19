@@ -29,5 +29,6 @@ namespace MetadataExtractor.Formats.Iso14496
         public const uint ThmbTag = 0x74686D62; // thmb
         public const uint CdscTag = 0x63647363; // cdsc
         public const uint DimgTag = 0x64696D67; // dimg
+        public const uint MimeTag = 0x6D696D65;
     }
 }
