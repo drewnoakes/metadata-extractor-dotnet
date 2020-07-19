@@ -95,7 +95,7 @@ namespace MetadataExtractor.Formats.QuickTime
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }
 
-        public bool TryGetTag(string name, out int tagType)
+        public static bool TryGetTag(string name, out int tagType)
         {
             return _nameTagMap.TryGetValue(name, out tagType);
         }

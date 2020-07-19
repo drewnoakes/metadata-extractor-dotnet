@@ -180,7 +180,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             // locale not supported yet.
                             a.Reader.Skip(4);
                             var data = a.Reader.GetBytes((int)atomSize - 24);
-                            if (directory.TryGetTag(key, out int tag))
+                            if (QuickTimeMetadataHeaderDirectory.TryGetTag(key, out int tag))
                             {
                                 DecodeData(data, (int)dataTypeIndicator, tag, directory);
                             }
