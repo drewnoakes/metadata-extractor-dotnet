@@ -8,6 +8,7 @@ using MetadataExtractor.Formats.Iso14496;
 using MetadataExtractor.Formats.Iso14496.Boxes;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.QuickTime;
+using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
@@ -19,9 +20,10 @@ namespace MetadataExtractor.Formats.Heif
 {
     public static class HeifMetadataReader
     {
-        private const int Hvc1Tag = 0x68766331; // hvc1
-        private const int ExifTag = 0x45786966; // Exif
-        private const int MimeTag = 0x6D696D65;
+        private const int Hvc1Tag = 0x68766331; // "hvc1"
+        private const int ExifTag = 0x45786966; // "Exif"
+        private const int MimeTag = 0x6D696D65; // "mime"
+
         public static DirectoryList ReadMetadata(Stream stream)
         {
             var directories = new List<Directory>();
@@ -315,7 +317,7 @@ namespace MetadataExtractor.Formats.Heif
 
                         reader.Skip((long)extentOffset - reader.Position);
                         var bytes = reader.GetBytes((int)extentLength);
-                        var xmpDir = (new Formats.Xmp.XmpReader()).Extract(bytes);
+                        var xmpDir = new XmpReader().Extract(bytes);
                         directories.Add(xmpDir);
                     }
                 }
