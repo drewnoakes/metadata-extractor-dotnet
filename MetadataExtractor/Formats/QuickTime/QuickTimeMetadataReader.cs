@@ -31,10 +31,22 @@ namespace MetadataExtractor.Formats.QuickTime
         {
             var directories = new List<Directory>();
             var metaDataKeys = new List<string>();
+            QuickTimeMetadataHeaderDirectory? metaHeaderDirectory = null;
 
             QuickTimeReader.ProcessAtoms(stream, Handler);
 
             return directories;
+
+            QuickTimeMetadataHeaderDirectory GetMetaHeaderDirectory()
+            {
+                if (metaHeaderDirectory == null)
+                {
+                    metaHeaderDirectory = new QuickTimeMetadataHeaderDirectory();
+                    directories.Add(metaHeaderDirectory);
+                }
+
+                return metaHeaderDirectory;
+            }
 
             void TrakHandler(AtomCallbackArgs a)
             {
@@ -130,11 +142,9 @@ namespace MetadataExtractor.Formats.QuickTime
                         var stringBytes = a.Reader.GetBytes(stringSize);
 
                         // TODO parse ISO 6709 string into GeoLocation? GeoLocation does not (currently) support altitude, where ISO 6709 does
-                        var directory = new QuickTimeMetadataHeaderDirectory();
-                        directory.Set(
+                        GetMetaHeaderDirectory().Set(
                             QuickTimeMetadataHeaderDirectory.TagGpsLocation,
                             new StringValue(stringBytes, Encoding.UTF8));
-                        directories.Add(directory);
                         break;
                 }
             }
@@ -160,14 +170,13 @@ namespace MetadataExtractor.Formats.QuickTime
                     }
                     case "ilst":
                     {
-                        var directory = new QuickTimeMetadataHeaderDirectory();
                         // Iterate over the list of Metadata Item Atoms.
                         for (int i = 0; i < metaDataKeys.Count; i++)
                         {
                             long atomSize = a.Reader.GetUInt32();
                             if (atomSize < 24)
                             {
-                                directory.AddError("Invalid ilist atom type");
+                                GetMetaHeaderDirectory().AddError("Invalid ilist atom type");
                                 a.Reader.Skip(atomSize - 4);
                                 continue;
                             }
@@ -177,7 +186,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             // atom type for each metadata item atom is the index of the key
                             if (atomType < 1 || atomType > metaDataKeys.Count)
                             {
-                                directory.AddError("Invalid ilist atom type");
+                                GetMetaHeaderDirectory().AddError("Invalid ilist atom type");
                                 a.Reader.Skip(atomSize - 8);
                                 continue;
                             }
@@ -190,23 +199,39 @@ namespace MetadataExtractor.Formats.QuickTime
                             var dataTypeIndicator = a.Reader.GetUInt32();
                             if (!_supportedAtomValueTypes.Contains((int)dataTypeIndicator))
                             {
-                                directory.AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
+                                GetMetaHeaderDirectory().AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
                                 a.Reader.Skip(atomSize - 20);
                                 continue;
                             }
+
                             // locale not supported yet.
                             a.Reader.Skip(4);
+
                             var data = a.Reader.GetBytes((int)atomSize - 24);
                             if (QuickTimeMetadataHeaderDirectory.TryGetTag(key, out int tag))
                             {
-                                DecodeData(data, (int)dataTypeIndicator, tag, directory);
+                                object value = dataTypeIndicator switch
+                                {
+                                    // UTF-8
+                                    1 => new StringValue(data, Encoding.UTF8),
+
+                                    // BE Float32 (used for User Rating)
+                                    23 => BitConverter.ToSingle(BitConverter.IsLittleEndian ? data.Reverse().ToArray() : data, 0),
+
+                                    // 13 JPEG
+                                    // 14 PNG
+                                    // 27 BMP
+                                    _ => data
+                                };
+
+                                GetMetaHeaderDirectory().Set(tag, value);
                             }
                             else
                             {
-                                directory.AddError($"Unsupported ilist key \"{key}\"");
+                                GetMetaHeaderDirectory().AddError($"Unsupported ilist key \"{key}\"");
                             }
                         }
-                        directories.Add(directory);
+
                         break;
                     }
                 }
@@ -322,32 +347,6 @@ namespace MetadataExtractor.Formats.QuickTime
                         directories.Add(directory);
                         break;
                     }
-                }
-            }
-        }
-
-        private static void DecodeData(byte[] data, int dataTypeIndicator, int tagType, QuickTimeMetadataHeaderDirectory directory)
-        {
-            switch (dataTypeIndicator)
-            {
-                case 1:
-                {
-                    // UTF-8
-                    directory.Set(tagType, new StringValue(data, Encoding.UTF8));
-                    break;
-                }
-                case 23: // BE Float32 (used for User Rating)
-                {
-                    directory.Set(tagType, BitConverter.ToSingle(BitConverter.IsLittleEndian ? data.Reverse().ToArray() : data, 0));
-                    break;
-                }
-                case 13: // JPEG
-                case 14: // PNG
-                case 27: // BMP
-                default:
-                {
-                    directory.Set(tagType, data);
-                    break;
                 }
             }
         }
