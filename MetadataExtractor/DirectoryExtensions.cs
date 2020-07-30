@@ -662,7 +662,7 @@ namespace MetadataExtractor
 
             if (s != null)
             {
-                if (DateTime.TryParseExact(s, _datePatterns, null, DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AdjustToUniversal, out dateTime))
+                if (DateTime.TryParseExact(s, _datePatterns, CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AdjustToUniversal, out dateTime))
                 {
                     return true;
                 }

@@ -222,10 +222,10 @@ dotnet_diagnostic.CA1303.severity = none                          # Literal stri
 # working around bug
 dotnet_diagnostic.RS0041.severity = none                          # Public members should not use oblivious types
 
-# TODO review these diagnostics as many/all are probably valid
-dotnet_diagnostic.CA1304.severity = none                          # Method behaviour depends upon user's locale
-dotnet_diagnostic.CA1305.severity = none                          # Method behaviour depends upon user's locale
-dotnet_diagnostic.CA1307.severity = none                          # Method behaviour depends upon user's locale
+# TODO review these diagnostics as many/all are probably valid, keep current output behavior (english text with localized numbers)
+dotnet_diagnostic.CA1304.severity = none                          # Method behaviour depends upon user's locale (specify CultureInfo f.e. ToLower())
+dotnet_diagnostic.CA1305.severity = none                          # Method behaviour depends upon user's locale (specify IFormatProvider f.e. ToString())
+dotnet_diagnostic.CA1307.severity = none                          # Method behaviour depends upon user's locale (specify StringComparison f.e. StartsWith(), Equals())
 
 # TODO fix these
 dotnet_diagnostic.CA1825.severity = none                          # Avoid unnecessary zero-length array allocations
