@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Util
 {
@@ -33,24 +32,24 @@ namespace MetadataExtractor.Util
         /// <summary>Gets the maximum depth stored in this trie.</summary>
         public int MaxDepth { get; private set; }
 
-        public ByteTrie() { }
-
-        public ByteTrie(T defaultValue) => SetDefaultValue(defaultValue);
+        /// <summary>
+        /// Initialises a new instance of <see cref="ByteTrie{T}"/> with specified default value.
+        /// </summary>
+        /// <param name="defaultValue">
+        /// The default value to use in <see cref="ByteTrie{T}.Find(byte[])"/> when no path matches.
+        /// </param>
+        public ByteTrie(T defaultValue) => _root.SetValue(defaultValue);
 
         /// <summary>Return the most specific value stored for this byte sequence.</summary>
         /// <remarks>
-        /// If not found, returns <c>null</c> or a default values as specified by
-        /// calling <see cref="SetDefaultValue"/>.
+        /// If not found, returns the default value specified in the constructor.
         /// </remarks>
-        [return: MaybeNull]
         public T Find(byte[] bytes) => Find(bytes, 0, bytes.Length);
 
         /// <summary>Return the most specific value stored for this byte sequence.</summary>
         /// <remarks>
-        /// If not found, returns <c>null</c> or a default values as specified by
-        /// calling <see cref="SetDefaultValue"/>.
+        /// If not found, returns the default value specified in the constructor.
         /// </remarks>
-        [return: MaybeNull]
         public T Find(byte[] bytes, int offset, int count)
         {
             var maxIndex = offset + count;
@@ -92,11 +91,6 @@ namespace MetadataExtractor.Util
             node.SetValue(value);
             MaxDepth = Math.Max(MaxDepth, depth);
         }
-
-        /// <summary>
-        /// Sets the default value to use in <see cref="ByteTrie{T}.Find(byte[])"/> when no path matches.
-        /// </summary>
-        public void SetDefaultValue(T defaultValue) => _root.SetValue(defaultValue);
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => throw new NotSupportedException();
 

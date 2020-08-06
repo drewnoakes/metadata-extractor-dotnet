@@ -45,7 +45,7 @@ namespace MetadataExtractor.PowerShell
     [UsedImplicitly]
     public sealed class ShowJpegStructure : PSCmdlet
     {
-        private static readonly ByteTrie<string> _appSegmentByPreambleBytes = new ByteTrie<string>
+        private static readonly ByteTrie<string?> _appSegmentByPreambleBytes = new ByteTrie<string?>(null)
         {
             { "Adobe",          Encoding.UTF8.GetBytes(AdobeJpegReader.JpegSegmentPreamble) },
             { "Ducky",          Encoding.UTF8.GetBytes(DuckyReader.JpegSegmentPreamble) },
