@@ -46,6 +46,7 @@ namespace MetadataExtractor.Formats.QuickTime
             { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDXM") },
             { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDXP") },
             { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDXS") },
+            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("nvr1") },
 
             // HEIF
             { Util.FileType.Heif, Encoding.UTF8.GetBytes("mif1") },
