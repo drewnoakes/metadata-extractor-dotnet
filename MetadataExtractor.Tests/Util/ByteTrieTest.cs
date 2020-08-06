@@ -13,7 +13,7 @@ namespace MetadataExtractor.Tests.Util
         [Fact]
         public void Basics()
         {
-            var trie = new ByteTrie<string>();
+            var trie = new ByteTrie<string>("DEFAULT");
 
             var strings = new[] { "HELLO", "HELLO WORLD", "HERBERT" };
 
@@ -23,15 +23,14 @@ namespace MetadataExtractor.Tests.Util
             foreach (var s1 in strings)
                 Assert.Same(s1, trie.Find(Encoding.UTF8.GetBytes(s1)));
 
-            Assert.Null(trie.Find(Encoding.UTF8.GetBytes("Not Included")));
-            Assert.Null(trie.Find(Encoding.UTF8.GetBytes("HELL")));
+            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("Not Included")));
+            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("HELL")));
+            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("HEL")));
+            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("HE")));
+            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("Also Not Included")));
 
             Assert.Equal("HELLO", trie.Find(Encoding.UTF8.GetBytes("HELLO MUM")));
             Assert.Equal("HELLO WORLD".Length, trie.MaxDepth);
-
-            trie.SetDefaultValue("DEFAULT");
-
-            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("Also Not Included")));
         }
     }
 }
