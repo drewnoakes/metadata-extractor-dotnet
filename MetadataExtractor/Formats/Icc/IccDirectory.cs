@@ -115,7 +115,7 @@ namespace MetadataExtractor.Formats.Icc
             { TagTagTarg, "Char Target" },
             { TagTagChad, "Chromatic Adaptation" },
             { TagTagChrm, "Chromaticity" },
-            { TagTagCprt, "Copyright" },
+            { TagTagCprt, "Profile Copyright" },
             { TagTagCrdi, "CrdInfo" },
             { TagTagDmnd, "Device Mfg Description" },
             { TagTagDmdd, "Device Model Description" },
