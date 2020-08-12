@@ -2,6 +2,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Text;
 using MetadataExtractor.Formats.Exif;
 using Xunit;
@@ -103,9 +104,12 @@ namespace MetadataExtractor.Tests
         [InlineData("2002-01-30",                    2002, 1, 30,  0,  0,  0,  0, DateTimeKind.Unspecified)]
         [InlineData("2002-01",                       2002, 1,  1,  0,  0,  0,  0, DateTimeKind.Unspecified)]
         [InlineData("2002",                          2002, 1,  1,  0,  0,  0,  0, DateTimeKind.Unspecified)]
+        [InlineData("2002-01-30T23:59:59.099-08:00", 2002, 1, 31,  7, 59, 59, 99, DateTimeKind.Utc, "ar")]
 #pragma warning restore format
-        public void SetStringAndGetDate(string str, int year, int month, int day, int hour, int minute, int second, int milli, DateTimeKind kind)
+        public void SetStringAndGetDate(string str, int year, int month, int day, int hour, int minute, int second, int milli, DateTimeKind kind, string? culture = null)
         {
+            CultureInfo.CurrentCulture = string.IsNullOrWhiteSpace(culture) ? CultureInfo.CurrentCulture : CultureInfo.GetCultureInfo(culture);
+
             _directory.Set(1, str);
 
             var expected = new DateTime(year, month, day, hour, minute, second, milli, kind);
