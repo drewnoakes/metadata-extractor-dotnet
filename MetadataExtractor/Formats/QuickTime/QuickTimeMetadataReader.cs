@@ -250,7 +250,7 @@ namespace MetadataExtractor.Formats.QuickTime
                         directory.Set(QuickTimeMovieHeaderDirectory.TagModified, _epoch.AddTicks(TimeSpan.TicksPerSecond * a.Reader.GetUInt32()));
                         var timeScale = a.Reader.GetUInt32();
                         directory.Set(QuickTimeMovieHeaderDirectory.TagTimeScale, timeScale);
-                        directory.Set(QuickTimeMovieHeaderDirectory.TagDuration, TimeSpan.FromSeconds(a.Reader.GetUInt32() / (double)timeScale));
+                        directory.Set(QuickTimeMovieHeaderDirectory.TagDuration, TimeSpan.FromSeconds((double)a.Reader.GetUInt32() / (timeScale == 0 ? 1 : timeScale)));
                         directory.Set(QuickTimeMovieHeaderDirectory.TagPreferredRate, a.Reader.Get32BitFixedPoint());
                         directory.Set(QuickTimeMovieHeaderDirectory.TagPreferredVolume, a.Reader.Get16BitFixedPoint());
                         a.Reader.Skip(10);
