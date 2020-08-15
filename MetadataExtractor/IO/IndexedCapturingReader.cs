@@ -10,14 +10,14 @@ namespace MetadataExtractor.IO
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IndexedCapturingReader : IndexedReader
     {
-        private const int DefaultChunkLength = 2 * 1024;
+        private const int DefaultChunkLength = 4 * 1024;
 
         private readonly Stream _stream;
         private readonly int _chunkLength;
-        private readonly List<byte[]> _chunks = new List<byte[]>();
-        private bool _isStreamFinished;
-        private int _streamLength;
-        private bool _streamLengthThrewException;
+        private readonly Dictionary<int, byte[]> _chunks;
+        private int _maxChunkLoaded = -1;
+        private int _streamLength = -1;
+        private readonly bool _contiguousBufferMode;
 
         public IndexedCapturingReader(Stream stream, int chunkLength = DefaultChunkLength, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
@@ -27,6 +27,40 @@ namespace MetadataExtractor.IO
 
             _chunkLength = chunkLength;
             _stream = stream ?? throw new ArgumentNullException(nameof(stream));
+
+            try
+            {
+                // For some reason, FileStreams are faster in contiguous mode. Since this is such a a commont case, we
+                // specifically check for it.
+                if (_stream is FileStream)
+                {
+                    _contiguousBufferMode = true;
+                }
+                else
+                {
+                    // If the stream is both seekable and has a length, switch to non-contiguous buffering mode. This
+                    // will use Seek operations to access data that is far beyond the reach of what has been buffered,
+                    // rather than reading the entire file into memory in this case.
+                    _contiguousBufferMode = !(_stream.Length > 0 && _stream.CanSeek);
+                }
+            }
+            catch (NotSupportedException)
+            {
+                // Streams that don't support the Length property have to be handled in contiguous mode.
+                _contiguousBufferMode = true;
+            }
+
+            if (!_contiguousBufferMode)
+            {
+                // If we know the length of the stream ahead of time, we can allocate a Dictionary with enough slots
+                // for all the chunks. We 2X it to try to avoid hash collisions.
+                var chunksCapacity = 2 * (_stream.Length / chunkLength);
+                _chunks = new Dictionary<int, byte[]>((int) chunksCapacity);
+            }
+            else
+            {
+                _chunks = new Dictionary<int, byte[]>();
+            }
         }
 
         /// <summary>
@@ -44,21 +78,16 @@ namespace MetadataExtractor.IO
         {
             get
             {
-                if (!_streamLengthThrewException)
+                if (_contiguousBufferMode)
                 {
-                    try
+                    if (_streamLength == -1)
                     {
-                        return _stream.Length;
+                        IsValidIndex(int.MaxValue, 1);
                     }
-                    catch (NotSupportedException)
-                    {
-                        _streamLengthThrewException = true;
-                    }
+                    return _streamLength;
                 }
 
-                IsValidIndex(int.MaxValue, 1);
-                Debug.Assert(_isStreamFinished);
-                return _streamLength;
+                return _stream.Length;
             }
         }
 
@@ -79,10 +108,132 @@ namespace MetadataExtractor.IO
                 if ((long)index + bytesRequested - 1 > int.MaxValue)
                     throw new BufferBoundsException($"Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {index}, requested count: {bytesRequested})");
 
-                Debug.Assert(_isStreamFinished);
                 // TODO test that can continue using an instance of this type after this exception
-                throw new BufferBoundsException(ToUnshiftedOffset(index), bytesRequested, _streamLength);
+                throw new BufferBoundsException(ToUnshiftedOffset(index), bytesRequested, Length);
             }
+        }
+
+        /// <summary>
+        /// Helper method for GetChunk. This will load the next chunk of data from the input stream. If non contiguous
+        /// buffering mode is being used, this method relies on the called (GetChunk) to set the stream's position
+        /// correctly. In contiguous buffer mode, this will simply be the next chunk in sequence (the stream's Position
+        /// field will just advance monotonically).
+        /// </summary>
+        /// <returns></returns>
+        private byte[] LoadNextChunk()
+        {
+            var chunk = new byte[_chunkLength];
+            var totalBytesRead = 0;
+
+            while (totalBytesRead != _chunkLength)
+            {
+                var bytesRead = _stream.Read(chunk, totalBytesRead, _chunkLength - totalBytesRead);
+                totalBytesRead += bytesRead;
+                
+                // if no bytes were read at all, we've reached the end of the file.
+                if (bytesRead == 0 && totalBytesRead == 0)
+                {
+                    return null;
+                }
+                
+                // If this read didn't produce any bytes, but a previous read did, we've hit the end of the file, so
+                // shrink the chunk down to the number of bytes we actually have.
+                if (bytesRead == 0)
+                {
+                    var shrunkChunk = new byte[totalBytesRead];
+                    Buffer.BlockCopy(chunk, 0, shrunkChunk, 0, totalBytesRead);
+                    return shrunkChunk;
+                }
+            }
+
+            return chunk;
+        }
+
+        // GetChunk is substantially slower for random accesses owing to needing to use a Dictionary, rather than a
+        // List. However, the typical access pattern isn't very random at all -- you generally read a whole series of
+        // bytes from the same chunk. So we just cache the last chunk that was read and return that directly if it's
+        // requested again. This is about 15% faster than going straight to the Dictionary.
+        private int _lastChunkIdx = -1;
+        private byte[] _lastChunkData = null;
+
+        /// <summary>
+        /// Load the data for the given chunk (if necessary), and return it. Chunks are identified by their index,
+        /// which is their start offset divided by the chunk length. eg: offset 10 will typically refer to chunk
+        /// index 0. See DoGetChunk() for implementation -- this function adds simple memoization.
+        /// </summary>
+        /// <param name="chunkIndex">The index of the chunk to get</param>
+        private byte[] GetChunk(int chunkIndex)
+        {
+            if (chunkIndex == _lastChunkIdx)
+            {
+                return _lastChunkData;
+            }
+            
+            var result = DoGetChunk(chunkIndex);
+            _lastChunkIdx = chunkIndex;
+            _lastChunkData = result;
+
+            return result;
+        }
+        
+        private byte[] DoGetChunk(int chunkIndex)
+        {
+            byte[] result;
+            if (_chunks.TryGetValue(chunkIndex, out result))
+            {
+                return result;
+            }
+
+            if (!_contiguousBufferMode)
+            {
+                var chunkStart = chunkIndex * _chunkLength;
+                
+                // Often we will be reading long contiguous blocks, even in non-contiguous mode. Don't issue Seeks in
+                // that case, so as to avoid unnecessary syscalls.
+                if (chunkStart != _stream.Position)
+                {
+                    _stream.Seek(chunkStart, SeekOrigin.Begin);
+                }
+                
+                var nextChunk = LoadNextChunk();
+                if (nextChunk != null)
+                {
+                    _chunks[chunkIndex] = nextChunk;
+                    var newStreamLen = (chunkIndex * _chunkLength) + nextChunk.Length;
+                    _streamLength = newStreamLen > _streamLength ? newStreamLen : _streamLength;
+                }
+
+                return nextChunk;
+            }
+
+            byte[] curChunk = null;
+            while (_maxChunkLoaded < chunkIndex)
+            {
+                var curChunkIdx = _maxChunkLoaded + 1;
+                curChunk = LoadNextChunk();
+                if (curChunk != null)
+                {
+                    _chunks[curChunkIdx] = curChunk;
+                    if(_streamLength < 0)
+                    {
+                        // If this is the first chunk we've loaded, then initialize the stream length.
+                        _streamLength = curChunk.Length;
+                    }
+                    else
+                    {
+                        var newStreamLen = _streamLength + curChunk.Length;
+                        _streamLength = newStreamLen > _streamLength ? newStreamLen : _streamLength;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+
+                _maxChunkLoaded = curChunkIdx;
+            }
+
+            return curChunk;
         }
 
         protected override bool IsValidIndex(int index, int bytesRequested)
@@ -94,44 +245,22 @@ namespace MetadataExtractor.IO
             if (endIndexLong > int.MaxValue)
                 return false;
 
+            if (!_contiguousBufferMode)
+            {
+                return endIndexLong < _stream.Length;
+            }
+            
             var endIndex = (int)endIndexLong;
-            if (_isStreamFinished)
-                return endIndex < _streamLength;
 
             var chunkIndex = endIndex / _chunkLength;
 
-            while (chunkIndex >= _chunks.Count)
+            var endChunk = GetChunk(chunkIndex);
+            if (endChunk == null)
             {
-                Debug.Assert(!_isStreamFinished);
-
-                var chunk = new byte[_chunkLength];
-                var totalBytesRead = 0;
-                while (!_isStreamFinished && totalBytesRead != _chunkLength)
-                {
-                    var bytesRead = _stream.Read(chunk, totalBytesRead, _chunkLength - totalBytesRead);
-
-                    if (bytesRead == 0)
-                    {
-                        // the stream has ended, which may be ok
-                        _isStreamFinished = true;
-                        _streamLength = _chunks.Count * _chunkLength + totalBytesRead;
-                        // check we have enough bytes for the requested index
-                        if (endIndex >= _streamLength)
-                        {
-                            _chunks.Add(chunk);
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        totalBytesRead += bytesRead;
-                    }
-                }
-
-                _chunks.Add(chunk);
+                return false;
             }
 
-            return true;
+            return endChunk.Length > (endIndex % _chunkLength);
         }
 
         public override int ToUnshiftedOffset(int localOffset) => localOffset;
@@ -142,7 +271,7 @@ namespace MetadataExtractor.IO
 
             var chunkIndex = index / _chunkLength;
             var innerIndex = index % _chunkLength;
-            var chunk = _chunks[chunkIndex];
+            var chunk = GetChunk(chunkIndex);
             return chunk[innerIndex];
         }
 
@@ -159,7 +288,7 @@ namespace MetadataExtractor.IO
                 var fromChunkIndex = fromIndex / _chunkLength;
                 var fromInnerIndex = fromIndex % _chunkLength;
                 var length = Math.Min(remaining, _chunkLength - fromInnerIndex);
-                var chunk = _chunks[fromChunkIndex];
+                var chunk = GetChunk(fromChunkIndex);
                 Array.Copy(chunk, fromInnerIndex, bytes, toIndex, length);
                 remaining -= length;
                 fromIndex += length;
