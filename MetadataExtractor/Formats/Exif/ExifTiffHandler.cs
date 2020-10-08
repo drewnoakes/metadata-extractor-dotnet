@@ -589,7 +589,7 @@ namespace MetadataExtractor.Formats.Exif
                 Directories.Add(directory);
                 ProcessReconyxHyperFire2Makernote(directory, makernoteOffset, reader);
             }
-            else if (string.Equals("SAMSUNG", cameraMake, StringComparison.Ordinal))
+            else if (string.Equals("SAMSUNG", cameraMake, StringComparison.OrdinalIgnoreCase))
             {
                 // Only handles Type2 notes correctly. Others aren't implemented, and it's complex to determine which ones to use
                 PushDirectory(new SamsungType2MakernoteDirectory());
