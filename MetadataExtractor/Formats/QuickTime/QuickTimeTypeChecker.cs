@@ -21,6 +21,7 @@ namespace MetadataExtractor.Formats.QuickTime
             { Util.FileType.QuickTime, Encoding.UTF8.GetBytes("3g2a") },
 
             // MP4
+            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("3gp5") },
             { Util.FileType.Mp4, Encoding.UTF8.GetBytes("avc1") },
             { Util.FileType.Mp4, Encoding.UTF8.GetBytes("iso2") },
             { Util.FileType.Mp4, Encoding.UTF8.GetBytes("isom") },
