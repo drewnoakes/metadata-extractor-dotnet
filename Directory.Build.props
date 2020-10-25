@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)\docs\metadata-extractor-logo-122.png" Pack="true" PackagePath="\" />
+    <None Include="$(MSBuildThisFileDirectory)docs\metadata-extractor-logo-122.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
