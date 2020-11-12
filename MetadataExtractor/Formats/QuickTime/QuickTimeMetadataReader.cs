@@ -224,6 +224,13 @@ namespace MetadataExtractor.Formats.QuickTime
                                     _ => data
                                 };
 
+                                value = tag switch
+                                {
+                                    QuickTimeMetadataHeaderDirectory.TagCreationDate => DateTime.Parse(((StringValue)value).ToString()),
+                                    QuickTimeMetadataHeaderDirectory.TagLocationDate => DateTime.Parse(((StringValue)value).ToString()),
+                                    _ => value,
+                                };
+
                                 GetMetaHeaderDirectory().Set(tag, value);
                             }
                             else
