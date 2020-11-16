@@ -369,7 +369,7 @@ namespace MetadataExtractor
                 ["UTF8"] = Encoding.UTF8,
                 ["UTF7"] = Encoding.UTF7,
                 ["UTF32"] = Encoding.UTF32,
-                ["UNICODE"] = Encoding.Unicode
+                ["UNICODE"] = Encoding.BigEndianUnicode,
             };
 
             try
@@ -383,28 +383,16 @@ namespace MetadataExtractor
 
             try
             {
-                if (commentBytes.Length >= 10)
+                if (commentBytes.Length >= 8)
                 {
                     // TODO no guarantee bytes after the UTF8 name are valid UTF8 -- only read as many as needed
-                    var firstTenBytesString = Encoding.UTF8.GetString(commentBytes, 0, 10);
-                    // try each encoding name
-                    foreach (var pair in encodingMap)
+                    var idCode = Encoding.UTF8.GetString(commentBytes, 0, 8).TrimEnd('\0', ' ');
+                    if (encodingMap.TryGetValue(idCode, out var encoding))
                     {
-                        var encodingName = pair.Key;
-                        var encoding = pair.Value;
-                        if (firstTenBytesString.StartsWith(encodingName))
-                        {
-                            // skip any null or blank characters commonly present after the encoding name, up to a limit of 10 from the start
-                            for (var j = encodingName.Length; j < 10; j++)
-                            {
-                                var b = commentBytes[j];
-                                if (b != '\0' && b != ' ')
-                                {
-                                    return encoding.GetString(commentBytes, j, commentBytes.Length - j).Trim('\0', ' ');
-                                }
-                            }
-                            return encoding.GetString(commentBytes, 10, commentBytes.Length - 10).Trim('\0', ' ');
-                        }
+                        var text = encoding.GetString(commentBytes, 8, commentBytes.Length - 8);
+                        if (encoding == Encoding.ASCII)
+                            text = text.Trim('\0', ' ');
+                        return text;
                     }
                 }
                 // special handling fell through, return a plain string representation
