@@ -21,23 +21,13 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
-        public void UserCommentDescription_AsciiHeaderAsciiEncoding()
-        {
-            var commentBytes = Encoding.UTF8.GetBytes("ASCII\x0\x0This is a comment");
-            var directory = new ExifSubIfdDirectory();
-            directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
-            var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.Equal("This is a comment", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
-        }
-
-        [Fact]
         public void UserCommentDescription_BlankAscii()
         {
             var commentBytes = Encoding.UTF8.GetBytes("ASCII\x0\x0\x0          ");
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.Equal(string.Empty, descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
+            Assert.Equal("", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
         [Fact]
@@ -48,7 +38,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.Equal("ASCII", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
+            Assert.Equal("", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
         [Fact]
@@ -59,21 +49,20 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.Equal(string.Empty, descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
+            Assert.Equal("", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
         [Fact]
-        public void UnicodeComment_ActualBytes()
+        public void UnicodeComment_Unicode()
         {
-            var commentBytes = new byte[] { 85, 78, 73, 67, 79, 68, 69, 0, 84, 0, 104, 0, 105, 0, 115, 0, 32, 0, 109, 0, 97, 0, 114, 0, 109, 0, 111, 0, 116, 0, 32, 0, 105, 0, 115, 0, 32, 0, 103, 0, 101, 0, 116, 0, 116, 0, 105, 0, 110, 0, 103, 0, 32
-                , 0, 99, 0, 108, 0, 111, 0, 115, 0, 101, 0, 46, 0, 46, 0, 46, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0,
-                32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32
-                , 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32,
-                0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0 };
+            var commentBytes = new byte[] {
+                85, 78, 73, 67, 79, 68, 69, 0, // "UNICODE\0"
+                0, 84, 0, 104, 0, 105, 0, 115, 0, 32, 0, 109, 0, 97, 0, 114, 0, 109, 0, 111, 0, 116, 0, 32, 0, 105, 0, 115, 0, 32, 0, 103, 0, 101, 0, 116, 0, 116, 0, 105, 0, 110, 0, 103, 0,
+                32, 0, 99, 0, 108, 0, 111, 0, 115, 0, 101, 0, 46, 0, 46, 0, 46, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32 };
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.Equal("This marmot is getting close...", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
+            Assert.Equal("This marmot is getting close...         ", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
         [Fact]
