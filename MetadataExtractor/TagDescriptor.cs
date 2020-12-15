@@ -395,6 +395,7 @@ namespace MetadataExtractor
                         return text;
                     }
                 }
+
                 // special handling fell through, return a plain string representation
                 return Encoding.UTF8.GetString(commentBytes, 0, commentBytes.Length).Trim('\0', ' ');
             }
