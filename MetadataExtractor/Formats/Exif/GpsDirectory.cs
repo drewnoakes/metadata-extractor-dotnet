@@ -104,7 +104,7 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>GPSHPositioningError	Horizontal positioning error RATIONAL 1</summary>
         public const int TagHPositioningError = 0x001F;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();
+        private static readonly Dictionary<int, string> _tagNameMap = new();
 
         static GpsDirectory()
         {

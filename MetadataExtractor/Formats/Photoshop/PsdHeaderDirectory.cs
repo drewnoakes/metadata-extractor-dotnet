@@ -31,7 +31,7 @@ namespace MetadataExtractor.Formats.Photoshop
         /// </remarks>
         public const int TagColorMode = 5;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagChannelCount, "Channel Count" },
             { TagImageHeight, "Image Height" },

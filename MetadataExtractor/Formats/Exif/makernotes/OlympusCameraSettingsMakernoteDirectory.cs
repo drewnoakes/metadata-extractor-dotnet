@@ -84,7 +84,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagPitchAngle = 0x904;
         public const int TagDateTimeUtc = 0x908;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagCameraSettingsVersion, "Camera Settings Version" },
             { TagPreviewImageValid, "Preview Image Valid" },

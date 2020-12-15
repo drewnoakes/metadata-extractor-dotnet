@@ -27,7 +27,7 @@ namespace MetadataExtractor.Formats.Exif
         public const int TagDistortionN = 12;
 
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagDistortionParam02, "Distortion Param 2" },
             { TagDistortionParam04, "Distortion Param 4" },

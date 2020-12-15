@@ -38,7 +38,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagPrintImageMatchingInfo = 0x0E00;
         public const int TagDataDump = 0x0f00;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagMakernoteOffset, "Makernote Offset" },
             { TagSanyoThumbnail, "Sanyo Thumbnail" },

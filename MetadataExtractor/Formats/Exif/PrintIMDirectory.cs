@@ -14,7 +14,7 @@ namespace MetadataExtractor.Formats.Exif
     {
         public const int TagPrintImVersion = 0x0000;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagPrintImVersion, "PrintIM Version" }
         };

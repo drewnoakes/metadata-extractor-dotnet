@@ -34,7 +34,7 @@ namespace MetadataExtractor.Formats.Bmp
         public const int TagIntent = 20;
         public const int TagLinkedProfile = 21;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagBitmapType, "Bitmap type" },
             { TagHeaderSize, "Header Size" },

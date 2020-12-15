@@ -84,7 +84,7 @@ namespace MetadataExtractor.Formats.Icc
         public const int TagTagVcgt = 0x76636774;
         public const int TagAppleMultiLanguageProfileName = 0x6473636d;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagProfileByteCount, "Profile Size" },
             { TagCmmType, "CMM Type" },

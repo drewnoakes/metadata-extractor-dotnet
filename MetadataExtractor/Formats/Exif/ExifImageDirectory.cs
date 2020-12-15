@@ -17,7 +17,7 @@ namespace MetadataExtractor.Formats.Exif
             SetDescriptor(new ExifImageDescriptor(this));
         }
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();
+        private static readonly Dictionary<int, string> _tagNameMap = new();
 
         static ExifImageDirectory()
         {

@@ -95,7 +95,7 @@ namespace MetadataExtractor.Formats.Jpeg
             0xF9, 0xFA
         };
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagNumberOfTables, "Number of Tables" }
         };
@@ -134,7 +134,7 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <returns>The List of HuffmanTables in this Directory.</returns>
-        private readonly List<HuffmanTable> _tables = new List<HuffmanTable>(4);
+        private readonly List<HuffmanTable> _tables = new(4);
 
         /// <summary>Evaluates whether all the tables in this HuffmanTablesDirectory are "typical" Huffman tables.</summary>
         /// <remarks>

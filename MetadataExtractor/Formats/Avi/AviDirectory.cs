@@ -19,7 +19,7 @@ namespace MetadataExtractor.Formats.Avi
         public const int TagStreams = 8;
         public const int TagDateTimeOriginal = 320;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             {TagFramesPerSecond, "Frames Per Second"},
             {TagSamplesPerSecond, "Samples Per Second"},

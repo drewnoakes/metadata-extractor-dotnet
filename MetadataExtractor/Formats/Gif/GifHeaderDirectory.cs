@@ -19,7 +19,7 @@ namespace MetadataExtractor.Formats.Gif
         public const int TagBackgroundColorIndex = 8;
         public const int TagPixelAspectRatio = 9;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagGifFormatVersion, "GIF Format Version" },
             { TagImageHeight, "Image Height" },

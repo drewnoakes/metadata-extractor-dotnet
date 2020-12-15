@@ -14,7 +14,7 @@ namespace MetadataExtractor.Formats.QuickTime
 
         public override string Name => "QuickTime File Type";
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagMajorBrand,       "Major Brand" },
             { TagMinorVersion,     "Minor Version" },

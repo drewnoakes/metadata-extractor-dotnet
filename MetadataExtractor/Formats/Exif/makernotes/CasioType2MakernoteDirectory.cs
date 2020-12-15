@@ -146,7 +146,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagFilter = 0x3017;
 
         // TODO add missing names
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagThumbnailDimensions, "Thumbnail Dimensions" },
             { TagThumbnailSize, "Thumbnail Size" },

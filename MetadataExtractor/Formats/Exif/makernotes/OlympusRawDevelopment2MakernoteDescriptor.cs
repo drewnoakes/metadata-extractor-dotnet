@@ -137,7 +137,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         // RawDevArtFilter values
-        private static readonly Dictionary<int, string> _filters = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _filters = new()
         {
             { 0, "Off" },
             { 1, "Soft Focus" },

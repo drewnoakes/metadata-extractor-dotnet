@@ -33,7 +33,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagConverter = 0x000B;
         public const int TagUnknown3 = 0x0F00;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagCcdSensitivity, "CCD Sensitivity" },
             { TagColorMode, "Color Mode" },

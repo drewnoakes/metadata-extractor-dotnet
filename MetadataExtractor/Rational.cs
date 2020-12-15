@@ -157,12 +157,12 @@ namespace MetadataExtractor
 
         /// <summary>Gets the reciprocal value of this object as a new <see cref="Rational"/>.</summary>
         /// <value>the reciprocal in a new object</value>
-        public Rational Reciprocal => new Rational(Denominator, Numerator);
+        public Rational Reciprocal => new(Denominator, Numerator);
 
         /// <summary>
         /// Gets the absolute value of this object as a new <see cref="Rational"/>.
         /// </summary>
-        public Rational Absolute => new Rational(Math.Abs(Numerator), Math.Abs(Denominator));
+        public Rational Absolute => new(Math.Abs(Numerator), Math.Abs(Denominator));
 
         /// <summary>
         /// Checks if this <see cref="Rational"/> number is expressible as an integer, either positive or negative.

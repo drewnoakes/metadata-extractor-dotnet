@@ -101,7 +101,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <summary>(String).</summary>
         public const int TagDaylightSavings = 0x1001;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagCaptureMode, "Capture Mode" },
             { TagQualityLevel, "Quality Level" },

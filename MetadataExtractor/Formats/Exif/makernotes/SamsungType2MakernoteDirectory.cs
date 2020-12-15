@@ -59,7 +59,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public const int TagEncryptionKey = 0xa020;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagMakerNoteVersion, "Maker Note Version" },
             { TagDeviceType, "Device Type" },

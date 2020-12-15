@@ -17,7 +17,7 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>The size of the thumbnail image data in bytes.</summary>
         public const int TagThumbnailLength = 0x0202;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagThumbnailOffset, "Thumbnail Offset" },
             { TagThumbnailLength, "Thumbnail Length" }

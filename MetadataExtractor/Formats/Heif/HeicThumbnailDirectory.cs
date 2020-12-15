@@ -17,7 +17,7 @@ namespace MetadataExtractor.Formats.Heif
         public const int TagFileOffset = 1;
         public const int TagLength = 2;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>()
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagFileOffset, "Offset From Beginning of File" },
             { TagLength, "Data Length" }

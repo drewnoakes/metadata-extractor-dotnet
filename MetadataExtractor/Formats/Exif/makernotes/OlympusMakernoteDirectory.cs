@@ -278,7 +278,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagDecSwitchPosition = Offset + 51;
         }
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagMakernoteVersion, "Makernote Version" },
             { TagCameraSettings1, "Camera Settings" },
@@ -483,7 +483,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// http://www.sno.phy.queensu.ca/~phil/exiftool/
         /// lib\Image\ExifTool\Olympus.pm
         /// </remarks>
-        public static readonly Dictionary<string, string> OlympusCameraTypes = new Dictionary<string, string>
+        public static readonly Dictionary<string, string> OlympusCameraTypes = new()
         {
             { "D4028", "X-2,C-50Z" },
             { "D4029", "E-20,E-20N,E-20P" },

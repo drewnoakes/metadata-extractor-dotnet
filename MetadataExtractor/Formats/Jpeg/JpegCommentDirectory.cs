@@ -17,7 +17,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// </remarks>
         public const int TagComment = 0;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagComment, "JPEG Comment" }
         };

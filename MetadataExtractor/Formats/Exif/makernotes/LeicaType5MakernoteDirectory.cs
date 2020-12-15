@@ -22,7 +22,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagFilmMode = 0x0412;
         public const int TagWbRgbLevels = 0x0413;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagLensModel, "Lens Model" },
             { TagOriginalFileName, "Original File Name" },

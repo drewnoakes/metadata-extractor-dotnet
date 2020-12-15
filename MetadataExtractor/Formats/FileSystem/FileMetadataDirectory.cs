@@ -13,7 +13,7 @@ namespace MetadataExtractor.Formats.FileSystem
         public const int TagFileSize = 2;
         public const int TagFileModifiedDate = 3;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagFileName, "File Name" },
             { TagFileSize, "File Size" },

@@ -97,7 +97,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         // 0x1905 - focal length (PH, E-M1)
         public const int TagKeystoneValue = 0x1906;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagImageProcessingVersion, "Image Processing Version" },
             { TagWbRbLevels, "WB RB Levels" },

@@ -743,7 +743,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// Note that only Canon lenses are listed. Lenses from other manufacturers may identify themselves to the camera
         /// as being from this set, but in fact may be quite different. This limits the usefulness of this data, unfortunately.
         /// </remarks>
-        private readonly Dictionary<int, string> _lensTypeById = new Dictionary<int, string>
+        private readonly Dictionary<int, string> _lensTypeById = new()
         {
             { 1, "Canon EF 50mm f/1.8" },
             { 2, "Canon EF 28mm f/2.8" },

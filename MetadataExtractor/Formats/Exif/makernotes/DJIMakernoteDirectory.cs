@@ -35,7 +35,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagCameraYaw = 0x000a;
         public const int TagCameraRoll = 0x000b;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagMake, "Make" },
             { TagSpeedX, "Aircraft X Speed" },

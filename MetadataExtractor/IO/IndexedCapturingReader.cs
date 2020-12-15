@@ -14,7 +14,7 @@ namespace MetadataExtractor.IO
 
         private readonly Stream _stream;
         private readonly int _chunkLength;
-        private readonly List<byte[]> _chunks = new List<byte[]>();
+        private readonly List<byte[]> _chunks = new();
         private bool _isStreamFinished;
         private int _streamLength;
         private bool _streamLengthThrewException;

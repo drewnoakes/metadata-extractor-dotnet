@@ -15,7 +15,7 @@ namespace MetadataExtractor.Formats.FileType
         public const int TagDetectedFileMimeType = 3;
         public const int TagExpectedFileNameExtension = 4;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagDetectedFileTypeName, "Detected File Type Name" },
             { TagDetectedFileTypeLongName, "Detected File Type Long Name" },

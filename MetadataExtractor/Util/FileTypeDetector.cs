@@ -19,7 +19,7 @@ namespace MetadataExtractor.Util
     public static class FileTypeDetector
     {
         // https://en.wikipedia.org/wiki/List_of_file_signatures
-        private static readonly ByteTrie<FileType> _root = new ByteTrie<FileType>(defaultValue: FileType.Unknown)
+        private static readonly ByteTrie<FileType> _root = new(defaultValue: FileType.Unknown)
         {
             { FileType.Jpeg, new byte[] { 0xff, 0xd8 } },
             { FileType.Tiff, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00 } },

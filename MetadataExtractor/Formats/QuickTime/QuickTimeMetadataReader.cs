@@ -24,7 +24,7 @@ namespace MetadataExtractor.Formats.QuickTime
 {
     public static class QuickTimeMetadataReader
     {
-        private static readonly DateTime _epoch = new DateTime(1904, 1, 1);
+        private static readonly DateTime _epoch = new(1904, 1, 1);
         private static readonly int[] _supportedAtomValueTypes = { 1, 13, 14, 23, 27 };
 
         public static DirectoryList ReadMetadata(Stream stream)

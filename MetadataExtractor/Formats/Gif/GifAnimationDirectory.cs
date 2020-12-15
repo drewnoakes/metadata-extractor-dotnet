@@ -12,7 +12,7 @@ namespace MetadataExtractor.Formats.Gif
     {
         public const int TagIterationCount = 1;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagIterationCount, "Iteration Count" }
         };

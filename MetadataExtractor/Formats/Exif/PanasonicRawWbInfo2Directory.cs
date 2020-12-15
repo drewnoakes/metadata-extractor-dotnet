@@ -36,7 +36,7 @@ namespace MetadataExtractor.Formats.Exif
         public const int TagWbRgbLevels7 = 26;
 
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagNumWbEntries, "Num WB Entries" },
             { TagWbType1, "WB Type 1" },

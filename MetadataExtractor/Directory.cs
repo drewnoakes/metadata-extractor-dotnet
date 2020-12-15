@@ -31,12 +31,12 @@ namespace MetadataExtractor
         internal static readonly DirectoryList EmptyList = new Directory[0];
 
         /// <summary>Map of values hashed by type identifiers.</summary>
-        private readonly Dictionary<int, object> _tagMap = new Dictionary<int, object>();
+        private readonly Dictionary<int, object> _tagMap = new();
 
         /// <summary>Holds tags in the order in which they were stored.</summary>
-        private readonly List<Tag> _definedTagList = new List<Tag>();
+        private readonly List<Tag> _definedTagList = new();
 
-        private readonly List<string> _errorList = new List<string>(capacity: 4);
+        private readonly List<string> _errorList = new(capacity: 4);
 
         /// <summary>The descriptor used to interpret tag values.</summary>
         private ITagDescriptor? _descriptor;

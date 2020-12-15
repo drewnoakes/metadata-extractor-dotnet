@@ -34,7 +34,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagSoftware = 0x18;
         public const int TagAutoBracket = 0x19;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagSerialNumber, "Serial Number" },
             { TagDriveMode, "Drive Mode" },

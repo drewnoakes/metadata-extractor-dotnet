@@ -40,7 +40,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagRawDevArtFilter = 0x0121;
 
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagRawDevVersion, "Raw Dev Version" },
             { TagRawDevExposureBiasValue, "Raw Dev Exposure Bias Value" },

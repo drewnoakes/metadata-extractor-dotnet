@@ -31,7 +31,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagLivePhotoId        = 0x0017;
 #pragma warning restore format
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagRunTime, "Run Time" },
             { TagAccelerationVector, "Acceleration Vector" },

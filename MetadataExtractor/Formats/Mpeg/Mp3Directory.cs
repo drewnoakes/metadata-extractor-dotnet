@@ -16,7 +16,7 @@ namespace MetadataExtractor.Formats.Mpeg
         public const int TagCopyright = 7;
         public const int TagFrameSize = 8;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagId, "ID" },
             { TagLayer, "Layer" },

@@ -17,7 +17,7 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public class Subpath
     {
-        private readonly List<Knot> _knots = new List<Knot>();
+        private readonly List<Knot> _knots = new();
 
         public Subpath(string type = "")
         {

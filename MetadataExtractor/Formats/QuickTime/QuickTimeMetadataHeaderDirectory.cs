@@ -45,7 +45,7 @@ namespace MetadataExtractor.Formats.QuickTime
 
         public override string Name => "QuickTime Metadata Header";
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagAlbum,             "Album"},
             { TagArtist,            "Artist"},
@@ -83,7 +83,7 @@ namespace MetadataExtractor.Formats.QuickTime
             { TagAndroidVersion,       "Android Version" },
         };
 
-        private static readonly Dictionary<string, int> _nameTagMap = new Dictionary<string, int>
+        private static readonly Dictionary<string, int> _nameTagMap = new()
         {
             { "com.apple.quicktime.album",              TagAlbum},
             { "com.apple.quicktime.artist",             TagArtist},

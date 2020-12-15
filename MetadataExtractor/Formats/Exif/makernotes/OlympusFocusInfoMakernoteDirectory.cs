@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public const int TagImageStabilization = 0x1600;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagFocusInfoVersion, "Focus Info Version" },
             { TagAutoFocus, "Auto Focus" },

@@ -38,7 +38,7 @@ namespace MetadataExtractor.Formats.Png
         ///   <item><b>interlace method</b> 1 byte, indicates the transmission order of image data, currently only 0 (no interlace) and 1 (Adam7 interlace) are in the standard</item>
         /// </list>
         /// </remarks>
-        public static readonly PngChunkType IHDR = new PngChunkType("IHDR");
+        public static readonly PngChunkType IHDR = new("IHDR");
 
         /// <summary>
         /// Denotes a critical <see cref="PngChunk"/> that contains palette entries.
@@ -55,39 +55,39 @@ namespace MetadataExtractor.Formats.Png
         /// </list>
         /// The number of entries is determined by the chunk length. A chunk length indivisible by three is an error.
         /// </remarks>
-        public static readonly PngChunkType PLTE = new PngChunkType("PLTE");
+        public static readonly PngChunkType PLTE = new("PLTE");
 
-        public static readonly PngChunkType IDAT = new PngChunkType("IDAT", true);
+        public static readonly PngChunkType IDAT = new("IDAT", true);
 
-        public static readonly PngChunkType IEND = new PngChunkType("IEND");
+        public static readonly PngChunkType IEND = new("IEND");
 
         #endregion
 
         #region Standard ancillary chunks
 
-        public static readonly PngChunkType cHRM = new PngChunkType("cHRM");
+        public static readonly PngChunkType cHRM = new("cHRM");
 
-        public static readonly PngChunkType gAMA = new PngChunkType("gAMA");
+        public static readonly PngChunkType gAMA = new("gAMA");
 
-        public static readonly PngChunkType iCCP = new PngChunkType("iCCP");
+        public static readonly PngChunkType iCCP = new("iCCP");
 
-        public static readonly PngChunkType sBIT = new PngChunkType("sBIT");
+        public static readonly PngChunkType sBIT = new("sBIT");
 
-        public static readonly PngChunkType sRGB = new PngChunkType("sRGB");
+        public static readonly PngChunkType sRGB = new("sRGB");
 
-        public static readonly PngChunkType bKGD = new PngChunkType("bKGD");
+        public static readonly PngChunkType bKGD = new("bKGD");
 
-        public static readonly PngChunkType hIST = new PngChunkType("hIST");
+        public static readonly PngChunkType hIST = new("hIST");
 
-        public static readonly PngChunkType tRNS = new PngChunkType("tRNS");
+        public static readonly PngChunkType tRNS = new("tRNS");
 
-        public static readonly PngChunkType pHYs = new PngChunkType("pHYs");
+        public static readonly PngChunkType pHYs = new("pHYs");
 
-        public static readonly PngChunkType sPLT = new PngChunkType("sPLT", true);
+        public static readonly PngChunkType sPLT = new("sPLT", true);
 
-        public static readonly PngChunkType tIME = new PngChunkType("tIME");
+        public static readonly PngChunkType tIME = new("tIME");
 
-        public static readonly PngChunkType iTXt = new PngChunkType("iTXt", true);
+        public static readonly PngChunkType iTXt = new("iTXt", true);
 
         /// <summary>
         /// Denotes an ancillary <see cref="PngChunk"/> that contains textual data, having first a keyword and then a value.
@@ -104,11 +104,11 @@ namespace MetadataExtractor.Formats.Png
         /// Text is interpreted according to the Latin-1 character set [ISO-8859-1].
         /// Newlines should be represented by a single linefeed character (0x9).
         /// </remarks>
-        public static readonly PngChunkType tEXt = new PngChunkType("tEXt", true);
+        public static readonly PngChunkType tEXt = new("tEXt", true);
 
-        public static readonly PngChunkType zTXt = new PngChunkType("zTXt", true);
+        public static readonly PngChunkType zTXt = new("zTXt", true);
 
-        public static readonly PngChunkType eXIf = new PngChunkType("eXIf");
+        public static readonly PngChunkType eXIf = new("eXIf");
 
         #endregion
 

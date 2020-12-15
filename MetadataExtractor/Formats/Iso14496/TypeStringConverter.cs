@@ -8,7 +8,7 @@ namespace MetadataExtractor.Formats.Iso14496
     {
         public static string ToTypeString(uint input)
         {
-            return new string(
+            return new(
                 new[]
                 {
                     (char)(input >> 24),

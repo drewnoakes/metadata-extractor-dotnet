@@ -491,7 +491,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagPrimaryAfPoint2 = Offset + 12;
         }
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagCanonFirmwareVersion, "Firmware Version" },
             { TagCanonImageNumber, "Image Number" },

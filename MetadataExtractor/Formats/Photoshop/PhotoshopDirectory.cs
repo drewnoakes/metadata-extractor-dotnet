@@ -110,7 +110,7 @@ namespace MetadataExtractor.Formats.Photoshop
         public const int TagLightroomWorkflow = 0x1F40;
         public const int TagPrintFlagsInfo = 0x2710;
 
-        internal static readonly Dictionary<int, string> TagNameMap = new Dictionary<int, string>
+        internal static readonly Dictionary<int, string> TagNameMap = new()
         {
             { TagChannelsRowsColumnsDepthMode, "Channels, Rows, Columns, Depth, Mode" },
             { TagMacPrintInfo, "Mac Print Info" },

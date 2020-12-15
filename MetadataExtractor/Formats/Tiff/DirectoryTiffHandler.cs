@@ -12,7 +12,7 @@ namespace MetadataExtractor.Formats.Tiff
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class DirectoryTiffHandler : ITiffHandler
     {
-        private readonly Stack<Directory> _directoryStack = new Stack<Directory>();
+        private readonly Stack<Directory> _directoryStack = new();
 
         protected List<Directory> Directories { get; }
 

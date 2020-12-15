@@ -32,7 +32,7 @@ namespace MetadataExtractor.Formats.Tga
 
             static TgaTagInfo GetTag(SequentialReader reader)
             {
-                return new TgaTagInfo(reader.GetInt16(), reader.GetInt32(), reader.GetInt32());
+                return new(reader.GetInt16(), reader.GetInt32(), reader.GetInt32());
             }
         }
     }

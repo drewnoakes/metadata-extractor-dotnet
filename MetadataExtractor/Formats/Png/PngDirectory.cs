@@ -29,7 +29,7 @@ namespace MetadataExtractor.Formats.Png
         public const int TagUnitSpecifier = 18;
         public const int TagSignificantBits = 19;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagImageHeight, "Image Height" },
             { TagImageWidth, "Image Width" },

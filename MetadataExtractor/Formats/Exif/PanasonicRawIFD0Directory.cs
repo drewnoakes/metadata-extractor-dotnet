@@ -60,7 +60,7 @@ namespace MetadataExtractor.Formats.Exif
         public const int TagDistortionInfo = 0x0119;
 
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagPanasonicRawVersion, "Panasonic Raw Version" },
             { TagSensorWidth, "Sensor Width" },

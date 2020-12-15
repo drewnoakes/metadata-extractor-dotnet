@@ -40,7 +40,7 @@ namespace MetadataExtractor.Formats.Heif
         public const int TagFullRangeColor = 23;
         public const int TagColorFormat = 24;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>()
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagImageHeight, "Image Height" },
             { TagImageWidth, "Image Width" },

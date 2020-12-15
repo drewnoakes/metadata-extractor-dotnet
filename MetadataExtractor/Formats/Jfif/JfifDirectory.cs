@@ -21,7 +21,7 @@ namespace MetadataExtractor.Formats.Jfif
         public const int TagThumbWidth = 12;
         public const int TagThumbHeight = 13;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagVersion, "Version" },
             { TagUnits, "Resolution Units" },

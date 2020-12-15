@@ -28,7 +28,7 @@ namespace MetadataExtractor.Formats.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PngMetadataReader
     {
-        private static readonly HashSet<PngChunkType> _desiredChunkTypes = new HashSet<PngChunkType>
+        private static readonly HashSet<PngChunkType> _desiredChunkTypes = new()
         {
             PngChunkType.IHDR,
             PngChunkType.PLTE,
@@ -216,7 +216,7 @@ namespace MetadataExtractor.Formats.Png
                 var bytesLeft = bytes.Length - keyword.Length - 1;
                 var value = reader.GetNullTerminatedStringValue(bytesLeft, _latin1Encoding);
 
-                var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, value) };
+                var textPairs = new List<KeyValuePair> { new(keyword, value) };
                 var directory = new PngDirectory(PngChunkType.tEXt);
                 directory.Set(PngDirectory.TagTextualData, textPairs);
                 yield return directory;

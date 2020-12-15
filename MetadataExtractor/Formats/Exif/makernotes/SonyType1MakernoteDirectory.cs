@@ -91,7 +91,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagWhiteBalance2 = 0xb054;
         public const int TagNoPrint = 0xFFFF;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagCameraInfo, "Camera Info" },
             { TagFocusInfo, "Focus Info" },

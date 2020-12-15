@@ -19,7 +19,7 @@ namespace MetadataExtractor.Formats.Gif
         public const int TagIsColorTableSorted = 7;
         public const int TagLocalColourTableBitsPerPixel = 8;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagLeft, "Left" },
             { TagTop, "Top" },

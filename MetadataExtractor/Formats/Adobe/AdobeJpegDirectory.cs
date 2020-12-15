@@ -28,7 +28,7 @@ namespace MetadataExtractor.Formats.Adobe
 
         public const int TagColorTransform = 3;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagDctEncodeVersion, "DCT Encode Version" },
             { TagApp14Flags0, "Flags 0" },

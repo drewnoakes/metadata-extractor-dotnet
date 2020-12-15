@@ -56,7 +56,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagCmContrast = 0x2022;
         public const int TagCmSharpness = 0x2023;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagRawInfoVersion, "Raw Info Version" },
             { TagWbRbLevelsUsed, "WB RB Levels Used" },

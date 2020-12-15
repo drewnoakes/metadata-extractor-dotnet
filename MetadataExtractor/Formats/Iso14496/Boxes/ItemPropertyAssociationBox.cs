@@ -30,7 +30,7 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
 
         private ItemPropertyAssociationEntry ParseAssociationEntry(BitReader bits)
         {
-            return new ItemPropertyAssociationEntry(
+            return new(
                 bits.GetUInt32(ItemIndexWidth),
                 ReadAssociatedItems(bits));
         }
@@ -48,7 +48,7 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
 
         private AssociatedProperty ParseAssociatedItem(BitReader bits)
         {
-            return new AssociatedProperty(
+            return new(
                 bits.GetBit(),
                 bits.GetUInt16(PropertyIndexWidth));
         }

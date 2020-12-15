@@ -77,7 +77,7 @@ namespace MetadataExtractor.Formats.Eps
                         // Get Tiff metadata
                         try
                         {
-                            ByteArrayReader byteArrayReader = new ByteArrayReader(reader.GetBytes(tifOffset, tifSize));
+                            ByteArrayReader byteArrayReader = new(reader.GetBytes(tifOffset, tifSize));
                             TiffReader.ProcessTiff(byteArrayReader, new PhotoshopTiffHandler(epsDirectories));
                         }
                         catch (TiffProcessingException ex)

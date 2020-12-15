@@ -18,7 +18,7 @@ namespace MetadataExtractor.Formats.Png
         public const int TagBlueX = 7;
         public const int TagBlueY = 8;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagWhitePointX, "White Point X" },
             { TagWhitePointY, "White Point Y" },

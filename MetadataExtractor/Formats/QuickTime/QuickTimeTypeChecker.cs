@@ -8,7 +8,7 @@ namespace MetadataExtractor.Formats.QuickTime
     /// <author>Dmitry Shechtman</author>
     internal sealed class QuickTimeTypeChecker : ITypeChecker
     {
-        private static readonly ByteTrie<Util.FileType> _ftypTrie = new ByteTrie<Util.FileType>(Util.FileType.QuickTime)
+        private static readonly ByteTrie<Util.FileType> _ftypTrie = new(Util.FileType.QuickTime)
         {
             // http://www.ftyps.com
 

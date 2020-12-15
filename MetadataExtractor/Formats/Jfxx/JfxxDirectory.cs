@@ -12,7 +12,7 @@ namespace MetadataExtractor.Formats.Jfxx
     {
         public const int TagExtensionCode = 5;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagExtensionCode, "Extension Code" }
         };

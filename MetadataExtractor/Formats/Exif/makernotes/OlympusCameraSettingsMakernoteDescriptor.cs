@@ -1123,7 +1123,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return sb.ToString(0, sb.Length - 2);
         }
 
-        private static readonly Dictionary<int, string> _toneLevelType = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _toneLevelType = new()
         {
             { 0, "0" },
             { -31999, "Highlights " },
@@ -1132,7 +1132,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         };
 
         // ArtFilter, ArtFilterEffect and MagicFilter values
-        private static readonly Dictionary<int, string> _filters = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _filters = new()
         {
             { 0, "Off" },
             { 1, "Soft Focus" },

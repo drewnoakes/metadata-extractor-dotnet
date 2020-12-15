@@ -12,7 +12,7 @@ namespace MetadataExtractor.Formats.Netpbm
         public const int TagHeight = 3;
         public const int TagMaximumValue = 4;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagFormatType, "Format Type" },
             { TagWidth, "Width" },

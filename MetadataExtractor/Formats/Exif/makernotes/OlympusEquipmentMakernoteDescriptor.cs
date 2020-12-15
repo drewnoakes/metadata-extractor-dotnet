@@ -195,7 +195,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 "None", "FL-20", "FL-50", "RF-11", "TF-22", "FL-36", "FL-50R", "FL-36R");
         }
 
-        private static readonly Dictionary<string, string> _olympusLensTypes = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> _olympusLensTypes = new()
         {
             { "0 00 00", "None" },
             // Olympus lenses (also Kenko Tokina)
@@ -309,7 +309,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { "5 01 10", "Tamron 14-150mm F3.5-5.8 Di III" } //20 (model C001)
         };
 
-        private static readonly Dictionary<string, string> _olympusExtenderTypes = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> _olympusExtenderTypes = new()
         {
             { "0 00", "None" },
             { "0 04", "Olympus Zuiko Digital EC-14 1.4x Teleconverter" },
