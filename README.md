@@ -1,8 +1,8 @@
 ![metadata-extractor logo](https://cdn.rawgit.com/drewnoakes/metadata-extractor/master/Resources/metadata-extractor-logo.svg)
 
 [![Build Status](https://dev.azure.com/metadata-extractor/metadata-extractor-dotnet/_apis/build/status/drewnoakes.metadata-extractor-dotnet?branchName=master)](https://dev.azure.com/metadata-extractor/metadata-extractor-dotnet/_build/latest?definitionId=1&branchName=master)
-[![MetadataExtractor NuGet version](https://img.shields.io/nuget/v/MetadataExtractor.svg)](https://www.nuget.org/packages/MetadataExtractor/)
-<!--[![MetadataExtractor NuGet pre-release version](https://img.shields.io/nuget/vpre/MetadataExtractor.svg)](https://www.nuget.org/packages/MetadataExtractor/)-->
+[![MetadataExtractor NuGet version](https://img.shields.io/nuget/v/MetadataExtractor)](https://www.nuget.org/packages/MetadataExtractor/)
+[![MetadataExtractor Nuget download count](https://img.shields.io/nuget/dt/MetadataExtractor)](https://www.nuget.org/packages/MetadataExtractor/)
 
 _MetadataExtractor_ is a straightforward .NET library for reading metadata from image, movie and audio files.
 
