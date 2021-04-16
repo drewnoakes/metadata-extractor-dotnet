@@ -62,9 +62,9 @@ namespace MetadataExtractor.Tools.FileProcessor
 
             if (args.Count == 0)
             {
-                Console.Out.WriteLine("MetadataExtractor {0}", Assembly.GetEntryAssembly().GetName().Version);
+                Console.Out.WriteLine("MetadataExtractor {0}", Assembly.GetEntryAssembly()?.GetName().Version);
                 Console.Out.WriteLine();
-                Console.Out.WriteLine($"Usage: {Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName)} <filename> [<filename> ...] [--markdown] [--hex]");
+                Console.Out.WriteLine($"Usage: {Path.GetFileName(Process.GetCurrentProcess().MainModule?.FileName)} <filename> [<filename> ...] [--markdown] [--hex]");
 
                 if (Debugger.IsAttached)
                     Console.ReadLine();
@@ -256,7 +256,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             Console.Out.WriteLine("Usage:");
             Console.Out.WriteLine();
             Console.Out.WriteLine("  {0}.exe [--text|--markdown|--unknown] [--log-file <file-name>]",
-                Assembly.GetEntryAssembly().GetName().Name);
+                Assembly.GetEntryAssembly()?.GetName().Name);
         }
 
         private static void ProcessDirectory(string path, IFileHandler handler, string relativePath, TextWriter log)

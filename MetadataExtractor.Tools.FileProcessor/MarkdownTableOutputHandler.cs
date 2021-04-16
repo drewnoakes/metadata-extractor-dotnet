@@ -89,7 +89,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             if (_extensionEquivalence.ContainsKey(extension))
                 extension = _extensionEquivalence[extension];
 
-            if (!_rowsByExtension.TryGetValue(extension, out List<Row> rows))
+            if (!_rowsByExtension.TryGetValue(extension, out List<Row>? rows))
             {
                 rows = new List<Row>();
                 _rowsByExtension[extension] = rows;

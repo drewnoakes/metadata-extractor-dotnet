@@ -89,7 +89,7 @@ namespace MetadataExtractor.Tools.JpegSegmentExtractor
         {
             Console.Out.WriteLine("USAGE:");
             Console.Out.WriteLine();
-            Console.Out.WriteLine("    {0} <filename> [<segment> ...]", Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName));
+            Console.Out.WriteLine("    {0} <filename> [<segment> ...]", Path.GetFileName(Process.GetCurrentProcess().MainModule?.FileName));
             Console.Out.WriteLine();
             Console.Out.Write("Where <segment> is zero or more of:");
             foreach (var segmentType in JpegSegmentTypeExtensions.CanContainMetadataTypes)
