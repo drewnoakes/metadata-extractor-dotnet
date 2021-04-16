@@ -1,6 +1,7 @@
 ﻿#nullable enable
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAccelerationVectorDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetHdrImageTypeDescription() -> string?
+MetadataExtractor.Formats.Jpeg.HuffmanTable.HuffmanTable() -> void
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetArtworkDescription() -> string?
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetLocationRoleDescription() -> string?
@@ -24,6 +25,8 @@ const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagLo
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagLocationRole = 26 -> int
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagOriginatingSignature = 32 -> int
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagPixelDensity = 33 -> int
+MetadataExtractor.Rational.Rational() -> void
+MetadataExtractor.StringValue.StringValue() -> void
 override MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetDescription(int tagType) -> string?
 static MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TryGetTag(string! name, out int tagType) -> bool
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType!
