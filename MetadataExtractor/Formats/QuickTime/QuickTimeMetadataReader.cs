@@ -88,7 +88,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 {
                     var x = matrix[1] + matrix[4];
                     var y = matrix[0] + matrix[3];
-                    var theta = Math.Atan2(x, y);
+                    var theta = Math.Atan2(y, x);
                     var degree = RadiansToDegrees(theta) - 45;
 
                     directory.Set(QuickTimeTrackHeaderDirectory.TagRotation, degree);
