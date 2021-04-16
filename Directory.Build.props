@@ -24,6 +24,9 @@
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+
+    <!-- This avoids needing to have .NET targeting packs installed (e.g. for .NET 3.5) -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
