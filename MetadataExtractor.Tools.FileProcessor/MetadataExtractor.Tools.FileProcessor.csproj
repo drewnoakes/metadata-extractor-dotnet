@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp1.0;net35;net45</TargetFrameworks>
     <OutputType>Exe</OutputType>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
