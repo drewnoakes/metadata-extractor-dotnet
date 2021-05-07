@@ -114,6 +114,7 @@ It supports various file types.
 
 * Audio
   * WAV
+  * MP3
 
 Camera-specific "makernote" data is decoded for cameras manufactured by:
 
