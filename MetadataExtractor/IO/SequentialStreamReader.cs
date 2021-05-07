@@ -56,7 +56,7 @@ namespace MetadataExtractor.IO
                 throw new ArgumentException("n must be zero or greater.");
 
             if (_stream.Position + n > _stream.Length)
-                throw new IOException("Unable to skip past of end of file");
+                throw new IOException($"Unable to skip. Requested {n} bytes but only {_stream.Length - _stream.Position} remained.");
 
             _stream.Seek(n, SeekOrigin.Current);
         }
