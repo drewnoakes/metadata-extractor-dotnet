@@ -242,7 +242,7 @@ namespace MetadataExtractor.Formats.Iptc
             return GetDate(TagDigitalDateCreated, TagDigitalTimeCreated);
         }
 
-        private static readonly string[] _formats = { "yyyyMMddHHmmsszzz", "yyyyMMddHHmmss" };
+        private static readonly string[] _formats = { "yyyyMMddHHmmsszzzz", "yyyyMMddHHmmsszzz", "yyyyMMddHHmmss" };
 
         private DateTimeOffset? GetDate(int dateTagType, int timeTagType)
         {
@@ -252,7 +252,9 @@ namespace MetadataExtractor.Formats.Iptc
             if (date == null || time == null)
                 return null;
 
-            if (DateTimeOffset.TryParseExact(date + time, _formats, null, DateTimeStyles.None, out DateTimeOffset result))
+            IFormatProvider provider = CultureInfo.InvariantCulture.DateTimeFormat;
+
+            if (DateTimeOffset.TryParseExact(date + time, _formats, provider, DateTimeStyles.None, out DateTimeOffset result))
                 return result;
 
             return null;
