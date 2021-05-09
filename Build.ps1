@@ -31,6 +31,5 @@ if ((test-path $msbuild) -eq $false) {
 }
 
 &$msbuild MetadataExtractor\MetadataExtractor.csproj /t:Restore,Build,Pack /p:Configuration=Release /p:ContinuousIntegrationBuild=True /p:PackageOutputPath=..\artifacts
-&$msbuild MetadataExtractor\MetadataExtractor.csproj /t:Restore,Build,Pack /p:Configuration=Release /p:ContinuousIntegrationBuild=True /p:PackageOutputPath=..\artifacts /p:Signed=True /p:PackageId=MetadataExtractor.StrongName
 
 Pop-Location
