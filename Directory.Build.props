@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <VersionPrefix>2.4.3</VersionPrefix>
+    <VersionPrefix>2.5.0</VersionPrefix>
     <DebugType>portable</DebugType>
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
