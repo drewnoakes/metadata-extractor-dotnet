@@ -6,7 +6,7 @@
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
     <Authors>Drew Noakes</Authors>
-    <Copyright>Copyright Drew Noakes 2002-2020</Copyright>
+    <Copyright>Copyright Drew Noakes 2002-2021</Copyright>
     <PackageIcon>metadata-extractor-logo-122.png</PackageIcon>
     <PackageProjectUrl>https://github.com/drewnoakes/metadata-extractor-dotnet</PackageProjectUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
