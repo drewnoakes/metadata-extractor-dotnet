@@ -186,7 +186,7 @@ namespace MetadataExtractor.Formats.Iptc
         }
 
         /// <summary>Returns any keywords contained in the IPTC data.</summary>
-        /// <remarks>This value may be <c>null</c>.</remarks>
+        /// <remarks>This value may be <see langword="null" />.</remarks>
         public IList<string>? GetKeywords()
         {
             return this.GetStringArray(TagKeywords)?.ToList();
@@ -196,7 +196,7 @@ namespace MetadataExtractor.Formats.Iptc
         /// Combines tags <see cref="TagDateSent" /> and <see cref="TagTimeSent"/> to obtain a single
         /// <see cref="DateTimeOffset"/> representing when the service sent this image.
         /// </summary>
-        /// <returns>When the service sent this image, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>When the service sent this image, if possible, otherwise <see langword="null" />.</returns>
         public DateTimeOffset? GetDateSent()
         {
             return GetDate(TagDateSent, TagTimeSent);
@@ -206,7 +206,7 @@ namespace MetadataExtractor.Formats.Iptc
         /// Combines tags <see cref="TagReleaseDate" /> and <see cref="TagReleaseTime"/> to obtain a single
         /// <see cref="DateTimeOffset"/> representing when this image was released.
         /// </summary>
-        /// <returns>When this image was released, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>When this image was released, if possible, otherwise <see langword="null" />.</returns>
         public DateTimeOffset? GetReleaseDate()
         {
             return GetDate(TagReleaseDate, TagReleaseTime);
@@ -216,7 +216,7 @@ namespace MetadataExtractor.Formats.Iptc
         /// Combines tags <see cref="TagExpirationDate" /> and <see cref="TagExpirationTime"/> to obtain a single
         /// <see cref="DateTimeOffset"/> after which this image should not be used.
         /// </summary>
-        /// <returns>When this image should expire, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>When this image should expire, if possible, otherwise <see langword="null" />.</returns>
         public DateTimeOffset? GetExpirationDate()
         {
             return GetDate(TagExpirationDate, TagExpirationTime);
@@ -226,7 +226,7 @@ namespace MetadataExtractor.Formats.Iptc
         /// Combines tags <see cref="TagDateCreated" /> and <see cref="TagTimeCreated"/> to obtain a single
         /// <see cref="DateTimeOffset"/> representing when this image was captured.
         /// </summary>
-        /// <returns>When this image was released, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>When this image was released, if possible, otherwise <see langword="null" />.</returns>
         public DateTimeOffset? GetDateCreated()
         {
             return GetDate(TagDateCreated, TagTimeCreated);
@@ -236,7 +236,7 @@ namespace MetadataExtractor.Formats.Iptc
         /// Combines tags <see cref="TagDateCreated" /> and <see cref="TagTimeCreated"/> to obtain a single
         /// <see cref="DateTimeOffset"/> representing when the digital representation of this image was created.
         /// </summary>
-        /// <returns>When the digital representation of this image was created, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>When the digital representation of this image was created, if possible, otherwise <see langword="null" />.</returns>
         public DateTimeOffset? GetDigitalDateCreated()
         {
             return GetDate(TagDigitalDateCreated, TagDigitalTimeCreated);

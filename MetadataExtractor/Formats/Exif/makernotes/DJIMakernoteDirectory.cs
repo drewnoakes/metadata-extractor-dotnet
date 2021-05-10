@@ -65,63 +65,63 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// Parses various tags in an attempt to obtain a single object representing the x speed,
         /// of the aircraft, at which this image was captured.
         /// </summary>
-        /// <returns>The x speed of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>The x speed of the aircraft for this image, if possible, otherwise <see langword="null" />.</returns>
         public float? GetAircraftSpeedX() => this.TryGetSingle(TagSpeedX, out var value) ? value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the y speed,
         /// of the aircraft, at which this image was captured.
         /// </summary>
-        /// <returns>The y speed of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>The y speed of the aircraft for this image, if possible, otherwise <see langword="null" />.</returns>
         public float? GetAircraftSpeedY() => this.TryGetSingle(TagSpeedY, out var value) ? value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the z speed,
         /// of the aircraft, at which this image was captured.
         /// </summary>
-        /// <returns>The z speed of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>The z speed of the aircraft for this image, if possible, otherwise <see langword="null" />.</returns>
         public float? GetAircraftSpeedZ() => this.TryGetSingle(TagSpeedZ, out var value) ? value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the pitch,
         /// of the aircraft, at which this image was captured.
         /// </summary>
-        /// <returns>The pitch of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>The pitch of the aircraft for this image, if possible, otherwise <see langword="null" />.</returns>
         public float? GetAircraftPitch() => this.TryGetSingle(TagAircraftPitch, out var value) ? value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the yaw,
         /// of the aircraft, at which this image was captured.
         /// </summary>
-        /// <returns>The yaw of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>The yaw of the aircraft for this image, if possible, otherwise <see langword="null" />.</returns>
         public float? GetAircraftYaw() => this.TryGetSingle(TagAircraftYaw, out var value) ? value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the roll,
         /// of the aircraft, at which this image was captured.
         /// </summary>
-        /// <returns>The roll of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>The roll of the aircraft for this image, if possible, otherwise <see langword="null" />.</returns>
         public float? GetAircraftRoll() => this.TryGetSingle(TagAircraftRoll, out var value) ? value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the pitch,
         /// of the camera, at which this image was captured.
         /// </summary>
-        /// <returns>The pitch of the camera for this image, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>The pitch of the camera for this image, if possible, otherwise <see langword="null" />.</returns>
         public float? GetCameraPitch() => this.TryGetSingle(TagCameraPitch, out var value) ? value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the yaw,
         /// of the camera, at which this image was captured.
         /// </summary>
-        /// <returns>The yaw of the camera for this image, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>The yaw of the camera for this image, if possible, otherwise <see langword="null" />.</returns>
         public float? GetCameraYaw() => this.TryGetSingle(TagCameraYaw, out var value) ? value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the roll,
         /// of the camera, at which this image was captured.
         /// </summary>
-        /// <returns>The roll of the camera for this image, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>The roll of the camera for this image, if possible, otherwise <see langword="null" />.</returns>
         public float? GetCameraRoll() => this.TryGetSingle(TagCameraRoll, out var value) ? value : null;
     }
 }

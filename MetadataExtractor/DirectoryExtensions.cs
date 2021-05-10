@@ -384,7 +384,7 @@ namespace MetadataExtractor
 
         /// <summary>Gets the specified tag's value as a String array, if possible.</summary>
         /// <remarks>Only supported where the tag is set as String[], String, int[], byte[] or Rational[].</remarks>
-        /// <returns>the tag's value as an array of Strings. If the value is unset or cannot be converted, <c>null</c> is returned.</returns>
+        /// <returns>the tag's value as an array of Strings. If the value is unset or cannot be converted, <see langword="null" /> is returned.</returns>
         [Pure]
         public static string[]? GetStringArray(this Directory directory, int tagType)
         {
@@ -439,7 +439,7 @@ namespace MetadataExtractor
 
         /// <summary>Gets the specified tag's value as a StringValue array, if possible.</summary>
         /// <remarks>Only succeeds if the tag is set as StringValue[], or String.</remarks>
-        /// <returns>the tag's value as an array of StringValues. If the value is unset or cannot be converted, <c>null</c> is returned.</returns>
+        /// <returns>the tag's value as an array of StringValues. If the value is unset or cannot be converted, <see langword="null" /> is returned.</returns>
         [Pure]
         public static StringValue[]? GetStringValueArray(this Directory directory, int tagType)
         {
@@ -700,7 +700,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Returns the specified tag's value as a Rational.</summary>
-        /// <remarks>If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>
+        /// <remarks>If the value is unset or cannot be converted, <see langword="null" /> is returned.</remarks>
         [Pure]
         public static bool TryGetRational(this Directory directory, int tagType, out Rational value)
         {
@@ -739,7 +739,7 @@ namespace MetadataExtractor
         #endregion
 
         /// <summary>Returns the specified tag's value as an array of Rational.</summary>
-        /// <remarks>If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>
+        /// <remarks>If the value is unset or cannot be converted, <see langword="null" /> is returned.</remarks>
         [Pure]
         public static Rational[]? GetRationalArray(this Directory directory, int tagType)
         {
@@ -753,7 +753,7 @@ namespace MetadataExtractor
         /// </remarks>
         /// <returns>
         /// the String representation of the tag's value, or
-        /// <c>null</c> if the tag hasn't been defined.
+        /// <see langword="null" /> if the tag hasn't been defined.
         /// </returns>
         [Pure]
         public static string? GetString(this Directory directory, int tagType)

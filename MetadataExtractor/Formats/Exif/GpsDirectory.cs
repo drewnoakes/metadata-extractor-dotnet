@@ -163,7 +163,7 @@ namespace MetadataExtractor.Formats.Exif
         /// Parses various tags in an attempt to obtain a single object representing the latitude and longitude
         /// at which this image was captured.
         /// </summary>
-        /// <returns>The geographical location of this image, if possible, otherwise <c>null</c>.</returns>
+        /// <returns>The geographical location of this image, if possible, otherwise <see langword="null" />.</returns>
         public GeoLocation? GetGeoLocation()
         {
             var latitudes = this.GetRationalArray(TagLatitude);
