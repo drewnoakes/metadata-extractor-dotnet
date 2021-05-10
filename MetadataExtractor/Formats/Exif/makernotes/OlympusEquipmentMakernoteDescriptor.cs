@@ -225,7 +225,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { "0 12 10", "Olympus M.Zuiko Digital ED 60mm F2.8 Macro" }, //20
             { "0 13 10", "Olympus M.Zuiko Digital 14-42mm F3.5-5.6 II R" }, //PH/20
             { "0 14 10", "Olympus M.Zuiko Digital ED 40-150mm F4.0-5.6 R" }, //19
-          // '0 14 10.1", "Olympus M.Zuiko Digital ED 14-150mm F4.0-5.6 II" }, //11 (questionable & unconfirmed -- all samples I can find are '0 3 10' - PH)
+            // '0 14 10.1", "Olympus M.Zuiko Digital ED 14-150mm F4.0-5.6 II" }, //11 (questionable & unconfirmed -- all samples I can find are '0 3 10' - PH)
             { "0 15 00", "Olympus Zuiko Digital ED 7-14mm F4.0" },
             { "0 15 10", "Olympus M.Zuiko Digital ED 75mm F1.8" }, //PH
             { "0 16 10", "Olympus M.Zuiko Digital 17mm F1.8" }, //20
@@ -300,7 +300,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { "2 20 10", "Lumix G Vario 12-32mm F3.5-5.6 Asph. Mega OIS" }, //20
             { "2 21 10", "Leica DG Nocticron 42.5mm F1.2 Asph. Power OIS" }, //20
             { "2 22 10", "Leica DG Summilux 15mm F1.7 Asph." }, //20
-          // '2 23 10", "Lumix G Vario 35-100mm F4.0-5.6 Asph. Mega OIS" }, //20 (guess)
+            // '2 23 10", "Lumix G Vario 35-100mm F4.0-5.6 Asph. Mega OIS" }, //20 (guess)
             { "2 24 10", "Lumix G Macro 30mm F2.8 Asph. Mega OIS" }, //20
             { "2 25 10", "Lumix G 42.5mm F1.7 Asph. Power OIS" }, //20
             { "3 01 00", "Leica D Vario Elmarit 14-50mm F2.8-3.5 Asph." }, //11
