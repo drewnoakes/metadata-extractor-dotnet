@@ -881,7 +881,7 @@ namespace MetadataExtractor
                         str.Append(vals[i]);
                     }
                 }
-                else if (componentType.IsByRef)
+                else if (componentType is { IsByRef: true })
                 {
                     var vals = (object[])array;
                     for (var i = 0; i < vals.Length; i++)
