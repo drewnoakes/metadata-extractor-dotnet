@@ -367,7 +367,9 @@ namespace MetadataExtractor
             {
                 ["ASCII"] = Encoding.ASCII,
                 ["UTF8"] = Encoding.UTF8,
+#pragma warning disable SYSLIB0001 // Type or member is obsolete
                 ["UTF7"] = Encoding.UTF7,
+#pragma warning restore SYSLIB0001 // Type or member is obsolete
                 ["UTF32"] = Encoding.UTF32,
                 ["UNICODE"] = Encoding.BigEndianUnicode,
             };
