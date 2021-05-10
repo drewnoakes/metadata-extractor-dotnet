@@ -113,7 +113,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public override string Name => "PanasonicRaw Exif IFD0";
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }

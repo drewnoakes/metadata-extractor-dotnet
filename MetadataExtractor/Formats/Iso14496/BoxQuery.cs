@@ -7,7 +7,7 @@ namespace MetadataExtractor.Formats.Iso14496
 {
     internal static class BoxQuery
     {
-        public static T Descendant<T>(this IEnumerable<Box> source) where T : Box
+        public static T? Descendant<T>(this IEnumerable<Box> source) where T : Box
         {
             return source.Descendants().OfType<T>().FirstOrDefault();
         }

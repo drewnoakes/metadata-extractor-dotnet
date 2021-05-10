@@ -112,41 +112,41 @@ namespace MetadataExtractor
 
         TypeCode IConvertible.GetTypeCode() => TypeCode.Object;
 
-        bool IConvertible.ToBoolean(IFormatProvider provider) => ToBoolean();
+        bool IConvertible.ToBoolean(IFormatProvider? provider) => ToBoolean();
 
-        char IConvertible.ToChar(IFormatProvider provider)
+        char IConvertible.ToChar(IFormatProvider? provider)
         {
             throw new NotSupportedException();
         }
 
-        sbyte IConvertible.ToSByte(IFormatProvider provider) => ToSByte();
+        sbyte IConvertible.ToSByte(IFormatProvider? provider) => ToSByte();
 
-        byte IConvertible.ToByte(IFormatProvider provider) => ToByte();
+        byte IConvertible.ToByte(IFormatProvider? provider) => ToByte();
 
-        short IConvertible.ToInt16(IFormatProvider provider) => ToInt16();
+        short IConvertible.ToInt16(IFormatProvider? provider) => ToInt16();
 
-        ushort IConvertible.ToUInt16(IFormatProvider provider) => ToUInt16();
+        ushort IConvertible.ToUInt16(IFormatProvider? provider) => ToUInt16();
 
-        int IConvertible.ToInt32(IFormatProvider provider) => ToInt32();
+        int IConvertible.ToInt32(IFormatProvider? provider) => ToInt32();
 
-        uint IConvertible.ToUInt32(IFormatProvider provider) => ToUInt32();
+        uint IConvertible.ToUInt32(IFormatProvider? provider) => ToUInt32();
 
-        long IConvertible.ToInt64(IFormatProvider provider) => ToInt64();
+        long IConvertible.ToInt64(IFormatProvider? provider) => ToInt64();
 
-        ulong IConvertible.ToUInt64(IFormatProvider provider) => ToUInt64();
+        ulong IConvertible.ToUInt64(IFormatProvider? provider) => ToUInt64();
 
-        float IConvertible.ToSingle(IFormatProvider provider) => ToSingle();
+        float IConvertible.ToSingle(IFormatProvider? provider) => ToSingle();
 
-        double IConvertible.ToDouble(IFormatProvider provider) => ToDouble();
+        double IConvertible.ToDouble(IFormatProvider? provider) => ToDouble();
 
-        decimal IConvertible.ToDecimal(IFormatProvider provider) => ToDecimal();
+        decimal IConvertible.ToDecimal(IFormatProvider? provider) => ToDecimal();
 
-        DateTime IConvertible.ToDateTime(IFormatProvider provider)
+        DateTime IConvertible.ToDateTime(IFormatProvider? provider)
         {
             throw new NotSupportedException();
         }
 
-        object IConvertible.ToType(Type conversionType, IFormatProvider provider)
+        object IConvertible.ToType(Type conversionType, IFormatProvider? provider)
         {
             throw new NotSupportedException();
         }
@@ -247,7 +247,7 @@ namespace MetadataExtractor
         /// <returns></returns>
         public bool EqualsExact(Rational other) => Denominator == other.Denominator && Numerator == other.Numerator;
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is null)
                 return false;

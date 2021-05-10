@@ -467,7 +467,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return this.TryGetInt64(CameraSettings.TagShootingMode, out long value) && value == 5;
         }
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }

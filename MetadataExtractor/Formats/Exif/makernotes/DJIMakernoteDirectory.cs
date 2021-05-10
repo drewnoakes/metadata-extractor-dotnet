@@ -56,7 +56,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string Name => "DJI Makernote";
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }

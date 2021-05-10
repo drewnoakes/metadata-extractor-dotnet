@@ -37,19 +37,19 @@ namespace MetadataExtractor
 
         TypeCode IConvertible.GetTypeCode() => TypeCode.Object;
 
-        string IConvertible.ToString(IFormatProvider provider) => ToString();
+        string IConvertible.ToString(IFormatProvider? provider) => ToString();
 
-        double IConvertible.ToDouble(IFormatProvider provider) => double.Parse(ToString());
+        double IConvertible.ToDouble(IFormatProvider? provider) => double.Parse(ToString());
 
-        decimal IConvertible.ToDecimal(IFormatProvider provider) => decimal.Parse(ToString());
+        decimal IConvertible.ToDecimal(IFormatProvider? provider) => decimal.Parse(ToString());
 
-        float IConvertible.ToSingle(IFormatProvider provider) => float.Parse(ToString());
+        float IConvertible.ToSingle(IFormatProvider? provider) => float.Parse(ToString());
 
-        bool IConvertible.ToBoolean(IFormatProvider provider) => bool.Parse(ToString());
+        bool IConvertible.ToBoolean(IFormatProvider? provider) => bool.Parse(ToString());
 
-        byte IConvertible.ToByte(IFormatProvider provider) => byte.Parse(ToString());
+        byte IConvertible.ToByte(IFormatProvider? provider) => byte.Parse(ToString());
 
-        char IConvertible.ToChar(IFormatProvider provider)
+        char IConvertible.ToChar(IFormatProvider? provider)
         {
             var s = ToString();
             if (s.Length != 1)
@@ -57,11 +57,11 @@ namespace MetadataExtractor
             return s[0];
         }
 
-        DateTime IConvertible.ToDateTime(IFormatProvider provider) => DateTime.Parse(ToString());
+        DateTime IConvertible.ToDateTime(IFormatProvider? provider) => DateTime.Parse(ToString());
 
-        short IConvertible.ToInt16(IFormatProvider provider) => short.Parse(ToString());
+        short IConvertible.ToInt16(IFormatProvider? provider) => short.Parse(ToString());
 
-        int IConvertible.ToInt32(IFormatProvider provider)
+        int IConvertible.ToInt32(IFormatProvider? provider)
         {
             try
             {
@@ -79,13 +79,13 @@ namespace MetadataExtractor
             }
         }
 
-        long IConvertible.ToInt64(IFormatProvider provider) => long.Parse(ToString());
+        long IConvertible.ToInt64(IFormatProvider? provider) => long.Parse(ToString());
 
-        sbyte IConvertible.ToSByte(IFormatProvider provider) => sbyte.Parse(ToString());
+        sbyte IConvertible.ToSByte(IFormatProvider? provider) => sbyte.Parse(ToString());
 
-        ushort IConvertible.ToUInt16(IFormatProvider provider) => ushort.Parse(ToString());
+        ushort IConvertible.ToUInt16(IFormatProvider? provider) => ushort.Parse(ToString());
 
-        uint IConvertible.ToUInt32(IFormatProvider provider)
+        uint IConvertible.ToUInt32(IFormatProvider? provider)
         {
             try
             {
@@ -103,9 +103,9 @@ namespace MetadataExtractor
             }
         }
 
-        ulong IConvertible.ToUInt64(IFormatProvider provider) => ulong.Parse(ToString());
+        ulong IConvertible.ToUInt64(IFormatProvider? provider) => ulong.Parse(ToString());
 
-        object IConvertible.ToType(Type conversionType, IFormatProvider provider) => Convert.ChangeType(ToString(), conversionType, provider);
+        object IConvertible.ToType(Type conversionType, IFormatProvider? provider) => Convert.ChangeType(ToString(), conversionType, provider);
 
         #endregion
 

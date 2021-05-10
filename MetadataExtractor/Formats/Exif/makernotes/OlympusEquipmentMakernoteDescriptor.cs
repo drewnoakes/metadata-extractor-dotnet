@@ -102,7 +102,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return int.TryParse(values[0], out int num1) &&
                    int.TryParse(values[2], out int num2) &&
                    int.TryParse(values[3], out int num3) &&
-                   _olympusLensTypes.TryGetValue($"{num1:X} {num2:X2} {num3:X2}", out string lensType)
+                   _olympusLensTypes.TryGetValue($"{num1:X} {num2:X2} {num3:X2}", out string? lensType)
                        ? lensType
                        : null;
         }
@@ -178,7 +178,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             return int.TryParse(values[0], out int num1) &&
                    int.TryParse(values[2], out int num2) &&
-                   _olympusExtenderTypes.TryGetValue($"{num1:X} {num2:X2}", out string extenderType)
+                   _olympusExtenderTypes.TryGetValue($"{num1:X} {num2:X2}", out string? extenderType)
                        ? extenderType
                        : null;
         }

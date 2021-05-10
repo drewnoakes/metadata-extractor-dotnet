@@ -79,7 +79,7 @@ namespace MetadataExtractor.Util
             {
                 foreach (var b in part)
                 {
-                    if (!node.Children.TryGetValue(b, out ByteTrieNode child))
+                    if (!node.Children.TryGetValue(b, out ByteTrieNode? child))
                     {
                         child = new ByteTrieNode();
                         node.Children[b] = child;

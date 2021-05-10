@@ -24,6 +24,6 @@ namespace MetadataExtractor.Formats.FileSystem
 
         public override string Name => "File";
 
-        protected override bool TryGetTagName(int tagType, out string tagName) => _tagNameMap.TryGetValue(tagType, out tagName);
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName) => _tagNameMap.TryGetValue(tagType, out tagName);
     }
 }

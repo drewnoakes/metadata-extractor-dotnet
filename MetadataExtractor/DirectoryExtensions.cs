@@ -399,8 +399,8 @@ namespace MetadataExtractor
             if (o is string s)
                 return new[] { s };
 
-            if (o is StringValue)
-                return new[] { o.ToString() };
+            if (o is StringValue sv)
+                return new[] { sv.ToString() };
 
             if (o is StringValue[] stringValues)
             {

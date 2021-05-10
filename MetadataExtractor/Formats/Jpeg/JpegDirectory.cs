@@ -72,7 +72,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
         public override string Name => "JPEG";
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }
