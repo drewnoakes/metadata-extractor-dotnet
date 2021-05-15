@@ -38,7 +38,7 @@ namespace MetadataExtractor.Formats.Jfif
 
         public override string Name => "JFIF";
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }

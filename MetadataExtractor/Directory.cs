@@ -114,7 +114,7 @@ namespace MetadataExtractor
         /// <remarks>Any previous value for this tag is overwritten.</remarks>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag</param>
-        /// <exception cref="ArgumentNullException">if value is <c>null</c></exception>
+        /// <exception cref="ArgumentNullException">if value is <see langword="null" /></exception>
         public virtual void Set(int tagType, object value)
         {
             if (value == null)
@@ -128,7 +128,7 @@ namespace MetadataExtractor
 
         /// <summary>Returns the object hashed for the particular tag type specified, if available.</summary>
         /// <param name="tagType">the tag type identifier</param>
-        /// <returns>the tag's value as an Object if available, else <c>null</c></returns>
+        /// <returns>the tag's value as an Object if available, else <see langword="null" /></returns>
         public object? GetObject(int tagType)
         {
             return _tagMap.TryGetValue(tagType, out object? val) ? val : null;

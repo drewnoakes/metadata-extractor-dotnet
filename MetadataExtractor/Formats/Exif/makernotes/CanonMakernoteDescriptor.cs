@@ -593,7 +593,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagLensType, out int value))
                 return null;
 
-            return _lensTypeById.TryGetValue(value, out string lensType)
+            return _lensTypeById.TryGetValue(value, out string? lensType)
                 ? lensType
                 : $"Unknown ({value})";
         }

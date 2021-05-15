@@ -145,7 +145,7 @@ namespace MetadataExtractor.Formats.Eps
 
         public override string Name => "EPS";
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             return TagNameMap.TryGetValue(tagType, out tagName);
         }

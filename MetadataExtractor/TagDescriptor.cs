@@ -34,7 +34,7 @@ namespace MetadataExtractor
         /// <param name="tagType">the tag to find a description for</param>
         /// <returns>
         /// a description of the image's value for the specified tag, or
-        /// <c>null</c> if the tag hasn't been defined.
+        /// <see langword="null" /> if the tag hasn't been defined.
         /// </returns>
         public virtual string? GetDescription(int tagType)
         {
@@ -367,7 +367,9 @@ namespace MetadataExtractor
             {
                 ["ASCII"] = Encoding.ASCII,
                 ["UTF8"] = Encoding.UTF8,
+#pragma warning disable SYSLIB0001 // Type or member is obsolete
                 ["UTF7"] = Encoding.UTF7,
+#pragma warning restore SYSLIB0001 // Type or member is obsolete
                 ["UTF32"] = Encoding.UTF32,
                 ["UNICODE"] = Encoding.BigEndianUnicode,
             };

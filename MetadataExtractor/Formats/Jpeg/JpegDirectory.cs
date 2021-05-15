@@ -72,7 +72,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
         public override string Name => "JPEG";
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }
@@ -81,7 +81,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// The zero-based index of the component.  This number is normally between 0 and 3.
         /// Use <see cref="GetNumberOfComponents"/> for bounds-checking.
         /// </param>
-        /// <returns>the JpegComponent having the specified number, or <c>null</c>.</returns>
+        /// <returns>the JpegComponent having the specified number, or <see langword="null" />.</returns>
         public JpegComponent? GetComponent(int componentNumber)
         {
             var tagType = TagComponentData1 + componentNumber;

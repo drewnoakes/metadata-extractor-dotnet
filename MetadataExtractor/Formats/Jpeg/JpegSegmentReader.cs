@@ -16,7 +16,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// Segments are returned in the order they appear in the file, however that order may vary from file to file.
     /// <para />
     /// Use <see cref="ReadSegments(SequentialReader,ICollection{JpegSegmentType})"/> to specific segment types,
-    /// or pass <c>null</c> to read all segments.
+    /// or pass <see langword="null" /> to read all segments.
     /// <para />
     /// Note that SOS (start of scan) or EOI (end of image) segments are not returned by this class's methods.
     /// </remarks>
@@ -31,7 +31,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// Will not return SOS (start of scan) or EOI (end of image) segments.
         /// </remarks>
         /// <param name="filePath">a file from which the JPEG data will be read.</param>
-        /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <c>null</c> then all found segment types are returned.</param>
+        /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <see langword="null" /> then all found segment types are returned.</param>
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="IOException"/>
         public static IEnumerable<JpegSegment> ReadSegments(string filePath, ICollection<JpegSegmentType>? segmentTypes = null)
@@ -47,7 +47,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// Will not return SOS (start of scan) or EOI (end of image) segments.
         /// </remarks>
         /// <param name="reader">a <see cref="SequentialReader"/> from which the JPEG data will be read. It must be positioned at the beginning of the JPEG data stream.</param>
-        /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <c>null</c> then all found segment types are returned.</param>
+        /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <see langword="null" /> then all found segment types are returned.</param>
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="IOException"/>
         public static IEnumerable<JpegSegment> ReadSegments(SequentialReader reader, ICollection<JpegSegmentType>? segmentTypes = null)

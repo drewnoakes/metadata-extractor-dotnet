@@ -392,7 +392,7 @@ namespace MetadataExtractor.Formats.Bmp
 
         private static void AddError(string errorMessage, List<Directory> directories)
         {
-            ErrorDirectory directory = directories.OfType<ErrorDirectory>().FirstOrDefault();
+            ErrorDirectory? directory = directories.OfType<ErrorDirectory>().FirstOrDefault();
             if (directory == null)
                 directories.Add(new ErrorDirectory(errorMessage));
             else

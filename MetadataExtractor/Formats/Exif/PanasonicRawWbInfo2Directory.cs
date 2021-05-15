@@ -62,7 +62,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public override string Name => "PanasonicRaw WbInfo2";
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }

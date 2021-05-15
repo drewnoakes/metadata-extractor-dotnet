@@ -90,18 +90,21 @@ namespace MetadataExtractor.Formats.Heif
                 var itemPropertyBox = boxes.Descendant<ItemPropertyBox>();
                 if (itemPropertyBox == null)
                     return;
-                var props = itemPropertyBox.Boxes.Descendant<ItemPropertyContainerBox>().Boxes;
+                var props = itemPropertyBox.Boxes.Descendant<ItemPropertyContainerBox>()?.Boxes;
                 var associations = itemPropertyBox.Boxes.Descendant<ItemPropertyAssociationBox>();
 
-                ParsePropertyBoxes(
-                    "HEIC Primary Item Properties",
-                    ImageProperties(primaryItem, allPrimaryTiles, associations, props));
-
-                foreach (var itemRef in itemRefs)
+                if (props is not null && associations is not null)
                 {
                     ParsePropertyBoxes(
-                        "HEIC Thumbnail Properties",
-                        ImageProperties(itemRef.FromItemId, new uint[0], associations, props));
+                        "HEIC Primary Item Properties",
+                        ImageProperties(primaryItem, allPrimaryTiles, associations, props));
+
+                    foreach (var itemRef in itemRefs)
+                    {
+                        ParsePropertyBoxes(
+                            "HEIC Thumbnail Properties",
+                            ImageProperties(itemRef.FromItemId, new uint[0], associations, props));
+                    }
                 }
 
                 return;
@@ -226,6 +229,9 @@ namespace MetadataExtractor.Formats.Heif
             {
                 var locations = boxes.Descendant<ItemLocationBox>();
                 var information = boxes.Descendant<ItemInformationBox>();
+
+                if (locations is null || information is null)
+                    return;
 
                 var segments = itemRefs.Select(
                         i =>

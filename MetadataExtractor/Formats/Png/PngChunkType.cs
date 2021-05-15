@@ -167,7 +167,7 @@ namespace MetadataExtractor.Formats.Png
 
         private bool Equals(PngChunkType other) => _bytes.SequenceEqual(other._bytes);
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is null)
                 return false;

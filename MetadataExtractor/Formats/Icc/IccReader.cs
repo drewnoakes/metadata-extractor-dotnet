@@ -95,7 +95,7 @@ namespace MetadataExtractor.Formats.Icc
                 if (model != 0)
                 {
                     directory.Set(IccDirectory.TagDeviceModel, model <= 0x20202020
-                        ? (object)model
+                        ? model
                         : GetStringFromUInt32(unchecked((uint)model)));
                 }
 

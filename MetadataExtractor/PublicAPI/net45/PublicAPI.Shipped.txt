@@ -3595,28 +3595,28 @@ override MetadataExtractor.Age.ToString() -> string!
 override MetadataExtractor.Directory.ToString() -> string!
 override MetadataExtractor.ErrorDirectory.Name.get -> string!
 override MetadataExtractor.ErrorDirectory.Set(int tagType, object! value) -> void
-override MetadataExtractor.Face.Equals(object! obj) -> bool
+override MetadataExtractor.Face.Equals(object? obj) -> bool
 override MetadataExtractor.Face.GetHashCode() -> int
 override MetadataExtractor.Face.ToString() -> string!
 override MetadataExtractor.Formats.Adobe.AdobeJpegDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Adobe.AdobeJpegDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Adobe.AdobeJpegDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Adobe.AdobeJpegDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Avi.AviDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Avi.AviDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Avi.AviDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Avi.AviDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Bmp.BmpHeaderDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Bmp.BmpHeaderDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Bmp.BmpHeaderDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Bmp.BmpHeaderDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Eps.EpsDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Eps.EpsDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.ExifIfd0Directory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.ExifIfd0Directory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.ExifIfd0Directory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.ExifImageDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.ExifInteropDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.ExifInteropDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.ExifInteropDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.ExifSubIfdDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.ExifSubIfdDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.ExifSubIfdDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.ExifThumbnailDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.ExifThumbnailDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.ICollection<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
@@ -3628,38 +3628,38 @@ override MetadataExtractor.Formats.Exif.GpsDescriptor.GetDescription(int tagType
 override MetadataExtractor.Formats.Exif.GpsDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.CanonMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.CanonMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.CanonMakernoteDirectory.Set(int tagType, object! value) -> void
-override MetadataExtractor.Formats.Exif.Makernotes.CanonMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.CanonMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.CasioType1MakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.CasioType1MakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.CasioType1MakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.CasioType1MakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.CasioType2MakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.KodakMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.KodakMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.KodakMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.KodakMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.KyoceraMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.KyoceraMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.KyoceraMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.KyoceraMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.LeicaMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.LeicaMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.LeicaMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.LeicaMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.LeicaType5MakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.LeicaType5MakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.LeicaType5MakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.LeicaType5MakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.NikonType1MakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.NikonType1MakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.NikonType1MakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.NikonType1MakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.OlympusCameraSettingsMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.OlympusCameraSettingsMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.OlympusEquipmentMakernoteDescriptor.GetDescription(int tagType) -> string?
@@ -3681,65 +3681,65 @@ override MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDescriptor.
 override MetadataExtractor.Formats.Exif.Makernotes.PanasonicMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.PentaxMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.PentaxMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.PentaxMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.PentaxMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire2MakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire2MakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire2MakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFireMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFireMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFireMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFireMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.RicohMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.RicohMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.RicohMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.SamsungType2MakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.SanyoMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.SanyoMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.SanyoMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.SanyoMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.SigmaMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.SigmaMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.SigmaMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.SigmaMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.SonyType1MakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.SonyType1MakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.SonyType1MakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.SonyType1MakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.SonyType6MakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.SonyType6MakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.SonyType6MakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.SonyType6MakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.PanasonicRawDistortionDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.PanasonicRawDistortionDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.PanasonicRawDistortionDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.PanasonicRawDistortionDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.PanasonicRawIfd0Descriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.PanasonicRawIfd0Directory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.PanasonicRawIfd0Directory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.PanasonicRawIfd0Directory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.PanasonicRawWbInfo2Descriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.PanasonicRawWbInfo2Directory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.PanasonicRawWbInfo2Directory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.PanasonicRawWbInfo2Directory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.PanasonicRawWbInfoDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.PanasonicRawWbInfoDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.PanasonicRawWbInfoDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.PanasonicRawWbInfoDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Exif.PrintIMDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.PrintIMDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.PrintIMDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.PrintIMDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.FileSystem.FileMetadataDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.FileSystem.FileMetadataDirectory.Name.get -> string!
-override MetadataExtractor.Formats.FileSystem.FileMetadataDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.FileSystem.FileMetadataDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.FileType.FileTypeDirectory.Name.get -> string!
-override MetadataExtractor.Formats.FileType.FileTypeDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.FileType.FileTypeDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Gif.GifAnimationDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Gif.GifAnimationDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Gif.GifAnimationDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Gif.GifAnimationDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Gif.GifCommentDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Gif.GifCommentDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Gif.GifCommentDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Gif.GifControlDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Gif.GifControlDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Gif.GifControlDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Gif.GifControlDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Gif.GifHeaderDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Gif.GifHeaderDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Gif.GifHeaderDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Gif.GifImageDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Gif.GifImageDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Gif.GifImageDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Heif.HeicImagePropertiesDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Heif.HeicImagePropertiesDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Heif.HeicImagePropertyDescriptor.GetDescription(int tagType) -> string?
@@ -3747,7 +3747,7 @@ override MetadataExtractor.Formats.Heif.HeicThumbnailDirectory.Name.get -> strin
 override MetadataExtractor.Formats.Heif.HeicThumbnailDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Icc.IccDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Icc.IccDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Icc.IccDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Icc.IccDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Ico.IcoDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Ico.IcoDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Iptc.IptcDescriptor.GetDescription(int tagType) -> string?
@@ -3759,30 +3759,30 @@ override MetadataExtractor.Formats.Jfxx.JfxxDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Jpeg.HuffmanTablesDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Jpeg.JpegCommentDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Jpeg.JpegCommentDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Jpeg.JpegCommentDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Jpeg.JpegComponent.ToString() -> string!
 override MetadataExtractor.Formats.Jpeg.JpegDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Jpeg.JpegDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Jpeg.JpegDnlDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Jpeg.JpegDnlDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Jpeg.JpegDnlDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Jpeg.JpegDnlDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Mpeg.Mp3Directory.Name.get -> string!
 override MetadataExtractor.Formats.Netpbm.NetpbmHeaderDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Netpbm.NetpbmHeaderDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Pcx.PcxDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Pcx.PcxDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Pcx.PcxDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Pcx.PcxDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Photoshop.DuckyDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Photoshop.DuckyDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Photoshop.DuckyDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Photoshop.PhotoshopDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Photoshop.PhotoshopDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Photoshop.PhotoshopTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.ICollection<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
 override MetadataExtractor.Formats.Photoshop.PsdHeaderDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Photoshop.PsdHeaderDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Photoshop.PsdHeaderDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Photoshop.PsdHeaderDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Png.PngChromaticitiesDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Png.PngChromaticitiesDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
-override MetadataExtractor.Formats.Png.PngChunkType.Equals(object! obj) -> bool
+override MetadataExtractor.Formats.Png.PngChromaticitiesDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
+override MetadataExtractor.Formats.Png.PngChunkType.Equals(object? obj) -> bool
 override MetadataExtractor.Formats.Png.PngChunkType.GetHashCode() -> int
 override MetadataExtractor.Formats.Png.PngChunkType.ToString() -> string!
 override MetadataExtractor.Formats.Png.PngDescriptor.GetDescription(int tagType) -> string?
@@ -3805,9 +3805,9 @@ override MetadataExtractor.Formats.Wav.WavFormatDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Wav.WavRiffHandler.ShouldAcceptList(string! fourCc) -> bool
 override MetadataExtractor.Formats.Wav.WavRiffHandler.ShouldAcceptRiffIdentifier(string! identifier) -> bool
 override MetadataExtractor.Formats.WebP.WebPDirectory.Name.get -> string!
-override MetadataExtractor.Formats.WebP.WebPDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.WebP.WebPDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 override MetadataExtractor.Formats.Xmp.XmpDirectory.Name.get -> string!
-override MetadataExtractor.GeoLocation.Equals(object! obj) -> bool
+override MetadataExtractor.GeoLocation.Equals(object? obj) -> bool
 override MetadataExtractor.GeoLocation.GetHashCode() -> int
 override MetadataExtractor.GeoLocation.ToString() -> string!
 override MetadataExtractor.IO.ByteArrayReader.GetByte(int index) -> byte
@@ -3850,7 +3850,7 @@ override MetadataExtractor.IO.SequentialStreamReader.Position.get -> long
 override MetadataExtractor.IO.SequentialStreamReader.Skip(long n) -> void
 override MetadataExtractor.IO.SequentialStreamReader.TrySkip(long n) -> bool
 override MetadataExtractor.IO.SequentialStreamReader.WithByteOrder(bool isMotorolaByteOrder) -> MetadataExtractor.IO.SequentialReader!
-override MetadataExtractor.Rational.Equals(object! obj) -> bool
+override MetadataExtractor.Rational.Equals(object? obj) -> bool
 override MetadataExtractor.Rational.GetHashCode() -> int
 override MetadataExtractor.Rational.ToString() -> string!
 override MetadataExtractor.StringValue.ToString() -> string!
@@ -4113,7 +4113,7 @@ const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagId = 1 -> int
 const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagLayer = 2 -> int
 const MetadataExtractor.Formats.Mpeg.Mp3Directory.TagMode = 5 -> int
 override MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TryGetTagName(int tagType, out string! tagName) -> bool
+override MetadataExtractor.Formats.Exif.Makernotes.DjiMakernoteDirectory.TryGetTagName(int tagType, out string? tagName) -> bool
 static MetadataExtractor.Formats.Exif.ExifReader.StartsWithJpegExifPreamble(byte[]! bytes) -> bool
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernoteId -> uint
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernotePublicId -> uint

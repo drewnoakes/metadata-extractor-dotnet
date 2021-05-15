@@ -38,7 +38,7 @@ namespace MetadataExtractor.Formats.Gif
 
         public override string Name => "GIF Image";
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }

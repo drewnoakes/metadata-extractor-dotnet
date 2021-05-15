@@ -23,7 +23,7 @@ namespace MetadataExtractor.Formats.Riff
 
         public void ProcessChunk(string fourCc, byte[] payload)
         {
-            if (!_handlers.TryGetValue(fourCc, out Func<List<Directory>, IRiffChunkHandler> createHandler))
+            if (!_handlers.TryGetValue(fourCc, out Func<List<Directory>, IRiffChunkHandler>? createHandler))
                 return;
             var handler = createHandler(_directories);
             handler.ProcessChunk(fourCc, payload);

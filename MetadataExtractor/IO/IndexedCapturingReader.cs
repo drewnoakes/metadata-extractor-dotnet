@@ -168,9 +168,9 @@ namespace MetadataExtractor.IO
             return bytes;
         }
 
-        public override IndexedReader WithByteOrder(bool isMotorolaByteOrder) => isMotorolaByteOrder == IsMotorolaByteOrder ? (IndexedReader)this : new ShiftedIndexedCapturingReader(this, 0, isMotorolaByteOrder);
+        public override IndexedReader WithByteOrder(bool isMotorolaByteOrder) => isMotorolaByteOrder == IsMotorolaByteOrder ? this : new ShiftedIndexedCapturingReader(this, 0, isMotorolaByteOrder);
 
-        public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? (IndexedReader)this : new ShiftedIndexedCapturingReader(this, shift, IsMotorolaByteOrder);
+        public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? this : new ShiftedIndexedCapturingReader(this, shift, IsMotorolaByteOrder);
 
         private sealed class ShiftedIndexedCapturingReader : IndexedReader
         {

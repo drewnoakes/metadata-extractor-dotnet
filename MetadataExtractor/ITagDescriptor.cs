@@ -13,7 +13,7 @@ namespace MetadataExtractor
         /// <param name="tagType">The tag to find a description for.</param>
         /// <returns>
         /// A description of the image's value for the specified tag, or
-        /// <c>null</c> if the tag hasn't been defined.
+        /// <see langword="null" /> if the tag hasn't been defined.
         /// </returns>
         string? GetDescription(int tagType);
     }
