@@ -177,7 +177,6 @@ MetadataExtractor.Formats.Exif.ExifInteropDirectory.ExifInteropDirectory() -> vo
 MetadataExtractor.Formats.Exif.ExifReader
 MetadataExtractor.Formats.Exif.ExifReader.ExifReader() -> void
 MetadataExtractor.Formats.Exif.ExifReader.Extract(MetadataExtractor.IO.IndexedReader! reader) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
-MetadataExtractor.Formats.Exif.ExifReader.ReadJpegSegments(System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.JpegSegment!>! segments) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
 MetadataExtractor.Formats.Exif.ExifSubIfdDescriptor
 MetadataExtractor.Formats.Exif.ExifSubIfdDescriptor.ExifSubIfdDescriptor(MetadataExtractor.Formats.Exif.ExifSubIfdDirectory! directory) -> void
 MetadataExtractor.Formats.Exif.ExifSubIfdDirectory
@@ -948,7 +947,6 @@ MetadataExtractor.Formats.Jfif.JfifDirectory.JfifDirectory() -> void
 MetadataExtractor.Formats.Jfif.JfifReader
 MetadataExtractor.Formats.Jfif.JfifReader.Extract(MetadataExtractor.IO.IndexedReader! reader) -> MetadataExtractor.Formats.Jfif.JfifDirectory!
 MetadataExtractor.Formats.Jfif.JfifReader.JfifReader() -> void
-MetadataExtractor.Formats.Jfif.JfifReader.ReadJpegSegments(System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.JpegSegment!>! segments) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
 MetadataExtractor.Formats.Jfxx.JfxxDescriptor
 MetadataExtractor.Formats.Jfxx.JfxxDescriptor.GetExtensionCodeDescription() -> string?
 MetadataExtractor.Formats.Jfxx.JfxxDescriptor.JfxxDescriptor(MetadataExtractor.Formats.Jfxx.JfxxDirectory! directory) -> void
@@ -958,7 +956,6 @@ MetadataExtractor.Formats.Jfxx.JfxxDirectory.JfxxDirectory() -> void
 MetadataExtractor.Formats.Jfxx.JfxxReader
 MetadataExtractor.Formats.Jfxx.JfxxReader.Extract(MetadataExtractor.IO.IndexedReader! reader) -> MetadataExtractor.Formats.Jfxx.JfxxDirectory!
 MetadataExtractor.Formats.Jfxx.JfxxReader.JfxxReader() -> void
-MetadataExtractor.Formats.Jfxx.JfxxReader.ReadJpegSegments(System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.JpegSegment!>! segments) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
 MetadataExtractor.Formats.Jpeg.HuffmanTable
 MetadataExtractor.Formats.Jpeg.HuffmanTable.HuffmanTable(MetadataExtractor.Formats.Jpeg.HuffmanTableClass tableClass, int tableDestinationId, byte[]! lengthBytes, byte[]! valueBytes) -> void
 MetadataExtractor.Formats.Jpeg.HuffmanTable.IsOptimized() -> bool
@@ -1145,7 +1142,6 @@ MetadataExtractor.Formats.Photoshop.PhotoshopDirectory.PhotoshopDirectory() -> v
 MetadataExtractor.Formats.Photoshop.PhotoshopReader
 MetadataExtractor.Formats.Photoshop.PhotoshopReader.Extract(MetadataExtractor.IO.SequentialReader! reader, int length) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 MetadataExtractor.Formats.Photoshop.PhotoshopReader.PhotoshopReader() -> void
-MetadataExtractor.Formats.Photoshop.PhotoshopReader.ReadJpegSegments(System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.JpegSegment!>! segments) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
 MetadataExtractor.Formats.Photoshop.PhotoshopTiffHandler
 MetadataExtractor.Formats.Photoshop.PhotoshopTiffHandler.PhotoshopTiffHandler(System.Collections.Generic.List<MetadataExtractor.Directory!>! directories) -> void
 MetadataExtractor.Formats.Photoshop.PsdHeaderDescriptor

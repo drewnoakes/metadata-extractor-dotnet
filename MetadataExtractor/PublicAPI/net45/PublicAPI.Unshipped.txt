@@ -1,7 +1,13 @@
 ﻿#nullable enable
+abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.Extract(byte[]! segmentBytes, int preambleLength) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
+abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.PreambleBytes.get -> byte[]!
+abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAccelerationVectorDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetHdrImageTypeDescription() -> string?
 MetadataExtractor.Formats.Jpeg.HuffmanTable.HuffmanTable() -> void
+MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader
+MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.JpegSegmentWithPreambleMetadataReader() -> void
+MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.ReadJpegSegments(System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.JpegSegment!>! segments) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetArtworkDescription() -> string?
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetLocationRoleDescription() -> string?
@@ -27,6 +33,11 @@ const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagOr
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagPixelDensity = 33 -> int
 MetadataExtractor.Rational.Rational() -> void
 MetadataExtractor.StringValue.StringValue() -> void
+override MetadataExtractor.Formats.Exif.ExifReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+override MetadataExtractor.Formats.Jfif.JfifReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+override MetadataExtractor.Formats.Jfxx.JfxxReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+override MetadataExtractor.Formats.Photoshop.PhotoshopReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 override MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetDescription(int tagType) -> string?
+static MetadataExtractor.Formats.Exif.ExifReader.JpegSegmentPreambleLength.get -> int
 static MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TryGetTag(string! name, out int tagType) -> bool
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType!
