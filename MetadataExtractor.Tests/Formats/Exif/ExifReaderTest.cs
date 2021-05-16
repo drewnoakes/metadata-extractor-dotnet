@@ -49,7 +49,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             var badExifSegment = new JpegSegment(JpegSegmentType.App1, new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, offset: 0);
             var directories = new ExifReader().ReadJpegSegments(new[] { badExifSegment });
-            Assert.Equal(0, directories.Count);
+            Assert.Empty(directories);
         }
 
         [Fact]

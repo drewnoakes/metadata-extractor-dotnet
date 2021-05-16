@@ -21,13 +21,10 @@ namespace MetadataExtractor.Formats.Jpeg
             JpegSegmentType.Sof15
         };
 
-#if NET35
-        public IList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
-            => segments.Select(Extract).Cast<Directory>().ToList();
-#else
-        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
-            => segments.Select(Extract).ToList();
-#endif
+        public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        {
+            return segments.Select(segment => (Directory)Extract(segment));
+        }
 
         /// <summary>Reads JPEG SOF values and returns them in a <see cref="JpegDirectory"/>.</summary>
         public JpegDirectory Extract(JpegSegment segment)

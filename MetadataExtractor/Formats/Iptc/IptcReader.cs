@@ -8,12 +8,6 @@ using System.Text;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Iptc
 {
     /// <summary>Reads IPTC data.</summary>
@@ -45,16 +39,12 @@ namespace MetadataExtractor.Formats.Iptc
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.AppD };
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // Ensure data starts with the IPTC marker byte
             return segments
                 .Where(segment => segment.Bytes.Length != 0 && segment.Bytes[0] == IptcMarkerByte)
-                .Select(segment => Extract(new SequentialByteArrayReader(segment.Bytes), segment.Bytes.Length))
-#if NET35
-                .Cast<Directory>()
-#endif
-                .ToList();
+                .Select(segment => (Directory)Extract(new SequentialByteArrayReader(segment.Bytes), segment.Bytes.Length));
         }
 
         /// <summary>Reads IPTC values and returns them in an <see cref="IptcDirectory"/>.</summary>

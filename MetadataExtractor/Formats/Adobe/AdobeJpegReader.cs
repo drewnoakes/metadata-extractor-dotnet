@@ -8,12 +8,6 @@ using System.Text;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Adobe
 {
     /// <summary>Decodes Adobe formatted data stored in JPEG files, normally in the APPE (App14) segment.</summary>
@@ -25,15 +19,11 @@ namespace MetadataExtractor.Formats.Adobe
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.AppE };
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             return segments
                 .Where(segment => segment.Bytes.Length == 12 && JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length), StringComparison.OrdinalIgnoreCase))
-                .Select(bytes => Extract(new SequentialByteArrayReader(bytes.Bytes)))
-#if NET35
-                .Cast<Directory>()
-#endif
-                .ToList();
+                .Select(bytes => (Directory)Extract(new SequentialByteArrayReader(bytes.Bytes)));
         }
 
         public AdobeJpegDirectory Extract(SequentialReader reader)

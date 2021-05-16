@@ -10,12 +10,6 @@ using MetadataExtractor.Formats.Jpeg;
 using XmpCore;
 using XmpCore.Options;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Xmp
 {
     /// <summary>Extracts XMP data JPEG APP1 segments.</summary>
@@ -39,16 +33,18 @@ namespace MetadataExtractor.Formats.Xmp
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.App1 };
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // Ensure collection materialised (avoiding multiple lazy enumeration)
             segments = segments.ToList();
 
-            var directories = segments
-                .Where(IsXmpSegment)
-                .Select(segment => Extract(segment.Bytes, JpegSegmentPreambleBytes.Length, segment.Bytes.Length - JpegSegmentPreambleBytes.Length))
-                .Cast<Directory>()
-                .ToList();
+            foreach (var segment in segments)
+            {
+                if (IsXmpSegment(segment))
+                {
+                    yield return Extract(segment.Bytes, JpegSegmentPreambleBytes.Length, segment.Bytes.Length - JpegSegmentPreambleBytes.Length);
+                }
+            }
 
             var extensionGroups = segments.Where(IsExtendedXmpSegment).GroupBy(GetExtendedDataGuid);
 
@@ -65,10 +61,8 @@ namespace MetadataExtractor.Formats.Xmp
                 var directory = new XmpDirectory();
                 var xmpMeta = XmpMetaFactory.Parse(buffer);
                 directory.SetXmpMeta(xmpMeta);
-                directories.Add(directory);
+                yield return directory;
             }
-
-            return directories;
         }
 
         private static string GetExtendedDataGuid(JpegSegment segment) => Encoding.UTF8.GetString(segment.Bytes, JpegSegmentPreambleExtensionBytes.Length, 32);

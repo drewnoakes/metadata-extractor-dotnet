@@ -7,12 +7,6 @@ using System.Text;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Jfif
 {
     /// <summary>Reads JFIF (JPEG File Interchange Format) data.</summary>
@@ -30,16 +24,12 @@ namespace MetadataExtractor.Formats.Jfif
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.App0 };
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // Skip segments not starting with the required header
             return segments
                 .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length))
-                .Select(segment => Extract(new ByteArrayReader(segment.Bytes)))
-#if NET35
-                .Cast<Directory>()
-#endif
-                .ToList();
+                .Select(segment => (Directory)Extract(new ByteArrayReader(segment.Bytes)));
         }
 
         /// <summary>Reads JFIF values and returns them in an <see cref="JfifDirectory"/>.</summary>
