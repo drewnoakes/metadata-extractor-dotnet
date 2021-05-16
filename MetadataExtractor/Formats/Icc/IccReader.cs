@@ -39,7 +39,7 @@ namespace MetadataExtractor.Formats.Icc
             var iccSegments = segments.Where(segment => segment.Bytes.Length > JpegSegmentPreambleLength && IsSubarrayEqualTo(segment.Bytes, 0, _jpegSegmentPreambleBytes)).ToList();
 
             if (iccSegments.Count == 0)
-                return new Directory[0];
+                return Enumerable.Empty<Directory>();
 
             byte[] buffer;
             if (iccSegments.Count == 1)
