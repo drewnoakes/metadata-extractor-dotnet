@@ -12,7 +12,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Darrell Silver http://www.darrellsilver.com</author>
     public sealed class JpegReader : IJpegSegmentMetadataReader
     {
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new HashSet<JpegSegmentType>
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new HashSet<JpegSegmentType>
         {
             // NOTE that some SOFn values do not exist
             JpegSegmentType.Sof0, JpegSegmentType.Sof1, JpegSegmentType.Sof2, JpegSegmentType.Sof3,

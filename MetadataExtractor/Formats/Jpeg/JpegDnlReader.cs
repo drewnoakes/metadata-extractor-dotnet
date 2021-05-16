@@ -14,7 +14,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public sealed class JpegDnlReader : IJpegSegmentMetadataReader
     {
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.Dnl };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new[] { JpegSegmentType.Dnl };
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
