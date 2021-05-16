@@ -4,11 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MetadataExtractor.IO;
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -19,15 +14,11 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public sealed class JpegDnlReader : IJpegSegmentMetadataReader
     {
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.Dnl };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new[] { JpegSegmentType.Dnl };
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
-            return segments.Select(segment => Extract(new SequentialByteArrayReader(segment.Bytes)))
-#if NET35
-                .Cast<Directory>()
-#endif
-                .ToList();
+            return segments.Select(segment => (Directory)Extract(new SequentialByteArrayReader(segment.Bytes)));
         }
 
         public JpegDnlDirectory Extract(SequentialReader reader)

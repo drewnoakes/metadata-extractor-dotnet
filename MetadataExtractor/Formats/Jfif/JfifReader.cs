@@ -2,16 +2,9 @@
 
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
-
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
 
 namespace MetadataExtractor.Formats.Jfif
 {
@@ -24,22 +17,17 @@ namespace MetadataExtractor.Formats.Jfif
     /// </list>
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes, Markus Meyer</author>
-    public sealed class JfifReader : IJpegSegmentMetadataReader
+    public sealed class JfifReader : JpegSegmentWithPreambleMetadataReader
     {
         public const string JpegSegmentPreamble = "JFIF";
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.App0 };
+        protected override byte[] PreambleBytes { get; } = Encoding.ASCII.GetBytes(JpegSegmentPreamble);
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public override ICollection<JpegSegmentType> SegmentTypes { get; } = new[] { JpegSegmentType.App0 };
+
+        protected override IEnumerable<Directory> Extract(byte[] segmentBytes, int preambleLength)
         {
-            // Skip segments not starting with the required header
-            return segments
-                .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length))
-                .Select(segment => Extract(new ByteArrayReader(segment.Bytes)))
-#if NET35
-                .Cast<Directory>()
-#endif
-                .ToList();
+            yield return Extract(new ByteArrayReader(segmentBytes));
         }
 
         /// <summary>Reads JFIF values and returns them in an <see cref="JfifDirectory"/>.</summary>

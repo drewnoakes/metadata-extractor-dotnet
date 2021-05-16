@@ -2,12 +2,6 @@
 
 using System.Collections.Generic;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Defines an object that extracts metadata from in JPEG segments.</summary>
@@ -20,6 +14,6 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="segments">
         /// A sequence of JPEG segments from which the metadata should be extracted. These are in the order encountered in the original file.
         /// </param>
-        DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments);
+        IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments);
     }
 }

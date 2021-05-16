@@ -2,12 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.IO;
-
+using MetadataExtractor.Util;
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
 #else
@@ -22,27 +21,24 @@ namespace MetadataExtractor.Formats.Exif
     /// <see cref="GpsDirectory"/>, camera makernote directories and more.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class ExifReader : IJpegSegmentMetadataReader
+    public sealed class ExifReader : JpegSegmentWithPreambleMetadataReader
     {
-        /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble "Exif\0\0".</summary>
         public const string JpegSegmentPreamble = "Exif\x0\x0";
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.App1 };
+        private static readonly byte[] _preambleBytes = Encoding.ASCII.GetBytes(JpegSegmentPreamble);
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
-        {
-            return segments
-                .Where(segment => StartsWithJpegExifPreamble(segment.Bytes))
-                .SelectMany(segment => Extract(new ByteArrayReader(segment.Bytes, baseOffset: JpegSegmentPreamble.Length)))
-                .ToList();
-        }
+        public static bool StartsWithJpegExifPreamble(byte[] bytes) => bytes.StartsWith(_preambleBytes);
 
-        /// <summary>
-        /// Indicates whether <paramref name="bytes"/> starts with <see cref="JpegSegmentPreamble"/>.
-        /// </summary>
-        public static bool StartsWithJpegExifPreamble(byte[] bytes)
+        public static int JpegSegmentPreambleLength => _preambleBytes.Length;
+
+        /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble "Exif\0\0".</summary>
+        protected override byte[] PreambleBytes { get; } = _preambleBytes;
+
+        public override ICollection<JpegSegmentType> SegmentTypes { get; } = new[] { JpegSegmentType.App1 };
+
+        protected override IEnumerable<Directory> Extract(byte[] segmentBytes, int preambleLength)
         {
-            return bytes.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(bytes, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble;
+            return Extract(new ByteArrayReader(segmentBytes, baseOffset: preambleLength));
         }
 
         /// <summary>

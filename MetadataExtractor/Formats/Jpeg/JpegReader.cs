@@ -12,7 +12,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Darrell Silver http://www.darrellsilver.com</author>
     public sealed class JpegReader : IJpegSegmentMetadataReader
     {
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new HashSet<JpegSegmentType>
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new HashSet<JpegSegmentType>
         {
             // NOTE that some SOFn values do not exist
             JpegSegmentType.Sof0, JpegSegmentType.Sof1, JpegSegmentType.Sof2, JpegSegmentType.Sof3,
@@ -21,13 +21,10 @@ namespace MetadataExtractor.Formats.Jpeg
             JpegSegmentType.Sof15
         };
 
-#if NET35
-        public IList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
-            => segments.Select(Extract).Cast<Directory>().ToList();
-#else
-        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
-            => segments.Select(Extract).ToList();
-#endif
+        public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        {
+            return segments.Select(segment => (Directory)Extract(segment));
+        }
 
         /// <summary>Reads JPEG SOF values and returns them in a <see cref="JpegDirectory"/>.</summary>
         public JpegDirectory Extract(JpegSegment segment)

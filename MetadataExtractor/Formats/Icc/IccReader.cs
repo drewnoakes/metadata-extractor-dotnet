@@ -8,12 +8,6 @@ using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Icc
 {
     /// <summary>Reads ICC profile data.</summary>
@@ -35,17 +29,17 @@ namespace MetadataExtractor.Formats.Icc
         // NOTE the header is 14 bytes, while "ICC_PROFILE" is 11
         private const int JpegSegmentPreambleLength = 14;
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.App2 };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new[] { JpegSegmentType.App2 };
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // ICC data can be spread across multiple JPEG segments.
 
             // Skip any segments that do not contain the required preamble
-            var iccSegments = segments.Where(segment => segment.Bytes.Length > JpegSegmentPreambleLength && IsSubarrayEqualTo(segment.Bytes, 0, _jpegSegmentPreambleBytes)).ToList();
+            var iccSegments = segments.Where(segment => segment.Bytes.Length > JpegSegmentPreambleLength && segment.Bytes.StartsWith(_jpegSegmentPreambleBytes)).ToList();
 
             if (iccSegments.Count == 0)
-                return new Directory[0];
+                return Enumerable.Empty<Directory>();
 
             byte[] buffer;
             if (iccSegments.Count == 1)
@@ -176,20 +170,6 @@ namespace MetadataExtractor.Formats.Icc
             };
 
             return Encoding.UTF8.GetString(b, 0, b.Length);
-        }
-
-        private static bool IsSubarrayEqualTo<T>(T[] source, int sourceIndex, T[] pattern) where T : notnull
-        {
-            if (sourceIndex + pattern.Length >= source.Length)
-                return false;
-
-            for (int i = sourceIndex, j = 0; j < pattern.Length; i++, j++)
-            {
-                if (!source[i].Equals(pattern[j]))
-                    return false;
-            }
-
-            return true;
         }
     }
 }

@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.WebP
                     // We have seen WebP images with and without the preamble here. It's likely that some software incorrectly
                     // copied an entire JPEG segment into the WebP image. Regardless, we can handle it here.
                     var reader = ExifReader.StartsWithJpegExifPreamble(payload)
-                        ? new ByteArrayReader(payload, ExifReader.JpegSegmentPreamble.Length)
+                        ? new ByteArrayReader(payload, ExifReader.JpegSegmentPreambleLength)
                         : new ByteArrayReader(payload);
                     _directories.AddRange(new ExifReader().Extract(reader));
                     break;

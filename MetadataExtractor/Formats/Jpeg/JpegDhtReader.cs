@@ -3,11 +3,6 @@
 using System.Collections.Generic;
 using System.IO;
 using MetadataExtractor.IO;
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -17,9 +12,9 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public sealed class JpegDhtReader : IJpegSegmentMetadataReader
     {
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.Dht };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new[] { JpegSegmentType.Dht };
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // This Extract structure is a little different since we only want
             // to return one HuffmanTablesDirectory for one-to-many segments

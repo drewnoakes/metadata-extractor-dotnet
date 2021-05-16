@@ -6,6 +6,12 @@ using System.IO;
 using System.Linq;
 using MetadataExtractor.IO;
 
+#if NET35
+using JpegSegmentList = System.Collections.Generic.IList<MetadataExtractor.Formats.Jpeg.JpegSegment>;
+#else
+using JpegSegmentList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Formats.Jpeg.JpegSegment>;
+#endif
+
 namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Parses the structure of JPEG data, returning contained segments.</summary>
@@ -34,7 +40,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <see langword="null" /> then all found segment types are returned.</param>
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="IOException"/>
-        public static IEnumerable<JpegSegment> ReadSegments(string filePath, ICollection<JpegSegmentType>? segmentTypes = null)
+        public static JpegSegmentList ReadSegments(string filePath, ICollection<JpegSegmentType>? segmentTypes = null)
         {
             using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
             return ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();

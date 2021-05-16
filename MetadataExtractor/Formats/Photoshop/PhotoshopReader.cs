@@ -27,19 +27,24 @@ namespace MetadataExtractor.Formats.Photoshop
     /// </remarks>
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PhotoshopReader : IJpegSegmentMetadataReader
+    public sealed class PhotoshopReader : JpegSegmentWithPreambleMetadataReader
     {
         public const string JpegSegmentPreamble = "Photoshop 3.0";
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.AppD };
+        protected override byte[] PreambleBytes { get; } = Encoding.ASCII.GetBytes(JpegSegmentPreamble);
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public override ICollection<JpegSegmentType> SegmentTypes { get; } = new[] { JpegSegmentType.AppD };
+
+        protected override IEnumerable<Directory> Extract(byte[] segmentBytes, int preambleLength)
         {
-            var preambleLength = JpegSegmentPreamble.Length;
-            return segments
-                .Where(segment => segment.Bytes.Length >= preambleLength + 1 && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, preambleLength))
-                .SelectMany(segment => Extract(new SequentialByteArrayReader(segment.Bytes, preambleLength + 1), segment.Bytes.Length - preambleLength - 1))
-                .ToList();
+            if (segmentBytes.Length >= preambleLength + 1)
+            {
+                return Extract(
+                    reader: new SequentialByteArrayReader(segmentBytes, preambleLength + 1),
+                    length: segmentBytes.Length - preambleLength - 1);
+            }
+
+            return Enumerable.Empty<Directory>();
         }
 
         public DirectoryList Extract(SequentialReader reader, int length)
