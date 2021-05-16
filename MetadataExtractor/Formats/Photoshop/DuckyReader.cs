@@ -49,7 +49,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     if (tag == 0)
                         break;
 
-                    var length = reader.GetUInt16();
+                    int length = reader.GetUInt16();
 
                     switch (tag)
                     {
