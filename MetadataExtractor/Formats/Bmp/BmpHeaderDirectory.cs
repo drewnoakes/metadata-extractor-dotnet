@@ -61,17 +61,12 @@ namespace MetadataExtractor.Formats.Bmp
             { TagLinkedProfile, "Linked Profile File Name" }
         };
 
-        public BmpHeaderDirectory()
+        public BmpHeaderDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new BmpHeaderDescriptor(this));
         }
 
         public override string Name => "BMP Header";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         /// <summary>
         /// Possible "magic bytes" indicating bitmap type

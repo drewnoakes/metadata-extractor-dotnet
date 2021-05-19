@@ -22,17 +22,12 @@ namespace MetadataExtractor.Formats.Jpeg
             { TagComment, "JPEG Comment" }
         };
 
-        public JpegCommentDirectory(StringValue comment)
+        public JpegCommentDirectory(StringValue comment) : base(_tagNameMap)
         {
             SetDescriptor(new JpegCommentDescriptor(this));
             Set(TagComment, comment);
         }
 
         public override string Name => "JpegComment";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

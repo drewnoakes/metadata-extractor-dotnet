@@ -106,16 +106,11 @@ namespace MetadataExtractor.Formats.Exif
             { TagRawDataOffset, "Raw Data Offset" }
         };
 
-        public PanasonicRawIfd0Directory()
+        public PanasonicRawIfd0Directory() : base(_tagNameMap)
         {
             SetDescriptor(new PanasonicRawIfd0Descriptor(this));
         }
 
         public override string Name => "PanasonicRaw Exif IFD0";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

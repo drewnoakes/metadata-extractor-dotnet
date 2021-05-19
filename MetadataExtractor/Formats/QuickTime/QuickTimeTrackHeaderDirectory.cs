@@ -41,14 +41,9 @@ namespace MetadataExtractor.Formats.QuickTime
             { TagRotation,       "Rotation" },
         };
 
-        public QuickTimeTrackHeaderDirectory()
+        public QuickTimeTrackHeaderDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new TagDescriptor<QuickTimeTrackHeaderDirectory>(this));
-        }
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
         }
     }
 }

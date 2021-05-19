@@ -24,7 +24,7 @@ namespace MetadataExtractor.Formats.FileType
         };
 
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public FileTypeDirectory(Util.FileType fileType)
+        public FileTypeDirectory(Util.FileType fileType) : base(_tagNameMap)
         {
             SetDescriptor(new FileTypeDescriptor(this));
 
@@ -43,7 +43,5 @@ namespace MetadataExtractor.Formats.FileType
         }
 
         public override string Name => "File Type";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName) => _tagNameMap.TryGetValue(tagType, out tagName);
     }
 }

@@ -710,6 +710,11 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagLens = 0xFDEA;
 
+        protected ExifDirectoryBase(Dictionary<int, string> tagNameMap)
+            : base(tagNameMap)
+        {
+        }
+
         protected static void AddExifTagNames(Dictionary<int, string> map)
         {
             map[TagInteropIndex] = "Interoperability Index";

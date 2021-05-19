@@ -173,17 +173,12 @@ namespace MetadataExtractor.Formats.Iptc
             { TagObjectPreviewData, "Object Data Preview Data" }
         };
 
-        public IptcDirectory()
+        public IptcDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new IptcDescriptor(this));
         }
 
         public override string Name => "IPTC";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         /// <summary>Returns any keywords contained in the IPTC data.</summary>
         /// <remarks>This value may be <see langword="null" />.</remarks>

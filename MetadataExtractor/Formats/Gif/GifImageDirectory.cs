@@ -31,16 +31,11 @@ namespace MetadataExtractor.Formats.Gif
             { TagLocalColourTableBitsPerPixel, "Local Colour Table Bits Per Pixel" }
         };
 
-        public GifImageDirectory()
+        public GifImageDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new GifImageDescriptor(this));
         }
 
         public override string Name => "GIF Image";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

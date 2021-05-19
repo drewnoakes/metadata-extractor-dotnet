@@ -28,16 +28,11 @@ namespace MetadataExtractor.Formats.Exif
             AddExifTagNames(_tagNameMap);
         }
 
-        public ExifThumbnailDirectory()
+        public ExifThumbnailDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new ExifThumbnailDescriptor(this));
         }
 
         public override string Name => "Exif Thumbnail";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

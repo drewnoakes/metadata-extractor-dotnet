@@ -17,17 +17,12 @@ namespace MetadataExtractor.Formats.Gif
             { TagComment, "Comment" }
         };
 
-        public GifCommentDirectory(StringValue comment)
+        public GifCommentDirectory(StringValue comment) : base(_tagNameMap)
         {
             SetDescriptor(new GifCommentDescriptor(this));
             Set(TagComment, comment);
         }
 
         public override string Name => "GIF Comment";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

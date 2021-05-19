@@ -16,7 +16,7 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>This tag is a pointer to the Exif GPS IFD.</summary>
         public const int TagGpsInfoOffset = 0x8825;
 
-        public ExifIfd0Directory()
+        public ExifIfd0Directory() : base(_tagNameMap)
         {
             SetDescriptor(new ExifIfd0Descriptor(this));
         }
@@ -29,10 +29,5 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         public override string Name => "Exif IFD0";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

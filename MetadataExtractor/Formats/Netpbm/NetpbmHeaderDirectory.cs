@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Netpbm
 {
@@ -21,16 +20,11 @@ namespace MetadataExtractor.Formats.Netpbm
             { TagMaximumValue, "Maximum Value" }
         };
 
-        public NetpbmHeaderDirectory()
+        public NetpbmHeaderDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new NetpbmHeaderDescriptor(this));
         }
 
         public override string Name => "Netpbm";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

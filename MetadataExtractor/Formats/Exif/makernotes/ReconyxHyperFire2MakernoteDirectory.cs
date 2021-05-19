@@ -66,10 +66,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
              { TagSerialNumber, "Serial Number" },
         };
 
-        public ReconyxHyperFire2MakernoteDirectory() => SetDescriptor(new ReconyxHyperFire2MakernoteDescriptor(this));
+        public ReconyxHyperFire2MakernoteDirectory() : base(_tagNameMap)
+        {
+            SetDescriptor(new ReconyxHyperFire2MakernoteDescriptor(this));
+        }
 
         public override string Name => "Reconyx HyperFire 2 Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(true)] out string? tagName) => _tagNameMap.TryGetValue(tagType, out tagName);
     }
 }

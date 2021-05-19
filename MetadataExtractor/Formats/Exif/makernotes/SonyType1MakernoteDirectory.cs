@@ -160,16 +160,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagNoPrint, "No Print" }
         };
 
-        public SonyType1MakernoteDirectory()
+        public SonyType1MakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new SonyType1MakernoteDescriptor(this));
         }
 
         public override string Name => "Sony Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

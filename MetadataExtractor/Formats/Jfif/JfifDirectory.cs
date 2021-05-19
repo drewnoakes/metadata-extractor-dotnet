@@ -31,17 +31,12 @@ namespace MetadataExtractor.Formats.Jfif
             { TagThumbHeight, "Thumbnail Height Pixels" }
         };
 
-        public JfifDirectory()
+        public JfifDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new JfifDescriptor(this));
         }
 
         public override string Name => "JFIF";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         public int GetVersion()
         {

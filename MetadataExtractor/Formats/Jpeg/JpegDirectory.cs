@@ -65,17 +65,12 @@ namespace MetadataExtractor.Formats.Jpeg
             { TagComponentData4, "Component 4" }
         };
 
-        public JpegDirectory()
+        public JpegDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new JpegDescriptor(this));
         }
 
         public override string Name => "JPEG";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         /// <param name="componentNumber">
         /// The zero-based index of the component.  This number is normally between 0 and 3.

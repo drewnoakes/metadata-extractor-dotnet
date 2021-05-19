@@ -22,16 +22,11 @@ namespace MetadataExtractor.Formats.WebP
             { TagIsAnimation, "Is Animation" }
         };
 
-        public WebPDirectory()
+        public WebPDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new WebPDescriptor(this));
         }
 
         public override string Name => "WebP";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

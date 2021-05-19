@@ -32,16 +32,11 @@ namespace MetadataExtractor.Formats.Gif
             { TagPixelAspectRatio, "Pixel Aspect Ratio" }
         };
 
-        public GifHeaderDirectory()
+        public GifHeaderDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new GifHeaderDescriptor(this));
         }
 
         public override string Name => "GIF Header";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

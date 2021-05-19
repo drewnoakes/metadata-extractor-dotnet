@@ -8,17 +8,11 @@ namespace MetadataExtractor.Formats.Tga
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class TgaDeveloperDirectory : Directory
     {
-        public TgaDeveloperDirectory()
+        public TgaDeveloperDirectory() : base(null)
         {
             SetDescriptor(new TagDescriptor<TgaDeveloperDirectory>(this));
         }
 
         public override string Name => "TGA Developer Area";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(true)] out string? tagName)
-        {
-            tagName = null;
-            return false;
-        }
     }
 }

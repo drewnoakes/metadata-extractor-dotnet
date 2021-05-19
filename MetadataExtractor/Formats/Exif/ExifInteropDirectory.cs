@@ -17,16 +17,11 @@ namespace MetadataExtractor.Formats.Exif
             AddExifTagNames(_tagNameMap);
         }
 
-        public ExifInteropDirectory()
+        public ExifInteropDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new ExifInteropDescriptor(this));
         }
 
         public override string Name => "Interoperability";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

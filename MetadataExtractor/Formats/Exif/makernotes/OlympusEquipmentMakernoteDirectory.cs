@@ -79,16 +79,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagFlashSerialNumber, "Flash Serial Number" }
         };
 
-        public OlympusEquipmentMakernoteDirectory()
+        public OlympusEquipmentMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new OlympusEquipmentMakernoteDescriptor(this));
         }
 
         public override string Name => "Olympus Equipment";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

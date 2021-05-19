@@ -437,7 +437,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { CameraSettings.TagDecSwitchPosition, "DEC Switch Position" }
         };
 
-        public OlympusMakernoteDirectory()
+        public OlympusMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new OlympusMakernoteDescriptor(this));
         }
@@ -465,11 +465,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public bool IsIntervalMode()
         {
             return this.TryGetInt64(CameraSettings.TagShootingMode, out long value) && value == 5;
-        }
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
         }
 
         /// <summary>

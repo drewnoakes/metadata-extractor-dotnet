@@ -13,7 +13,7 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>This tag is a pointer to the Exif Interop IFD.</summary>
         public const int TagInteropOffset = 0xA005;
 
-        public ExifSubIfdDirectory()
+        public ExifSubIfdDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new ExifSubIfdDescriptor(this));
         }
@@ -26,10 +26,5 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         public override string Name => "Exif SubIFD";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

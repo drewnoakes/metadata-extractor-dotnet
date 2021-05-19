@@ -47,14 +47,9 @@ namespace MetadataExtractor.Formats.QuickTime
             { TagNextTrackId,       "Next Track Id" }
         };
 
-        public QuickTimeMovieHeaderDirectory()
+        public QuickTimeMovieHeaderDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new TagDescriptor<QuickTimeMovieHeaderDirectory>(this));
-        }
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
         }
     }
 }

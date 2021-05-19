@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Heif
 {
@@ -9,7 +8,7 @@ namespace MetadataExtractor.Formats.Heif
     {
         public override string Name { get; }
 
-        public HeicImagePropertiesDirectory(string name)
+        public HeicImagePropertiesDirectory(string name) : base(_tagNameMap)
         {
             Name = name;
             SetDescriptor(new HeicImagePropertyDescriptor(this));
@@ -67,8 +66,5 @@ namespace MetadataExtractor.Formats.Heif
             { TagFullRangeColor, "Full-Range Color" },
             { TagColorFormat, "Color Data Format" }
         };
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName) =>
-            _tagNameMap.TryGetValue(tagType, out tagName);
     }
 }

@@ -18,16 +18,11 @@ namespace MetadataExtractor.Formats.Jpeg
             { TagImageHeight, "Image Height" }
         };
 
-        public JpegDnlDirectory()
+        public JpegDnlDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new JpegDnlDescriptor(this));
         }
 
         public override string Name => "JPEG DNL";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

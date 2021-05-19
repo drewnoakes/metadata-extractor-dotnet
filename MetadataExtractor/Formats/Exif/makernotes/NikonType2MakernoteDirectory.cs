@@ -946,16 +946,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagUnknown55, "Unknown 55" }
         };
 
-        public NikonType2MakernoteDirectory()
+        public NikonType2MakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new NikonType2MakernoteDescriptor(this));
         }
 
         public override string Name => "Nikon Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

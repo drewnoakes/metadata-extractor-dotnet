@@ -15,7 +15,7 @@ namespace MetadataExtractor.Formats.Wav
             "Number of Samples"
         };
 
-        public WavFactDirectory()
+        public WavFactDirectory() : base(null)
         {
             SetDescriptor(new TagDescriptor<WavFactDirectory>(this));
         }

@@ -147,17 +147,12 @@ namespace MetadataExtractor.Formats.Exif
             _tagNameMap[TagHPositioningError] = "GPS Horizontal Positioning Error";
         }
 
-        public GpsDirectory()
+        public GpsDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new GpsDescriptor(this));
         }
 
         public override string Name => "GPS";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the latitude and longitude

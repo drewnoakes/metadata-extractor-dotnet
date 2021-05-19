@@ -45,7 +45,7 @@ namespace MetadataExtractor.Formats.Tga
             "Color Map"
         };
 
-        public TgaHeaderDirectory()
+        public TgaHeaderDirectory() : base(null)
         {
             SetDescriptor(new TgaHeaderDescriptor(this));
         }
