@@ -67,16 +67,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagSharpness, "Sharpness" }
         };
 
-        public KodakMakernoteDirectory()
+        public KodakMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new KodakMakernoteDescriptor(this));
         }
 
         public override string Name => "Kodak Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

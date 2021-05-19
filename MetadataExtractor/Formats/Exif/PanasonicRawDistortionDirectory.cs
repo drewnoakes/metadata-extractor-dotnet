@@ -39,16 +39,11 @@ namespace MetadataExtractor.Formats.Exif
             { TagDistortionN, "Distortion N" }
         };
 
-        public PanasonicRawDistortionDirectory()
+        public PanasonicRawDistortionDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new PanasonicRawDistortionDescriptor(this));
         }
 
         public override string Name => "PanasonicRaw DistortionInfo";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

@@ -30,6 +30,8 @@ namespace MetadataExtractor
 #endif
         internal static readonly DirectoryList EmptyList = new Directory[0];
 
+        private readonly Dictionary<int, string>? _tagNameMap;
+
         /// <summary>Map of values hashed by type identifiers.</summary>
         private readonly Dictionary<int, object> _tagMap = new();
 
@@ -50,11 +52,25 @@ namespace MetadataExtractor
         /// </summary>
         public Directory? Parent { get; internal set; }
 
+        protected Directory(Dictionary<int, string>? tagNameMap)
+        {
+            _tagNameMap = tagNameMap;
+        }
+
         /// <summary>Attempts to find the name of the specified tag.</summary>
         /// <param name="tagType">The tag to look up.</param>
         /// <param name="tagName">The found name, if any.</param>
         /// <returns><c>true</c> if the tag is known and <paramref name="tagName"/> was set, otherwise <c>false</c>.</returns>
-        protected abstract bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName);
+        protected virtual bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
+        {
+            if (_tagNameMap == null)
+            {
+                tagName = default;
+                return false;
+            }
+
+            return _tagNameMap.TryGetValue(tagType, out tagName);
+        }
 
         /// <summary>Gets a value indicating whether the directory is empty, meaning it contains no errors and no tag values.</summary>
         public bool IsEmpty => _errorList.Count == 0 && _definedTagList.Count == 0;
@@ -172,15 +188,9 @@ namespace MetadataExtractor
     {
         public override string Name => "Error";
 
-        public ErrorDirectory() { }
+        public ErrorDirectory() : base(new Dictionary<int, string>()) { }
 
-        public ErrorDirectory(string error) => AddError(error);
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            tagName = null;
-            return false;
-        }
+        public ErrorDirectory(string error) : this() => AddError(error);
 
         public override void Set(int tagType, object value) => throw new NotSupportedException($"Cannot add values to {nameof(ErrorDirectory)}.");
     }

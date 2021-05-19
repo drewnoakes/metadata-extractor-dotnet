@@ -42,16 +42,11 @@ namespace MetadataExtractor.Formats.Pcx
             { TagVScrSize, "V Scr Size" }
         };
 
-        public PcxDirectory()
+        public PcxDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new PcxDescriptor(this));
         }
 
         public override string Name => "PCX";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

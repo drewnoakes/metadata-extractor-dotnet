@@ -42,16 +42,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagLivePhotoId, "Live Photo ID" }
         };
 
-        public AppleMakernoteDirectory()
+        public AppleMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new AppleMakernoteDescriptor(this));
         }
 
         public override string Name => "Apple Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

@@ -48,16 +48,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagWhiteBalance, "White Balance" }
         };
 
-        public NikonType1MakernoteDirectory()
+        public NikonType1MakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new NikonType1MakernoteDescriptor(this));
         }
 
         public override string Name => "Nikon Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

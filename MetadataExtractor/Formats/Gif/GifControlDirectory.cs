@@ -25,16 +25,11 @@ namespace MetadataExtractor.Formats.Gif
             { TagTransparentColorIndex, "Transparent Color Index" }
         };
 
-        public GifControlDirectory()
+        public GifControlDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new GifControlDescriptor(this));
         }
 
         public override string Name => "GIF Control";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

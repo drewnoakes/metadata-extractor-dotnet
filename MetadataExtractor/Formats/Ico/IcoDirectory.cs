@@ -34,16 +34,11 @@ namespace MetadataExtractor.Formats.Ico
             { TagImageOffsetBytes, "Image Offset Bytes" }
         };
 
-        public IcoDirectory()
+        public IcoDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new IcoDescriptor(this));
         }
 
         public override string Name => "ICO";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

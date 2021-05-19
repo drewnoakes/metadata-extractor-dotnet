@@ -33,16 +33,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagWbRgbLevels, "WB RGB Levels" }
         };
 
-        public LeicaType5MakernoteDirectory()
+        public LeicaType5MakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new LeicaType5MakernoteDescriptor(this));
         }
 
         public override string Name => "Leica Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

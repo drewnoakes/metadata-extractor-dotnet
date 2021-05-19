@@ -23,16 +23,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagRicohCameraInfoMakernoteSubIfdPointer, "Ricoh Camera Info Makernote Sub-IFD" }
         };
 
-        public RicohMakernoteDirectory()
+        public RicohMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new RicohMakernoteDescriptor(this));
         }
 
         public override string Name => "Ricoh Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

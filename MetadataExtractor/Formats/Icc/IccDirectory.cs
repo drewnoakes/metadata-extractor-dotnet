@@ -159,16 +159,11 @@ namespace MetadataExtractor.Formats.Icc
             { TagAppleMultiLanguageProfileName, "Apple Multi-language Profile Name" }
         };
 
-        public IccDirectory()
+        public IccDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new IccDescriptor(this));
         }
 
         public override string Name => "ICC Profile";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

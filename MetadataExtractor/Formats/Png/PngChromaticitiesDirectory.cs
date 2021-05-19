@@ -30,13 +30,11 @@ namespace MetadataExtractor.Formats.Png
             { TagBlueY, "Blue Y" }
         };
 
-        public PngChromaticitiesDirectory()
+        public PngChromaticitiesDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new TagDescriptor<PngChromaticitiesDirectory>(this));
         }
 
         public override string Name => "PNG Chromaticities";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName) => _tagNameMap.TryGetValue(tagType, out tagName);
     }
 }

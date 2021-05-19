@@ -19,16 +19,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" }
         };
 
-        public KyoceraMakernoteDirectory()
+        public KyoceraMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new KyoceraMakernoteDescriptor(this));
         }
 
         public override string Name => "Kyocera/Contax Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

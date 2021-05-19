@@ -202,17 +202,12 @@ namespace MetadataExtractor.Formats.Photoshop
             { TagPrintFlagsInfo, "Print Flags Information" }
         };
 
-        public PhotoshopDirectory()
+        public PhotoshopDirectory() : base(TagNameMap)
         {
             SetDescriptor(new PhotoshopDescriptor(this));
         }
 
         public override string Name => "Photoshop";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return TagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         public byte[]? GetThumbnailBytes()
         {

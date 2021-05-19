@@ -560,17 +560,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagTransform1, "Transform 1" }
         };
 
-        public PanasonicMakernoteDirectory()
+        public PanasonicMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new PanasonicMakernoteDescriptor(this));
         }
 
         public override string Name => "Panasonic Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         public IEnumerable<Face> GetDetectedFaces()
         {

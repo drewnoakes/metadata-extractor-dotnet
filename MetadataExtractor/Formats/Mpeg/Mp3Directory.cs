@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Mpeg
 {
@@ -28,16 +27,11 @@ namespace MetadataExtractor.Formats.Mpeg
             { TagFrameSize, "Frame Size" }
         };
 
-        public Mp3Directory()
+        public Mp3Directory() : base(_tagNameMap)
         {
             SetDescriptor(new Mp3Descriptor(this));
         }
 
         public override string Name => "MP3";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

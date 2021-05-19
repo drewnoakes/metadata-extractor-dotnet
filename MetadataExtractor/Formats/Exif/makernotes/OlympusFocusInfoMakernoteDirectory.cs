@@ -66,16 +66,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagImageStabilization, "Image Stabilization" }
         };
 
-        public OlympusFocusInfoMakernoteDirectory()
+        public OlympusFocusInfoMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new OlympusFocusInfoMakernoteDescriptor(this));
         }
 
         public override string Name => "Olympus Focus Info";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

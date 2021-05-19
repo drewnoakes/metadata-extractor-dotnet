@@ -21,16 +21,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagMakernoteThumbVersion, "Makernote Thumb Version" }
         };
 
-        public SonyType6MakernoteDirectory()
+        public SonyType6MakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new SonyType6MakernoteDescriptor(this));
         }
 
         public override string Name => "Sony Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

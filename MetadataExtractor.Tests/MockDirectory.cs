@@ -1,6 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
 
 namespace MetadataExtractor.Tests
 {
@@ -10,10 +10,8 @@ namespace MetadataExtractor.Tests
     {
         public override string Name => string.Empty;
 
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
+        public MockDirectory() : base(new Dictionary<int, string>())
         {
-            tagName = null;
-            return false;
         }
     }
 }

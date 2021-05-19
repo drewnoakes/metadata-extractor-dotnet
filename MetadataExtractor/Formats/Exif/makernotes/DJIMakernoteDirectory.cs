@@ -49,17 +49,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagCameraRoll, "Camera Roll" }
         };
 
-        public DjiMakernoteDirectory()
+        public DjiMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new DjiMakernoteDescriptor(this));
         }
 
         public override string Name => "DJI Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the x speed,

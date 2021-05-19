@@ -21,14 +21,9 @@ namespace MetadataExtractor.Formats.QuickTime
             { TagCompatibleBrands, "Compatible Brands" }
         };
 
-        public QuickTimeFileTypeDirectory()
+        public QuickTimeFileTypeDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new QuickTimeFileTypeDescriptor(this));
-        }
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
         }
     }
 }

@@ -54,7 +54,7 @@ namespace MetadataExtractor.Formats.Png
 
         private readonly PngChunkType _pngChunkType;
 
-        public PngDirectory(PngChunkType pngChunkType)
+        public PngDirectory(PngChunkType pngChunkType) : base(_tagNameMap)
         {
             _pngChunkType = pngChunkType;
             SetDescriptor(new PngDescriptor(this));
@@ -67,9 +67,5 @@ namespace MetadataExtractor.Formats.Png
 
         public override string Name => "PNG-" + _pngChunkType.Identifier;
 
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

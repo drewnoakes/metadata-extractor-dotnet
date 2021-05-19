@@ -12,7 +12,7 @@ namespace MetadataExtractor.Formats.Exif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class ExifImageDirectory : ExifDirectoryBase
     {
-        public ExifImageDirectory()
+        public ExifImageDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new ExifImageDescriptor(this));
         }
@@ -25,10 +25,5 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         public override string Name => "Exif Image";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

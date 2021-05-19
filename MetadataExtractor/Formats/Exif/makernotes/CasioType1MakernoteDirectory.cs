@@ -60,16 +60,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagWhiteBalance, "White Balance" }
         };
 
-        public CasioType1MakernoteDirectory()
+        public CasioType1MakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new CasioType1MakernoteDescriptor(this));
         }
 
         public override string Name => "Casio Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

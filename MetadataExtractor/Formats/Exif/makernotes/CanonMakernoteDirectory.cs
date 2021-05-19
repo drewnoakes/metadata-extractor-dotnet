@@ -661,17 +661,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagFilterInfoArray, "Filter Info Array" }
         };
 
-        public CanonMakernoteDirectory()
+        public CanonMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new CanonMakernoteDescriptor(this));
         }
 
         public override string Name => "Canon Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         public override void Set(int tagType, object value)
         {

@@ -55,16 +55,11 @@ namespace MetadataExtractor.Formats.Exif
             { TagWbRbLevels7, "WB RGB Levels 7" }
         };
 
-        public PanasonicRawWbInfoDirectory()
+        public PanasonicRawWbInfoDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new PanasonicRawWbInfoDescriptor(this));
         }
 
         public override string Name => "PanasonicRaw WbInfo";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

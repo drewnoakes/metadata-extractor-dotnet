@@ -121,14 +121,9 @@ namespace MetadataExtractor.Formats.QuickTime
             { "com.android.version",                    TagAndroidVersion },
         };
 
-        public QuickTimeMetadataHeaderDirectory()
+        public QuickTimeMetadataHeaderDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new QuickTimeMetadataHeaderDescriptor(this));
-        }
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
         }
 
         public static bool TryGetTag(string name, out int tagType)

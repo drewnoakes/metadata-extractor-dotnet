@@ -19,16 +19,11 @@ namespace MetadataExtractor.Formats.Exif
             { TagPrintImVersion, "PrintIM Version" }
         };
 
-        public PrintIMDirectory()
+        public PrintIMDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new PrintIMDescriptor(this));
         }
 
         public override string Name => "PrintIM";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

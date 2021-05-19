@@ -33,17 +33,12 @@ namespace MetadataExtractor.Formats.Xmp
         /// <remarks>This object provides a rich API for working with XMP data.</remarks>
         public IXmpMeta? XmpMeta { get; private set; }
 
-        public XmpDirectory()
+        public XmpDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new XmpDescriptor(this));
         }
 
         public override string Name => "XMP";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         // set only once to save some allocations
         private static readonly IteratorOptions _iteratorOptions = new() { IsJustLeafNodes = true };

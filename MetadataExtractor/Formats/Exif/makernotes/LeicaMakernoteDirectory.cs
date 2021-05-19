@@ -54,16 +54,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagImageIdNumber, "Image ID Number" }
         };
 
-        public LeicaMakernoteDirectory()
+        public LeicaMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new LeicaMakernoteDescriptor(this));
         }
 
         public override string Name => "Leica Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

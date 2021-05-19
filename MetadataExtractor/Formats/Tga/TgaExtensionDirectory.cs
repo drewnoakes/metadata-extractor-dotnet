@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Tga
             "Attributes Type"
         };
 
-        public TgaExtensionDirectory()
+        public TgaExtensionDirectory() : base(null)
         {
             SetDescriptor(new TgaExtensionDescriptor(this));
         }

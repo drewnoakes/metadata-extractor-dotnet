@@ -21,16 +21,11 @@ namespace MetadataExtractor.Formats.Photoshop
             { TagCopyright, "Copyright" }
         };
 
-        public DuckyDirectory()
+        public DuckyDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new TagDescriptor<DuckyDirectory>(this));
         }
 
         public override string Name => "Ducky";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

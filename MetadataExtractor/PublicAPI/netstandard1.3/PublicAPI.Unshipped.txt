@@ -2,6 +2,8 @@
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.Extract(byte[]! segmentBytes, int preambleLength) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.PreambleBytes.get -> byte[]!
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+MetadataExtractor.Directory.Directory(System.Collections.Generic.Dictionary<int, string!>? tagNameMap) -> void
+MetadataExtractor.Formats.Exif.ExifDirectoryBase.ExifDirectoryBase(System.Collections.Generic.Dictionary<int, string!>! tagNameMap) -> void
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAccelerationVectorDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetHdrImageTypeDescription() -> string?
 MetadataExtractor.Formats.Jpeg.HuffmanTable.HuffmanTable() -> void
@@ -41,3 +43,4 @@ override MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.G
 static MetadataExtractor.Formats.Exif.ExifReader.JpegSegmentPreambleLength.get -> int
 static MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TryGetTag(string! name, out int tagType) -> bool
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType!
+virtual MetadataExtractor.Directory.TryGetTagName(int tagType, out string? tagName) -> bool

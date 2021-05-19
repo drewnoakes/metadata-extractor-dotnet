@@ -100,17 +100,12 @@ namespace MetadataExtractor.Formats.Jpeg
             { TagNumberOfTables, "Number of Tables" }
         };
 
-        public HuffmanTablesDirectory()
+        public HuffmanTablesDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new HuffmanTablesDescriptor(this));
         }
 
         public override string Name => "Huffman";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         /// <remarks>Use GetNumberOfTables for bounds-checking.</remarks>
         /// <param name="tableNumber">The zero-based index of the table. This number is normally between 0 and 3.</param>

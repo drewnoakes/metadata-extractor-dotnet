@@ -61,16 +61,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagAutoBracket, "Auto Bracket" }
         };
 
-        public SigmaMakernoteDirectory()
+        public SigmaMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new SigmaMakernoteDescriptor(this));
         }
 
         public override string Name => "Sigma Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

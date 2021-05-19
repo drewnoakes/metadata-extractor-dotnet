@@ -98,16 +98,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagCmSharpness, "CM Sharpness" }
         };
 
-        public OlympusRawInfoMakernoteDirectory()
+        public OlympusRawInfoMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new OlympusRawInfoMakernoteDescriptor(this));
         }
 
         public override string Name => "Olympus Raw Info";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

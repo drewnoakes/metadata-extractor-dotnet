@@ -17,16 +17,11 @@ namespace MetadataExtractor.Formats.Gif
             { TagIterationCount, "Iteration Count" }
         };
 
-        public GifAnimationDirectory()
+        public GifAnimationDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new GifAnimationDescriptor(this));
         }
 
         public override string Name => "GIF Animation";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

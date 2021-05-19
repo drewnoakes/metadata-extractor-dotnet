@@ -32,16 +32,11 @@ namespace MetadataExtractor.Formats.Avi
             {TagDateTimeOriginal, "Date/Time Original"}
         };
 
-        public AviDirectory()
+        public AviDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new AviDescriptor(this));
         }
 
         public override string Name => "AVI";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

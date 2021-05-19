@@ -31,7 +31,7 @@ namespace MetadataExtractor.Formats.Wav
             "Subformat"
         };
 
-        public WavFormatDirectory()
+        public WavFormatDirectory() : base(null)
         {
             SetDescriptor(new WavFormatDescriptor(this));
         }

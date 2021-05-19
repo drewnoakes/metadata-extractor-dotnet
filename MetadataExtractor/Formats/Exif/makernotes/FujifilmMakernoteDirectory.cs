@@ -104,16 +104,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagParallax, "Parallax" }
         };
 
-        public FujifilmMakernoteDirectory()
+        public FujifilmMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new FujifilmMakernoteDescriptor(this));
         }
 
         public override string Name => "Fujifilm Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

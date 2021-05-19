@@ -17,17 +17,12 @@ namespace MetadataExtractor.Formats.Jfxx
             { TagExtensionCode, "Extension Code" }
         };
 
-        public JfxxDirectory()
+        public JfxxDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new JfxxDescriptor(this));
         }
 
         public override string Name => "JFXX";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
 
         public int GetExtensionCode()
         {

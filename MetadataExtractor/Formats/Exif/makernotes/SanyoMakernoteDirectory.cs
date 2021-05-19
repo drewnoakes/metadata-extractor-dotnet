@@ -69,16 +69,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagDataDump, "Data Dump" }
         };
 
-        public SanyoMakernoteDirectory()
+        public SanyoMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new SanyoMakernoteDescriptor(this));
         }
 
         public override string Name => "Sanyo Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

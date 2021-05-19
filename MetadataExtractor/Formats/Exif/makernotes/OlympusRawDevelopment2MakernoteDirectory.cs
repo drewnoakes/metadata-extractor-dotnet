@@ -68,16 +68,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagRawDevArtFilter, "Raw Dev Art Filter" }
         };
 
-        public OlympusRawDevelopment2MakernoteDirectory()
+        public OlympusRawDevelopment2MakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new OlympusRawDevelopment2MakernoteDescriptor(this));
         }
 
         public override string Name => "Olympus Raw Development 2";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

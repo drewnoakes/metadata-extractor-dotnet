@@ -157,16 +157,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagDateTimeUtc, "Date Time UTC" }
         };
 
-        public OlympusCameraSettingsMakernoteDirectory()
+        public OlympusCameraSettingsMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new OlympusCameraSettingsMakernoteDescriptor(this));
         }
 
         public override string Name => "Olympus Camera Settings";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

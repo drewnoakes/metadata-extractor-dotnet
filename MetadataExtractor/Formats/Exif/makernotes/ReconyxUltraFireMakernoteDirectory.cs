@@ -68,16 +68,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
              { TagUserLabel, "User Label" }
         };
 
-        public ReconyxUltraFireMakernoteDirectory()
+        public ReconyxUltraFireMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new ReconyxUltraFireMakernoteDescriptor(this));
         }
 
         public override string Name => "Reconyx UltraFire Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

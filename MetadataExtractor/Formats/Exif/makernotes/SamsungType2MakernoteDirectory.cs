@@ -105,16 +105,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagEncryptionKey, "Encryption Key" }
         };
 
-        public SamsungType2MakernoteDirectory()
+        public SamsungType2MakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new SamsungType2MakernoteDescriptor(this));
         }
 
         public override string Name => "Samsung Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }

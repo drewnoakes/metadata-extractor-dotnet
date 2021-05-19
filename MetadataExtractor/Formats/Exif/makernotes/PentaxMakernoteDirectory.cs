@@ -119,16 +119,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagDaylightSavings, "Daylight Savings" }
         };
 
-        public PentaxMakernoteDirectory()
+        public PentaxMakernoteDirectory() : base(_tagNameMap)
         {
             SetDescriptor(new PentaxMakernoteDescriptor(this));
         }
 
         public override string Name => "Pentax Makernote";
-
-        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
     }
 }
