@@ -26,22 +26,27 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class JpegMetadataReader
     {
-        private static readonly ICollection<IJpegSegmentMetadataReader> _allReaders = new IJpegSegmentMetadataReader[]
+        private static readonly ICollection<IJpegSegmentMetadataReader> _allReaders = AllReaders.ToList();
+
+        public static IEnumerable<IJpegSegmentMetadataReader> AllReaders
         {
-            new JpegReader(),
-            new JpegCommentReader(),
-            new JfifReader(),
-            new JfxxReader(),
-            new ExifReader(),
-            new XmpReader(),
-            new IccReader(),
-            new PhotoshopReader(),
-            new DuckyReader(),
-            new IptcReader(),
-            new AdobeJpegReader(),
-            new JpegDhtReader(),
-            new JpegDnlReader()
-        };
+            get
+            {
+                yield return new JpegReader();
+                yield return new JpegCommentReader();
+                yield return new JfifReader();
+                yield return new JfxxReader();
+                yield return new ExifReader();
+                yield return new XmpReader();
+                yield return new IccReader();
+                yield return new PhotoshopReader();
+                yield return new DuckyReader();
+                yield return new IptcReader();
+                yield return new AdobeJpegReader();
+                yield return new JpegDhtReader();
+                yield return new JpegDnlReader();
+            }
+        }
 
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="IOException"/>
