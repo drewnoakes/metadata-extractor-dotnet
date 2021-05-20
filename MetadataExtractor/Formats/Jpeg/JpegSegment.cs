@@ -19,5 +19,7 @@ namespace MetadataExtractor.Formats.Jpeg
             Bytes = bytes;
             Offset = offset;
         }
+
+        public override string ToString() => $"[{Type}] {Bytes.Length:N0} bytes at offset {Offset}";
     }
 }
