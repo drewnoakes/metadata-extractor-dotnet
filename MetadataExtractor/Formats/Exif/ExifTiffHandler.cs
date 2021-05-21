@@ -600,6 +600,11 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(new DjiMakernoteDirectory());
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset);
             }
+            else if (string.Equals("FLIR Systems", cameraMake, StringComparison.Ordinal))
+            {
+                PushDirectory(new FlirMakernoteDirectory());
+                TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset);
+            }
             else
             {
                 // The makernote is not comprehended by this library.
