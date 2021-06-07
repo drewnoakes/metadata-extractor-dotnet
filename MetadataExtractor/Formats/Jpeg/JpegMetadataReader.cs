@@ -11,6 +11,7 @@ using MetadataExtractor.Formats.Jfif;
 using MetadataExtractor.Formats.Jfxx;
 using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.Formats.Flir;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 
@@ -45,6 +46,7 @@ namespace MetadataExtractor.Formats.Jpeg
                 yield return new AdobeJpegReader();
                 yield return new JpegDhtReader();
                 yield return new JpegDnlReader();
+                yield return new FlirReader();
             }
         }
 

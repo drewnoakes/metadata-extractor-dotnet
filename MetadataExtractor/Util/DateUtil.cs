@@ -23,7 +23,7 @@ namespace MetadataExtractor.Util
                minutes >= 0 && minutes < 60 &&
                seconds >= 0 && seconds < 60;
 
-        private static readonly DateTime _unixEpoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly DateTime _unixEpoch = new(1970, 1, 1, 0, 0, 0);
 
         public static DateTime FromUnixTime(long unixTime) => _unixEpoch.AddSeconds(unixTime);
     }
