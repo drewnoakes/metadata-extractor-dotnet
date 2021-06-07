@@ -124,6 +124,7 @@ Camera-specific "makernote" data is decoded for cameras manufactured by:
 * Casio
 * DJI
 * Epson
+* FLIR
 * Fujifilm
 * Kodak
 * Kyocera
@@ -157,7 +158,9 @@ A PCL build was supported until [version 1.5.3](https://www.nuget.org/packages/M
 
 ## Building
 
-If using Visual Studio to compile this repo, ensure you have the _.NET Core Development Tools_ workload installed. This can be verified and corrected using the Visual Studio Installer in VS2017 and later.
+Building this repo requires a recent version of Visual Studio 2019. Ensure you have the _.NET Core Development Tools_ workload installed via the Visual Studio Installer.
+
+The library itself, once built, may be consumed from projects in much earlier versions of Visual Studio.
 
 ## Questions & Feedback
 
