@@ -198,7 +198,7 @@ namespace MetadataExtractor.Formats.Exif
             }
 
             // Custom processing for embedded XMP data
-            if (tagId == ExifDirectoryBase.TagApplicationNotes && CurrentDirectory is ExifIfd0Directory)
+            if (tagId == ExifDirectoryBase.TagApplicationNotes && CurrentDirectory is ExifIfd0Directory or ExifSubIfdDirectory)
             {
                 var xmpDirectory = new XmpReader().Extract(reader.GetNullTerminatedBytes(tagOffset, byteCount));
                 xmpDirectory.Parent = CurrentDirectory;
