@@ -410,7 +410,17 @@ namespace MetadataExtractor.Formats.Png
                 {
                     if (TryProcessRawProfile(out int byteCount))
                     {
-                        yield return new IptcReader().Extract(new SequentialByteArrayReader(textBytes), byteCount);
+                        // From ExifTool:
+                        // this is unfortunate, but the "IPTC" profile may be stored as either
+                        // IPTC IIM or a Photoshop IRB resource, so we must test for this
+                        if (byteCount > 0 && textBytes[0] == 0x1c)
+                            yield return new IptcReader().Extract(new SequentialByteArrayReader(textBytes), byteCount);
+                        else
+                        {
+                            foreach (var psDirectory in new Photoshop.PhotoshopReader().Extract(new SequentialByteArrayReader(textBytes), byteCount))
+                                yield return psDirectory;
+
+                        }
                     }
                     else
                     {
