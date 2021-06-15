@@ -412,7 +412,8 @@ namespace MetadataExtractor.Formats.Png
                     {
                         // From ExifTool:
                         // this is unfortunate, but the "IPTC" profile may be stored as either
-                        // IPTC IIM or a Photoshop IRB resource, so we must test for this
+                        // IPTC IIM or a Photoshop IRB resource, so we must test for this.
+                        // Check if the first byte matches IptcReader.IptcMarkerByte (0x1c)
                         if (byteCount > 0 && textBytes[0] == 0x1c)
                             yield return new IptcReader().Extract(new SequentialByteArrayReader(textBytes), byteCount);
                         else
