@@ -35,7 +35,7 @@ namespace MetadataExtractor.Formats.Iptc
         public static final int POST_DATA_RECORD = 9;
         */
 
-        private const byte IptcMarkerByte = 0x1c;
+        internal const byte IptcMarkerByte = 0x1c;
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new[] { JpegSegmentType.AppD };
 
