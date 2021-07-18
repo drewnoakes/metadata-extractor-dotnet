@@ -17,7 +17,8 @@ namespace MetadataExtractor.Benchmarks
 {
     internal static class Program
     {
-        private static void Main() => BenchmarkRunner.Run<JpegBenchmark>();
+        //private static void Main() => BenchmarkRunner.Run<JpegBenchmark>();
+        private static void Main() => BenchmarkRunner.Run<RASBenchmark>();
     }
 
     /*

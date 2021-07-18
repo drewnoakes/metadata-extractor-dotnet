@@ -17,7 +17,7 @@ namespace MetadataExtractor.IO
 #endif
     public class BufferBoundsException : IOException
     {
-        public BufferBoundsException(int index, int bytesRequested, long bufferLength)
+        public BufferBoundsException(long index, long bytesRequested, long bufferLength)
             : base(GetMessage(index, bytesRequested, bufferLength))
         {
         }
@@ -31,7 +31,7 @@ namespace MetadataExtractor.IO
         {
         }
 
-        private static string GetMessage(int index, int bytesRequested, long bufferLength)
+        private static string GetMessage(long index, long bytesRequested, long bufferLength)
         {
             if (index < 0)
                 return $"Attempt to read from buffer using a negative index ({index})";
