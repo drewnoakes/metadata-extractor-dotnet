@@ -301,7 +301,7 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         var array = new double[componentCount];
                         for (var i = 0; i < componentCount; i++)
-                            array[i] = reader.GetDouble64(tagValueOffset + i * 4);
+                            array[i] = reader.GetDouble64(tagValueOffset + i * 8);
                         handler.SetDoubleArray(tagId, array);
                     }
                     break;
