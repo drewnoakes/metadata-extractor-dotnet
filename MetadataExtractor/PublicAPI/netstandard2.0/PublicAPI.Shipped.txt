@@ -1343,7 +1343,7 @@ MetadataExtractor.Formats.Tiff.ITiffHandler.SetInt8UArray(int tagId, byte[]! arr
 MetadataExtractor.Formats.Tiff.ITiffHandler.SetRational(int tagId, MetadataExtractor.Rational rational) -> void
 MetadataExtractor.Formats.Tiff.ITiffHandler.SetRationalArray(int tagId, MetadataExtractor.Rational[]! array) -> void
 MetadataExtractor.Formats.Tiff.ITiffHandler.SetString(int tagId, MetadataExtractor.StringValue str) -> void
-MetadataExtractor.Formats.Tiff.ITiffHandler.SetTiffMarker(int marker) -> void
+MetadataExtractor.Formats.Tiff.ITiffHandler.SetTiffMarker(ushort marker) -> void
 MetadataExtractor.Formats.Tiff.ITiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, uint componentCount, out long byteCount) -> bool
 MetadataExtractor.Formats.Tiff.ITiffHandler.TryEnterSubIfd(int tagType) -> bool
 MetadataExtractor.Formats.Tiff.ITiffHandler.Warn(string! message) -> void
@@ -1597,7 +1597,7 @@ abstract MetadataExtractor.Formats.Riff.RiffHandler.ShouldAcceptList(string! fou
 abstract MetadataExtractor.Formats.Riff.RiffHandler.ShouldAcceptRiffIdentifier(string! identifier) -> bool
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.ICollection<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.HasFollowerIfd() -> bool
-abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetTiffMarker(int marker) -> void
+abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetTiffMarker(ushort marker) -> void
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, uint componentCount, out long byteCount) -> bool
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.TryEnterSubIfd(int tagType) -> bool
 abstract MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
@@ -3608,7 +3608,7 @@ override MetadataExtractor.Formats.Exif.ExifThumbnailDescriptor.GetDescription(i
 override MetadataExtractor.Formats.Exif.ExifThumbnailDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.ICollection<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.HasFollowerIfd() -> bool
-override MetadataExtractor.Formats.Exif.ExifTiffHandler.SetTiffMarker(int marker) -> void
+override MetadataExtractor.Formats.Exif.ExifTiffHandler.SetTiffMarker(ushort marker) -> void
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, uint componentCount, out long byteCount) -> bool
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.TryEnterSubIfd(int tagId) -> bool
 override MetadataExtractor.Formats.Exif.GpsDescriptor.GetDescription(int tagType) -> string?
@@ -3735,7 +3735,7 @@ override MetadataExtractor.Formats.QuickTime.QuickTimeFileTypeDescriptor.GetDesc
 override MetadataExtractor.Formats.QuickTime.QuickTimeFileTypeDirectory.Name.get -> string!
 override MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.Name.get -> string!
 override MetadataExtractor.Formats.QuickTime.QuickTimeMovieHeaderDirectory.Name.get -> string!
-override MetadataExtractor.Formats.QuickTime.QuickTimeTiffHandler<T>.SetTiffMarker(int marker) -> void
+override MetadataExtractor.Formats.QuickTime.QuickTimeTiffHandler<T>.SetTiffMarker(ushort marker) -> void
 override MetadataExtractor.Formats.QuickTime.QuickTimeTrackHeaderDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Tga.TgaDeveloperDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Tga.TgaExtensionDescriptor.GetDescription(int tagType) -> string?

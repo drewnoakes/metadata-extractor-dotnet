@@ -21,7 +21,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// </remarks>
         /// <param name="marker">the 2-byte value found at position 2 of the TIFF header</param>
         /// <exception cref="TiffProcessingException"/>
-        void SetTiffMarker(int marker);
+        void SetTiffMarker(ushort marker);
 
         bool TryEnterSubIfd(int tagType);
 

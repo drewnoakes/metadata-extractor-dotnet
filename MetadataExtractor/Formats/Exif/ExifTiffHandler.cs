@@ -30,14 +30,14 @@ namespace MetadataExtractor.Formats.Exif
         { }
 
         /// <exception cref="TiffProcessingException"/>
-        public override void SetTiffMarker(int marker)
+        public override void SetTiffMarker(ushort marker)
         {
 #pragma warning disable format
 
-            const int StandardTiffMarker     = 0x002A;
-            const int OlympusRawTiffMarker   = 0x4F52; // for ORF files
-            const int OlympusRawTiffMarker2  = 0x5352; // for ORF files
-            const int PanasonicRawTiffMarker = 0x0055; // for RAW, RW2, and RWL files
+            const ushort StandardTiffMarker     = 0x002A;
+            const ushort OlympusRawTiffMarker   = 0x4F52; // for ORF files
+            const ushort OlympusRawTiffMarker2  = 0x5352; // for ORF files
+            const ushort PanasonicRawTiffMarker = 0x0055; // for RAW, RW2, and RWL files
 
 #pragma warning restore format
 

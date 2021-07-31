@@ -88,6 +88,6 @@ namespace MetadataExtractor.Formats.Tiff
 
         public abstract bool TryEnterSubIfd(int tagType);
 
-        public abstract void SetTiffMarker(int marker);
+        public abstract void SetTiffMarker(ushort marker);
     }
 }

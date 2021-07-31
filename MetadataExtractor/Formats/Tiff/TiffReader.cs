@@ -29,7 +29,7 @@ namespace MetadataExtractor.Formats.Tiff
             };
 
             // Check the next two values for correctness.
-            int tiffMarker = reader.GetUInt16(2);
+            var tiffMarker = reader.GetUInt16(2);
             handler.SetTiffMarker(tiffMarker);
 
             var firstIfdOffset = reader.GetInt32(4);
