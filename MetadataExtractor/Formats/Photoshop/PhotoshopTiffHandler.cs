@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Icc;
+using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 
@@ -30,7 +31,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
         }
 
-        public override bool CustomProcessTag(int tagOffset, HashSet<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount, bool isBigTiff)
+        public override bool CustomProcessTag(int tagOffset, HashSet<IfdIdentity> processedIfds, IndexedReader reader, int tagId, int byteCount, bool isBigTiff)
         {
             switch (tagId)
             {
@@ -45,7 +46,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     return true;
             }
 
-            return base.CustomProcessTag(tagOffset, processedIfdOffsets, reader, tagId, byteCount, isBigTiff);
+            return base.CustomProcessTag(tagOffset, processedIfds, reader, tagId, byteCount, isBigTiff);
         }
     }
 }

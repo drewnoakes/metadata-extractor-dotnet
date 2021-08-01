@@ -24,6 +24,20 @@ namespace MetadataExtractor.Formats.Tiff
         /// <exception cref="TiffProcessingException">The value of <paramref name="marker"/> is not supported.</exception>
         TiffStandard ProcessTiffMarker(ushort marker);
 
+        /// <summary>
+        /// Gets an object that represents the kind of IFD being processed currently.
+        /// </summary>
+        /// <remarks>
+        /// Used, along with the data offset, to prevent processing a single IFD more than once.
+        /// We used to only use the IFD's offset, but we have observed a file where the same
+        /// offset was used more than once in different contexts, and where that directory
+        /// contained tags appropriate to both contexts. By including this "kind" when considering
+        /// duplicate IFDs, we can process the same data in multiple contexts and still prevent
+        /// against endless loops.
+        /// </remarks>
+        /// <seealso cref="IfdIdentity" />
+        object? Kind { get; }
+
         bool TryEnterSubIfd(int tagType);
 
         bool HasFollowerIfd();
@@ -31,7 +45,7 @@ namespace MetadataExtractor.Formats.Tiff
         void EndingIfd();
 
         /// <exception cref="System.IO.IOException"/>
-        bool CustomProcessTag(int tagOffset, HashSet<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount, bool isBigTiff);
+        bool CustomProcessTag(int tagOffset, HashSet<IfdIdentity> processedIfds, IndexedReader reader, int tagId, int byteCount, bool isBigTiff);
 
         bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount);
 

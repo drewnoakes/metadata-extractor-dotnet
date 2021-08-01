@@ -91,7 +91,7 @@ namespace MetadataExtractor.Formats.Tiff
                     return;
             }
 
-            var processedIfdOffsets = new HashSet<int>();
+            var processedIfdOffsets = new HashSet<IfdIdentity>();
 
             ProcessIfd(handler, reader, processedIfdOffsets, firstIfdOffset, isBigTiff);
         }
@@ -99,11 +99,11 @@ namespace MetadataExtractor.Formats.Tiff
         /// <summary>Processes a TIFF IFD.</summary>
         /// <param name="handler">the <see cref="ITiffHandler"/> that will coordinate processing and accept read values</param>
         /// <param name="reader">the <see cref="IndexedReader"/> from which the data should be read</param>
-        /// <param name="processedIfdOffsets">the set of visited IFD offsets, to avoid revisiting the same IFD in an endless loop</param>
+        /// <param name="processedIfds">the set of visited IFDs, used to prevent processing endless loops</param>
         /// <param name="ifdOffset">the offset within <c>reader</c> at which the IFD data starts</param>
         /// <param name="isBigTiff">Whether the IFD uses the BigTIFF data format.</param>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public static void ProcessIfd(ITiffHandler handler, IndexedReader reader, HashSet<int> processedIfdOffsets, int ifdOffset, bool isBigTiff)
+        public static void ProcessIfd(ITiffHandler handler, IndexedReader reader, HashSet<IfdIdentity> processedIfds, int ifdOffset, bool isBigTiff)
         {
             // Standard TIFF
             //
@@ -133,7 +133,7 @@ namespace MetadataExtractor.Formats.Tiff
                 // Note that we track these offsets in the global frame, not the reader's local frame.
                 var globalIfdOffset = reader.ToUnshiftedOffset(ifdOffset);
 
-                if (!processedIfdOffsets.Add(globalIfdOffset))
+                if (!processedIfds.Add(new(globalIfdOffset, handler.Kind)))
                     return;
 
                 // Validate IFD offset
@@ -257,13 +257,13 @@ namespace MetadataExtractor.Formats.Tiff
                             {
                                 isIfdPointer = true;
                                 var subDirOffset = reader.GetUInt32(checked((int)(tagValueOffset + i * 4)));
-                                ProcessIfd(handler, reader, processedIfdOffsets, (int)subDirOffset, isBigTiff);
+                                ProcessIfd(handler, reader, processedIfds, (int)subDirOffset, isBigTiff);
                             }
                         }
                     }
 
                     // If it wasn't an IFD pointer, allow custom tag processing to occur
-                    if (!isIfdPointer && !handler.CustomProcessTag((int)tagValueOffset, processedIfdOffsets, reader, tagId, (int)byteCount, isBigTiff))
+                    if (!isIfdPointer && !handler.CustomProcessTag((int)tagValueOffset, processedIfds, reader, tagId, (int)byteCount, isBigTiff))
                     {
                         // If no custom processing occurred, process the tag in the standard fashion
                         ProcessTag(handler, tagId, (int)tagValueOffset, (int)componentCount, formatCode, reader);
@@ -295,7 +295,7 @@ namespace MetadataExtractor.Formats.Tiff
 
                     if (handler.HasFollowerIfd())
                     {
-                        ProcessIfd(handler, reader, processedIfdOffsets, nextIfdOffset, isBigTiff);
+                        ProcessIfd(handler, reader, processedIfds, nextIfdOffset, isBigTiff);
                     }
                 }
             }
