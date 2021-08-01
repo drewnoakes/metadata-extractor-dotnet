@@ -209,7 +209,7 @@ namespace MetadataExtractor.IO
                 (long)GetByte() << 56;
         }
 
-        /// <summary>Get an usigned 64-bit integer from the buffer.</summary>
+        /// <summary>Get an unsigned 64-bit integer from the buffer.</summary>
         /// <returns>the unsigned 64 bit int value, between 0x0000000000000000 and 0xFFFFFFFFFFFFFFFF</returns>
         /// <exception cref="IOException">the buffer does not contain enough bytes to service the request</exception>
         public ulong GetUInt64()
