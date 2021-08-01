@@ -30,7 +30,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
         }
 
-        public override bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount)
+        public override bool CustomProcessTag(int tagOffset, HashSet<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount)
         {
             switch (tagId)
             {

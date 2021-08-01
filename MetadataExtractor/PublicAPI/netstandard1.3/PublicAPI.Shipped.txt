@@ -1316,7 +1316,6 @@ MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetRationalArray(int tagId, 
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetString(int tagId, MetadataExtractor.StringValue stringValue) -> void
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.Warn(string! message) -> void
 MetadataExtractor.Formats.Tiff.ITiffHandler
-MetadataExtractor.Formats.Tiff.ITiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.ICollection<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
 MetadataExtractor.Formats.Tiff.ITiffHandler.EndingIfd() -> void
 MetadataExtractor.Formats.Tiff.ITiffHandler.Error(string! message) -> void
 MetadataExtractor.Formats.Tiff.ITiffHandler.HasFollowerIfd() -> bool
@@ -1588,7 +1587,6 @@ abstract MetadataExtractor.Formats.Riff.RiffChunkHandler<T>.MinSize.get -> int
 abstract MetadataExtractor.Formats.Riff.RiffChunkHandler<T>.Populate(T! directory, byte[]! payload) -> void
 abstract MetadataExtractor.Formats.Riff.RiffHandler.ShouldAcceptList(string! fourCc) -> bool
 abstract MetadataExtractor.Formats.Riff.RiffHandler.ShouldAcceptRiffIdentifier(string! identifier) -> bool
-abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.ICollection<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.HasFollowerIfd() -> bool
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetTiffMarker(ushort marker) -> void
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, uint componentCount, out long byteCount) -> bool
@@ -3599,7 +3597,6 @@ override MetadataExtractor.Formats.Exif.ExifInteropDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.ExifSubIfdDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.ExifThumbnailDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.ExifThumbnailDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.ExifTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.ICollection<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.HasFollowerIfd() -> bool
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.SetTiffMarker(ushort marker) -> void
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, uint componentCount, out long byteCount) -> bool
@@ -3716,7 +3713,6 @@ override MetadataExtractor.Formats.Pcx.PcxDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Photoshop.DuckyDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Photoshop.PhotoshopDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Photoshop.PhotoshopDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Photoshop.PhotoshopTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.ICollection<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
 override MetadataExtractor.Formats.Photoshop.PsdHeaderDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Photoshop.PsdHeaderDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Png.PngChromaticitiesDirectory.Name.get -> string!
@@ -3872,7 +3868,6 @@ static MetadataExtractor.Formats.Tga.TgaMetadataReader.ReadMetadata(string! file
 static MetadataExtractor.Formats.Tiff.TiffDataFormat.FromTiffFormatCode(MetadataExtractor.Formats.Tiff.TiffDataFormatCode tiffFormatCode) -> MetadataExtractor.Formats.Tiff.TiffDataFormat?
 static MetadataExtractor.Formats.Tiff.TiffMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Tiff.TiffMetadataReader.ReadMetadata(string! filePath) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
-static MetadataExtractor.Formats.Tiff.TiffReader.ProcessIfd(MetadataExtractor.Formats.Tiff.ITiffHandler! handler, MetadataExtractor.IO.IndexedReader! reader, System.Collections.Generic.ICollection<int>! processedGlobalIfdOffsets, int ifdOffset) -> void
 static MetadataExtractor.Formats.Tiff.TiffReader.ProcessTiff(MetadataExtractor.IO.IndexedReader! reader, MetadataExtractor.Formats.Tiff.ITiffHandler! handler) -> void
 static MetadataExtractor.Formats.Wav.WavFormatHandler.Populate(MetadataExtractor.Formats.Wav.WavFormatDirectory! directory, MetadataExtractor.IO.SequentialReader! reader, int chunkSize) -> void
 static MetadataExtractor.Formats.Wav.WavMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!

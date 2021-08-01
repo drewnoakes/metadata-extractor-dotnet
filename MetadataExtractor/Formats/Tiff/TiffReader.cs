@@ -64,21 +64,19 @@ namespace MetadataExtractor.Formats.Tiff
         /// </remarks>
         /// <param name="handler">the <see cref="ITiffHandler"/> that will coordinate processing and accept read values</param>
         /// <param name="reader">the <see cref="IndexedReader"/> from which the data should be read</param>
-        /// <param name="processedGlobalIfdOffsets">the set of visited IFD offsets, to avoid revisiting the same IFD in an endless loop</param>
+        /// <param name="processedIfdOffsets">the set of visited IFD offsets, to avoid revisiting the same IFD in an endless loop</param>
         /// <param name="ifdOffset">the offset within <c>reader</c> at which the IFD data starts</param>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public static void ProcessIfd(ITiffHandler handler, IndexedReader reader, ICollection<int> processedGlobalIfdOffsets, int ifdOffset)
+        public static void ProcessIfd(ITiffHandler handler, IndexedReader reader, HashSet<int> processedIfdOffsets, int ifdOffset)
         {
             try
             {
                 // Check for directories we've already visited to avoid stack overflows when recursive/cyclic directory structures exist.
                 // Note that we track these offsets in the global frame, not the reader's local frame.
                 var globalIfdOffset = reader.ToUnshiftedOffset(ifdOffset);
-                if (processedGlobalIfdOffsets.Contains(globalIfdOffset))
-                    return;
 
-                // Remember that we've visited this directory so that we don't visit it again later
-                processedGlobalIfdOffsets.Add(globalIfdOffset);
+                if (!processedIfdOffsets.Add(globalIfdOffset))
+                    return;
 
                 // Validate IFD offset
                 if (ifdOffset >= reader.Length || ifdOffset < 0)
@@ -190,13 +188,13 @@ namespace MetadataExtractor.Formats.Tiff
                             {
                                 isIfdPointer = true;
                                 var subDirOffset = reader.GetUInt32((int)(tagValueOffset + i * 4));
-                                ProcessIfd(handler, reader, processedGlobalIfdOffsets, (int)subDirOffset);
+                                ProcessIfd(handler, reader, processedIfdOffsets, (int)subDirOffset);
                             }
                         }
                     }
 
                     // If it wasn't an IFD pointer, allow custom tag processing to occur
-                    if (!isIfdPointer && !handler.CustomProcessTag((int)tagValueOffset, processedGlobalIfdOffsets, reader, tagId, (int)byteCount))
+                    if (!isIfdPointer && !handler.CustomProcessTag((int)tagValueOffset, processedIfdOffsets, reader, tagId, (int)byteCount))
                     {
                         // If no custom processing occurred, process the tag in the standard fashion
                         ProcessTag(handler, tagId, (int)tagValueOffset, (int)componentCount, formatCode, reader);
@@ -221,7 +219,7 @@ namespace MetadataExtractor.Formats.Tiff
                     }
 
                     if (handler.HasFollowerIfd())
-                        ProcessIfd(handler, reader, processedGlobalIfdOffsets, nextIfdOffset);
+                        ProcessIfd(handler, reader, processedIfdOffsets, nextIfdOffset);
                 }
             }
             finally

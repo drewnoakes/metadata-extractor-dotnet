@@ -80,7 +80,7 @@ namespace MetadataExtractor.Formats.Tiff
 
 #pragma warning restore format
 
-        public abstract bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount);
+        public abstract bool CustomProcessTag(int tagOffset, HashSet<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount);
 
         public abstract bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, uint componentCount, out long byteCount);
 

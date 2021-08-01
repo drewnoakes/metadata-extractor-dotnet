@@ -138,7 +138,7 @@ namespace MetadataExtractor.Formats.Exif
             }
         }
 
-        public override bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount)
+        public override bool CustomProcessTag(int tagOffset, HashSet<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount)
         {
             // Some 0x0000 tags have a 0 byteCount. Determine whether it's bad.
             if (tagId == 0)
@@ -318,7 +318,7 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         /// <exception cref="IOException"/>
-        private bool ProcessMakernote(int makernoteOffset, ICollection<int> processedIfdOffsets, IndexedReader reader)
+        private bool ProcessMakernote(int makernoteOffset, HashSet<int> processedIfdOffsets, IndexedReader reader)
         {
             Debug.Assert(makernoteOffset >= 0, "makernoteOffset >= 0");
 
