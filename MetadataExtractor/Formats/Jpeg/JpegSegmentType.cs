@@ -258,6 +258,6 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <summary>Gets whether this JPEG segment is intended to hold application specific data.</summary>
-        public static bool IsApplicationSpecific(this JpegSegmentType type) => type >= JpegSegmentType.App0 && type <= JpegSegmentType.AppF;
+        public static bool IsApplicationSpecific(this JpegSegmentType type) => type is >= JpegSegmentType.App0 and <= JpegSegmentType.AppF;
     }
 }

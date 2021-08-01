@@ -43,7 +43,7 @@ namespace MetadataExtractor
                 return null;
 
             // special presentation for long arrays
-            if (obj is ICollection collection && collection.Count > 16)
+            if (obj is ICollection { Count: > 16 } collection)
                 return $"[{collection.Count} values]";
 
             // no special handling required, so use default conversion to a string
@@ -197,7 +197,7 @@ namespace MetadataExtractor
                 if (labelObj != null)
                 {
                     var isBitSet = (value & 1) == 1;
-                    if (labelObj is string[] labelPair && labelPair.Length == 2)
+                    if (labelObj is string[] { Length: 2 } labelPair)
                     {
                         parts.Add(labelPair[isBitSet ? 1 : 0]);
                     }

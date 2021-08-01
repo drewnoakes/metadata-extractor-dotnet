@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 case PhotoshopDirectory.TagClippingPathName:
                     return GetClippingPathNameString(tagType);
                 default:
-                    if (tagType >= PhotoshopDirectory.TagClippingPathBlockStart && tagType <= PhotoshopDirectory.TagClippingPathBlockEnd)
+                    if (tagType is >= PhotoshopDirectory.TagClippingPathBlockStart and <= PhotoshopDirectory.TagClippingPathBlockEnd)
                         return GetPathString(tagType);
                     return base.GetDescription(tagType);
             }
@@ -73,7 +73,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 int f = reader.GetUInt16(2);
                 int s = reader.GetUInt16(4);
 
-                var q1 = q <= 0xFFFF && q >= 0xFFFD
+                var q1 = q is >= 0xFFFD and <= 0xFFFF
                     ? q - 0xFFFC
                     : q <= 8
                         ? q + 4
@@ -113,7 +113,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     0x0101 => "Progressive",
                     _ => $"Unknown (0x{f:X4})",
                 };
-                var scans = s >= 1 && s <= 3
+                var scans = s is >= 1 and <= 3
                     ? (s + 2).ToString()
                     : $"Unknown (0x{s:X4})";
 

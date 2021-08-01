@@ -84,7 +84,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 if (width == 0 || height == 0 || directory.GetObject(QuickTimeTrackHeaderDirectory.TagRotation) != null)
                     return;
 
-                if (directory.GetObject(QuickTimeTrackHeaderDirectory.TagMatrix) is float[] matrix && matrix.Length > 5)
+                if (directory.GetObject(QuickTimeTrackHeaderDirectory.TagMatrix) is float[] { Length: > 5 } matrix)
                 {
                     var x = matrix[1] + matrix[4];
                     var y = matrix[0] + matrix[3];

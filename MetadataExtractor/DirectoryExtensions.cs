@@ -219,7 +219,7 @@ namespace MetadataExtractor
 
         #region Int64
 
-        /// <summary>Returns a tag's value as an <see cref="int"/>, or throws if conversion is not possible.</summary>
+        /// <summary>Returns a tag's value as a <see cref="long"/>, or throws if conversion is not possible.</summary>
         /// <remarks>
         /// If the value is <see cref="IConvertible"/>, then that interface is used for conversion of the value.
         /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
@@ -964,7 +964,7 @@ namespace MetadataExtractor
             if (o is IConvertible convertible)
                 return convertible;
 
-            if (o is Array array && array.Length == 1 && array.Rank == 1)
+            if (o is Array { Length: 1, Rank: 1 } array)
                 return array.GetValue(0) as IConvertible;
 
             return null;
