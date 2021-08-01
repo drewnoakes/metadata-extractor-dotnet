@@ -18,6 +18,8 @@ namespace MetadataExtractor.Formats.Tiff
 
         protected Directory? CurrentDirectory { get; private set; }
 
+        public object? Kind => CurrentDirectory?.GetType();
+
         protected DirectoryTiffHandler(List<Directory> directories)
         {
             Directories = directories;
@@ -84,7 +86,7 @@ namespace MetadataExtractor.Formats.Tiff
 
 #pragma warning restore format
 
-        public abstract bool CustomProcessTag(int tagOffset, HashSet<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount, bool isBigTiff);
+        public abstract bool CustomProcessTag(int tagOffset, HashSet<IfdIdentity> processedIfds, IndexedReader reader, int tagId, int byteCount, bool isBigTiff);
 
         public abstract bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount);
 
