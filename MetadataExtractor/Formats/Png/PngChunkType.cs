@@ -157,7 +157,7 @@ namespace MetadataExtractor.Formats.Png
         private static bool IsUpperCase(byte b) => (b & (1 << 5)) == 0;
 
         [Pure]
-        private static bool IsValidByte(byte b) => (b >= 65 && b <= 90) || (b >= 97 && b <= 122);
+        private static bool IsValidByte(byte b) => b is >= 65 and <= 90 or >= 97 and <= 122;
 
         public string Identifier => Encoding.UTF8.GetString(_bytes, 0, _bytes.Length);
 

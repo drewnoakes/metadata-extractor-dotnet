@@ -44,7 +44,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     };
                 case ReconyxHyperFire2MakernoteDirectory.TagSequence:
                     var sequence = Directory.GetInt32Array(tagType);
-                    return sequence != null && sequence.Length > 1 ? $"{sequence[0]}/{sequence[1]}" : base.GetDescription(tagType);
+                    return sequence is { Length: > 1 } ? $"{sequence[0]}/{sequence[1]}" : base.GetDescription(tagType);
                 case ReconyxHyperFire2MakernoteDirectory.TagEventNumber:
                     return Directory.GetUInt32(tagType).ToString();
                 case ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal:

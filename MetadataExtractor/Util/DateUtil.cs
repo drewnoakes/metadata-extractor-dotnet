@@ -13,15 +13,15 @@ namespace MetadataExtractor.Util
     {
         [Pure]
         public static bool IsValidDate(int year, int month, int day)
-            => year >= 1 && year <= 9999 &&
-               month >= 1 && month <= 12 &&
+            => year is >= 1 and <= 9999 &&
+               month is >= 1 and <= 12 &&
                day >= 1 && day <= DateTime.DaysInMonth(year, month);
 
         [Pure]
         public static bool IsValidTime(int hours, int minutes, int seconds)
-            => hours >= 0 && hours < 24 &&
-               minutes >= 0 && minutes < 60 &&
-               seconds >= 0 && seconds < 60;
+            => hours is >= 0 and < 24 &&
+               minutes is >= 0 and < 60
+               && seconds is >= 0 and < 60;
 
         private static readonly DateTime _unixEpoch = new(1970, 1, 1, 0, 0, 0);
 

@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.Exif
                 return true;
             }
 
-            if (CurrentDirectory is ExifIfd0Directory || CurrentDirectory is PanasonicRawIfd0Directory)
+            if (CurrentDirectory is ExifIfd0Directory or PanasonicRawIfd0Directory)
             {
                 if (tagId == ExifIfd0Directory.TagExifSubIfdOffset)
                 {
@@ -821,8 +821,8 @@ namespace MetadataExtractor.Formats.Exif
             if (seconds < 60 &&
                 minutes < 60 &&
                 hour < 24 &&
-                month >= 1 && month < 13 &&
-                day >= 1 && day < 32 &&
+                month is >= 1 and < 13 &&
+                day is >= 1 and < 32 &&
                 year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year)
             {
                 directory.Set(ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal, new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Unspecified));
@@ -891,8 +891,8 @@ namespace MetadataExtractor.Formats.Exif
             if (seconds < 60 &&
                 minutes < 60 &&
                 hour < 24 &&
-                month >= 1 && month < 13 &&
-                day >= 1 && day < 32 &&
+                month is >= 1 and < 13 &&
+                day is >= 1 and < 32 &&
                 year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year)
             {
                 directory.Set(ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal, new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Unspecified));
@@ -961,8 +961,8 @@ namespace MetadataExtractor.Formats.Exif
             if (seconds < 60 &&
                 minutes < 60 &&
                 hour < 24 &&
-                month >= 1 && month < 13 &&
-                day >= 1 && day < 32 &&
+                month is >= 1 and < 13 &&
+                day is >= 1 and < 32 &&
                 year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year)
             {
                 directory.Set(ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal, new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Unspecified));

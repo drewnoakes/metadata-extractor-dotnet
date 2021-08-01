@@ -34,7 +34,7 @@ namespace MetadataExtractor.Formats.Icc
                     return GetProfileDateTimeDescription();
             }
 
-            if (tagType > 0x20202020 && tagType < 0x7a7a7a7a)
+            if (tagType is > 0x20202020 and < 0x7a7a7a7a)
                 return GetTagDataString(tagType);
 
             return base.GetDescription(tagType);

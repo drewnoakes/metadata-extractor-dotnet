@@ -476,7 +476,7 @@ namespace MetadataExtractor.Formats.Png
                         if (c == '\n')
                             break;
 
-                        if (c >= '0' && c <= '9')
+                        if (c is >= '0' and <= '9')
                         {
                             length *= 10;
                             length += c - '0';
@@ -552,17 +552,17 @@ namespace MetadataExtractor.Formats.Png
 
                     static int ParseHexNibble(int h)
                     {
-                        if (h >= '0' && h <= '9')
+                        if (h is >= '0' and <= '9')
                         {
                             return h - '0';
                         }
 
-                        if (h >= 'a' && h <= 'f')
+                        if (h is >= 'a' and <= 'f')
                         {
                             return 10 + (h - 'a');
                         }
 
-                        if (h >= 'A' && h <= 'F')
+                        if (h is >= 'A' and <= 'F')
                         {
                             return 10 + (h - 'A');
                         }
