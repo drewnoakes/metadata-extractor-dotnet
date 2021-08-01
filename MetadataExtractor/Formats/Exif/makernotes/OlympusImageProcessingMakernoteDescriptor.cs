@@ -47,7 +47,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetColorMatrixDescription()
         {
-            if (!(Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagColorMatrix) is short[] values))
+            if (Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagColorMatrix) is not short[] values)
                 return null;
 
             var str = new StringBuilder();
@@ -135,7 +135,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetAspectRatioDescription()
         {
-            if (!(Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagAspectRatio) is byte[] values) || values.Length < 2)
+            if (Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagAspectRatio) is not byte[] values || values.Length < 2)
                 return null;
 
             var join = $"{values[0]} {values[1]}";
@@ -162,7 +162,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetKeystoneCompensationDescription()
         {
-            if (!(Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagKeystoneCompensation) is byte[] values) || values.Length < 2)
+            if (Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagKeystoneCompensation) is not byte[] values || values.Length < 2)
                 return null;
 
             var join = $"{values[0]} {values[1]}";

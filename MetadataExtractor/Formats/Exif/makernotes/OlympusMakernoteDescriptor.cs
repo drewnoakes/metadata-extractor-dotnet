@@ -478,7 +478,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetColorMatrixDescription()
         {
-            if (!(Directory.GetObject(OlympusMakernoteDirectory.TagColourMatrix) is short[] values))
+            if (Directory.GetObject(OlympusMakernoteDirectory.TagColourMatrix) is not short[] values)
                 return null;
 
             return string.Join(" ", values.Select(b => b.ToString()).ToArray());
@@ -486,7 +486,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetWbModeDescription()
         {
-            if (!(Directory.GetObject(OlympusMakernoteDirectory.TagWbMode) is short[] values))
+            if (Directory.GetObject(OlympusMakernoteDirectory.TagWbMode) is not short[] values)
                 return null;
 
             switch ($"{values[0]} {values[1]}".Trim())
@@ -521,7 +521,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetRedBalanceDescription()
         {
-            if (!(Directory.GetObject(OlympusMakernoteDirectory.TagRedBalance) is ushort[] values) || values.Length < 2)
+            if (Directory.GetObject(OlympusMakernoteDirectory.TagRedBalance) is not ushort[] values || values.Length < 2)
                 return null;
 
             return (values[0] / 256.0d).ToString();
@@ -529,7 +529,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetBlueBalanceDescription()
         {
-            if (!(Directory.GetObject(OlympusMakernoteDirectory.TagBlueBalance) is ushort[] values) || values.Length < 2)
+            if (Directory.GetObject(OlympusMakernoteDirectory.TagBlueBalance) is not ushort[] values || values.Length < 2)
                 return null;
 
             return (values[0] / 256.0d).ToString();
@@ -682,7 +682,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetSpecialModeDescription()
         {
-            if (!(Directory.GetObject(OlympusMakernoteDirectory.TagSpecialMode) is uint[] values))
+            if (Directory.GetObject(OlympusMakernoteDirectory.TagSpecialMode) is not uint[] values)
                 return null;
             if (values.Length < 1)
                 return string.Empty;

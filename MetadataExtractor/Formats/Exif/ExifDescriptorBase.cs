@@ -507,7 +507,7 @@ namespace MetadataExtractor.Formats.Exif
             if (values == null)
                 return null;
 
-            if (!(Directory.GetObject(TagCfaRepeatPatternDim) is ushort[] repeatPattern))
+            if (Directory.GetObject(TagCfaRepeatPatternDim) is not ushort[] repeatPattern)
                 return $"Repeat Pattern not found for CFAPattern ({base.GetDescription(TagCfaPattern2)})";
 
             if (repeatPattern.Length == 2 && values.Length == (repeatPattern[0] * repeatPattern[1]))
