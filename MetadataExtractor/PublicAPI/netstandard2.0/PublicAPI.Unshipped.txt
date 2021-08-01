@@ -2,7 +2,9 @@
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.Extract(byte[]! segmentBytes, int preambleLength) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.PreambleBytes.get -> byte[]!
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
-abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
+abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount, bool isBigTiff) -> bool
+abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.ProcessTiffMarker(ushort marker) -> MetadataExtractor.Formats.Tiff.TiffStandard
+abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount) -> bool
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagCameraTemperatureRangeMax = 6 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagCameraTemperatureRangeMin = 5 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagEmissivity = 3 -> int
@@ -90,7 +92,25 @@ MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetArtworkDescription() -> string?
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetLocationRoleDescription() -> string?
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.QuickTimeMetadataHeaderDescriptor(MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory! directory) -> void
-MetadataExtractor.Formats.Tiff.ITiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
+MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetInt64S(int tagId, long int64S) -> void
+MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetInt64SArray(int tagId, long[]! array) -> void
+MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetInt64U(int tagId, ulong int64U) -> void
+MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetInt64UArray(int tagId, ulong[]! array) -> void
+MetadataExtractor.Formats.Tiff.ITiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount, bool isBigTiff) -> bool
+MetadataExtractor.Formats.Tiff.ITiffHandler.ProcessTiffMarker(ushort marker) -> MetadataExtractor.Formats.Tiff.TiffStandard
+MetadataExtractor.Formats.Tiff.ITiffHandler.SetInt64S(int tagId, long int64S) -> void
+MetadataExtractor.Formats.Tiff.ITiffHandler.SetInt64SArray(int tagId, long[]! array) -> void
+MetadataExtractor.Formats.Tiff.ITiffHandler.SetInt64U(int tagId, ulong int64U) -> void
+MetadataExtractor.Formats.Tiff.ITiffHandler.SetInt64UArray(int tagId, ulong[]! array) -> void
+MetadataExtractor.Formats.Tiff.ITiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount) -> bool
+MetadataExtractor.Formats.Tiff.TiffDataFormat.ComponentSizeBytes.get -> byte
+MetadataExtractor.Formats.Tiff.TiffDataFormatCode.Ifd8 = 18 -> MetadataExtractor.Formats.Tiff.TiffDataFormatCode
+MetadataExtractor.Formats.Tiff.TiffDataFormatCode.Int64S = 17 -> MetadataExtractor.Formats.Tiff.TiffDataFormatCode
+MetadataExtractor.Formats.Tiff.TiffDataFormatCode.Int64U = 16 -> MetadataExtractor.Formats.Tiff.TiffDataFormatCode
+MetadataExtractor.Formats.Tiff.TiffStandard
+MetadataExtractor.Formats.Tiff.TiffStandard.BigTiff = 1 -> MetadataExtractor.Formats.Tiff.TiffStandard
+MetadataExtractor.Formats.Tiff.TiffStandard.Tiff = 0 -> MetadataExtractor.Formats.Tiff.TiffStandard
+MetadataExtractor.IO.IndexedReader.GetUInt64(int index) -> ulong
 MetadataExtractor.Rational.Absolute.get -> MetadataExtractor.Rational
 MetadataExtractor.Rational.IsPositive.get -> bool
 const MetadataExtractor.Formats.Avi.AviDirectory.TagDateTimeOriginal = 320 -> int
@@ -113,7 +133,9 @@ const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagPi
 MetadataExtractor.Rational.Rational() -> void
 MetadataExtractor.StringValue.StringValue() -> void
 override MetadataExtractor.Formats.Exif.ExifReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
-override MetadataExtractor.Formats.Exif.ExifTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
+override MetadataExtractor.Formats.Exif.ExifTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount, bool isBigTiff) -> bool
+override MetadataExtractor.Formats.Exif.ExifTiffHandler.ProcessTiffMarker(ushort marker) -> MetadataExtractor.Formats.Tiff.TiffStandard
+override MetadataExtractor.Formats.Exif.ExifTiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Flir.FlirCameraInfoDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Flir.FlirCameraInfoDirectory.Name.get -> string!
@@ -124,11 +146,17 @@ override MetadataExtractor.Formats.Jfxx.JfxxReader.SegmentTypes.get -> System.Co
 override MetadataExtractor.Formats.Jpeg.JpegSegment.ToString() -> string!
 override MetadataExtractor.Formats.Photoshop.PhotoshopDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Photoshop.PhotoshopReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
-override MetadataExtractor.Formats.Photoshop.PhotoshopTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount) -> bool
+override MetadataExtractor.Formats.Photoshop.PhotoshopTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<int>! processedIfdOffsets, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount, bool isBigTiff) -> bool
 override MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetDescription(int tagType) -> string?
+override MetadataExtractor.Formats.QuickTime.QuickTimeTiffHandler<T>.ProcessTiffMarker(ushort marker) -> MetadataExtractor.Formats.Tiff.TiffStandard
+static MetadataExtractor.DirectoryExtensions.GetUInt64(this MetadataExtractor.Directory! directory, int tagType) -> ulong
+static MetadataExtractor.DirectoryExtensions.TryGetUInt64(this MetadataExtractor.Directory! directory, int tagType, out ulong value) -> bool
 static MetadataExtractor.Formats.Exif.ExifReader.JpegSegmentPreambleLength.get -> int
 static MetadataExtractor.Formats.Jpeg.JpegMetadataReader.AllReaders.get -> System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.IJpegSegmentMetadataReader!>!
 static MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TryGetTag(string! name, out int tagType) -> bool
-static MetadataExtractor.Formats.Tiff.TiffReader.ProcessIfd(MetadataExtractor.Formats.Tiff.ITiffHandler! handler, MetadataExtractor.IO.IndexedReader! reader, System.Collections.Generic.HashSet<int>! processedIfdOffsets, int ifdOffset) -> void
+static MetadataExtractor.Formats.Tiff.TiffReader.ProcessIfd(MetadataExtractor.Formats.Tiff.ITiffHandler! handler, MetadataExtractor.IO.IndexedReader! reader, System.Collections.Generic.HashSet<int>! processedIfdOffsets, int ifdOffset, bool isBigTiff) -> void
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType!
+static readonly MetadataExtractor.Formats.Tiff.TiffDataFormat.Ifd8 -> MetadataExtractor.Formats.Tiff.TiffDataFormat!
+static readonly MetadataExtractor.Formats.Tiff.TiffDataFormat.Int64S -> MetadataExtractor.Formats.Tiff.TiffDataFormat!
+static readonly MetadataExtractor.Formats.Tiff.TiffDataFormat.Int64U -> MetadataExtractor.Formats.Tiff.TiffDataFormat!
 virtual MetadataExtractor.Directory.TryGetTagName(int tagType, out string? tagName) -> bool

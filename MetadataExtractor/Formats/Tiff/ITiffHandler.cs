@@ -12,16 +12,17 @@ namespace MetadataExtractor.Formats.Tiff
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public interface ITiffHandler
     {
-        /// <summary>Receives the 2-byte marker found in the TIFF header.</summary>
-        /// <remarks>
+        /// <summary>
         /// Receives the 2-byte marker found in the TIFF header.
-        /// <para />
+        /// </summary>
+        /// <remarks>
         /// Implementations are not obligated to use this information for any purpose, though it may be useful for
         /// validation or perhaps differentiating the type of mapping to use for observed tags and IFDs.
         /// </remarks>
-        /// <param name="marker">the 2-byte value found at position 2 of the TIFF header</param>
-        /// <exception cref="TiffProcessingException"/>
-        void SetTiffMarker(ushort marker);
+        /// <param name="marker">The 2-byte value found at position 2 of the TIFF header.</param>
+        /// <returns>The TIFF standard via which to interpret the data stream.</returns>
+        /// <exception cref="TiffProcessingException">The value of <paramref name="marker"/> is not supported.</exception>
+        TiffStandard ProcessTiffMarker(ushort marker);
 
         bool TryEnterSubIfd(int tagType);
 
@@ -30,9 +31,9 @@ namespace MetadataExtractor.Formats.Tiff
         void EndingIfd();
 
         /// <exception cref="System.IO.IOException"/>
-        bool CustomProcessTag(int tagOffset, HashSet<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount);
+        bool CustomProcessTag(int tagOffset, HashSet<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount, bool isBigTiff);
 
-        bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, uint componentCount, out long byteCount);
+        bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount);
 
         void Warn(string message);
 
@@ -77,5 +78,13 @@ namespace MetadataExtractor.Formats.Tiff
         void SetInt32U(int tagId, uint int32U);
 
         void SetInt32UArray(int tagId, uint[] array);
+
+        void SetInt64S(int tagId, long int64S);
+
+        void SetInt64SArray(int tagId, long[] array);
+
+        void SetInt64U(int tagId, ulong int64U);
+
+        void SetInt64UArray(int tagId, ulong[] array);
     }
 }

@@ -30,7 +30,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
         }
 
-        public override bool CustomProcessTag(int tagOffset, HashSet<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount)
+        public override bool CustomProcessTag(int tagOffset, HashSet<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount, bool isBigTiff)
         {
             switch (tagId)
             {
@@ -45,7 +45,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     return true;
             }
 
-            return base.CustomProcessTag(tagOffset, processedIfdOffsets, reader, tagId, byteCount);
+            return base.CustomProcessTag(tagOffset, processedIfdOffsets, reader, tagId, byteCount, isBigTiff);
         }
     }
 }

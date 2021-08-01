@@ -17,7 +17,12 @@ namespace MetadataExtractor.Formats.Tiff
         Int32S = 9,
         RationalS = 10,
         Single = 11,
-        Double = 12
+        Double = 12,
+
+        // From BigTIFF
+        Int64U = 16,
+        Int64S = 17,
+        Ifd8 = 18
     }
 
     /// <summary>An enumeration of data formats used by the TIFF specification.</summary>
@@ -37,9 +42,14 @@ namespace MetadataExtractor.Formats.Tiff
         public static readonly TiffDataFormat RationalS = new("SRATIONAL", TiffDataFormatCode.RationalS, 8);
         public static readonly TiffDataFormat Single    = new("SINGLE",    TiffDataFormatCode.Single,    4);
         public static readonly TiffDataFormat Double    = new("DOUBLE",    TiffDataFormatCode.Double,    8);
+
+        // From BigTIFF
+        public static readonly TiffDataFormat Int64U    = new("ULONG8",    TiffDataFormatCode.Int64U,    8);
+        public static readonly TiffDataFormat Int64S    = new("SLONG8",    TiffDataFormatCode.Int64S,    8);
+        public static readonly TiffDataFormat Ifd8      = new("IFD8",      TiffDataFormatCode.Ifd8,      8);
 #pragma warning restore format
 
-        public static TiffDataFormat? FromTiffFormatCode(TiffDataFormatCode tiffFormatCode)
+        public static TiffDataFormat? FromTiffFormatCode(TiffDataFormatCode tiffFormatCode, bool isBigTiff)
         {
             return tiffFormatCode switch
             {
@@ -56,15 +66,22 @@ namespace MetadataExtractor.Formats.Tiff
                 TiffDataFormatCode.Single => Single,
                 TiffDataFormatCode.Double => Double,
 
+                // From BigTIFF
+                TiffDataFormatCode.Int64U => isBigTiff ? Int64U : null,
+                TiffDataFormatCode.Int64S => isBigTiff ? Int64S : null,
+                TiffDataFormatCode.Ifd8 => isBigTiff ? Ifd8 : null,
+
                 _ => null,
             };
         }
 
         public string Name { get; }
-        public int ComponentSizeBytes { get; }
+
+        public byte ComponentSizeBytes { get; }
+
         public TiffDataFormatCode TiffFormatCode { get; }
 
-        private TiffDataFormat(string name, TiffDataFormatCode tiffFormatCode, int componentSizeBytes)
+        private TiffDataFormat(string name, TiffDataFormatCode tiffFormatCode, byte componentSizeBytes)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             TiffFormatCode = tiffFormatCode;
