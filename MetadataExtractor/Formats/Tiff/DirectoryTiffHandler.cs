@@ -77,17 +77,21 @@ namespace MetadataExtractor.Formats.Tiff
         public void SetInt32SArray(int tagId, int[] array)        => CurrentDirectory!.Set(tagId, array);
         public void SetInt32U(int tagId, uint int32U)             => CurrentDirectory!.Set(tagId, int32U);
         public void SetInt32UArray(int tagId, uint[] array)       => CurrentDirectory!.Set(tagId, array);
+        public void SetInt64S(int tagId, long int64S)             => CurrentDirectory!.Set(tagId, int64S);
+        public void SetInt64SArray(int tagId, long[] array)       => CurrentDirectory!.Set(tagId, array);
+        public void SetInt64U(int tagId, ulong int64U)            => CurrentDirectory!.Set(tagId, int64U);
+        public void SetInt64UArray(int tagId, ulong[] array)      => CurrentDirectory!.Set(tagId, array);
 
 #pragma warning restore format
 
-        public abstract bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount);
+        public abstract bool CustomProcessTag(int tagOffset, HashSet<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount, bool isBigTiff);
 
-        public abstract bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, uint componentCount, out long byteCount);
+        public abstract bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount);
 
         public abstract bool HasFollowerIfd();
 
         public abstract bool TryEnterSubIfd(int tagType);
 
-        public abstract void SetTiffMarker(int marker);
+        public abstract TiffStandard ProcessTiffMarker(ushort marker);
     }
 }

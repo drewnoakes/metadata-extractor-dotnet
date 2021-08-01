@@ -256,6 +256,38 @@ namespace MetadataExtractor.IO
                       GetByte(index    );
         }
 
+        /// <summary>Get an unsigned 64-bit integer from the buffer.</summary>
+        /// <param name="index">position within the data buffer to read first byte</param>
+        /// <returns>the 64 bit int value, between 0x0000000000000000 and 0xFFFFFFFFFFFFFFFF</returns>
+        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
+        public ulong GetUInt64(int index)
+        {
+            ValidateIndex(index, 8);
+            if (IsMotorolaByteOrder)
+            {
+                // Motorola - MSB first
+                return
+                    (ulong)GetByte(index    ) << 56 |
+                    (ulong)GetByte(index + 1) << 48 |
+                    (ulong)GetByte(index + 2) << 40 |
+                    (ulong)GetByte(index + 3) << 32 |
+                    (ulong)GetByte(index + 4) << 24 |
+                    (ulong)GetByte(index + 5) << 16 |
+                    (ulong)GetByte(index + 6) <<  8 |
+                          GetByte(index + 7);
+            }
+            // Intel ordering - LSB first
+            return
+                (ulong)GetByte(index + 7) << 56 |
+                (ulong)GetByte(index + 6) << 48 |
+                (ulong)GetByte(index + 5) << 40 |
+                (ulong)GetByte(index + 4) << 32 |
+                (ulong)GetByte(index + 3) << 24 |
+                (ulong)GetByte(index + 2) << 16 |
+                (ulong)GetByte(index + 1) <<  8 |
+                      GetByte(index    );
+        }
+
 #pragma warning restore format
 
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>

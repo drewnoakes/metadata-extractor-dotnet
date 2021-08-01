@@ -249,6 +249,46 @@ namespace MetadataExtractor
                 catch
                 {
                     // ignored
+                }
+            }
+
+            value = default;
+            return false;
+        }
+
+        #endregion
+
+        #region UInt64
+
+        /// <summary>Returns a tag's value as an <see cref="ulong"/>, or throws if conversion is not possible.</summary>
+        /// <remarks>
+        /// If the value is <see cref="IConvertible"/>, then that interface is used for conversion of the value.
+        /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
+        /// </remarks>
+        /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
+        [Pure]
+        public static ulong GetUInt64(this Directory directory, int tagType)
+        {
+            if (directory.TryGetUInt64(tagType, out ulong value))
+                return value;
+
+            return ThrowValueNotPossible<ulong>(directory, tagType);
+        }
+
+        [Pure]
+        public static bool TryGetUInt64(this Directory directory, int tagType, out ulong value)
+        {
+            var convertible = GetConvertibleObject(directory, tagType);
+
+            if (convertible != null)
+            {
+                try
+                {
+                    value = convertible.ToUInt64(null);
+                    return true;
+                }
+                catch
+                {
                     // ignored
                 }
             }

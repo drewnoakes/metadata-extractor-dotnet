@@ -24,6 +24,8 @@ namespace MetadataExtractor.Util
             { FileType.Jpeg, new byte[] { 0xff, 0xd8 } },
             { FileType.Tiff, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00 } },
             { FileType.Tiff, Encoding.UTF8.GetBytes("MM"), new byte[] { 0x00, 0x2a } },
+            { FileType.Tiff, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2b, 0x00 } }, // BigTIFF
+            { FileType.Tiff, Encoding.UTF8.GetBytes("MM"), new byte[] { 0x00, 0x2b } }, // BigTIFF
             { FileType.Psd, Encoding.UTF8.GetBytes("8BPS") },
             { FileType.Png, new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52 } },
             { FileType.Bmp, Encoding.UTF8.GetBytes("BM") }, // Standard Bitmap Windows and OS/2

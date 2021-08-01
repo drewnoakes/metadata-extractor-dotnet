@@ -14,14 +14,21 @@ namespace MetadataExtractor.Formats.QuickTime
         {
         }
 
-        public override void SetTiffMarker(int marker)
+        public override TiffStandard ProcessTiffMarker(ushort marker)
         {
-            const int StandardTiffMarker = 0x002A;
-            if (marker != StandardTiffMarker)
+            const ushort StandardTiffMarker = 0x002A;
+            const ushort BigTiffMarker = 0x002B;
+
+            var standard = marker switch
             {
-                throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
-            }
+                StandardTiffMarker => TiffStandard.Tiff,
+                BigTiffMarker => TiffStandard.BigTiff,
+                _ => throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}")
+            };
+
             PushDirectory(new T());
+
+            return standard;
         }
     }
 }
