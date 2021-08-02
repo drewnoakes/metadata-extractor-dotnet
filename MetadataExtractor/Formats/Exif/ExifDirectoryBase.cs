@@ -219,6 +219,12 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagInterColorProfile = 0x8773;
 
+        public const int TagGeoTiffGeoKeys = 0x87af;
+
+        public const int TagGeoTiffGeoDoubleParams = 0x87b0;
+
+        public const int TagGeoTiffGeoAsciiParams = 0x87b1;
+
         /// <summary>Exposure program that the camera used when image was taken.</summary>
         /// <remarks>
         /// '1' means

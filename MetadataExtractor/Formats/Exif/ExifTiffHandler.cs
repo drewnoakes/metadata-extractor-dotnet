@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using MetadataExtractor.Formats.Exif.Makernotes;
+using MetadataExtractor.Formats.GeoTiff;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Jpeg;
@@ -346,6 +347,98 @@ namespace MetadataExtractor.Formats.Exif
             }
 
             return false;
+        }
+
+        public override void EndingIfd(in TiffReaderContext context)
+        {
+            if (CurrentDirectory is ExifIfd0Directory directory)
+            {
+                if (directory.GetObject(ExifDirectoryBase.TagGeoTiffGeoKeys) is ushort[] geoKeys)
+                {
+                    // GetTIFF stores data in its own format within TIFF. It is TIFF-like, but different.
+                    // It can reference data frm tags that have not been visited yet, so we must unpack it
+                    // once the directory is complete.
+                    ProcessGeoTiff(geoKeys, directory);
+                }
+            }
+
+            base.EndingIfd(context);
+        }
+
+        private void ProcessGeoTiff(ushort[] geoKeys, ExifIfd0Directory sourceDirectory)
+        {
+            if (geoKeys.Length < 4)
+                return;
+
+            var geoTiffDirectory = new GeoTiffDirectory { Parent = CurrentDirectory };
+            Directories.Add(geoTiffDirectory);
+
+            var i = 0;
+
+            var directoryVersion = geoKeys[i++];
+            var revision = geoKeys[i++];
+            var minorRevision = geoKeys[i++];
+            var numberOfKeys = geoKeys[i++];
+
+            // TODO store these values in negative tag IDs
+
+            var sourceTags = new HashSet<int> { ExifDirectoryBase.TagGeoTiffGeoKeys };
+
+            for (var j = 0; j < numberOfKeys; j++)
+            {
+                var keyId = geoKeys[i++];
+                var tiffTagLocation = geoKeys[i++];
+                var valueCount = geoKeys[i++];
+                var valueOffset = geoKeys[i++];
+
+                if (tiffTagLocation == 0)
+                {
+                    // Identifies the tag containing the value. If zero, then the value is ushort and stored
+                    // in valueOffset directly, and the value count is implied as 1.
+                    geoTiffDirectory.Set(keyId, valueOffset);
+                }
+                else
+                {
+                    // The value is stored in another tag.
+                    var sourceTagId = tiffTagLocation;
+                    sourceTags.Add(sourceTagId);
+                    var sourceValue = sourceDirectory.GetObject(sourceTagId);
+                    if (sourceValue is StringValue sourceString)
+                    {
+                        if (valueOffset + valueCount <= sourceString.Bytes.Length)
+                        {
+                            // ASCII values appear to have a | character and the end, so we trim it off here
+                            geoTiffDirectory.Set(keyId, sourceString.ToString(valueOffset, valueCount).TrimEnd('|'));
+                        }
+                        else
+                        {
+                            geoTiffDirectory.AddError($"GeoTIFF key {keyId} with offset {valueOffset} and count {valueCount} extends beyond length of source value ({sourceString.Bytes.Length})");
+                        }
+                    }
+                    else if (sourceValue is Array sourceArray)
+                    {
+                        if (valueOffset + valueCount < sourceArray.Length)
+                        {
+                            var array = Array.CreateInstance(sourceArray.GetType().GetElementType(), valueCount);
+                            Array.Copy(sourceArray, valueOffset, array, 0, valueCount);
+                            geoTiffDirectory.Set(keyId, array);
+                        }
+                        else
+                        {
+                            geoTiffDirectory.AddError($"GeoTIFF key {keyId} with offset {valueOffset} and count {valueCount} extends beyond length of source value ({sourceArray.Length})");
+                        }
+                    }
+                    else
+                    {
+                        geoTiffDirectory.AddError($"GeoTIFF key {keyId} references tag {sourceTagId} which has unsupported type of {sourceValue?.GetType().ToString() ?? "null"}");
+                    }
+                }
+            }
+
+            foreach (var sourceTag in sourceTags)
+            {
+                sourceDirectory.RemoveTag(sourceTag);
+            }
         }
 
         public override bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount)
