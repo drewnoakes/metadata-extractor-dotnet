@@ -628,16 +628,17 @@ namespace MetadataExtractor.Formats.Exif
 
             if (tagId == 0x0E00)
             {
-                // Tempting to say every tagid of 0x0E00 is a PIM tag, but can't be 100% sure
-                if (directory is CasioType2MakernoteDirectory ||
-                    directory is KyoceraMakernoteDirectory ||
-                    directory is NikonType2MakernoteDirectory ||
-                    directory is OlympusMakernoteDirectory ||
-                    directory is PanasonicMakernoteDirectory ||
-                    directory is PentaxMakernoteDirectory ||
-                    directory is RicohMakernoteDirectory ||
-                    directory is SanyoMakernoteDirectory ||
-                    directory is SonyType1MakernoteDirectory)
+                // It's tempting to say that every tag with ID 0x0E00 is a PIM tag, but we can't be 100% sure.
+                // Limit this to a specific set of directories.
+                if (directory is CasioType2MakernoteDirectory or
+                    KyoceraMakernoteDirectory or
+                    NikonType2MakernoteDirectory or
+                    OlympusMakernoteDirectory or
+                    PanasonicMakernoteDirectory or
+                    PentaxMakernoteDirectory or
+                    RicohMakernoteDirectory or
+                    SanyoMakernoteDirectory or
+                    SonyType1MakernoteDirectory)
                     return true;
             }
 
