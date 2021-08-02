@@ -270,18 +270,61 @@ namespace MetadataExtractor.Formats.Exif
                     case PanasonicRawIfd0Directory.TagWbInfo:
                         var dirWbInfo = new PanasonicRawWbInfoDirectory { Parent = CurrentDirectory };
                         Directories.Add(dirWbInfo);
-                        ProcessBinary(dirWbInfo, tagOffset, reader, byteCount, false, 2);
+                        ProcessBinary(dirWbInfo, tagOffset, reader, byteCount, isSigned: false, arrayLength: 2);
                         return true;
                     case PanasonicRawIfd0Directory.TagWbInfo2:
                         var dirWbInfo2 = new PanasonicRawWbInfo2Directory { Parent = CurrentDirectory };
                         Directories.Add(dirWbInfo2);
-                        ProcessBinary(dirWbInfo2, tagOffset, reader, byteCount, false, 3);
+                        ProcessBinary(dirWbInfo2, tagOffset, reader, byteCount, isSigned: false, arrayLength: 3);
                         return true;
                     case PanasonicRawIfd0Directory.TagDistortionInfo:
                         var dirDistort = new PanasonicRawDistortionDirectory { Parent = CurrentDirectory };
                         Directories.Add(dirDistort);
-                        ProcessBinary(dirDistort, tagOffset, reader, byteCount);
+                        ProcessBinary(dirDistort, tagOffset, reader, byteCount, isSigned: true, arrayLength: 1);
                         return true;
+                }
+
+                static void ProcessBinary(Directory directory, int tagValueOffset, IndexedReader reader, int byteCount, bool isSigned, int arrayLength)
+                {
+                    // expects signed/unsigned int16 (for now)
+                    var byteSize = isSigned ? sizeof(short) : sizeof(ushort);
+
+                    // 'directory' is assumed to contain tags that correspond to the byte position unless it's a set of bytes
+                    for (var i = 0; i < byteCount; i++)
+                    {
+                        if (directory.HasTagName(i))
+                        {
+                            // only process this tag if the 'next' integral tag exists. Otherwise, it's a set of bytes
+                            if (i < byteCount - 1 && directory.HasTagName(i + 1))
+                            {
+                                if (isSigned)
+                                    directory.Set(i, reader.GetInt16(tagValueOffset + i * byteSize));
+                                else
+                                    directory.Set(i, reader.GetUInt16(tagValueOffset + i * byteSize));
+                            }
+                            else
+                            {
+                                // the next arrayLength bytes are a multi-byte value
+                                if (isSigned)
+                                {
+                                    var val = new short[arrayLength];
+                                    for (var j = 0; j < val.Length; j++)
+                                        val[j] = reader.GetInt16(tagValueOffset + (i + j) * byteSize);
+                                    directory.Set(i, val);
+                                }
+                                else
+                                {
+                                    var val = new ushort[arrayLength];
+                                    for (var j = 0; j < val.Length; j++)
+                                        val[j] = reader.GetUInt16(tagValueOffset + (i + j) * byteSize);
+                                    directory.Set(i, val);
+                                }
+
+                                i += arrayLength - 1;
+                            }
+                        }
+
+                    }
                 }
             }
 
@@ -699,49 +742,6 @@ namespace MetadataExtractor.Formats.Exif
                 var val = localReader.GetUInt32(pos + 2);
 
                 directory.Set(tag, val);
-            }
-        }
-
-        private static void ProcessBinary(Directory directory, int tagValueOffset, IndexedReader reader, int byteCount, bool issigned = true, int arrayLength = 1)
-        {
-            // expects signed/unsigned int16 (for now)
-            var byteSize = issigned ? sizeof(short) : sizeof(ushort);
-
-            // 'directory' is assumed to contain tags that correspond to the byte position unless it's a set of bytes
-            for (var i = 0; i < byteCount; i++)
-            {
-                if (directory.HasTagName(i))
-                {
-                    // only process this tag if the 'next' integral tag exists. Otherwise, it's a set of bytes
-                    if (i < byteCount - 1 && directory.HasTagName(i + 1))
-                    {
-                        if (issigned)
-                            directory.Set(i, reader.GetInt16(tagValueOffset + i * byteSize));
-                        else
-                            directory.Set(i, reader.GetUInt16(tagValueOffset + i * byteSize));
-                    }
-                    else
-                    {
-                        // the next arrayLength bytes are a multi-byte value
-                        if (issigned)
-                        {
-                            var val = new short[arrayLength];
-                            for (var j = 0; j < val.Length; j++)
-                                val[j] = reader.GetInt16(tagValueOffset + (i + j) * byteSize);
-                            directory.Set(i, val);
-                        }
-                        else
-                        {
-                            var val = new ushort[arrayLength];
-                            for (var j = 0; j < val.Length; j++)
-                                val[j] = reader.GetUInt16(tagValueOffset + (i + j) * byteSize);
-                            directory.Set(i, val);
-                        }
-
-                        i += arrayLength - 1;
-                    }
-                }
-
             }
         }
 
