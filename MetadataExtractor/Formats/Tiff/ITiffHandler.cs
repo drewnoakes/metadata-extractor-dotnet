@@ -39,7 +39,7 @@ namespace MetadataExtractor.Formats.Tiff
 
         bool HasFollowerIfd();
 
-        void EndingIfd();
+        void EndingIfd(in TiffReaderContext context);
 
         /// <summary>
         /// Allows handlers to provide custom logic for a given tag.

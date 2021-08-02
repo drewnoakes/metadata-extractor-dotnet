@@ -297,7 +297,7 @@ namespace MetadataExtractor.Formats.Tiff
             }
             finally
             {
-                handler.EndingIfd();
+                handler.EndingIfd(in context);
             }
         }
 

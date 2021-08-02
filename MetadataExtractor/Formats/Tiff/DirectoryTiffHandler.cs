@@ -24,7 +24,7 @@ namespace MetadataExtractor.Formats.Tiff
             Directories = directories;
         }
 
-        public void EndingIfd()
+        public virtual void EndingIfd(in TiffReaderContext context)
         {
             CurrentDirectory = _directoryStack.Count == 0 ? null : _directoryStack.Pop();
         }
