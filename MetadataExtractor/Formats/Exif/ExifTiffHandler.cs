@@ -9,6 +9,7 @@ using System.Text;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iptc;
+using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Xmp;
@@ -331,16 +332,16 @@ namespace MetadataExtractor.Formats.Exif
             // Panasonic RAW sometimes contains an embedded version of the data as a JPG file.
             if (tagId == PanasonicRawIfd0Directory.TagJpgFromRaw && CurrentDirectory is PanasonicRawIfd0Directory)
             {
-                var jpegrawbytes = reader.GetBytes(tagOffset, byteCount);
-
                 // Extract information from embedded image since it is metadata-rich
-                var jpegmem = new MemoryStream(jpegrawbytes);
-                var jpegDirectory = Jpeg.JpegMetadataReader.ReadMetadata(jpegmem);
-                foreach (var dir in jpegDirectory)
+                var bytes = reader.GetBytes(tagOffset, byteCount);
+                var stream = new MemoryStream(bytes);
+
+                foreach (var directory in JpegMetadataReader.ReadMetadata(stream))
                 {
-                    dir.Parent = CurrentDirectory;
-                    Directories.Add(dir);
+                    directory.Parent = CurrentDirectory;
+                    Directories.Add(directory);
                 }
+
                 return true;
             }
 
