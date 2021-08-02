@@ -152,6 +152,19 @@ namespace MetadataExtractor
 
         #endregion
 
+        public void RemoveTag(int tagId)
+        {
+            if (_tagMap.Remove(tagId))
+            {
+                var index = _definedTagList.FindIndex(tag => tag.Type == tagId);
+
+                if (index != -1)
+                {
+                    _definedTagList.RemoveAt(index);
+                }
+            }
+        }
+
         /// <summary>Returns the name of a specified tag as a String.</summary>
         /// <param name="tagType">the tag type identifier</param>
         /// <returns>the tag's name as a String</returns>
