@@ -31,22 +31,22 @@ namespace MetadataExtractor.Formats.Photoshop
         {
         }
 
-        public override bool CustomProcessTag(int tagOffset, HashSet<IfdIdentity> processedIfds, IndexedReader reader, int tagId, int byteCount, bool isBigTiff)
+        public override bool CustomProcessTag(in TiffReaderContext context, int tagId, int valueOffset, int byteCount)
         {
             switch (tagId)
             {
                 case TagXmp:
-                    Directories.Add(new XmpReader().Extract(reader.GetBytes(tagOffset, byteCount)));
+                    Directories.Add(new XmpReader().Extract(context.Reader.GetBytes(valueOffset, byteCount)));
                     return true;
                 case TagPhotoshopImageResources:
-                    Directories.AddRange(new PhotoshopReader().Extract(new SequentialByteArrayReader(reader.GetBytes(tagOffset, byteCount)), byteCount));
+                    Directories.AddRange(new PhotoshopReader().Extract(new SequentialByteArrayReader(context.Reader.GetBytes(valueOffset, byteCount)), byteCount));
                     return true;
                 case TagIccProfiles:
-                    Directories.Add(new IccReader().Extract(new ByteArrayReader(reader.GetBytes(tagOffset, byteCount))));
+                    Directories.Add(new IccReader().Extract(new ByteArrayReader(context.Reader.GetBytes(valueOffset, byteCount))));
                     return true;
             }
 
-            return base.CustomProcessTag(tagOffset, processedIfds, reader, tagId, byteCount, isBigTiff);
+            return base.CustomProcessTag(context, tagId, valueOffset, byteCount);
         }
     }
 }

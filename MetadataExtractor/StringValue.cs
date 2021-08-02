@@ -115,6 +115,8 @@ namespace MetadataExtractor
 
         public string ToString(Encoding encoder) => encoder.GetString(Bytes, 0, Bytes.Length);
 
+        public string ToString(int index, int count) => (Encoding ?? DefaultEncoding).GetString(Bytes, index, count);
+
         #endregion
     }
 }

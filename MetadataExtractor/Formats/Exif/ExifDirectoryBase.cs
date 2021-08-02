@@ -155,6 +155,9 @@ namespace MetadataExtractor.Formats.Exif
         /// <remarks>Seems to be used exclusively by raw formats, referencing one or two IFDs.</remarks>
         public const int TagSubIfdOffset = 0x014a;
 
+        public const int TagExtraSamples = 0x0152;
+        public const int TagSampleFormat = 0x0153;
+
         public const int TagTransferRange = 0x0156;
 
         public const int TagJpegTables = 0x015B;
@@ -206,11 +209,21 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>The actual F-number(F-stop) of lens when the image was taken.</summary>
         public const int TagFNumber = 0x829D;
 
+        public const int TagPixelScale = 0x830E;
+
         public const int TagIptcNaa = 0x83BB;
+
+        public const int TagModelTiePoint = 0x8482;
 
         public const int TagPhotoshopSettings = 0x8649;
 
         public const int TagInterColorProfile = 0x8773;
+
+        public const int TagGeoTiffGeoKeys = 0x87af;
+
+        public const int TagGeoTiffGeoDoubleParams = 0x87b0;
+
+        public const int TagGeoTiffGeoAsciiParams = 0x87b1;
 
         /// <summary>Exposure program that the camera used when image was taken.</summary>
         /// <remarks>
@@ -697,6 +710,9 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>String.</summary>
         public const int TagLensSerialNumber = 0xA435;
 
+        public const int TagGdalMetadata = 0xA480;
+        public const int TagGdalNoData = 0xA481;
+
         /// <summary>Rational64u.</summary>
         public const int TagGamma = 0xA500;
 
@@ -758,6 +774,8 @@ namespace MetadataExtractor.Formats.Exif
             map[TagTileOffsets] = "Tile Offsets";
             map[TagTileByteCounts] = "Tile Byte Counts";
             map[TagSubIfdOffset] = "Sub IFD Pointer(s)";
+            map[TagExtraSamples] = "Extra Samples";
+            map[TagSampleFormat] = "Sample Format";
             map[TagTransferRange] = "Transfer Range";
             map[TagJpegTables] = "JPEG Tables";
             map[TagJpegProc] = "JPEG Proc";
@@ -785,7 +803,9 @@ namespace MetadataExtractor.Formats.Exif
             map[TagCopyright] = "Copyright";
             map[TagExposureTime] = "Exposure Time";
             map[TagFNumber] = "F-Number";
+            map[TagPixelScale] = "Pixel Scale";
             map[TagIptcNaa] = "IPTC/NAA";
+            map[TagModelTiePoint] = "Model Tie Point";
             map[TagPhotoshopSettings] = "Photoshop Settings";
             map[TagInterColorProfile] = "Inter Color Profile";
             map[TagExposureProgram] = "Exposure Program";
@@ -874,6 +894,8 @@ namespace MetadataExtractor.Formats.Exif
             map[TagLensMake] = "Lens Make";
             map[TagLensModel] = "Lens Model";
             map[TagLensSerialNumber] = "Lens Serial Number";
+            map[TagGdalMetadata] = "GDAL Metadata";
+            map[TagGdalNoData] = "GDAL No Data";
             map[TagGamma] = "Gamma";
             map[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
             map[TagPanasonicTitle] = "Panasonic Title";

@@ -2,9 +2,18 @@
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.Extract(byte[]! segmentBytes, int preambleLength) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.PreambleBytes.get -> byte[]!
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
-abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<MetadataExtractor.Formats.Tiff.IfdIdentity>! processedIfds, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount, bool isBigTiff) -> bool
+abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.CustomProcessTag(in MetadataExtractor.Formats.Tiff.TiffReaderContext context, int tagId, int valueOffset, int byteCount) -> bool
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.ProcessTiffMarker(ushort marker) -> MetadataExtractor.Formats.Tiff.TiffStandard
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount) -> bool
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagExtraSamples = 338 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagGdalMetadata = 42112 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagGdalNoData = 42113 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagGeoTiffGeoAsciiParams = 34737 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagGeoTiffGeoDoubleParams = 34736 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagGeoTiffGeoKeys = 34735 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagModelTiePoint = 33922 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagPixelScale = 33550 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagSampleFormat = 339 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagCameraTemperatureRangeMax = 6 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagCameraTemperatureRangeMin = 5 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagEmissivity = 3 -> int
@@ -61,7 +70,73 @@ const MetadataExtractor.Formats.Flir.FlirRawDataDirectory.TagRawThermalImageHeig
 const MetadataExtractor.Formats.Flir.FlirRawDataDirectory.TagRawThermalImageType = 34 -> int
 const MetadataExtractor.Formats.Flir.FlirRawDataDirectory.TagRawThermalImageWidth = 2 -> int
 const MetadataExtractor.Formats.Flir.FlirReader.JpegSegmentPreamble = "FLIR\0" -> string!
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartContourInterval = 47017 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartCorrDate = 47005 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartCountryOrigin = 47006 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartDepthUnits = 47009 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartFormat = 47001 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartMagVar = 47010 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartMagVarAnnChange = 47012 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartMagVarYear = 47011 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartRasterEdition = 47007 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartSoundingDatum = 47008 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartSource = 47002 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartSourceDate = 47004 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartSourceEdition = 47003 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartWGSNSShift = 47013 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagCitation = 1026 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeodeticDatum = 2050 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicAngularUnits = 2054 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicAngularUnitSize = 2055 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicAzimuthUnits = 2060 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicCitation = 2049 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicEllipsoid = 2056 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicInvFlattening = 2059 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicLinearUnits = 2052 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicLinearUnitSize = 2053 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicPrimeMeridian = 2051 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicPrimeMeridianLong = 2061 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicSemiMajorAxis = 2057 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicSemiMinorAxis = 2058 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicToWgs84 = 2062 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGeographicType = 2048 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagInsetNWPixelX = 47015 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagInsetNWPixelY = 47016 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagModelType = 1024 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjAzimuthAngle = 3094 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjCenterEasting = 3090 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjCenterLat = 3089 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjCenterLong = 3088 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjCenterNorthing = 3091 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjectedCoordinateTransform = 3075 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjectedCSCitation = 3073 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjectedCSType = 3072 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjection = 3074 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjFalseEasting = 3082 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjFalseNorthing = 3083 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjFalseOriginEasting = 3086 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjFalseOriginLat = 3085 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjFalseOriginLong = 3084 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjFalseOriginNorthing = 3087 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjLinearUnits = 3076 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjLinearUnitSize = 3077 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjNatOriginLat = 3081 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjNatOriginLong = 3080 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjRectifiedGridAngle = 3096 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjScaleAtCenter = 3093 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjScaleAtNatOrigin = 3092 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjStdParallel1 = 3078 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjStdParallel2 = 3079 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagProjStraightVertPoleLong = 3095 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagRasterType = 1025 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagVerticalCitation = 4097 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagVerticalCSType = 4096 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagVerticalDatum = 4098 -> int
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagVerticalUnits = 4099 -> int
 MetadataExtractor.Directory.Directory(System.Collections.Generic.Dictionary<int, string!>? tagNameMap) -> void
+MetadataExtractor.Directory.RemoveTag(int tagId) -> void
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetExtraSamplesDescription() -> string?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetSampleFormatDescription() -> string?
 MetadataExtractor.Formats.Exif.ExifDirectoryBase.ExifDirectoryBase(System.Collections.Generic.Dictionary<int, string!>! tagNameMap) -> void
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAccelerationVectorDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetHdrImageTypeDescription() -> string?
@@ -84,6 +159,21 @@ MetadataExtractor.Formats.Flir.FlirReader.ExtractRawThermalImage.set -> void
 MetadataExtractor.Formats.Flir.FlirReader.FlirReader() -> void
 MetadataExtractor.Formats.Flir.FlirReader.ReadJpegSegments(System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.JpegSegment!>! segments) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
 MetadataExtractor.Formats.Flir.FlirReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GeoTiffDescriptor(MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory! directory) -> void
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetChartFormatDescription() -> string?
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetChartSoundingDatumDescription() -> string?
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetGeodeticDatumDescription() -> string?
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetGeographicEllipsoidDescription() -> string?
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetGeographicTypeDescription() -> string?
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetModelTypeDescription() -> string?
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetPrimeMeridianDescription() -> string?
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetProjectedCoordinateSystemDescription() -> string?
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetProjectedCoordinateTransformDescription() -> string?
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetProjectionDescription() -> string?
+MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetRasterTypeDescription() -> string?
+MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory
+MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.GeoTiffDirectory() -> void
 MetadataExtractor.Formats.Jpeg.HuffmanTable.HuffmanTable() -> void
 MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader
 MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.JpegSegmentWithPreambleMetadataReader() -> void
@@ -101,7 +191,8 @@ MetadataExtractor.Formats.Tiff.IfdIdentity
 MetadataExtractor.Formats.Tiff.IfdIdentity.IfdIdentity() -> void
 MetadataExtractor.Formats.Tiff.IfdIdentity.Kind.get -> object?
 MetadataExtractor.Formats.Tiff.IfdIdentity.Offset.get -> int
-MetadataExtractor.Formats.Tiff.ITiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<MetadataExtractor.Formats.Tiff.IfdIdentity>! processedIfds, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount, bool isBigTiff) -> bool
+MetadataExtractor.Formats.Tiff.ITiffHandler.CustomProcessTag(in MetadataExtractor.Formats.Tiff.TiffReaderContext context, int tagId, int valueOffset, int byteCount) -> bool
+MetadataExtractor.Formats.Tiff.ITiffHandler.EndingIfd(in MetadataExtractor.Formats.Tiff.TiffReaderContext context) -> void
 MetadataExtractor.Formats.Tiff.ITiffHandler.Kind.get -> object?
 MetadataExtractor.Formats.Tiff.ITiffHandler.ProcessTiffMarker(ushort marker) -> MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.Tiff.ITiffHandler.SetInt64S(int tagId, long int64S) -> void
@@ -113,6 +204,15 @@ MetadataExtractor.Formats.Tiff.TiffDataFormat.ComponentSizeBytes.get -> byte
 MetadataExtractor.Formats.Tiff.TiffDataFormatCode.Ifd8 = 18 -> MetadataExtractor.Formats.Tiff.TiffDataFormatCode
 MetadataExtractor.Formats.Tiff.TiffDataFormatCode.Int64S = 17 -> MetadataExtractor.Formats.Tiff.TiffDataFormatCode
 MetadataExtractor.Formats.Tiff.TiffDataFormatCode.Int64U = 16 -> MetadataExtractor.Formats.Tiff.TiffDataFormatCode
+MetadataExtractor.Formats.Tiff.TiffReaderContext
+MetadataExtractor.Formats.Tiff.TiffReaderContext.IsBigTiff.get -> bool
+MetadataExtractor.Formats.Tiff.TiffReaderContext.IsMotorolaByteOrder.get -> bool
+MetadataExtractor.Formats.Tiff.TiffReaderContext.Reader.get -> MetadataExtractor.IO.IndexedReader!
+MetadataExtractor.Formats.Tiff.TiffReaderContext.TiffReaderContext() -> void
+MetadataExtractor.Formats.Tiff.TiffReaderContext.TiffReaderContext(MetadataExtractor.IO.IndexedReader! reader, bool isMotorolaByteOrder, bool isBigTiff) -> void
+MetadataExtractor.Formats.Tiff.TiffReaderContext.TryVisitIfd(int ifdOffset, object? kind) -> bool
+MetadataExtractor.Formats.Tiff.TiffReaderContext.WithByteOrder(bool isMotorolaByteOrder) -> MetadataExtractor.Formats.Tiff.TiffReaderContext
+MetadataExtractor.Formats.Tiff.TiffReaderContext.WithShiftedBaseOffset(int baseOffset) -> MetadataExtractor.Formats.Tiff.TiffReaderContext
 MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.Tiff.TiffStandard.BigTiff = 1 -> MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.Tiff.TiffStandard.Tiff = 0 -> MetadataExtractor.Formats.Tiff.TiffStandard
@@ -138,8 +238,10 @@ const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagOr
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagPixelDensity = 33 -> int
 MetadataExtractor.Rational.Rational() -> void
 MetadataExtractor.StringValue.StringValue() -> void
+MetadataExtractor.StringValue.ToString(int index, int count) -> string!
 override MetadataExtractor.Formats.Exif.ExifReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
-override MetadataExtractor.Formats.Exif.ExifTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<MetadataExtractor.Formats.Tiff.IfdIdentity>! processedIfds, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount, bool isBigTiff) -> bool
+override MetadataExtractor.Formats.Exif.ExifTiffHandler.CustomProcessTag(in MetadataExtractor.Formats.Tiff.TiffReaderContext context, int tagId, int valueOffset, int byteCount) -> bool
+override MetadataExtractor.Formats.Exif.ExifTiffHandler.EndingIfd(in MetadataExtractor.Formats.Tiff.TiffReaderContext context) -> void
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.ProcessTiffMarker(ushort marker) -> MetadataExtractor.Formats.Tiff.TiffStandard
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.Name.get -> string!
@@ -147,12 +249,14 @@ override MetadataExtractor.Formats.Flir.FlirCameraInfoDescriptor.GetDescription(
 override MetadataExtractor.Formats.Flir.FlirCameraInfoDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Flir.FlirHeaderDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Flir.FlirRawDataDirectory.Name.get -> string!
+override MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetDescription(int tagType) -> string?
+override MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Jfif.JfifReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 override MetadataExtractor.Formats.Jfxx.JfxxReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 override MetadataExtractor.Formats.Jpeg.JpegSegment.ToString() -> string!
 override MetadataExtractor.Formats.Photoshop.PhotoshopDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Photoshop.PhotoshopReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
-override MetadataExtractor.Formats.Photoshop.PhotoshopTiffHandler.CustomProcessTag(int tagOffset, System.Collections.Generic.HashSet<MetadataExtractor.Formats.Tiff.IfdIdentity>! processedIfds, MetadataExtractor.IO.IndexedReader! reader, int tagId, int byteCount, bool isBigTiff) -> bool
+override MetadataExtractor.Formats.Photoshop.PhotoshopTiffHandler.CustomProcessTag(in MetadataExtractor.Formats.Tiff.TiffReaderContext context, int tagId, int valueOffset, int byteCount) -> bool
 override MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.QuickTime.QuickTimeTiffHandler<T>.ProcessTiffMarker(ushort marker) -> MetadataExtractor.Formats.Tiff.TiffStandard
 static MetadataExtractor.DirectoryExtensions.GetUInt64(this MetadataExtractor.Directory! directory, int tagType) -> ulong
@@ -160,9 +264,10 @@ static MetadataExtractor.DirectoryExtensions.TryGetUInt64(this MetadataExtractor
 static MetadataExtractor.Formats.Exif.ExifReader.JpegSegmentPreambleLength.get -> int
 static MetadataExtractor.Formats.Jpeg.JpegMetadataReader.AllReaders.get -> System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.IJpegSegmentMetadataReader!>!
 static MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TryGetTag(string! name, out int tagType) -> bool
-static MetadataExtractor.Formats.Tiff.TiffReader.ProcessIfd(MetadataExtractor.Formats.Tiff.ITiffHandler! handler, MetadataExtractor.IO.IndexedReader! reader, System.Collections.Generic.HashSet<MetadataExtractor.Formats.Tiff.IfdIdentity>! processedIfds, int ifdOffset, bool isBigTiff) -> void
+static MetadataExtractor.Formats.Tiff.TiffReader.ProcessIfd(MetadataExtractor.Formats.Tiff.ITiffHandler! handler, MetadataExtractor.Formats.Tiff.TiffReaderContext context, int ifdOffset) -> void
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType!
 static readonly MetadataExtractor.Formats.Tiff.TiffDataFormat.Ifd8 -> MetadataExtractor.Formats.Tiff.TiffDataFormat!
 static readonly MetadataExtractor.Formats.Tiff.TiffDataFormat.Int64S -> MetadataExtractor.Formats.Tiff.TiffDataFormat!
 static readonly MetadataExtractor.Formats.Tiff.TiffDataFormat.Int64U -> MetadataExtractor.Formats.Tiff.TiffDataFormat!
 virtual MetadataExtractor.Directory.TryGetTagName(int tagType, out string? tagName) -> bool
+virtual MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.EndingIfd(in MetadataExtractor.Formats.Tiff.TiffReaderContext context) -> void

@@ -1294,7 +1294,6 @@ MetadataExtractor.Formats.Tiff.DirectoryTiffHandler
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.CurrentDirectory.get -> MetadataExtractor.Directory?
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.Directories.get -> System.Collections.Generic.List<MetadataExtractor.Directory!>!
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.DirectoryTiffHandler(System.Collections.Generic.List<MetadataExtractor.Directory!>! directories) -> void
-MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.EndingIfd() -> void
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.Error(string! message) -> void
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.PushDirectory(MetadataExtractor.Directory! directory) -> void
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetByteArray(int tagId, byte[]! bytes) -> void
@@ -1319,7 +1318,6 @@ MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetRationalArray(int tagId, 
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetString(int tagId, MetadataExtractor.StringValue stringValue) -> void
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.Warn(string! message) -> void
 MetadataExtractor.Formats.Tiff.ITiffHandler
-MetadataExtractor.Formats.Tiff.ITiffHandler.EndingIfd() -> void
 MetadataExtractor.Formats.Tiff.ITiffHandler.Error(string! message) -> void
 MetadataExtractor.Formats.Tiff.ITiffHandler.HasFollowerIfd() -> bool
 MetadataExtractor.Formats.Tiff.ITiffHandler.SetByteArray(int tagId, byte[]! bytes) -> void
