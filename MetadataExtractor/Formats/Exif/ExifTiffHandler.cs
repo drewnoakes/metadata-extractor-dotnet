@@ -194,7 +194,7 @@ namespace MetadataExtractor.Formats.Exif
             {
                 var photoshopBytes = reader.GetBytes(tagOffset, byteCount);
                 var photoshopDirectories = new PhotoshopReader().Extract(new SequentialByteArrayReader(photoshopBytes), byteCount);
-                if (photoshopDirectories != null)
+                if (photoshopDirectories.Count != 0)
                 {
                     // Could be any number of directories. Only assign the Parent to the PhotoshopDirectory
                     photoshopDirectories.OfType<PhotoshopDirectory>().First().Parent = CurrentDirectory;
