@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Tiff
 {
@@ -86,7 +85,7 @@ namespace MetadataExtractor.Formats.Tiff
 
 #pragma warning restore format
 
-        public abstract bool CustomProcessTag(int tagOffset, HashSet<IfdIdentity> processedIfds, IndexedReader reader, int tagId, int byteCount, bool isBigTiff);
+        public abstract bool CustomProcessTag(in TiffReaderContext context, int tagId, int valueOffset, int byteCount);
 
         public abstract bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount);
 

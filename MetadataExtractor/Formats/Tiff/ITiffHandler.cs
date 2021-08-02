@@ -1,8 +1,5 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
-using MetadataExtractor.IO;
-
 namespace MetadataExtractor.Formats.Tiff
 {
     /// <summary>
@@ -44,8 +41,16 @@ namespace MetadataExtractor.Formats.Tiff
 
         void EndingIfd();
 
+        /// <summary>
+        /// Allows handlers to provide custom logic for a given tag.
+        /// </summary>
+        /// <param name="context">Context for the TIFF read operation.</param>
+        /// <param name="tagId">The ID of the tag being processed.</param>
+        /// <param name="valueOffset">The offset into the data stream at which the tag's value starts.</param>
+        /// <param name="byteCount">The number of bytes that the tag's value spans.</param>
+        /// <returns><see langword="true"/> if processing was successful and default processing should be suppressed, otherwise <see langword="false"/>.</returns>
         /// <exception cref="System.IO.IOException"/>
-        bool CustomProcessTag(int tagOffset, HashSet<IfdIdentity> processedIfds, IndexedReader reader, int tagId, int byteCount, bool isBigTiff);
+        bool CustomProcessTag(in TiffReaderContext context, int tagId, int valueOffset, int byteCount);
 
         bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount);
 
