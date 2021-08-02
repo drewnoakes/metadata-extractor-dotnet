@@ -95,7 +95,7 @@ It supports various file types.
   * PNG
   * PSD
   * TGA
-  * TIFF
+  * TIFF / BigTIFF
   * WebP
   * Camera Raw
     * ARW (Sony)

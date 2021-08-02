@@ -670,7 +670,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override void Set(int tagType, object value)
         {
-            if (!(value is ushort[] array))
+            if (value is not ushort[] array)
             {
                 base.Set(tagType, value);
                 return;

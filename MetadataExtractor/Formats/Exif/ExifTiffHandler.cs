@@ -9,6 +9,7 @@ using System.Text;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iptc;
+using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Xmp;
@@ -194,7 +195,7 @@ namespace MetadataExtractor.Formats.Exif
             {
                 var photoshopBytes = reader.GetBytes(tagOffset, byteCount);
                 var photoshopDirectories = new PhotoshopReader().Extract(new SequentialByteArrayReader(photoshopBytes), byteCount);
-                if (photoshopDirectories != null)
+                if (photoshopDirectories.Count != 0)
                 {
                     // Could be any number of directories. Only assign the Parent to the PhotoshopDirectory
                     photoshopDirectories.OfType<PhotoshopDirectory>().First().Parent = CurrentDirectory;
@@ -270,34 +271,77 @@ namespace MetadataExtractor.Formats.Exif
                     case PanasonicRawIfd0Directory.TagWbInfo:
                         var dirWbInfo = new PanasonicRawWbInfoDirectory { Parent = CurrentDirectory };
                         Directories.Add(dirWbInfo);
-                        ProcessBinary(dirWbInfo, tagOffset, reader, byteCount, false, 2);
+                        ProcessBinary(dirWbInfo, tagOffset, reader, byteCount, isSigned: false, arrayLength: 2);
                         return true;
                     case PanasonicRawIfd0Directory.TagWbInfo2:
                         var dirWbInfo2 = new PanasonicRawWbInfo2Directory { Parent = CurrentDirectory };
                         Directories.Add(dirWbInfo2);
-                        ProcessBinary(dirWbInfo2, tagOffset, reader, byteCount, false, 3);
+                        ProcessBinary(dirWbInfo2, tagOffset, reader, byteCount, isSigned: false, arrayLength: 3);
                         return true;
                     case PanasonicRawIfd0Directory.TagDistortionInfo:
                         var dirDistort = new PanasonicRawDistortionDirectory { Parent = CurrentDirectory };
                         Directories.Add(dirDistort);
-                        ProcessBinary(dirDistort, tagOffset, reader, byteCount);
+                        ProcessBinary(dirDistort, tagOffset, reader, byteCount, isSigned: true, arrayLength: 1);
                         return true;
+                }
+
+                static void ProcessBinary(Directory directory, int tagValueOffset, IndexedReader reader, int byteCount, bool isSigned, int arrayLength)
+                {
+                    // expects signed/unsigned int16 (for now)
+                    var byteSize = isSigned ? sizeof(short) : sizeof(ushort);
+
+                    // 'directory' is assumed to contain tags that correspond to the byte position unless it's a set of bytes
+                    for (var i = 0; i < byteCount; i++)
+                    {
+                        if (directory.HasTagName(i))
+                        {
+                            // only process this tag if the 'next' integral tag exists. Otherwise, it's a set of bytes
+                            if (i < byteCount - 1 && directory.HasTagName(i + 1))
+                            {
+                                if (isSigned)
+                                    directory.Set(i, reader.GetInt16(tagValueOffset + i * byteSize));
+                                else
+                                    directory.Set(i, reader.GetUInt16(tagValueOffset + i * byteSize));
+                            }
+                            else
+                            {
+                                // the next arrayLength bytes are a multi-byte value
+                                if (isSigned)
+                                {
+                                    var val = new short[arrayLength];
+                                    for (var j = 0; j < val.Length; j++)
+                                        val[j] = reader.GetInt16(tagValueOffset + (i + j) * byteSize);
+                                    directory.Set(i, val);
+                                }
+                                else
+                                {
+                                    var val = new ushort[arrayLength];
+                                    for (var j = 0; j < val.Length; j++)
+                                        val[j] = reader.GetUInt16(tagValueOffset + (i + j) * byteSize);
+                                    directory.Set(i, val);
+                                }
+
+                                i += arrayLength - 1;
+                            }
+                        }
+
+                    }
                 }
             }
 
             // Panasonic RAW sometimes contains an embedded version of the data as a JPG file.
             if (tagId == PanasonicRawIfd0Directory.TagJpgFromRaw && CurrentDirectory is PanasonicRawIfd0Directory)
             {
-                var jpegrawbytes = reader.GetBytes(tagOffset, byteCount);
-
                 // Extract information from embedded image since it is metadata-rich
-                var jpegmem = new MemoryStream(jpegrawbytes);
-                var jpegDirectory = Jpeg.JpegMetadataReader.ReadMetadata(jpegmem);
-                foreach (var dir in jpegDirectory)
+                var bytes = reader.GetBytes(tagOffset, byteCount);
+                var stream = new MemoryStream(bytes);
+
+                foreach (var directory in JpegMetadataReader.ReadMetadata(stream))
                 {
-                    dir.Parent = CurrentDirectory;
-                    Directories.Add(dir);
+                    directory.Parent = CurrentDirectory;
+                    Directories.Add(directory);
                 }
+
                 return true;
             }
 
@@ -628,16 +672,17 @@ namespace MetadataExtractor.Formats.Exif
 
             if (tagId == 0x0E00)
             {
-                // Tempting to say every tagid of 0x0E00 is a PIM tag, but can't be 100% sure
-                if (directory is CasioType2MakernoteDirectory ||
-                    directory is KyoceraMakernoteDirectory ||
-                    directory is NikonType2MakernoteDirectory ||
-                    directory is OlympusMakernoteDirectory ||
-                    directory is PanasonicMakernoteDirectory ||
-                    directory is PentaxMakernoteDirectory ||
-                    directory is RicohMakernoteDirectory ||
-                    directory is SanyoMakernoteDirectory ||
-                    directory is SonyType1MakernoteDirectory)
+                // It's tempting to say that every tag with ID 0x0E00 is a PIM tag, but we can't be 100% sure.
+                // Limit this to a specific set of directories.
+                if (directory is CasioType2MakernoteDirectory or
+                    KyoceraMakernoteDirectory or
+                    NikonType2MakernoteDirectory or
+                    OlympusMakernoteDirectory or
+                    PanasonicMakernoteDirectory or
+                    PentaxMakernoteDirectory or
+                    RicohMakernoteDirectory or
+                    SanyoMakernoteDirectory or
+                    SonyType1MakernoteDirectory)
                     return true;
             }
 
@@ -698,49 +743,6 @@ namespace MetadataExtractor.Formats.Exif
                 var val = localReader.GetUInt32(pos + 2);
 
                 directory.Set(tag, val);
-            }
-        }
-
-        private static void ProcessBinary(Directory directory, int tagValueOffset, IndexedReader reader, int byteCount, bool issigned = true, int arrayLength = 1)
-        {
-            // expects signed/unsigned int16 (for now)
-            var byteSize = issigned ? sizeof(short) : sizeof(ushort);
-
-            // 'directory' is assumed to contain tags that correspond to the byte position unless it's a set of bytes
-            for (var i = 0; i < byteCount; i++)
-            {
-                if (directory.HasTagName(i))
-                {
-                    // only process this tag if the 'next' integral tag exists. Otherwise, it's a set of bytes
-                    if (i < byteCount - 1 && directory.HasTagName(i + 1))
-                    {
-                        if (issigned)
-                            directory.Set(i, reader.GetInt16(tagValueOffset + i * byteSize));
-                        else
-                            directory.Set(i, reader.GetUInt16(tagValueOffset + i * byteSize));
-                    }
-                    else
-                    {
-                        // the next arrayLength bytes are a multi-byte value
-                        if (issigned)
-                        {
-                            var val = new short[arrayLength];
-                            for (var j = 0; j < val.Length; j++)
-                                val[j] = reader.GetInt16(tagValueOffset + (i + j) * byteSize);
-                            directory.Set(i, val);
-                        }
-                        else
-                        {
-                            var val = new ushort[arrayLength];
-                            for (var j = 0; j < val.Length; j++)
-                                val[j] = reader.GetUInt16(tagValueOffset + (i + j) * byteSize);
-                            directory.Set(i, val);
-                        }
-
-                        i += arrayLength - 1;
-                    }
-                }
-
             }
         }
 
