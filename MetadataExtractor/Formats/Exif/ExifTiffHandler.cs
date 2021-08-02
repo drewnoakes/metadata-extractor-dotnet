@@ -163,7 +163,7 @@ namespace MetadataExtractor.Formats.Exif
 
             // Custom processing for the Makernote tag
             if (tagId == ExifDirectoryBase.TagMakernote && CurrentDirectory is ExifSubIfdDirectory)
-                return ProcessMakernote(context, valueOffset);
+                return ProcessMakernote(in context, valueOffset);
 
             // Custom processing for embedded IPTC data
             if (tagId == ExifDirectoryBase.TagIptcNaa && CurrentDirectory is ExifIfd0Directory)
@@ -368,7 +368,7 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         /// <exception cref="IOException"/>
-        private bool ProcessMakernote(TiffReaderContext context, int makernoteOffset)
+        private bool ProcessMakernote(in TiffReaderContext context, int makernoteOffset)
         {
             Debug.Assert(makernoteOffset >= 0, "makernoteOffset >= 0");
 
