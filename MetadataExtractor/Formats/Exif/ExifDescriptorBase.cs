@@ -101,6 +101,8 @@ namespace MetadataExtractor.Formats.Exif
                 TagCompression                   => GetCompressionDescription(),
                 TagJpegProc                      => GetJpegProcDescription(),
                 TagLensSpecification             => GetLensSpecificationDescription(),
+                TagExtraSamples                  => GetExtraSamplesDescription(),
+                TagSampleFormat                  => GetSampleFormatDescription(),
                 _                                => base.GetDescription(tagType),
             };
 
@@ -953,6 +955,44 @@ namespace MetadataExtractor.Formats.Exif
                 14 => "Lossless",
                 _ => "Unknown (" + value + ")",
             };
+        }
+
+        public string? GetExtraSamplesDescription()
+        {
+            return GetIndexedDescription(
+                TagExtraSamples,
+                "Unspecified",
+                "Associated alpha",
+                "Unassociated alpha");
+        }
+
+        public string? GetSampleFormatDescription()
+        {
+            var values = Directory.GetInt32Array(TagSampleFormat);
+
+            if (values is null)
+                return null;
+
+            var sb = new StringBuilder();
+
+            foreach (var value in values)
+            {
+                if (sb.Length != 0)
+                    sb.Append(", ");
+
+                sb.Append(value switch
+                {
+                    1 => "Unsigned",
+                    2 => "Signed",
+                    3 => "Float",
+                    4 => "Undefined",
+                    5 => "Complex int",
+                    6 => "Complex float",
+                    _ => $"Unknown ({value})"
+                });
+            }
+
+            return sb.ToString();
         }
     }
 }
