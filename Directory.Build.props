@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <Authors>Drew Noakes</Authors>
     <Copyright>Copyright Drew Noakes 2002-2021</Copyright>
-    <PackageIcon>metadata-extractor-logo-122.png</PackageIcon>
+    <PackageIcon>metadata-extractor-logo-128.png</PackageIcon>
     <PackageProjectUrl>https://github.com/drewnoakes/metadata-extractor-dotnet</PackageProjectUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)docs\metadata-extractor-logo-122.png" Pack="true" PackagePath="\" />
+    <None Include="$(MSBuildThisFileDirectory)docs\$(PackageIcon)" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
