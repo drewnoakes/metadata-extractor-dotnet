@@ -895,7 +895,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagLensModel] = "Lens Model";
             map[TagLensSerialNumber] = "Lens Serial Number";
             map[TagGdalMetadata] = "GDAL Metadata";
-            map[TagGdalNoData] = "GDAL No Data";
+            map[TagGdalNoData] = "GDAL NoData";
             map[TagGamma] = "Gamma";
             map[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
             map[TagPanasonicTitle] = "Panasonic Title";
