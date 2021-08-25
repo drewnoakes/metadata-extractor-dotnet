@@ -133,6 +133,8 @@ const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagVerticalCitation = 4
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagVerticalCSType = 4096 -> int
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagVerticalDatum = 4098 -> int
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagVerticalUnits = 4099 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagAndroidManufacturer = 35 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagAndroidModel = 36 -> int
 MetadataExtractor.Directory.Directory(System.Collections.Generic.Dictionary<int, string!>? tagNameMap) -> void
 MetadataExtractor.Directory.RemoveTag(int tagId) -> void
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetExtraSamplesDescription() -> string?

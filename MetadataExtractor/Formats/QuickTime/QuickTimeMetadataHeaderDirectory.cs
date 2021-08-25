@@ -42,6 +42,8 @@ namespace MetadataExtractor.Formats.QuickTime
         public const int TagOriginatingSignature = 32;
         public const int TagPixelDensity = 33;
         public const int TagAndroidVersion = 34;
+        public const int TagAndroidManufacturer = 35;
+        public const int TagAndroidModel = 36;
 
         public override string Name => "QuickTime Metadata Header";
 
@@ -81,6 +83,8 @@ namespace MetadataExtractor.Formats.QuickTime
             { TagOriginatingSignature, "Originating Signature" },
             { TagPixelDensity,         "Pixel Density" },
             { TagAndroidVersion,       "Android Version" },
+            { TagAndroidManufacturer,  "Android Manufacturer" },
+            { TagAndroidModel,         "Android Model" },
         };
 
         private static readonly Dictionary<string, int> _nameTagMap = new()
@@ -119,6 +123,8 @@ namespace MetadataExtractor.Formats.QuickTime
             { "com.apple.photos.originating.signature", TagOriginatingSignature },
             { "com.apple.quicktime.pixeldensity",       TagPixelDensity },
             { "com.android.version",                    TagAndroidVersion },
+            { "com.android.manufacturer",               TagAndroidManufacturer },
+            { "com.android.model",                      TagAndroidModel },
         };
 
         public QuickTimeMetadataHeaderDirectory() : base(_tagNameMap)
