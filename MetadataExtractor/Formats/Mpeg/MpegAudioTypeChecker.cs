@@ -23,12 +23,20 @@ namespace MetadataExtractor.Formats.Mpeg
                 11 - Layer I
 
             Additional bits contain more information, but are not required for file type identification.
+
+            MP3 with ID3V2-Tags https://id3.org/id3v2.4.0-structure
+            MP3-File with ID3V2-Tagging at start
          */
 
         public int ByteCount => 3;
 
         public Util.FileType CheckType(byte[] bytes)
         {
+
+            // MP3-File with "ID3" at start
+            if (bytes[0] == 0x49 && bytes[1] == 0x44 && bytes[2] == 0x33)
+                return Util.FileType.Mp3;
+
             // MPEG audio requires the first 11 bits to be set
             if (bytes[0] != 0xFF || (bytes[1] & 0xE0) != 0xE0)
                 return Util.FileType.Unknown;
