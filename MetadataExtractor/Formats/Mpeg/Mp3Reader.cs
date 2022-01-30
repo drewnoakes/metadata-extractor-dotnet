@@ -60,8 +60,7 @@ namespace MetadataExtractor.Formats.Mpeg
                     break;
             }
 
-
-            int protectionBit = (header & 0x00010000) >> 16;
+            // int protectionBit = (header & 0x00010000) >> 16;
 
             // Bitrate: depends on ID and Layer
             int bitrate = (header & 0x0000F000) >> 12;
@@ -86,8 +85,7 @@ namespace MetadataExtractor.Formats.Mpeg
                 frequency = frequencyMapping[1, frequency];
             }
 
-
-            int paddingBit = (header & 0x00000200) >> 9;
+            // int paddingBit = (header & 0x00000200) >> 9;
 
             // Encoding type: Stereo, Joint Stereo, Dual Channel, or Mono
             int mode = (header & 0x000000C0) >> 6;
