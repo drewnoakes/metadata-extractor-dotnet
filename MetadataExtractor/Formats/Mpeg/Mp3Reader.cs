@@ -8,12 +8,23 @@ namespace MetadataExtractor.Formats.Mpeg
     {
         // http://id3.org/mp3Frame
         // https://www.loc.gov/preservation/digital/formats/fdd/fdd000105.shtml
+        // https://id3.org/id3v2.4.0-structure
 
         public Directory Extract(SequentialReader reader)
         {
             var directory = new Mp3Directory();
 
             var header = reader.GetInt32();
+
+            // If the file starts with ID3v2 data, try to skip over it for now.
+            // Eventually we should extract this data properly.
+            if ((header & 0xFFFFFF00) == 0x49443300) // "ID3"
+            {
+                // Adjust start to end of header
+                var id3Bytes = reader.GetBytes(6);
+                reader.Skip(id3Bytes[2] * 0x200000 + id3Bytes[3] * 0x4000 + id3Bytes[4] * 0x80 + id3Bytes[5]);
+                header = reader.GetInt32();
+            }
 
             // ID: MPEG-2.5, MPEG-2, or MPEG-1
             int id = 0;
@@ -49,8 +60,7 @@ namespace MetadataExtractor.Formats.Mpeg
                     break;
             }
 
-
-            int protectionBit = (header & 0x00010000) >> 16;
+            // int protectionBit = (header & 0x00010000) >> 16;
 
             // Bitrate: depends on ID and Layer
             int bitrate = (header & 0x0000F000) >> 12;
@@ -75,8 +85,7 @@ namespace MetadataExtractor.Formats.Mpeg
                 frequency = frequencyMapping[1, frequency];
             }
 
-
-            int paddingBit = (header & 0x00000200) >> 9;
+            // int paddingBit = (header & 0x00000200) >> 9;
 
             // Encoding type: Stereo, Joint Stereo, Dual Channel, or Mono
             int mode = (header & 0x000000C0) >> 6;
