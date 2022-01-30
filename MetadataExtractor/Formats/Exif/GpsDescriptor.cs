@@ -123,7 +123,7 @@ namespace MetadataExtractor.Formats.Exif
                 return null;
 
             var lon = GeoLocation.DegreesMinutesSecondsToDecimal(
-                longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals("S", StringComparison.OrdinalIgnoreCase));
+                longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals("W", StringComparison.OrdinalIgnoreCase));
 
             return lon == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString((double)lon);
         }
