@@ -102,30 +102,26 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetGpsDestLatitudeDescription()
         {
-            var latitudes = Directory.GetRationalArray(GpsDirectory.TagDestLatitude);
-            var latitudeRef = Directory.GetString(GpsDirectory.TagDestLatitudeRef);
-
-            if (latitudes == null || latitudes.Length != 3 || latitudeRef == null)
-                return null;
-
-            var lat = GeoLocation.DegreesMinutesSecondsToDecimal(
-                latitudes[0], latitudes[1], latitudes[2], latitudeRef.Equals("S", StringComparison.OrdinalIgnoreCase));
-
-            return lat == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString((double)lat);
+            return GetGeoLocationDimension(GpsDirectory.TagDestLatitude, GpsDirectory.TagDestLatitudeRef, "S");
         }
 
         public string? GetGpsDestLongitudeDescription()
         {
-            var longitudes = Directory.GetRationalArray(GpsDirectory.TagDestLongitude);
-            var longitudeRef = Directory.GetString(GpsDirectory.TagDestLongitudeRef);
+            return GetGeoLocationDimension(GpsDirectory.TagDestLongitude, GpsDirectory.TagDestLongitudeRef, "W");
+        }
 
-            if (longitudes == null || longitudes.Length != 3 || longitudeRef == null)
+        private string? GetGeoLocationDimension(int tagValue, int tagRef, string positiveRef)
+        {
+            var values = Directory.GetRationalArray(tagValue);
+            var @ref = Directory.GetString(tagRef);
+
+            if (values == null || values.Length != 3 || @ref == null)
                 return null;
 
-            var lon = GeoLocation.DegreesMinutesSecondsToDecimal(
-                longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals("W", StringComparison.OrdinalIgnoreCase));
+            var dec = GeoLocation.DegreesMinutesSecondsToDecimal(
+                values[0], values[1], values[2], @ref.Equals(positiveRef, StringComparison.OrdinalIgnoreCase));
 
-            return lon == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString((double)lon);
+            return dec == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString((double)dec);
         }
 
         public string? GetGpsDestinationReferenceDescription()
