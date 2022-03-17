@@ -387,7 +387,11 @@ namespace MetadataExtractor.Formats.Png
                 {
                     if (TryProcessRawProfile(out _))
                     {
-                        foreach (var exifDirectory in new ExifReader().Extract(new ByteArrayReader(textBytes)))
+                        int offset = 0;
+                        if (ExifReader.StartsWithJpegExifPreamble(textBytes))
+                            offset = ExifReader.JpegSegmentPreambleLength;
+
+                        foreach (var exifDirectory in new ExifReader().Extract(new ByteArrayReader(textBytes, offset)))
                             yield return exifDirectory;
                     }
                     else
