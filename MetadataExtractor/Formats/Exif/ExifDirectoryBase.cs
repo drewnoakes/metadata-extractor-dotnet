@@ -282,6 +282,12 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagRecommendedExposureIndex = 0x8832;
 
+        public const int TagIsoSpeed = 0x8833;
+
+        public const int TagIsoSpeedLatitudeYYY = 0x8834;
+
+        public const int TagIsoSpeedLatitudeZZZ = 0x8835;
+
         public const int TagExifVersion = 0x9000;
 
         public const int TagDateTimeOriginal = 0x9003;
@@ -821,6 +827,9 @@ namespace MetadataExtractor.Formats.Exif
             map[TagSensitivityType] = "Sensitivity Type";
             map[TagStandardOutputSensitivity] = "Standard Output Sensitivity";
             map[TagRecommendedExposureIndex] = "Recommended Exposure Index";
+            map[TagIsoSpeed] = "ISO Speed";
+            map[TagIsoSpeedLatitudeYYY] = "ISO Speed Latitude yyy";
+            map[TagIsoSpeedLatitudeZZZ] = "ISO Speed Latitude zzz";
             map[TagExifVersion] = "Exif Version";
             map[TagDateTimeOriginal] = "Date/Time Original";
             map[TagDateTimeDigitized] = "Date/Time Digitized";
