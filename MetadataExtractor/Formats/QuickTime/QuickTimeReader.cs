@@ -2,7 +2,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using MetadataExtractor.IO;
 
@@ -63,7 +62,7 @@ namespace MetadataExtractor.Formats.QuickTime
             get
             {
                 var bytes = BitConverter.GetBytes(Type);
-                bytes = bytes.Reverse().ToArray();
+                Array.Reverse(bytes);
 #if NETSTANDARD1_3
                 return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
 #else
