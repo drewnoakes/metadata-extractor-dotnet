@@ -26,9 +26,11 @@ namespace MetadataExtractor.Formats.Xmp
     public sealed class XmpReader : IJpegSegmentMetadataReader
     {
         public const string JpegSegmentPreamble = "http://ns.adobe.com/xap/1.0/\0";
+        public const string JpegSegmentPreamblAlt = "://ns.adobe.com/xap/1.0/\0";
         public const string JpegSegmentPreambleExtension = "http://ns.adobe.com/xmp/extension/\0";
 
         private static byte[] JpegSegmentPreambleBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreamble);
+        private static byte[] JpegSegmentPreambleAltBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreamblAlt);
         private static byte[] JpegSegmentPreambleExtensionBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreambleExtension);
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new[] { JpegSegmentType.App1 };
@@ -43,6 +45,10 @@ namespace MetadataExtractor.Formats.Xmp
                 if (IsXmpSegment(segment))
                 {
                     yield return Extract(segment.Bytes, JpegSegmentPreambleBytes.Length, segment.Bytes.Length - JpegSegmentPreambleBytes.Length);
+                }
+                else if (IsXmpSegmentAlt(segment))
+                {
+                    yield return Extract(segment.Bytes, JpegSegmentPreambleAltBytes.Length, segment.Bytes.Length - JpegSegmentPreambleAltBytes.Length);
                 }
             }
 
@@ -68,6 +74,7 @@ namespace MetadataExtractor.Formats.Xmp
         private static string GetExtendedDataGuid(JpegSegment segment) => Encoding.UTF8.GetString(segment.Bytes, JpegSegmentPreambleExtensionBytes.Length, 32);
 
         private static bool IsXmpSegment(JpegSegment segment) => segment.Bytes.StartsWith(JpegSegmentPreambleBytes);
+        private static bool IsXmpSegmentAlt(JpegSegment segment) => segment.Bytes.StartsWith(JpegSegmentPreambleAltBytes);
         private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Bytes.StartsWith(JpegSegmentPreambleExtensionBytes);
 
         public XmpDirectory Extract(byte[] xmpBytes) => Extract(xmpBytes, 0, xmpBytes.Length);

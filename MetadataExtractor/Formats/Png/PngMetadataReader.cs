@@ -383,7 +383,7 @@ namespace MetadataExtractor.Formats.Png
                         yield return ReadTextDirectory(keyword, textBytes, chunkType);
                     }
                 }
-                else if (keyword == "Raw profile type exif" || keyword == "Raw profile type APP1")
+                else if (keyword == "Raw profile type exif")
                 {
                     if (TryProcessRawProfile(out _))
                     {
@@ -393,6 +393,37 @@ namespace MetadataExtractor.Formats.Png
 
                         foreach (var exifDirectory in new ExifReader().Extract(new ByteArrayReader(textBytes, offset)))
                             yield return exifDirectory;
+                    }
+                    else
+                    {
+                        yield return ReadTextDirectory(keyword, textBytes, chunkType);
+                    }
+                }
+                else if (keyword == "Raw profile type APP1")
+                {
+                    if (TryProcessRawProfile(out _))
+                    {
+                        if (textBytes.StartsWith(new byte[] { 0x58, 0x4D, 0x50, 0 }))
+                        {
+                            textBytes = new ByteArrayReader(textBytes, 4).GetBytes(0, textBytes.Length - 4);
+
+                            Jpeg.JpegSegment seg = new Jpeg.JpegSegment(
+                                Jpeg.JpegSegmentType.App1,
+                                textBytes,
+                                0);
+
+                            foreach (var xmpDirectory in new XmpReader().ReadJpegSegments(new[] { seg }))
+                                yield return xmpDirectory;
+                        }
+                        else
+                        {
+                            int offset = 0;
+                            if (ExifReader.StartsWithJpegExifPreamble(textBytes))
+                                offset = ExifReader.JpegSegmentPreambleLength;
+
+                            foreach (var exifDirectory in new ExifReader().Extract(new ByteArrayReader(textBytes, offset)))
+                                yield return exifDirectory;
+                        }
                     }
                     else
                     {
