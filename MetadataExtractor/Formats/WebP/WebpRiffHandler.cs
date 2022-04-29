@@ -196,5 +196,10 @@ namespace MetadataExtractor.Formats.WebP
                 }
             }
         }
+
+        public void AddError(string errorMessage)
+        {
+            _directories.Add(new ErrorDirectory(errorMessage));
+        }
     }
 }

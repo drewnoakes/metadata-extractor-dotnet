@@ -1,5 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.IO;
 using System.Text;
 using MetadataExtractor.IO;
 
@@ -22,30 +23,35 @@ namespace MetadataExtractor.Formats.Riff
         /// <summary>Processes a RIFF data sequence.</summary>
         /// <param name="reader">The <see cref="SequentialReader"/> from which the data should be read.</param>
         /// <param name="handler">The <see cref="IRiffHandler"/> that will coordinate processing and accept read values.</param>
-        /// <exception cref="RiffProcessingException">An error occurred during the processing of RIFF data that could not be ignored or recovered from.</exception>
-        /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         public void ProcessRiff(SequentialReader reader, IRiffHandler handler)
         {
-            // RIFF files are always little-endian
-            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+            try
+            {
+                // RIFF files are always little-endian
+                reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 
-            // PROCESS FILE HEADER
+                // PROCESS FILE HEADER
 
-            var fileFourCc = reader.GetString(4, Encoding.ASCII);
-            if (fileFourCc != "RIFF")
-                throw new RiffProcessingException("Invalid RIFF header: " + fileFourCc);
+                var fileFourCc = reader.GetString(4, Encoding.ASCII);
+                if (fileFourCc != "RIFF")
+                    throw new RiffProcessingException("Invalid RIFF header: " + fileFourCc);
 
-            // The total size of the chunks that follow plus 4 bytes for the 'WEBP' or 'AVI ' FourCC
-            int fileSize = reader.GetInt32();
-            int sizeLeft = fileSize;
-            string identifier = reader.GetString(4, Encoding.ASCII);
-            sizeLeft -= 4;
+                // The total size of the chunks that follow plus 4 bytes for the 'WEBP' or 'AVI ' FourCC
+                int fileSize = reader.GetInt32();
+                int sizeLeft = fileSize;
+                string identifier = reader.GetString(4, Encoding.ASCII);
+                sizeLeft -= 4;
 
-            if (!handler.ShouldAcceptRiffIdentifier(identifier))
-                return;
+                if (!handler.ShouldAcceptRiffIdentifier(identifier))
+                    return;
 
-            var maxPosition = reader.Position + sizeLeft;
-            ProcessChunks(reader, maxPosition, handler);
+                var maxPosition = reader.Position + sizeLeft;
+                ProcessChunks(reader, maxPosition, handler);
+            }
+            catch (System.Exception e) when (e is ImageProcessingException or IOException)
+            {
+                handler.AddError(e.Message);
+            }
         }
 
         // PROCESS CHUNKS

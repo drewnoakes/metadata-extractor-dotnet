@@ -34,5 +34,10 @@ namespace MetadataExtractor.Formats.Riff
         public abstract bool ShouldAcceptRiffIdentifier(string identifier);
 
         public abstract bool ShouldAcceptList(string fourCc);
+
+        public void AddError(string errorMessage)
+        {
+            _directories.Add(new ErrorDirectory(errorMessage));
+        }
     }
 }
