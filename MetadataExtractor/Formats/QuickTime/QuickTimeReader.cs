@@ -142,7 +142,12 @@ namespace MetadataExtractor.Formats.QuickTime
                     var toSkip = atomStartPos + atomSize - stream.Position;
 
                     if (toSkip < 0)
-                        throw new Exception("Handler moved stream beyond end of atom");
+                    {
+                        // Atoms are nested within each other. We have delegated to a sub-atom handler to
+                        // process this atom's data, but it read more than it should have.
+                        // TODO log this error somewhere (we don't have a directory available here)
+                        return;
+                    }
 
                     // To avoid exception handling we can check if needed number of bytes are available
                     if (!reader.IsCloserToEnd(toSkip))
