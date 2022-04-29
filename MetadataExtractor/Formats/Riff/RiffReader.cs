@@ -64,6 +64,8 @@ namespace MetadataExtractor.Formats.Riff
 
                 if (chunkFourCc == "LIST" || chunkFourCc == "RIFF")
                 {
+                    if (chunkSize < 4)
+                        break;
                     string listName = reader.GetString(4, Encoding.ASCII);
                     if (handler.ShouldAcceptList(listName))
                         ProcessChunks(reader, reader.Position + chunkSize - 4, handler);
