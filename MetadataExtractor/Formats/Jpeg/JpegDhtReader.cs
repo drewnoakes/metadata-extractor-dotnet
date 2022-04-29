@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using MetadataExtractor.IO;
@@ -30,7 +31,7 @@ namespace MetadataExtractor.Formats.Jpeg
             if (directory != null)
                 return new List<Directory>() { directory };
 
-            return Directory.EmptyList;
+            return Array.Empty<Directory>();
         }
 
         public void Extract(SequentialReader reader, HuffmanTablesDirectory directory)

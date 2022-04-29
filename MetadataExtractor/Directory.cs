@@ -28,7 +28,6 @@ namespace MetadataExtractor
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
 #endif
-        internal static readonly DirectoryList EmptyList = Array.Empty<Directory>();
 
         private readonly Dictionary<int, string>? _tagNameMap;
 

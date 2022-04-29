@@ -83,7 +83,7 @@ namespace MetadataExtractor.Formats.Png
                 }
             }
 
-            return directories ?? Directory.EmptyList;
+            return directories ?? (DirectoryList)Array.Empty<Directory>();
         }
 
         /// <summary>
