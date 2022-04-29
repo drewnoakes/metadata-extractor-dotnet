@@ -6,12 +6,6 @@ using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Bmp
 {
     /// <summary>Obtains metadata from BMP files.</summary>
@@ -20,7 +14,7 @@ namespace MetadataExtractor.Formats.Bmp
     public static class BmpMetadataReader
     {
         /// <exception cref="IOException"/>
-        public static DirectoryList ReadMetadata(string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
         {
             var directories = new List<Directory>(2);
 
@@ -32,7 +26,7 @@ namespace MetadataExtractor.Formats.Bmp
             return directories;
         }
 
-        public static DirectoryList ReadMetadata(Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
         {
             return new BmpReader().Extract(new SequentialStreamReader(stream)).ToList();
         }

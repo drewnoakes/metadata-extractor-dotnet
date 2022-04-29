@@ -1,10 +1,8 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System;
-#if !NETSTANDARD1_3
 using System.Globalization;
 using System.ComponentModel;
-#endif
 
 // TODO operator overloads
 
@@ -15,10 +13,8 @@ namespace MetadataExtractor
     /// Note that any <see cref="URational"/> with a numerator of zero will be treated as zero, even if the denominator is also zero.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !NETSTANDARD1_3
     [Serializable]
     [TypeConverter(typeof(URationalConverter))]
-#endif
     public readonly struct URational : IConvertible, IEquatable<URational>
     {
         /// <summary>Gets the denominator.</summary>
@@ -294,7 +290,6 @@ namespace MetadataExtractor
 
         #region URationalConverter
 
-#if !NETSTANDARD1_3
         private sealed class URationalConverter : TypeConverter
         {
             public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -308,7 +303,7 @@ namespace MetadataExtractor
                 return base.CanConvertFrom(context, sourceType);
             }
 
-            public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+            public override object? ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object? value)
             {
                 if (value == null)
                     return base.ConvertFrom(context, culture, null);
@@ -341,7 +336,6 @@ namespace MetadataExtractor
 
             public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => false;
         }
-#endif
 
         #endregion
     }

@@ -1,16 +1,12 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-#if !NETSTANDARD1_3
 using System;
-#endif
 using System.Linq;
 
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !NETSTANDARD1_3
     [Serializable]
-#endif
     public sealed class PngColorType
     {
         /// <summary>Each pixel is a greyscale sample.</summary>

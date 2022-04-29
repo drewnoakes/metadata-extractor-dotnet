@@ -7,11 +7,6 @@ using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -44,7 +39,7 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>
         /// Reads TIFF formatted Exif data a specified offset within a <see cref="IndexedReader"/>.
         /// </summary>
-        public DirectoryList Extract(IndexedReader reader)
+        public IReadOnlyList<Directory> Extract(IndexedReader reader)
         {
             var directories = new List<Directory>();
             var exifTiffHandler = new ExifTiffHandler(directories);

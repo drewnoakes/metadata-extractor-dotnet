@@ -144,22 +144,18 @@ Camera-specific "makernote" data is decoded for cameras manufactured by:
 
 This library targets:
 
-- .NET Framework 3.5 (`net35`)
-- .NET Framework 4.5 (`net45`)
-- .NET Standard 1.3 (`netstandard1.3`)
-- .NET Standard 2.0 (`netstandard2.0`)
+- .NET 5.0+ (`net5.0`)
+- .NET Standard 2.0 (`netstandard2.0`), which supports .NET Framework 4.6.1+ and .NET Core 1.0+  
 
 All target frameworks are provided via the [one NuGet package](https://www.nuget.org/packages/MetadataExtractor).
 
-`net35` and `net45` target the full .NET Framework. `net45` uses the newer `IReadOnlyList<>` on some public APIs where `net35` uses `IList<>`. Internally `net45` also uses some newer library features for slightly improved performance.
-
-`netstandard1.3` implements version 1.3 of the [.NET Standard](https://docs.microsoft.com/en-us/dotnet/articles/standard/library) which covers .NET Core, Mono, Xamarin platforms, UWP, and future platforms. 
+For older version of .NET Framework and .NET Standard (`net35`, `net45` and `netstandard1.3`) use version 2.x packages.
 
 A PCL build was supported until [version 1.5.3](https://www.nuget.org/packages/MetadataExtractor/1.5.3) which supported Silverlight 5.0, Windows 8.0, Windows Phone 8.1 and Windows Phone Silverlight 8.0. PCL versions did not support file-system metadata due to restricted IO APIs.
 
 ## Building
 
-Building this repo requires a recent version of Visual Studio 2019. Ensure you have the _.NET Core Development Tools_ workload installed via the Visual Studio Installer.
+Building this repo requires a recent version of Visual Studio 2022. Ensure you have the _.NET Core Development Tools_ workload installed via the Visual Studio Installer.
 
 The library itself, once built, may be consumed from projects in much earlier versions of Visual Studio.
 

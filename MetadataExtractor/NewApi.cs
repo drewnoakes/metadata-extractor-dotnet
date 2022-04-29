@@ -1,12 +1,9 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-#nullable enable
-
-// TODO remove this
-// ReSharper disable CheckNamespace
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -25,58 +22,22 @@ namespace MetadataExtractor.NewApi
         IEnumerable<IDirectory> SubDirectories { get; }
     }
 
-//    /// <summary>
-//    /// Base class for directories whose contents are stored by index.
-//    /// </summary>
-//    /// <typeparam name="TEntry"></typeparam>
-//    public abstract class Directory<TEntry> : IDirectory, IEnumerable<TEntry> where TEntry : IEntry
-//    {
-//        // TODO need to maintain order of values if we are to write data again
-//
-//        private readonly List<TEntry> _entries = new List<TEntry>(); 
-//
-//        public abstract string Name { get; }
-//
-//        public int Count => _entries.Count;
-//
-//        // TODO can we store IDirectory as IEntry too? A directory may have different entry metadata based upon how it's embedded in outer data. something like ILinkedDirectoryEntry?
-//        public IEnumerable<IDirectory> SubDirectories => _entries.Select(entry => entry.Value).OfType<IDirectory>();
-//
-//        public bool TryGetValue(int index, out TEntry entry)
-//        {
-//            if (index >= 0 && index < _entries.Count)
-//            {
-//                entry = _entries[index];
-//                return true;
-//            }
-//
-//            entry = default;
-//            return false;
-//        }
-//
-//        #region IEnumerable
-//
-//        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-//
-//        IEnumerator<IEntry> IEnumerable<IEntry>.GetEnumerator() => GetEnumerator();
-//        
-//        public IEnumerator<TEntry> GetEnumerator() => _entries.GetEnumerator();
-//
-//        #endregion
-//    }
-
     /// <summary>
-    /// Based class for directories whose contents are stored by key.
+    /// Base class for directories whose contents are stored by key.
     /// </summary>
-    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TKey">The identifier for this </typeparam>
     /// <typeparam name="TEntry"></typeparam>
-    public abstract class Directory<TKey, TEntry> : IDirectory, IEnumerable<TEntry> where TEntry : IEntry
+    public abstract class Directory<TKey, TEntry>
+        : IDirectory,
+          IEnumerable<TEntry>
+          where TEntry : IEntry
+          where TKey : notnull
     {
         // TODO need to maintain order of values if we are to write data again
 
         private readonly Dictionary<TKey, TEntry> _entryByKey; 
 
-        protected Directory(IEqualityComparer<TKey> comparator = null)
+        protected Directory(IEqualityComparer<TKey>? comparator = null)
         {
             _entryByKey = new Dictionary<TKey, TEntry>(comparator);
         }
@@ -88,7 +49,7 @@ namespace MetadataExtractor.NewApi
         // TODO can we store IDirectory as IEntry too? A directory may have different entry metadata based upon how it's embedded in outer data. something like ILinkedDirectoryEntry?
         public IEnumerable<IDirectory> SubDirectories => _entryByKey.Select(entry => entry.Value.Value).OfType<IDirectory>();
 
-        public bool TryGetValue(TKey key, out TEntry entry)
+        public bool TryGetValue(TKey key, [NotNullWhen(returnValue: true)] out TEntry? entry)
         {
             return _entryByKey.TryGetValue(key, out entry);
         }
@@ -108,7 +69,7 @@ namespace MetadataExtractor.NewApi
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        IEnumerator<IEntry> IEnumerable<IEntry>.GetEnumerator() => GetEnumerator();
+        IEnumerator<IEntry> IEnumerable<IEntry>.GetEnumerator() => _entryByKey.Values.Cast<IEntry>().GetEnumerator();
         
         public IEnumerator<TEntry> GetEnumerator() => ((IEnumerable<TEntry>)_entryByKey.Values).GetEnumerator();
 
@@ -123,7 +84,7 @@ namespace MetadataExtractor.NewApi
     }
 
     [StructLayout(LayoutKind.Auto)]
-    public readonly struct TiffValue : IEntry
+    public class TiffValue : IEntry
     {
         public TiffDataFormat Format { get; }
         public int ComponentCount { get; }
@@ -142,31 +103,32 @@ namespace MetadataExtractor.NewApi
 
         string? IEntry.Description => Tag.Describe(this);
 
-        public static TiffValue CreateInt8U    (byte      value, TiffTag tag) => new TiffValue(TiffDataFormat.Int8U,     1, value, tag);
-        public static TiffValue CreateInt16U   (ushort    value, TiffTag tag) => new TiffValue(TiffDataFormat.Int16U,    1, value, tag);
-        public static TiffValue CreateInt32U   (uint      value, TiffTag tag) => new TiffValue(TiffDataFormat.Int32U,    1, value, tag);
-        public static TiffValue CreateRationalU(URational value, TiffTag tag) => new TiffValue(TiffDataFormat.RationalU, 1, value, tag);
-        public static TiffValue CreateInt8S    (sbyte     value, TiffTag tag) => new TiffValue(TiffDataFormat.Int8S,     1, value, tag);
-        public static TiffValue CreateInt16S   (short     value, TiffTag tag) => new TiffValue(TiffDataFormat.Int16S,    1, value, tag);
-        public static TiffValue CreateInt32S   (int       value, TiffTag tag) => new TiffValue(TiffDataFormat.Int32S,    1, value, tag);
-        public static TiffValue CreateRationalS(Rational  value, TiffTag tag) => new TiffValue(TiffDataFormat.RationalS, 1, value, tag);
-        public static TiffValue CreateSingle   (float     value, TiffTag tag) => new TiffValue(TiffDataFormat.Single,    1, value, tag);
-        public static TiffValue CreateDouble   (double    value, TiffTag tag) => new TiffValue(TiffDataFormat.Double,    1, value, tag);
+        public static TiffValue CreateInt8U         (byte        value, TiffTag tag) => new(TiffDataFormat.Int8U,     1, value, tag);
+        public static TiffValue CreateInt16U        (ushort      value, TiffTag tag) => new(TiffDataFormat.Int16U,    1, value, tag);
+        public static TiffValue CreateInt32U        (uint        value, TiffTag tag) => new(TiffDataFormat.Int32U,    1, value, tag);
+        public static TiffValue CreateRationalU     (URational   value, TiffTag tag) => new(TiffDataFormat.RationalU, 1, value, tag);
+        public static TiffValue CreateInt8S         (sbyte       value, TiffTag tag) => new(TiffDataFormat.Int8S,     1, value, tag);
+        public static TiffValue CreateInt16S        (short       value, TiffTag tag) => new(TiffDataFormat.Int16S,    1, value, tag);
+        public static TiffValue CreateInt32S        (int         value, TiffTag tag) => new(TiffDataFormat.Int32S,    1, value, tag);
+        public static TiffValue CreateRationalS     (Rational    value, TiffTag tag) => new(TiffDataFormat.RationalS, 1, value, tag);
+        public static TiffValue CreateSingle        (float       value, TiffTag tag) => new(TiffDataFormat.Single,    1, value, tag);
+        public static TiffValue CreateDouble        (double      value, TiffTag tag) => new(TiffDataFormat.Double,    1, value, tag);
 
-        public static TiffValue CreateString   (byte[] value,    TiffTag tag) => new TiffValue(TiffDataFormat.String,    value.Length, value, tag);
-        public static TiffValue CreateUndefined(byte[] value,    TiffTag tag) => new TiffValue(TiffDataFormat.Undefined, value.Length, value, tag);
+        public static TiffValue CreateString        (byte[]      value, TiffTag tag) => new(TiffDataFormat.String,    value.Length, value, tag);
+        public static TiffValue CreateUndefined     (byte[]      value, TiffTag tag) => new(TiffDataFormat.Undefined, value.Length, value, tag);
 
-        public static TiffValue CreateInt8UArray    (byte[]      value, TiffTag tag) => new TiffValue(TiffDataFormat.Int8U,     value.Length, value, tag);
-        public static TiffValue CreateInt16UArray   (ushort[]    value, TiffTag tag) => new TiffValue(TiffDataFormat.Int16U,    value.Length, value, tag);
-        public static TiffValue CreateInt32UArray   (uint[]      value, TiffTag tag) => new TiffValue(TiffDataFormat.Int32U,    value.Length, value, tag);
-        public static TiffValue CreateRationalUArray(URational[] value, TiffTag tag) => new TiffValue(TiffDataFormat.RationalU, value.Length, value, tag);
-        public static TiffValue CreateInt8SArray    (sbyte[]     value, TiffTag tag) => new TiffValue(TiffDataFormat.Int8S,     value.Length, value, tag);
-        public static TiffValue CreateUndefinedArray(byte[][]    value, TiffTag tag) => new TiffValue(TiffDataFormat.Undefined, value.Length, value, tag);
-        public static TiffValue CreateInt16SArray   (short[]     value, TiffTag tag) => new TiffValue(TiffDataFormat.Int16S,    value.Length, value, tag);
-        public static TiffValue CreateInt32SArray   (int[]       value, TiffTag tag) => new TiffValue(TiffDataFormat.Int32S,    value.Length, value, tag);
-        public static TiffValue CreateRationalSArray(Rational[]  value, TiffTag tag) => new TiffValue(TiffDataFormat.RationalS, value.Length, value, tag);
-        public static TiffValue CreateSingleArray   (float[]     value, TiffTag tag) => new TiffValue(TiffDataFormat.Single,    value.Length, value, tag);
-        public static TiffValue CreateDoubleArray   (double[]    value, TiffTag tag) => new TiffValue(TiffDataFormat.Double,    value.Length, value, tag);
+        public static TiffValue CreateInt8UArray    (byte[]      value, TiffTag tag) => new(TiffDataFormat.Int8U,     value.Length, value, tag);
+        public static TiffValue CreateInt16UArray   (ushort[]    value, TiffTag tag) => new(TiffDataFormat.Int16U,    value.Length, value, tag);
+        public static TiffValue CreateInt32UArray   (uint[]      value, TiffTag tag) => new(TiffDataFormat.Int32U,    value.Length, value, tag);
+        public static TiffValue CreateRationalUArray(URational[] value, TiffTag tag) => new(TiffDataFormat.RationalU, value.Length, value, tag);
+        public static TiffValue CreateInt8SArray    (sbyte[]     value, TiffTag tag) => new(TiffDataFormat.Int8S,     value.Length, value, tag);
+        public static TiffValue CreateInt16SArray   (short[]     value, TiffTag tag) => new(TiffDataFormat.Int16S,    value.Length, value, tag);
+        public static TiffValue CreateInt32SArray   (int[]       value, TiffTag tag) => new(TiffDataFormat.Int32S,    value.Length, value, tag);
+        public static TiffValue CreateRationalSArray(Rational[]  value, TiffTag tag) => new(TiffDataFormat.RationalS, value.Length, value, tag);
+        public static TiffValue CreateSingleArray   (float[]     value, TiffTag tag) => new(TiffDataFormat.Single,    value.Length, value, tag);
+        public static TiffValue CreateDoubleArray   (double[]    value, TiffTag tag) => new(TiffDataFormat.Double,    value.Length, value, tag);
+
+        public static TiffValue CreateUndefinedArray(byte[][]    value, TiffTag tag) => new(TiffDataFormat.Undefined, value.Length, value, tag);
 
         public bool TryGetByte(out byte b)
         {
@@ -185,7 +147,7 @@ namespace MetadataExtractor.NewApi
                 return true;
             }
 
-            if (value is short int16 && int16 >= byte.MinValue && int16 <= byte.MaxValue)
+            if (value is short int16 and >= byte.MinValue and <= byte.MaxValue)
             {
                 b = (byte) int16;
                 return true;
@@ -197,41 +159,36 @@ namespace MetadataExtractor.NewApi
             return false;
         }
 
-        public bool TryGetInt32(out int value)
-        {
-        }
-
-        public bool TryGetInt32Array(out int[] ints)
-        {
-        }
-
-        public bool TryGetSingle(out float f)
-        {
-        }
-
-        public bool TryGetString(out string s)
-        {
-        }
-
-        public bool TryGetRational(out Rational rational)
-        {
-        }
-
-        public bool TryGetURational(out URational uRational)
-        {
-        }
-
-        public bool TryGetByteArray(out byte[] bytes)
-        {
-        }
-
-        public bool TryGetURationalArray(out URational[] uRationals)
-        {
-        }
-
-        public override string ToString() => ToString(provider: null);
+        // TODO implement all these
         
-        public string ToString(IFormatProvider? provider) => Tag.Describe(this, provider);
+        public bool TryGetUInt16(out ushort value) => false;
+        public bool TryGetUInt32(out uint value) => false;
+        public bool TryGetURational(out URational value) => false;
+        public bool TryGetSByte(out byte value) => false;
+        public bool TryGetInt16(out short value) => false;
+        public bool TryGetInt32(out int value) => false;
+        public bool TryGetRational(out Rational value) => false;
+        public bool TryGetSingle(out float value) => false;
+        public bool TryGetDouble(out double value) => false;
+        public bool TryGetString(out string value) => false;
+        public bool TryGetUndefined(out byte[] value) => false;
+
+        public bool TryGetByteArray(out byte[] b) => false;
+        public bool TryGetUInt16Array(out ushort[] value) => false;
+        public bool TryGetUInt32Array(out uint[] value) => false;
+        public bool TryGetURationalArray(out URational[] value) => false;
+        public bool TryGetSByteArray(out byte[] value) => false;
+        public bool TryGetInt16Array(out short[] value) => false;
+        public bool TryGetInt32Array(out int[] value) => false;
+        public bool TryGetRationalArray(out Rational[] value) => false;
+        public bool TryGetSingleArray(out float[] value) => false;
+        public bool TryGetDoubleArray(out double[] value) => false;
+        public bool TryGetStringArray(out string[] value) => false;
+        public bool TryGetUndefinedArray(out byte[] value) => false;
+
+        public override string? ToString() => ToString(provider: null);
+        
+        public string? ToString(IFormatProvider? provider) => Tag.Describe(this, provider);
     }
 
     /// <summary>
@@ -247,14 +204,14 @@ namespace MetadataExtractor.NewApi
         
         protected TiffTag(int id) => Id = id;
 
-        public abstract string? Describe(TiffValue value, IFormatProvider? provider = null);
+        public abstract string? Describe(TiffValue value, IFormatProvider? format = null);
     }
 
     public sealed class TiffTagIdComparator : IEqualityComparer<TiffTag>
     {
-        public static TiffTagIdComparator Instance { get; } = new TiffTagIdComparator();
+        public static TiffTagIdComparator Instance { get; } = new();
 
-        public bool Equals(TiffTag x, TiffTag y) => x?.Id == y?.Id;
+        public bool Equals(TiffTag? x, TiffTag? y) => x?.Id == y?.Id;
 
         public int GetHashCode(TiffTag obj) => obj.Id;
     }
@@ -293,120 +250,138 @@ namespace MetadataExtractor.NewApi
 
     public class TiffUInt8Tag : KnownTiffTag
     {
-        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
+        private readonly Func<byte, IFormatProvider?, string>? _describer;
 
         public TiffUInt8Tag(int id, string name, Func<byte, IFormatProvider?, string>? describer = null)
             : base(id, name)
         {
-            // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) => value.TryGetByte(out byte b)
-                ? describer?.Invoke(b, format) ?? b.ToString(format)
-                : null;
+            _describer = describer;
         }
 
-        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
-            => Describer(value, provider);
+        public override string? Describe(TiffValue value, IFormatProvider? format = null)
+        {
+            if (value.TryGetByte(out byte b))
+            {
+                return _describer?.Invoke(b, format) ?? b.ToString(format);
+            }
+            
+            return null;
+        }
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.Int8U;
     }
 
     public class TiffUInt16Tag : KnownTiffTag
     {
-        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
+        private readonly Func<ushort, IFormatProvider?, string?>? _describer;
 
-        public TiffUInt16Tag(int id, string name, Func<int, IFormatProvider?, string?>? describer = null)
+        public TiffUInt16Tag(int id, string name, Func<ushort, IFormatProvider?, string?>? describer = null)
             : base(id, name)
         {
-            // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) => value.TryGetInt32(out var i)
-                ? describer?.Invoke(i, format) ?? i.ToString(format)
-                : null;
+            _describer = describer;
         }
 
-        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
-            => Describer(value, provider);
+        public override string? Describe(TiffValue value, IFormatProvider? format = null)
+        {
+            if (value.TryGetUInt16(out ushort i))
+            {
+                return _describer?.Invoke(i, format) ?? i.ToString(format);
+            }
+            
+            return null;
+        }
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.Int16U;
     }
 
     public class TiffUInt32Tag : KnownTiffTag
     {
-        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
+        private readonly Func<int, IFormatProvider?, string?>? _describer;
 
         public TiffUInt32Tag(int id, string name, Func<int, IFormatProvider?, string>? describer = null)
             : base(id, name)
         {
-            // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) => value.TryGetInt32(out var i)
-                ? describer?.Invoke(i, format) ?? i.ToString(format)
-                : null;
+            _describer = describer;
         }
 
-        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
-            => Describer(value, provider);
+        public override string? Describe(TiffValue value, IFormatProvider? format = null)
+        {
+            if (value.TryGetInt32(out int i))
+            {
+                return _describer?.Invoke(i, format) ?? i.ToString(format);
+            }
+            
+            return null;
+        }
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.Int32U;
     }
 
     public class TiffSingleTag : KnownTiffTag
     {
-        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
+        private readonly Func<float, IFormatProvider?, string?>? _describer;
 
         public TiffSingleTag(int id, string name, Func<float, IFormatProvider?, string?>? describer = null)
             : base(id, name)
         {
-            // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) => value.TryGetSingle(out float f)
-                ? describer?.Invoke(f, format) ?? f.ToString(format)
-                : null;
+            _describer = describer;
         }
 
-        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
-            => Describer(value, provider);
+        public override string? Describe(TiffValue value, IFormatProvider? format = null)
+        {
+            if (value.TryGetInt32(out int i))
+            {
+                return _describer?.Invoke(i, format) ?? i.ToString(format);
+            }
+            
+            return null;
+        }
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.Single;
     }
 
     public class TiffRationalTag : KnownTiffTag
     {
-        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
+        private readonly Func<Rational, IFormatProvider?, string?>? _describer;
 
         public TiffRationalTag(int id, string name, Func<Rational, IFormatProvider?, string>? describer = null)
             : base(id, name)
         {
-            // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) =>
-            {
-                return value.TryGetRational(out Rational r)
-                    ? describer?.Invoke(r, format) ?? r.ToString(format)
-                    : null;
-            };
+            _describer = describer;
         }
 
-        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
-            => Describer(value, provider);
+        public override string? Describe(TiffValue value, IFormatProvider? format = null)
+        {
+            if (value.TryGetRational(out Rational i))
+            {
+                return _describer?.Invoke(i, format) ?? i.ToString(format);
+            }
+            
+            return null;
+        }
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.RationalS;
     }
 
     public class TiffURationalTag : KnownTiffTag
     {
-        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
+        private readonly Func<URational, IFormatProvider?, string?>? _describer;
 
         public TiffURationalTag(int id, string name, Func<URational, IFormatProvider?, string>? describer = null)
             : base(id, name)
         {
-            // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) =>
-            {
-                return value.TryGetURational(out URational r)
-                    ? describer?.Invoke(r, format) ?? r.ToString(format)
-                    : null;
-            };
+            _describer = describer;
         }
 
-        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
-            => Describer(value, provider);
+        public override string? Describe(TiffValue value, IFormatProvider? format = null)
+        {
+            if (value.TryGetURational(out URational i))
+            {
+                return _describer?.Invoke(i, format) ?? i.ToString(format);
+            }
+            
+            return null;
+        }
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.RationalU;
     }
@@ -430,7 +405,7 @@ namespace MetadataExtractor.NewApi
             ExpectedEncoding = Encoding.UTF8;
         }
 
-        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? format = null)
         {
             if (!value.TryGetByteArray(out byte[] bytes))
                 return null;
@@ -444,7 +419,7 @@ namespace MetadataExtractor.NewApi
                     return ExpectedEncoding.GetString(bytes, 0, bytes.Length).TrimEnd('\0');
                 }
 
-                return _describer(bytes, provider);
+                return _describer(bytes, format);
             }
             catch
             {
@@ -457,11 +432,11 @@ namespace MetadataExtractor.NewApi
 
     public class TiffIndexedUInt16Tag : TiffUInt16Tag
     {
-        public TiffIndexedUInt16Tag(int id, string name, int baseIndex, string[] descriptions)
-            : base(id, name, (i, provider) => DecodeIndex(baseIndex, descriptions, i))
+        public TiffIndexedUInt16Tag(int id, string name, int baseIndex, string?[] descriptions)
+            : base(id, name, (i, _) => DecodeIndex(baseIndex, descriptions, i))
         {}
 
-        private static string DecodeIndex(int baseIndex, string[] descriptions, int index)
+        private static string? DecodeIndex(int baseIndex, string?[] descriptions, int index)
         {
             int arrayIndex = index - baseIndex;
 
@@ -474,50 +449,67 @@ namespace MetadataExtractor.NewApi
 
     public class TiffMappedUInt16Tag : TiffUInt16Tag
     {
-        public TiffMappedUInt16Tag(int id, string name, IReadOnlyDictionary<int, string> descriptions)
-            : base(id, name, (i, provider) => DecodeIndex(descriptions, i))
-        {}
+        private readonly IReadOnlyDictionary<int, string> _descriptions;
 
-        private static string? DecodeIndex(IReadOnlyDictionary<int, string> readOnlyDictionary, int value)
+        public TiffMappedUInt16Tag(int id, string name, IReadOnlyDictionary<int, string> descriptions)
+            : base(id, name)
         {
-            return !readOnlyDictionary.TryGetValue(value, out var description) ? null : description;
+            _descriptions = descriptions;
+        }
+
+        public override string? Describe(TiffValue value, IFormatProvider? format = null)
+        {
+            if (value.TryGetInt32(out int i))
+            {
+                return _descriptions.TryGetValue(i, out string? description) ? description : i.ToString(format);
+            }
+            
+            return null;
         }
     }
 
     public class TiffUInt16ArrayTag : KnownTiffTag
     {
-        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
+        private readonly Func<int[], IFormatProvider?, string?>? _describer;
 
         public TiffUInt16ArrayTag(int id, string name, int expectedCount, Func<int[], IFormatProvider?, string?>? describer = null)
             : base(id, name, expectedCount)
         {
-            // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) => value.TryGetInt32Array(out var i) // TODO int16[] here?
-                ? describer?.Invoke(i, format) ?? i.ToString()
-                : null;
+            _describer = describer;
         }
 
-        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
-            => Describer(value, provider);
+        public override string? Describe(TiffValue value, IFormatProvider? format = null)
+        {
+            if (value.TryGetInt32Array(out int[] i))
+            {
+                return _describer?.Invoke(i, format) ?? i.ToString(format); // TODO write central array formatting code and reuse
+            }
+            
+            return null;
+        }
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.Int16U;
     }
 
     public class TiffURationalArrayTag : KnownTiffTag
     {
-        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
+        private readonly Func<URational[], IFormatProvider?, string?>? _describer;
 
         public TiffURationalArrayTag(int id, string name, int expectedCount, Func<URational[], IFormatProvider?, string?>? describer = null)
             : base(id, name, expectedCount)
         {
-            // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) => value.TryGetURationalArray(out URational[] i)
-                ? describer?.Invoke(i, format) ?? i.ToString()
-                : null;
+            _describer = describer;
         }
 
-        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
-            => Describer(value, provider);
+        public override string? Describe(TiffValue value, IFormatProvider? format = null)
+        {
+            if (value.TryGetURationalArray(out URational[] i))
+            {
+                return _describer?.Invoke(i, format) ?? i.ToString(format); // TODO write central array formatting code and reuse 
+            }
+            
+            return null;
+        }
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.RationalU;
     }
@@ -532,9 +524,9 @@ namespace MetadataExtractor.NewApi
         {
         }
 
-        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? format = null)
         {
-            return value.ToString(provider);
+            return value.ToString(format);
         }
     }
 
@@ -546,7 +538,7 @@ namespace MetadataExtractor.NewApi
 
         public bool TryGetInt32(TiffTag tag, out int value) // TODO should this be an override of the base?
         {
-            if (TryGetValue(tag, out TiffValue tiffValue) &&
+            if (TryGetValue(tag, out TiffValue? tiffValue) &&
                 tiffValue.TryGetInt32(out value))
             {
                 return true;
@@ -565,6 +557,10 @@ namespace MetadataExtractor.NewApi
         public int? Height => TryGetInt32(ExifTags.ImageHeight, out int value) ? value : default;
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
     public readonly struct XmpName : IEquatable<XmpName>
     {
         public string Namespace { get; }
@@ -580,7 +576,7 @@ namespace MetadataExtractor.NewApi
 
         public bool Equals(XmpName other) => Namespace == other.Namespace && Name == other.Name;
 
-        public override bool Equals(object obj) => obj is XmpName other && Equals(other);
+        public override bool Equals(object? obj) => obj is XmpName other && Equals(other);
 
         public override int GetHashCode() => Namespace == null ? 0 : unchecked((Namespace.GetHashCode() * 397) ^ Name.GetHashCode());
     }
@@ -631,7 +627,15 @@ namespace MetadataExtractor.NewApi
             catch (XmpException) { } // ignored
         }
     }
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
 
+    // An example of a directory whose data is a fixed sequence of consecutive values, representable as a byte array.
+    // Entry objects are constructed lazily when requested. Individual values may be read/written via properties
+    // that update backing memory directly.
+    
     public enum PcxProperty
     {
         Version,
@@ -641,6 +645,7 @@ namespace MetadataExtractor.NewApi
     {
         public const int HeaderSizeBytes = 74;
 
+        // Little-endian backing data
         private readonly byte[] _bytes;
 
         // NOTE this directory must be strict about the values it can receive for properties.
@@ -657,7 +662,7 @@ namespace MetadataExtractor.NewApi
         // directory instance. This would also help with Exif tags that need to read multiple values
         // as part of their description, but will make the API uglier I think.
         
-        private static readonly IndexedTable _pcxVersionTable = new IndexedTable(new[]
+        private static readonly IndexedTable _pcxVersionTable = new(new[]
         {
             "2.5 with fixed EGA palette information",
             null,
@@ -667,9 +672,10 @@ namespace MetadataExtractor.NewApi
             "3.0 or better"
         });
         
-        private static readonly IndexedTable _pcxColorPlanesTable = new IndexedTable(new[] { "24-bit color", "16 colors" }, baseIndex: 3);
-        private static readonly IndexedTable _pcxPaletteTypeTable = new IndexedTable(new[] { "Color or B&W", "Grayscale" }, baseIndex: 1);
+        private static readonly IndexedTable _pcxColorPlanesTable = new(new[] { "24-bit color", "16 colors" }, baseIndex: 3);
+        private static readonly IndexedTable _pcxPaletteTypeTable = new(new[] { "Color or B&W", "Grayscale" }, baseIndex: 1);
 
+        // TODO use Memory<byte> instead?
         public PcxDirectory(byte[] bytes)
         {
             if (bytes == null)
@@ -678,6 +684,8 @@ namespace MetadataExtractor.NewApi
                 throw new ArgumentException($"Must contain {HeaderSizeBytes} bytes", nameof(bytes));
             _bytes = bytes;
         }
+        
+        // Bytes 0 and 2 have fixed values, validated during read time
 
         public byte Version
         {
@@ -690,13 +698,85 @@ namespace MetadataExtractor.NewApi
             get => _bytes[3];
             set => _bytes[3] = value;
         }
-        
-        // TODO additional properties
+
+        public ushort XMin
+        {
+            get => MemoryMarshal.Read<ushort>(_bytes.AsSpan()[4..5]);
+            set => MemoryMarshal.Write(_bytes.AsSpan()[4..5], ref value);
+        }
+
+        public ushort YMin
+        {
+            get => MemoryMarshal.Read<ushort>(_bytes.AsSpan()[6..7]);
+            set => MemoryMarshal.Write(_bytes.AsSpan()[6..7], ref value);
+        }
+
+        public ushort XMax
+        {
+            get => MemoryMarshal.Read<ushort>(_bytes.AsSpan()[8..9]);
+            set => MemoryMarshal.Write(_bytes.AsSpan()[8..9], ref value);
+        }
+
+        public ushort YMax
+        {
+            get => MemoryMarshal.Read<ushort>(_bytes.AsSpan()[10..11]);
+            set => MemoryMarshal.Write(_bytes.AsSpan()[10..11], ref value);
+        }
+
+        public ushort HorizontalDpi
+        {
+            get => MemoryMarshal.Read<ushort>(_bytes.AsSpan()[12..13]);
+            set => MemoryMarshal.Write(_bytes.AsSpan()[12..13], ref value);
+        }
+
+        public ushort VerticalDpi
+        {
+            get => MemoryMarshal.Read<ushort>(_bytes.AsSpan()[14..15]);
+            set => MemoryMarshal.Write(_bytes.AsSpan()[14..15], ref value);
+        }
+
+        public byte[] Palette
+        {
+            get => _bytes[16..63];
+            set => Array.Copy(value, sourceIndex: 0, _bytes, destinationIndex: 16, value.Length);
+        }
+
+        public byte ColorPlanes
+        {
+            get => _bytes[65];
+            set => _bytes[65] = value;
+        }
+
+        public ushort BytesPerLine
+        {
+            get => MemoryMarshal.Read<ushort>(_bytes.AsSpan()[66..67]);
+            set => MemoryMarshal.Write(_bytes.AsSpan()[66..67], ref value);
+        }
+
+        public ushort PaletteType
+        {
+            get => MemoryMarshal.Read<ushort>(_bytes.AsSpan()[68..69]);
+            set => MemoryMarshal.Write(_bytes.AsSpan()[68..69], ref value);
+        }
+
+        public ushort HScrSize
+        {
+            get => MemoryMarshal.Read<ushort>(_bytes.AsSpan()[70..71]);
+            set => MemoryMarshal.Write(_bytes.AsSpan()[70..71], ref value);
+        }
+
+        public ushort VScrSize
+        {
+            get => MemoryMarshal.Read<ushort>(_bytes.AsSpan()[72..73]);
+            set => MemoryMarshal.Write(_bytes.AsSpan()[72..73], ref value);
+        }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<IEntry> GetEnumerator()
         {
+            // Spike of a simpler API
+            
             yield return new Entry<byte>("Version", Version, index => _pcxVersionTable.LookUp(index));
             yield return new Entry<byte>("Bits Per Pixel", BitsPerPixel);
             yield return new Entry<ushort>("X Min", XMin);
@@ -706,9 +786,10 @@ namespace MetadataExtractor.NewApi
             yield return new Entry<ushort>("Horizontal DPI", HorizontalDpi);
             yield return new Entry<ushort>("Vertical DPI", VerticalDpi);
             yield return new Entry<byte[]>("Palette", Palette);
-            yield return new Entry<byte>("Color Planes", ColorPlanes, index => _pcxColorPlanesTable.LookUp(index));
+            // TODO the old code would only return these if they were non-zero
+            yield return new Entry<byte>("Color Planes", ColorPlanes, static index => _pcxColorPlanesTable.LookUp(index));
             yield return new Entry<ushort>("Bytes Per Line", BytesPerLine);
-            yield return new Entry<ushort>("Palette Type", PalleteType, index => _pcxPaletteTypeTable.LookUp(index));
+            yield return new Entry<ushort>("Palette Type", PaletteType, static index => _pcxPaletteTypeTable.LookUp(index));
         }
 
         public int Count => 14;
@@ -730,11 +811,11 @@ namespace MetadataExtractor.NewApi
         }
     }
 
-    public class Entry<T> : IEntry
+    public class Entry<T> : IEntry where T : notnull
     {
-        private readonly Func<T, string> _descriptor;
+        private readonly Func<T, string?>? _descriptor;
 
-        public Entry(string name, T value, Func<T, string>? descriptor = null)
+        public Entry(string name, T value, Func<T, string?>? descriptor = null)
         {
             _descriptor = descriptor;
             Name = name;
@@ -744,7 +825,7 @@ namespace MetadataExtractor.NewApi
         private T Value { get; }
         object IEntry.Value => Value;
         public string Name { get; }
-        public string Description => _descriptor == null ? Value.ToString() : _descriptor(Value);
+        public string? Description => _descriptor == null ? Value.ToString() : _descriptor(Value);
     }
 
     public sealed class PcxReader
@@ -777,52 +858,56 @@ namespace MetadataExtractor.NewApi
                 return directory;
             }
 
-            try
-            {
-                var identifier = reader.GetSByte();
-
-                if (identifier != 0x0A)
-                    throw new ImageProcessingException("Invalid PCX identifier byte");
-
-                directory.Set(PcxDirectory.TagVersion, reader.GetSByte());
-
-                var encoding = reader.GetSByte();
-                if (encoding != 0x01)
-                    throw new ImageProcessingException("Invalid PCX encoding byte");
-
-                directory.Set(PcxDirectory.TagBitsPerPixel, reader.GetByte());
-                directory.Set(PcxDirectory.TagXMin, reader.GetUInt16());
-                directory.Set(PcxDirectory.TagYMin, reader.GetUInt16());
-                directory.Set(PcxDirectory.TagXMax, reader.GetUInt16());
-                directory.Set(PcxDirectory.TagYMax, reader.GetUInt16());
-                directory.Set(PcxDirectory.TagHorizontalDpi, reader.GetUInt16());
-                directory.Set(PcxDirectory.TagVerticalDpi, reader.GetUInt16());
-                directory.Set(PcxDirectory.TagPalette, reader.GetBytes(48));
-                reader.Skip(1);
-                directory.Set(PcxDirectory.TagColorPlanes, reader.GetByte());
-                directory.Set(PcxDirectory.TagBytesPerLine, reader.GetUInt16());
-
-                var paletteType = reader.GetUInt16();
-                if (paletteType != 0)
-                    directory.Set(PcxDirectory.TagPaletteType, paletteType);
-
-                var hScrSize = reader.GetUInt16();
-                if (hScrSize != 0)
-                    directory.Set(PcxDirectory.TagHScrSize, hScrSize);
-
-                var vScrSize = reader.GetUInt16();
-                if (vScrSize != 0)
-                    directory.Set(PcxDirectory.TagVScrSize, vScrSize);
-            }
-            catch (Exception ex)
-            {
-                directory.AddError("Exception reading PCX file metadata: " + ex.Message);
-            }
-
-            return directory;
+            // try
+            // {
+            //     var identifier = reader.GetSByte();
+            //
+            //     if (identifier != 0x0A)
+            //         throw new ImageProcessingException("Invalid PCX identifier byte");
+            //
+            //     directory.Set(PcxDirectory.TagVersion, reader.GetSByte());
+            //
+            //     var encoding = reader.GetSByte();
+            //     if (encoding != 0x01)
+            //         throw new ImageProcessingException("Invalid PCX encoding byte");
+            //
+            //     directory.Set(PcxDirectory.TagBitsPerPixel, reader.GetByte());
+            //     directory.Set(PcxDirectory.TagXMin, reader.GetUInt16());
+            //     directory.Set(PcxDirectory.TagYMin, reader.GetUInt16());
+            //     directory.Set(PcxDirectory.TagXMax, reader.GetUInt16());
+            //     directory.Set(PcxDirectory.TagYMax, reader.GetUInt16());
+            //     directory.Set(PcxDirectory.TagHorizontalDpi, reader.GetUInt16());
+            //     directory.Set(PcxDirectory.TagVerticalDpi, reader.GetUInt16());
+            //     directory.Set(PcxDirectory.TagPalette, reader.GetBytes(48));
+            //     reader.Skip(1);
+            //     directory.Set(PcxDirectory.TagColorPlanes, reader.GetByte());
+            //     directory.Set(PcxDirectory.TagBytesPerLine, reader.GetUInt16());
+            //
+            //     var paletteType = reader.GetUInt16();
+            //     if (paletteType != 0)
+            //         directory.Set(PcxDirectory.TagPaletteType, paletteType);
+            //
+            //     var hScrSize = reader.GetUInt16();
+            //     if (hScrSize != 0)
+            //         directory.Set(PcxDirectory.TagHScrSize, hScrSize);
+            //
+            //     var vScrSize = reader.GetUInt16();
+            //     if (vScrSize != 0)
+            //         directory.Set(PcxDirectory.TagVScrSize, vScrSize);
+            // }
+            // catch (Exception ex)
+            // {
+            //     directory.AddError("Exception reading PCX file metadata: " + ex.Message);
+            // }
+            //
+            // return directory;
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    
     public static class MetadataReader
     {
         public static IReadOnlyList<IDirectory> Read(string path)
@@ -835,10 +920,10 @@ namespace MetadataExtractor.NewApi
     {
         private static void Main(string[] args)
         {
-            var directories = MetadataReader.Read(args[0]);
+            IReadOnlyList<IDirectory> directories = MetadataReader.Read(args[0]);
 
-            foreach (var directory in directories)
-            foreach (var entry in directory)
+            foreach (IDirectory directory in directories)
+            foreach (IEntry entry in directory)
                 Console.Out.WriteLine($"{directory.Name} - {entry.Name} = {entry.Description}");
 
             var ifd0 = directories.OfType<ExifIfd0Directory>().SingleOrDefault();
@@ -857,7 +942,7 @@ namespace MetadataExtractor.NewApi
                 // TODO recurring through sub-directories, vs flat-structure (IsTopLevel flag on IDirectory?)
             }
 
-            // TODO some directories are flexible (eg. TIFF _can_ store unexpected types of values for tags) and some aren't (eg. PCX version _must_ be a byte) which becomes important if we want to write metadata
+            // TODO some directories are flexible with types of values (eg. TIFF _can_ store unexpected types of values for tags) and some aren't (eg. PCX version _must_ be a byte) which becomes important if we want to write metadata
             
             // TODO sketch out an index-based directory type (eg. fixed offsets and all fields present)
             // TODO sketch out an enum-based directory type (simple key)

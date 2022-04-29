@@ -11,11 +11,6 @@ using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference
 #pragma warning disable CS8604 // Dereference of a possibly null reference
@@ -27,7 +22,7 @@ namespace MetadataExtractor.Formats.QuickTime
         private static readonly DateTime _epoch = new(1904, 1, 1);
         private static readonly int[] _supportedAtomValueTypes = { 1, 13, 14, 23, 27 };
 
-        public static DirectoryList ReadMetadata(Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
         {
             var directories = new List<Directory>();
             var metaDataKeys = new List<string>();

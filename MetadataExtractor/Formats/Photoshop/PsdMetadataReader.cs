@@ -5,12 +5,6 @@ using System.IO;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Obtains metadata from Photoshop's PSD files.</summary>
@@ -18,7 +12,7 @@ namespace MetadataExtractor.Formats.Photoshop
     public static class PsdMetadataReader
     {
         /// <exception cref="IOException"/>
-        public static DirectoryList ReadMetadata(string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 
@@ -30,7 +24,7 @@ namespace MetadataExtractor.Formats.Photoshop
             return directories;
         }
 
-        public static DirectoryList ReadMetadata(Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
         {
             return new PsdReader().Extract(new SequentialStreamReader(stream));
         }

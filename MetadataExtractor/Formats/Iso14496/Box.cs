@@ -7,12 +7,6 @@ namespace MetadataExtractor.Formats.Iso14496
 {
     internal class Box
     {
-#if NET35 || NET45
-        private static readonly Box[] _emptyChildren = new Box[0];
-#else
-        private static readonly Box[] _emptyChildren = System.Array.Empty<Box>();
-#endif
-
         private readonly BoxLocation _location;
 
         public uint Type => _location.Type;
@@ -25,7 +19,7 @@ namespace MetadataExtractor.Formats.Iso14496
             return sr.GetBytes((int)((long)NextPosition - sr.Position));
         }
 
-        public virtual IEnumerable<Box> Children() => _emptyChildren;
+        public virtual IEnumerable<Box> Children() => System.Array.Empty<Box>();
 
         public override string ToString() => $"{TypeStringConverter.ToTypeString(Type)} @ {_location.NextPosition}";
     }

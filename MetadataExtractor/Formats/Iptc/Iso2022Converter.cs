@@ -58,11 +58,7 @@ namespace MetadataExtractor.Formats.Iptc
 
             if (ascii)
             {
-#if NETSTANDARD1_3
-                return Encoding.UTF8;
-#else
                 return Encoding.ASCII;
-#endif
             }
 
             var utf8 = false;
