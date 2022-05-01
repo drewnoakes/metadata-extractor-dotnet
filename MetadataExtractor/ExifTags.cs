@@ -48,7 +48,7 @@ namespace MetadataExtractor.NewApi
         /// <remarks>
         /// Usually this value is '8,8,8'.
         /// </remarks>
-        public static readonly TiffUInt16ArrayTag BitsPerSample = new(0x0102, "Bits Per Sample", expectedCount: 3, describer: static (ints, _) => ints.Length == 3 ? $"{string.Join(",", ints)} bits/component/pixel" : null);
+        public static readonly TiffUInt16ArrayTag BitsPerSample = new(0x0102, "Bits Per Sample", expectedCount: 3, describer: static (values, _) => values.Length == 3 ? $"{string.Join(",", values)} bits/component/pixel" : null);
 
         public static readonly TiffMappedUInt16Tag Compression = new(0x0103, "Compression", new Dictionary<int, string>
         {
@@ -231,13 +231,13 @@ namespace MetadataExtractor.NewApi
         /// <summary>The matrix coefficients used for transformation from RGB to YCbCr image data.</summary>
         public static readonly TiffURationalArrayTag YCbCrCoefficients = new(0x0211, "YCbCr Coefficients", 3);
 
-        public static readonly TiffUInt16ArrayTag YCbCrSubsampling = new(0x0212, "YCbCr Subsampling", 2, (ints, provider) =>
+        public static readonly TiffUInt16ArrayTag YCbCrSubsampling = new(0x0212, "YCbCr Subsampling", 2, (values, _) =>
         {
-            if (ints.Length == 2)
+            if (values.Length == 2)
             {
-                if (ints[0] == 2 && ints[1] == 1)
+                if (values[0] == 2 && values[1] == 1)
                     return "YCbCr4:2:2";
-                if (ints[0] == 2 && ints[1] == 2)
+                if (values[0] == 2 && values[1] == 2)
                     return "YCbCr4:2:0";
             }
             return null;
@@ -250,8 +250,8 @@ namespace MetadataExtractor.NewApi
         });
 
         public static readonly TiffURationalArrayTag ReferenceBlackWhite = new(0x0214, "Reference Black White", 6,
-            (values, provider) => values.Length == 6
-                ? string.Format(provider, "[{0},{1},{2}] [{3},{4},{5}]", values[0], values[1], values[2], values[3], values[4], values[5])
+            (values, format) => values.Length == 6
+                ? string.Format(format, "[{0},{1},{2}] [{3},{4},{5}]", values[0], values[1], values[2], values[3], values[4], values[5])
                 : null);
 
         public static readonly TiffUInt16Tag RelatedImageFileFormat = new(0x1000, "Related Image File Format");
@@ -274,7 +274,7 @@ namespace MetadataExtractor.NewApi
 
         /// <summary>Exposure time (reciprocal of shutter speed).</summary>
         /// <remarks>Unit is second.</remarks>
-        public static readonly TiffURationalTag ExposureTime = new(0x829A, "Exposure Time", (value, format) => $"{value.ToSimpleString()} sec");
+        public static readonly TiffURationalTag ExposureTime = new(0x829A, "Exposure Time", (value, _) => $"{value.ToSimpleString()} sec");
 
         /// <summary>The actual F-number(F-stop) of lens when the image was taken.</summary>
         public static readonly TiffURationalTag FNumber = new(0x829D, "F-Number",
@@ -412,7 +412,7 @@ namespace MetadataExtractor.NewApi
 
         /// <summary>The distance autofocus focused to.</summary>
         /// <remarks>Tends to be less accurate as distance increases.</remarks>
-        public static readonly TiffRationalTag SubjectDistance = new(0x9206, "Subject Distance", (value, format) => $"{value.ToDouble():0.0##} metres");
+        public static readonly TiffRationalTag SubjectDistance = new(0x9206, "Subject Distance", (value, _) => $"{value.ToDouble():0.0##} metres");
 
         /// <summary>Exposure metering method.</summary>
         public static readonly TiffMappedUInt16Tag MeteringMode = new(0x9207, "Metering Mode", new Dictionary<int, string>
@@ -527,7 +527,7 @@ namespace MetadataExtractor.NewApi
         /// The component count for this tag includes all of the bytes needed for the makernote.
         /// </remarks>
         // TODO should this be public? probably shouldn't be storing the byte array for makernotes, unless it's unknown (in which case it's in a makernote directory)
-        public static readonly TiffByteArrayTag Makernote = new TiffByteArrayTag(0x927C, "Makernote");
+        public static readonly TiffUInt8ArrayTag Makernote = new TiffUInt8ArrayTag(0x927C, "Makernote");
 
         public static readonly TiffStringTag UserComment = new(0x9286, "User Comment", DescribeUserComment);
 
@@ -538,19 +538,19 @@ namespace MetadataExtractor.NewApi
         public static readonly TiffUInt16Tag SubsecondTimeDigitized = new(0x9292, "Subsecond Time Digitized");
 
         /// <summary>The image title, as used by Windows XP.</summary>
-        public static readonly TiffStringTag WinTitle = new(0x9C9B, "Windows XP Title", Encoding.Unicode);
+        public static readonly TiffStringTag WinTitle = new(0x9C9B, "Windows XP Title", expectedEncoding: Encoding.Unicode);
 
         /// <summary>The image comment, as used by Windows XP.</summary>
-        public static readonly TiffStringTag WinComment = new(0x9C9C, "Windows XP Comment", Encoding.Unicode);
+        public static readonly TiffStringTag WinComment = new(0x9C9C, "Windows XP Comment", expectedEncoding: Encoding.Unicode);
 
         /// <summary>The image author, as used by Windows XP (called Artist in the Windows shell).</summary>
-        public static readonly TiffStringTag WinAuthor = new(0x9C9D, "Windows XP Author", Encoding.Unicode);
+        public static readonly TiffStringTag WinAuthor = new(0x9C9D, "Windows XP Author", expectedEncoding: Encoding.Unicode);
 
         /// <summary>The image keywords, as used by Windows XP.</summary>
-        public static readonly TiffStringTag WinKeywords = new(0x9C9E, "Windows XP Keywords", Encoding.Unicode);
+        public static readonly TiffStringTag WinKeywords = new(0x9C9E, "Windows XP Keywords", expectedEncoding: Encoding.Unicode);
 
         /// <summary>The image subject, as used by Windows XP.</summary>
-        public static readonly TiffStringTag WinSubject = new(0x9C9F, "Windows XP Subject", Encoding.Unicode);
+        public static readonly TiffStringTag WinSubject = new(0x9C9F, "Windows XP Subject", expectedEncoding: Encoding.Unicode);
 
         public static readonly TiffUInt16ArrayTag FlashpixVersion = new(0xA000, "Flashpix Version", expectedCount: 4, describer: (values, p) => DescribeVersion(values, 2));
 
@@ -818,7 +818,7 @@ namespace MetadataExtractor.NewApi
 
         private static string DescribeFocalLength(double mm, IFormatProvider? format) => string.Format(format, "{0:0.#} mm", mm);
 
-        private static string DescribePixels(int i, IFormatProvider? format) => string.Format(format, "{0} pixel{1}", i, i == 1 ? "" : "s");
+        private static string DescribePixels(ushort i, IFormatProvider? format) => string.Format(format, "{0} pixel{1}", i, i == 1 ? "" : "s");
 
         private static string? DescribeVersion(IReadOnlyList<int>? components, int majorDigits)
         {
@@ -840,7 +840,7 @@ namespace MetadataExtractor.NewApi
             return version.ToString();
         }
 
-        private static string? DescribeUserComment(byte[] bytes)
+        private static string? DescribeUserComment(byte[] bytes, IFormatProvider? format)
         {
             if (bytes.Length == 0)
                 return string.Empty;
@@ -862,12 +862,10 @@ namespace MetadataExtractor.NewApi
                 if (bytes.Length >= 10)
                 {
                     // TODO no guarantee bytes after the UTF8 name are valid UTF8 -- only read as many as needed
-                    var firstTenBytesString = Encoding.UTF8.GetString(bytes, 0, 10);
+                    string firstTenBytesString = Encoding.UTF8.GetString(bytes, 0, 10);
                     // try each encoding name
-                    foreach (var pair in encodingMap)
+                    foreach ((string? encodingName, Encoding? encoding) in encodingMap)
                     {
-                        var encodingName = pair.Key;
-                        var encoding = pair.Value;
                         if (firstTenBytesString.StartsWith(encodingName))
                         {
                             // skip any null or blank characters commonly present after the encoding name, up to a limit of 10 from the start

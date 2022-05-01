@@ -13,7 +13,7 @@ namespace MetadataExtractor.Formats.Png
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        public IEnumerable<PngChunk> Extract(SequentialReader reader, ICollection<PngChunkType>? desiredChunkTypes)
+        public IReadOnlyList<PngChunk> Extract(SequentialReader reader, ICollection<PngChunkType>? desiredChunkTypes)
         {
             //
             // PNG DATA STREAM

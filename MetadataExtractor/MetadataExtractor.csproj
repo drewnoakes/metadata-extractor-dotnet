@@ -27,6 +27,7 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="XmpCore" Version="6.1.10.1" />
   </ItemGroup>
 
