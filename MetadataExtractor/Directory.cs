@@ -4,14 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-#if NETSTANDARD1_3 || NETSTANDARD2_0
-using System.Text;
-#endif
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
 
 namespace MetadataExtractor
 {
@@ -22,13 +14,12 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class Directory
     {
-#if NETSTANDARD1_3 || NETSTANDARD2_0
+#if NETSTANDARD2_0
         static Directory()
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
 #endif
-        internal static readonly DirectoryList EmptyList = new Directory[0];
 
         private readonly Dictionary<int, string>? _tagNameMap;
 
@@ -82,13 +73,7 @@ namespace MetadataExtractor
 
         /// <summary>Returns all <see cref="Tag"/> objects that have been set in this <see cref="Directory"/>.</summary>
         /// <value>The list of <see cref="Tag"/> objects.</value>
-        public
-#if NET35
-            IEnumerable<Tag>
-#else
-            IReadOnlyList<Tag>
-#endif
-            Tags => _definedTagList;
+        public IReadOnlyList<Tag> Tags => _definedTagList;
 
         /// <summary>Returns the number of tags set in this Directory.</summary>
         /// <value>the number of tags set in this Directory</value>
@@ -114,13 +99,7 @@ namespace MetadataExtractor
 
         /// <summary>Used to iterate over any error messages contained in this directory.</summary>
         /// <value>The collection of error message strings.</value>
-        public
-#if NET35
-            IEnumerable<string>
-#else
-            IReadOnlyList<string>
-#endif
-            Errors => _errorList;
+        public IReadOnlyList<string> Errors => _errorList;
 
         #endregion
 

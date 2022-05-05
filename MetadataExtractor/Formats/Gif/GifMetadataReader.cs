@@ -6,12 +6,6 @@ using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Gif
 {
     /// <summary>Obtains metadata from GIF files.</summary>
@@ -19,7 +13,7 @@ namespace MetadataExtractor.Formats.Gif
     public static class GifMetadataReader
     {
         /// <exception cref="IOException"/>
-        public static DirectoryList ReadMetadata(string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
         {
             var directories = new List<Directory>(2);
 
@@ -31,7 +25,7 @@ namespace MetadataExtractor.Formats.Gif
             return directories;
         }
 
-        public static DirectoryList ReadMetadata(Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
         {
             return new GifReader().Extract(new SequentialStreamReader(stream)).ToList();
         }

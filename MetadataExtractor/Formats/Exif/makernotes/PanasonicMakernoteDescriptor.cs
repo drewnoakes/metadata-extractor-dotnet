@@ -540,11 +540,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var description = string.Join(Environment.NewLine,
-                faces.Select((f, i) => $"Face {i + 1}: {f}")
-#if NET35
-                .ToArray()
-#endif
-                );
+                faces.Select((f, i) => $"Face {i + 1}: {f}"));
 
             return description.Length == 0 ? null : description;
         }

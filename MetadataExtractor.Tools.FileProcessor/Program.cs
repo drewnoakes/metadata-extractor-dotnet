@@ -26,17 +26,11 @@ namespace MetadataExtractor.Tools.FileProcessor
     {
         private static int Main(string[] args)
         {
-#if NETFRAMEWORK
-            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#else
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
-#endif
-#if !NET35
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
-#endif
+
             return ProcessRecursively(args);
 //            return ProcessFileList(args);
         }

@@ -2,9 +2,6 @@
 
 using System.Collections.Generic;
 using MetadataExtractor.IO;
-#if NET35
-using System.Linq;
-#endif
 
 namespace MetadataExtractor.Formats.Iso14496.Boxes
 {
@@ -25,10 +22,6 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
             Boxes = list;
         }
 
-#if NET35
-        public override IEnumerable<Box> Children() => Boxes.OfType<Box>();
-#else
         public override IEnumerable<Box> Children() => Boxes;
-#endif
     }
 }

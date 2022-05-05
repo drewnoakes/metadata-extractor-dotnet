@@ -11,12 +11,6 @@ namespace MetadataExtractor.Formats.Wav
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class WavFormatDescriptor : TagDescriptor<WavFormatDirectory>
     {
-#if NET35 || NET45
-        private static readonly byte[] _emptyByteArray = new byte[0];
-#else
-        private static readonly byte[] _emptyByteArray = Array.Empty<byte>();
-#endif
-
         public WavFormatDescriptor(WavFormatDirectory directory)
             : base(directory)
         {
@@ -29,7 +23,7 @@ namespace MetadataExtractor.Formats.Wav
                 TagFormat => GetFormatDescription(),
                 TagSamplesPerSec => Directory.GetUInt32(tag).ToString("0 bps"),
                 TagBytesPerSec => Directory.GetUInt32(tag).ToString("0 bps"),
-                TagSubformat => BitConverter.ToString(Directory.GetByteArray(tag) ?? _emptyByteArray).Replace("-", ""),
+                TagSubformat => BitConverter.ToString(Directory.GetByteArray(tag) ?? Array.Empty<byte>()).Replace("-", ""),
                 _ => base.GetDescription(tag),
             };
         }

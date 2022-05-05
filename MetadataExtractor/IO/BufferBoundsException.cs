@@ -1,10 +1,8 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.IO;
-#if !NETSTANDARD1_3
 using System;
 using System.Runtime.Serialization;
-#endif
 
 namespace MetadataExtractor.IO
 {
@@ -12,9 +10,7 @@ namespace MetadataExtractor.IO
     /// Thrown when the index provided to an <see cref="IndexedReader"/> is invalid.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !NETSTANDARD1_3
     [Serializable]
-#endif
     public class BufferBoundsException : IOException
     {
         public BufferBoundsException(int index, int bytesRequested, long bufferLength)
@@ -45,11 +41,9 @@ namespace MetadataExtractor.IO
             return $"Attempt to read from beyond end of underlying data source (requested index: {index}, requested count: {bytesRequested}, max index: {bufferLength - 1})";
         }
 
-#if !NETSTANDARD1_3
         protected BufferBoundsException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
-#endif
     }
 }

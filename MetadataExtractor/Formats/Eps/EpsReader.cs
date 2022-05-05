@@ -10,12 +10,6 @@ using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Eps
 {
     /// <summary>Reads file passed in through SequentialReader and parses encountered data:</summary>
@@ -46,7 +40,7 @@ namespace MetadataExtractor.Formats.Eps
     {
         private int _previousTag;
 
-        public DirectoryList Extract(Stream inputStream)
+        public IReadOnlyList<Directory> Extract(Stream inputStream)
         {
             IndexedReader reader = new IndexedSeekingReader(inputStream);
             var directory = new EpsDirectory();

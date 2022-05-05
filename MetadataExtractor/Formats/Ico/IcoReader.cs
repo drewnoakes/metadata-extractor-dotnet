@@ -4,12 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Ico
 {
     /// <summary>Reads ICO (Windows Icon) file metadata.</summary>
@@ -21,7 +15,7 @@ namespace MetadataExtractor.Formats.Ico
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IcoReader
     {
-        public DirectoryList Extract(SequentialReader reader)
+        public IReadOnlyList<Directory> Extract(SequentialReader reader)
         {
             var directories = new List<Directory>();
 

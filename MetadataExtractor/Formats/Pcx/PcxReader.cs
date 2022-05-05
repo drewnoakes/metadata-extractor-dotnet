@@ -24,14 +24,14 @@ namespace MetadataExtractor.Formats.Pcx
 
             try
             {
-                var identifier = reader.GetSByte();
+                var identifier = reader.GetByte();
 
                 if (identifier != 0x0A)
                     throw new ImageProcessingException("Invalid PCX identifier byte");
 
                 directory.Set(PcxDirectory.TagVersion, reader.GetSByte());
 
-                var encoding = reader.GetSByte();
+                var encoding = reader.GetByte();
                 if (encoding != 0x01)
                     throw new ImageProcessingException("Invalid PCX encoding byte");
 

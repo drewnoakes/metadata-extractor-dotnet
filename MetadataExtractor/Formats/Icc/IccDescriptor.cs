@@ -67,13 +67,11 @@ namespace MetadataExtractor.Formats.Icc
                 {
                     case IccTagType.Text:
                     {
-#if !NETSTANDARD1_3
                         try
                         {
                             return Encoding.ASCII.GetString(bytes, 8, bytes.Length - 8 - 1);
                         }
                         catch
-#endif
                         {
                             return Encoding.UTF8.GetString(bytes, 8, bytes.Length - 8 - 1);
                         }

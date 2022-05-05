@@ -4,12 +4,6 @@ using System.IO;
 using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Netpbm
 {
     /// <summary>Obtains metadata from BMP files.</summary>
@@ -17,7 +11,7 @@ namespace MetadataExtractor.Formats.Netpbm
     public static class NetpbmMetadataReader
     {
         /// <exception cref="IOException"/>
-        public static DirectoryList ReadMetadata(string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
         {
             var directories = new List<Directory>(2);
 
