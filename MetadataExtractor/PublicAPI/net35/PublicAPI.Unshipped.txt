@@ -140,6 +140,7 @@ const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagAn
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagAndroidModel = 36 -> int
 MetadataExtractor.Directory.Directory(System.Collections.Generic.Dictionary<int, string!>? tagNameMap) -> void
 MetadataExtractor.Directory.RemoveTag(int tagId) -> void
+MetadataExtractor.Formats.Avi.AviRiffHandler.AddError(string! errorMessage) -> void
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetExtraSamplesDescription() -> string?
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetSampleFormatDescription() -> string?
 MetadataExtractor.Formats.Exif.ExifDirectoryBase.ExifDirectoryBase(System.Collections.Generic.Dictionary<int, string!>! tagNameMap) -> void
@@ -187,6 +188,8 @@ MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetArtworkDescription() -> string?
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetLocationRoleDescription() -> string?
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.QuickTimeMetadataHeaderDescriptor(MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory! directory) -> void
+MetadataExtractor.Formats.Riff.IRiffHandler.AddError(string! errorMessage) -> void
+MetadataExtractor.Formats.Riff.RiffHandler.AddError(string! errorMessage) -> void
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.Kind.get -> object?
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetInt64S(int tagId, long int64S) -> void
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetInt64SArray(int tagId, long[]! array) -> void
@@ -221,6 +224,7 @@ MetadataExtractor.Formats.Tiff.TiffReaderContext.WithShiftedBaseOffset(int baseO
 MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.Tiff.TiffStandard.BigTiff = 1 -> MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.Tiff.TiffStandard.Tiff = 0 -> MetadataExtractor.Formats.Tiff.TiffStandard
+MetadataExtractor.Formats.WebP.WebPRiffHandler.AddError(string! errorMessage) -> void
 MetadataExtractor.IO.IndexedReader.GetUInt64(int index) -> ulong
 MetadataExtractor.Rational.Absolute.get -> MetadataExtractor.Rational
 MetadataExtractor.Rational.IsPositive.get -> bool
