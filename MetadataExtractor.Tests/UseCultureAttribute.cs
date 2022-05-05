@@ -3,6 +3,7 @@
 using System;
 using System.Globalization;
 using System.Reflection;
+using Xunit;
 using Xunit.Sdk;
 
 // ReSharper disable MemberCanBePrivate.Global
@@ -81,6 +82,8 @@ namespace MetadataExtractor.Tests
         /// <param name="methodUnderTest">The method under test</param>
         public override void After(MethodInfo methodUnderTest)
         {
+            Assert.NotNull(_originalCulture);
+            Assert.NotNull(_originalUiCulture);
             System.Threading.Thread.CurrentThread.CurrentCulture = _originalCulture;
             System.Threading.Thread.CurrentThread.CurrentUICulture = _originalUiCulture;
         }
