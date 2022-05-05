@@ -81,7 +81,7 @@ namespace MetadataExtractor.Tests
 
             Assert.Equal(0.0d, new Rational(0, 0).ToDouble(), 15);
             Assert.Equal(0, new Rational(0, 0).ToByte());
-            Assert.Equal(0.0f, new Rational(0, 0).ToSingle(), 15);
+            Assert.Equal(0.0f, new Rational(0, 0).ToSingle(), 15f);
             Assert.Equal(0, new Rational(0, 0).ToInt32());
             Assert.Equal(0L, (object)new Rational(0, 0).ToInt64());
 
