@@ -188,16 +188,10 @@ namespace MetadataExtractor
                 return ToString(provider);
 
             if (IsInteger)
-                return ToInt32().ToString(provider);
-
-            if (Numerator != 1 && Denominator % Numerator == 0)
-            {
-                // common factor between denominator and numerator
-                var newDenominator = Denominator / Numerator;
-                return new Rational(1, newDenominator).ToSimpleString(allowDecimal, provider);
-            }
+                return ToInt64().ToString(provider);
 
             var simplifiedInstance = GetSimplifiedInstance();
+
             if (allowDecimal)
             {
                 var doubleString = simplifiedInstance.ToDouble().ToString(provider);
@@ -281,9 +275,18 @@ namespace MetadataExtractor
                 return a == 0 ? b : a;
             }
 
-            var gcd = GCD(Numerator, Denominator);
+            var n = Numerator;
+            var d = Denominator;
 
-            return new Rational(Numerator / gcd, Denominator / gcd);
+            if (d < 0)
+            {
+                n = -n;
+                d = -d;
+            }
+
+            var gcd = GCD(n, d);
+
+            return new Rational(n / gcd, d / gcd);
         }
 
         #region Equality operators
