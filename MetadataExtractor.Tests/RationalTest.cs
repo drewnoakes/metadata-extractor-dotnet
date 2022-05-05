@@ -1,9 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System;
-#if !NETCOREAPP1_0
 using System.ComponentModel;
-#endif
 using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
@@ -90,7 +88,6 @@ namespace MetadataExtractor.Tests
             Assert.True(new Rational(0, 0).IsInteger);
         }
 
-#if !NETCOREAPP1_0
         [Fact]
         public void TypeConverter()
         {
@@ -112,7 +109,6 @@ namespace MetadataExtractor.Tests
 
             Assert.Throws<NotSupportedException>(() => converter.ConvertFrom(null));
         }
-#endif
 
         [Fact]
         public void IConvertible()

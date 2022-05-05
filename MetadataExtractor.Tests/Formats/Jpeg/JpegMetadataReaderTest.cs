@@ -12,13 +12,11 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegMetadataReaderTest
     {
-#if !NETCOREAPP1_0
         [Fact]
         public void ExtractMetadataUsingPath()
         {
             Validate(JpegMetadataReader.ReadMetadata("Data/withExif.jpg"));
         }
-#endif
 
         [Fact]
         public void ExtractMetadataUsingStream()

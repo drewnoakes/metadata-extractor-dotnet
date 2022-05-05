@@ -70,13 +70,8 @@ namespace MetadataExtractor.Tests
             _originalCulture = CultureInfo.CurrentCulture;
             _originalUiCulture = CultureInfo.CurrentUICulture;
 
-#if NETCOREAPP1_0
-            CultureInfo.CurrentCulture = Culture;
-            CultureInfo.CurrentUICulture = Culture;
-#else
             System.Threading.Thread.CurrentThread.CurrentCulture = Culture;
             System.Threading.Thread.CurrentThread.CurrentUICulture = Culture;
-#endif
         }
 
         /// <summary>
@@ -86,13 +81,8 @@ namespace MetadataExtractor.Tests
         /// <param name="methodUnderTest">The method under test</param>
         public override void After(MethodInfo methodUnderTest)
         {
-#if NETCOREAPP1_0
-            CultureInfo.CurrentCulture = _originalCulture;
-            CultureInfo.CurrentUICulture = _originalUiCulture;
-#else
             System.Threading.Thread.CurrentThread.CurrentCulture = _originalCulture;
             System.Threading.Thread.CurrentThread.CurrentUICulture = _originalUiCulture;
-#endif
         }
     }
 }
