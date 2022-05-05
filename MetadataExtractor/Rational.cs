@@ -114,10 +114,7 @@ namespace MetadataExtractor
 
         bool IConvertible.ToBoolean(IFormatProvider? provider) => ToBoolean();
 
-        char IConvertible.ToChar(IFormatProvider? provider)
-        {
-            throw new NotSupportedException();
-        }
+        char IConvertible.ToChar(IFormatProvider? provider) => throw new NotSupportedException();
 
         sbyte IConvertible.ToSByte(IFormatProvider? provider) => ToSByte();
 
@@ -141,15 +138,9 @@ namespace MetadataExtractor
 
         decimal IConvertible.ToDecimal(IFormatProvider? provider) => ToDecimal();
 
-        DateTime IConvertible.ToDateTime(IFormatProvider? provider)
-        {
-            throw new NotSupportedException();
-        }
+        DateTime IConvertible.ToDateTime(IFormatProvider? provider) => throw new NotSupportedException();
 
-        object IConvertible.ToType(Type conversionType, IFormatProvider? provider)
-        {
-            throw new NotSupportedException();
-        }
+        object IConvertible.ToType(Type conversionType, IFormatProvider? provider) => throw new NotSupportedException();
 
         #endregion
 
