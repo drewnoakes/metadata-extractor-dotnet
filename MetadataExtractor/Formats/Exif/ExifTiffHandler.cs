@@ -707,6 +707,11 @@ namespace MetadataExtractor.Formats.Exif
                     // Always in Motorola byte order
                     TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: true).WithShiftedBaseOffset(makernoteOffset), 8);
                 }
+                else if (firstTenChars.Equals("PENTAX \0II", StringComparison.Ordinal))
+                {
+                    PushDirectory(new PentaxType2MakernoteDirectory());
+                    TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: false).WithShiftedBaseOffset(makernoteOffset), 10);
+                }
             }
             else if (string.Equals(firstTenChars, "Apple iOS\0", StringComparison.Ordinal))
             {
