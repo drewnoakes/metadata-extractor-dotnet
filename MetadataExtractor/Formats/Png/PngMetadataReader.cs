@@ -401,11 +401,13 @@ namespace MetadataExtractor.Formats.Png
                 }
                 else if (keyword == "Raw profile type APP1")
                 {
-                    if (TryProcessRawProfile(out _))
+                    if (TryProcessRawProfile(out int byteCount))
                     {
                         if (textBytes.StartsWith(new byte[] { 0x58, 0x4D, 0x50, 0 }))
                         {
-                            textBytes = new ByteArrayReader(textBytes, 4).GetBytes(0, textBytes.Length - 4);
+                            textBytes = new ByteArrayReader(textBytes, 4).GetBytes(0, byteCount - 4);
+
+                            //File.WriteAllBytes("xmpdata.xml", textBytes);
 
                             Jpeg.JpegSegment seg = new Jpeg.JpegSegment(
                                 Jpeg.JpegSegmentType.App1,
