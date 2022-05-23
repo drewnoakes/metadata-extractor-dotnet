@@ -98,6 +98,7 @@ namespace MetadataExtractor.Formats.Png
         /// For more guidance: http://www.w3.org/TR/PNG-Decoders.html#D.Text-chunk-processing
         /// </summary>
         private static readonly Encoding _latin1Encoding = Encoding.GetEncoding("ISO-8859-1");
+        private static readonly byte[]   _pngApp1Xmp = new byte[] { 0x58, 0x4D, 0x50, 0 };
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="IOException"/>
@@ -403,19 +404,23 @@ namespace MetadataExtractor.Formats.Png
                 {
                     if (TryProcessRawProfile(out int byteCount))
                     {
-                        if (textBytes.StartsWith(new byte[] { 0x58, 0x4D, 0x50, 0 }))
+                        if (textBytes.StartsWith(_pngApp1Xmp))
                         {
-                            textBytes = new ByteArrayReader(textBytes, 4).GetBytes(0, byteCount - 4);
+                            var reader = new ByteArrayReader(textBytes);
 
-                            //File.WriteAllBytes("xmpdata.xml", textBytes);
+                            int offset = 0;
+                            if ((byteCount >= _pngApp1Xmp.Length + XmpReader.JpegSegmentPreambleBytes.Length) &&
+                                reader.GetBytes(_pngApp1Xmp.Length, XmpReader.JpegSegmentPreambleBytes.Length).EqualTo(XmpReader.JpegSegmentPreambleBytes))
+                            {
+                                offset = _pngApp1Xmp.Length + XmpReader.JpegSegmentPreambleBytes.Length;
+                            }
+                            else if ((byteCount >= _pngApp1Xmp.Length + XmpReader.JpegSegmentPreambleAltBytes.Length) &&
+                                reader.GetBytes(_pngApp1Xmp.Length, XmpReader.JpegSegmentPreambleAltBytes.Length).EqualTo(XmpReader.JpegSegmentPreambleAltBytes))
+                            {
+                                offset = _pngApp1Xmp.Length + XmpReader.JpegSegmentPreambleAltBytes.Length;
+                            }
 
-                            Jpeg.JpegSegment seg = new Jpeg.JpegSegment(
-                                Jpeg.JpegSegmentType.App1,
-                                textBytes,
-                                0);
-
-                            foreach (var xmpDirectory in new XmpReader().ReadJpegSegments(new[] { seg }))
-                                yield return xmpDirectory;
+                            yield return new XmpReader().Extract(textBytes, offset, byteCount - offset);
                         }
                         else
                         {
