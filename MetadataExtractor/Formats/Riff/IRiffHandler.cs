@@ -40,5 +40,7 @@ namespace MetadataExtractor.Formats.Riff
         /// <param name="fourCc">the four character code of the chunk</param>
         /// <param name="payload">they payload of the chunk as a byte array</param>
         void ProcessChunk(string fourCc, byte[] payload);
+
+        void AddError(string errorMessage);
     }
 }

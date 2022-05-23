@@ -45,7 +45,7 @@ namespace MetadataExtractor.Tests.Util
             member.GetAllExtensions();
         }
 
-        private static IEnumerable<object[]> FileTypeMembers()
+        public static IEnumerable<object[]> FileTypeMembers()
         {
             return Enum.GetValues(typeof(FileType)).Cast<FileType>().Select(fileType => new object[] { fileType });
         }

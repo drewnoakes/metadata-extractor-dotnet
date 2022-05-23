@@ -32,7 +32,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 SonyType1MakernoteDirectory.TagImageStabilisation => GetImageStabilizationDescription(),
                 //              case SonyType1MakernoteDirectory.TagLensId:
                 //                  // Unfortunately it seems that there is no definite mapping between a lens ID and a lens model
-                //                  // http://gvsoft.homedns.org/exif/makernote-sony-type1.html#0xb027
+                //                  // https://web.archive.org/web/20100406004008/http://gvsoft.homedns.org/exif/makernote-sony-type1.html#0xb027
                 //                  return getLensIDDescription();
                 SonyType1MakernoteDirectory.TagColorMode => GetColorModeDescription(),
                 SonyType1MakernoteDirectory.TagMacro => GetMacroDescription(),

@@ -1,5 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -253,9 +254,16 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagInterlace = 0x8829;
 
+        [Obsolete("Use TagTimeZoneOffset instead.")]
         public const int TagTimeZoneOffsetTiffEp = 0x882A;
 
+        [Obsolete("Use TagSelfTimerMode instead.")]
         public const int TagSelfTimerModeTiffEp = 0x882B;
+
+        /// <summary>Non-standard, but in use.</summary>
+        public const int TagTimeZoneOffset = 0x882A;
+
+        public const int TagSelfTimerMode = 0x882B;
 
         /// <summary>Applies to ISO tag.</summary>
         /// <remarks>
@@ -274,10 +282,11 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagRecommendedExposureIndex = 0x8832;
 
-        /// <summary>Non-standard, but in use.</summary>
-        public const int TagTimeZoneOffset = 0x882A;
+        public const int TagIsoSpeed = 0x8833;
 
-        public const int TagSelfTimerMode = 0x882B;
+        public const int TagIsoSpeedLatitudeYYY = 0x8834;
+
+        public const int TagIsoSpeedLatitudeZZZ = 0x8835;
 
         public const int TagExifVersion = 0x9000;
 
@@ -813,13 +822,14 @@ namespace MetadataExtractor.Formats.Exif
             map[TagIsoEquivalent] = "ISO Speed Ratings";
             map[TagOptoElectricConversionFunction] = "Opto-electric Conversion Function (OECF)";
             map[TagInterlace] = "Interlace";
-            map[TagTimeZoneOffsetTiffEp] = "Time Zone Offset";
-            map[TagSelfTimerModeTiffEp] = "Self Timer Mode";
+            map[TagTimeZoneOffset] = "Time Zone Offset";
+            map[TagSelfTimerMode] = "Self Timer Mode";
             map[TagSensitivityType] = "Sensitivity Type";
             map[TagStandardOutputSensitivity] = "Standard Output Sensitivity";
             map[TagRecommendedExposureIndex] = "Recommended Exposure Index";
-            map[TagTimeZoneOffset] = "Time Zone Offset";
-            map[TagSelfTimerMode] = "Self Timer Mode";
+            map[TagIsoSpeed] = "ISO Speed";
+            map[TagIsoSpeedLatitudeYYY] = "ISO Speed Latitude yyy";
+            map[TagIsoSpeedLatitudeZZZ] = "ISO Speed Latitude zzz";
             map[TagExifVersion] = "Exif Version";
             map[TagDateTimeOriginal] = "Date/Time Original";
             map[TagDateTimeDigitized] = "Date/Time Digitized";

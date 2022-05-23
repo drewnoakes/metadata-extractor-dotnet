@@ -11,6 +11,9 @@ const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagGdalNoData = 42113 -> 
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagGeoTiffGeoAsciiParams = 34737 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagGeoTiffGeoDoubleParams = 34736 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagGeoTiffGeoKeys = 34735 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagIsoSpeed = 34867 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagIsoSpeedLatitudeYYY = 34868 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagIsoSpeedLatitudeZZZ = 34869 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagModelTiePoint = 33922 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagPixelScale = 33550 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagSampleFormat = 339 -> int
@@ -20,6 +23,159 @@ const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagEmissi
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagImageTemperatureMax = 1 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagImageTemperatureMin = 2 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagUnknownTemperature = 4 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAEInfo = 518 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAELock = 72 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAEMeteringSegments = 521 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAFAdjustment = 114 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAFInfo = 543 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAFPointInfo = 581 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAFPointSelected = 14 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAFPointsInFocus = 15 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAFPointsInFocus2 = 60 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagArtist = 558 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAspectRatio = 128 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAutoBracketing = 24 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagAWBInfo = 104 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagBatteryInfo = 534 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagBlackPoint = 512 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagBleachBypassToning = 127 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagBlueBalance = 27 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagBlurControl = 130 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagCameraInfo = 533 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagCameraSettings = 517 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagCameraTemperature = 71 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagClarityControl = 150 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorInfo = 546 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorMatrixA = 515 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorMatrixA2 = 540 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorMatrixB = 516 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorMatrixB2 = 541 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorSpace = 55 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorTempCloudy = 85 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorTempDaylight = 83 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorTemperature = 80 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorTempFlash = 90 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorTempFluorescentD = 87 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorTempFluorescentN = 88 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorTempFluorescentW = 89 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorTempShade = 84 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagColorTempTungsten = 86 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagContrast = 32 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagContrastDetectAFArea = 561 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagContrastHighlight = 109 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagContrastHighlightShadowAdj = 111 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagContrastShadow = 110 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagCopyright = 559 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagCPUFirmwareVersion = 40 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagCrossProcess = 123 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagCrossProcessParams = 565 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagDataDump = 766 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagDataScaling = 61 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagDate = 6 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagDestinationCity = 36 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagDestinationDST = 38 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagDigitalZoom = 30 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagDriveMode = 52 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagDSPFirmwareVersion = 39 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagDynamicRangeExpansion = 105 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagEffectiveLV = 45 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagEVStepInfo = 548 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagExposureCompensation = 22 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagExposureTime = 18 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFaceDetect = 118 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFaceDetectFrameSize = 119 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFaceInfo = 96 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFacePos = 551 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFaceSize = 552 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFilterInfo = 554 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFineSharpness = 112 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFirmwareVersion = 560 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFlashExposureComp = 77 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFlashInfo = 520 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFlashMeteringSegments = 522 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFlashMode = 12 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFNumber = 19 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFocalLength = 29 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFocusMode = 13 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFocusPosition = 16 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagFrameNumber = 41 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagHDR = 133 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagHighISONoiseReduction = 113 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagHighLowKeyAdj = 108 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagHometownCity = 35 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagHometownDST = 37 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagHue = 103 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagHuffmanTable = 544 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagImageAreaOffset = 56 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagImageEditCount = 65 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagImageEditing = 50 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagImageTone = 79 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagIntervalShooting = 146 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagISO = 139 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagIso = 20 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagISOAutoParameters = 122 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagKelvinWB = 545 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagLensCorr = 125 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagLensInfo = 519 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagLensInfoQ = 569 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagLensRec = 63 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagLevelInfo = 555 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagLightReading = 21 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagMeteringMode = 23 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagModel = 575 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagMonochromeFilterEffect = 115 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagMonochromeToning = 116 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagNeutralDensityFilter = 136 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagNoiseReduction = 73 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPentaxImageSize = 9 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPentaxModelId = 5 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPentaxModelType = 1 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPentaxVersion = 0 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPictureMode = 11 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPictureMode2 = 51 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPixelShiftInfo = 579 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPreviewImageBorders = 62 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPreviewImageLength = 3 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPreviewImageSize = 2 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPreviewImageStart = 4 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagPrintIM = 3584 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagQuality = 8 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagRawDevelopmentProcess = 98 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagRawImageSize = 57 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagRedBalance = 28 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagSaturation = 31 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagSaturationInfo = 539 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagSensitivityAdjust = 64 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagSensorSize = 53 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagSerialNumber = 553 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagShadowCorrection = 121 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagShakeReductionInfo = 92 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagSharpness = 33 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagShotInfo = 550 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagShutterCount = 93 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagShutterType = 135 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagSkinToneCorrection = 149 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagSlaveFlashMeteringSegments = 523 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagTempInfo = 1023 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagTime = 7 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagTimeInfo = 107 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagToneCurve = 1026 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagToneCurves = 1027 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagUnknownBlock = 1029 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWBLevels = 557 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWB_RGGBLevelsCloudy = 527 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWB_RGGBLevelsDaylight = 525 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWB_RGGBLevelsFlash = 532 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWB_RGGBLevelsFluorescentD = 529 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWB_RGGBLevelsFluorescentN = 530 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWB_RGGBLevelsFluorescentW = 531 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWB_RGGBLevelsShade = 526 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWB_RGGBLevelsTungsten = 528 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWhiteBalance = 25 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWhiteBalanceMode = 26 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWhiteLevel = 126 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWhitePoint = 513 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.TagWorldTimeLocation = 34 -> int
 const MetadataExtractor.Formats.Flir.FlirCameraInfoDirectory.TagAtmosphericTemperature = 44 -> int
 const MetadataExtractor.Formats.Flir.FlirCameraInfoDirectory.TagAtmosphericTransAlpha1 = 112 -> int
 const MetadataExtractor.Formats.Flir.FlirCameraInfoDirectory.TagAtmosphericTransAlpha2 = 116 -> int
@@ -137,6 +293,7 @@ const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagAn
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagAndroidModel = 36 -> int
 MetadataExtractor.Directory.Directory(System.Collections.Generic.Dictionary<int, string!>? tagNameMap) -> void
 MetadataExtractor.Directory.RemoveTag(int tagId) -> void
+MetadataExtractor.Formats.Avi.AviRiffHandler.AddError(string! errorMessage) -> void
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetExtraSamplesDescription() -> string?
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetSampleFormatDescription() -> string?
 MetadataExtractor.Formats.Exif.ExifDirectoryBase.ExifDirectoryBase(System.Collections.Generic.Dictionary<int, string!>! tagNameMap) -> void
@@ -146,6 +303,10 @@ MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDescriptor
 MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDescriptor.FlirMakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory! directory) -> void
 MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory
 MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.FlirMakernoteDirectory() -> void
+MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDescriptor
+MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDescriptor.PentaxType2MakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory! directory) -> void
+MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory
+MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.PentaxType2MakernoteDirectory() -> void
 MetadataExtractor.Formats.Flir.FlirCameraInfoDescriptor
 MetadataExtractor.Formats.Flir.FlirCameraInfoDescriptor.FlirCameraInfoDescriptor(MetadataExtractor.Formats.Flir.FlirCameraInfoDirectory! directory) -> void
 MetadataExtractor.Formats.Flir.FlirCameraInfoDirectory
@@ -184,6 +345,8 @@ MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetArtworkDescription() -> string?
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.GetLocationRoleDescription() -> string?
 MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDescriptor.QuickTimeMetadataHeaderDescriptor(MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory! directory) -> void
+MetadataExtractor.Formats.Riff.IRiffHandler.AddError(string! errorMessage) -> void
+MetadataExtractor.Formats.Riff.RiffHandler.AddError(string! errorMessage) -> void
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.Kind.get -> object?
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetInt64S(int tagId, long int64S) -> void
 MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.SetInt64SArray(int tagId, long[]! array) -> void
@@ -218,6 +381,7 @@ MetadataExtractor.Formats.Tiff.TiffReaderContext.WithShiftedBaseOffset(int baseO
 MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.Tiff.TiffStandard.BigTiff = 1 -> MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.Tiff.TiffStandard.Tiff = 0 -> MetadataExtractor.Formats.Tiff.TiffStandard
+MetadataExtractor.Formats.WebP.WebPRiffHandler.AddError(string! errorMessage) -> void
 MetadataExtractor.IO.IndexedReader.GetUInt64(int index) -> ulong
 MetadataExtractor.Rational.Absolute.get -> MetadataExtractor.Rational
 MetadataExtractor.Rational.IsPositive.get -> bool
@@ -247,6 +411,7 @@ override MetadataExtractor.Formats.Exif.ExifTiffHandler.EndingIfd(in MetadataExt
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.ProcessTiffMarker(ushort marker) -> MetadataExtractor.Formats.Tiff.TiffStandard
 override MetadataExtractor.Formats.Exif.ExifTiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount) -> bool
 override MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.Name.get -> string!
+override MetadataExtractor.Formats.Exif.Makernotes.PentaxType2MakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Flir.FlirCameraInfoDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Flir.FlirCameraInfoDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Flir.FlirHeaderDirectory.Name.get -> string!
