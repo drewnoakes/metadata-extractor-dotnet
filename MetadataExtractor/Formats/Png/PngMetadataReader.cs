@@ -384,7 +384,8 @@ namespace MetadataExtractor.Formats.Png
                         yield return ReadTextDirectory(keyword, textBytes, chunkType);
                     }
                 }
-                else if (keyword == "Raw profile type exif")
+                else if ((keyword == "Raw profile type exif") ||
+                         (keyword == "Raw profile type EXIF"))
                 {
                     if (TryProcessRawProfile(out _))
                     {
