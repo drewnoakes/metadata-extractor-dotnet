@@ -582,7 +582,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetCameraTypeDescription()
         {
             var cameratype = Directory.GetString(OlympusMakernoteDirectory.TagCameraType);
-            if (cameratype == null)
+            if (cameratype is null)
                 return null;
 
             if (OlympusMakernoteDirectory.OlympusCameraTypes.TryGetValue(cameratype, out var mapped))
@@ -594,7 +594,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetCameraIdDescription()
         {
             var bytes = Directory.GetByteArray(OlympusMakernoteDirectory.TagCameraId);
-            if (bytes == null)
+            if (bytes is null)
                 return null;
 
             return Encoding.UTF8.GetString(bytes, 0, bytes.Length);

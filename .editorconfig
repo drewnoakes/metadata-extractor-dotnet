@@ -232,3 +232,5 @@ dotnet_diagnostic.CA1825.severity = none                          # Avoid unnece
 
 # TODO review these
 dotnet_diagnostic.CA2000.severity = suggestion                    # Dispose disposables
+
+dotnet_diagnostic.CSIsNull001.severity = warning

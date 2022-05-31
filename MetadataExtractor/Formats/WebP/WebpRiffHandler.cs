@@ -101,7 +101,7 @@ namespace MetadataExtractor.Formats.WebP
                     }
 
                     var directory = new WebPDirectory();
-                    if (error == null)
+                    if (error is null)
                     {
                         directory.Set(WebPDirectory.TagImageWidth, widthMinusOne + 1);
                         directory.Set(WebPDirectory.TagImageHeight, heightMinusOne + 1);
@@ -145,7 +145,7 @@ namespace MetadataExtractor.Formats.WebP
                     }
 
                     var directory = new WebPDirectory();
-                    if (error == null)
+                    if (error is null)
                     {
                         directory.Set(WebPDirectory.TagImageWidth, widthMinusOne + 1);
                         directory.Set(WebPDirectory.TagImageHeight, heightMinusOne + 1);
@@ -184,7 +184,7 @@ namespace MetadataExtractor.Formats.WebP
                     }
 
                     var directory = new WebPDirectory();
-                    if (error == null)
+                    if (error is null)
                     {
                         directory.Set(WebPDirectory.TagImageWidth, width);
                         directory.Set(WebPDirectory.TagImageHeight, height);

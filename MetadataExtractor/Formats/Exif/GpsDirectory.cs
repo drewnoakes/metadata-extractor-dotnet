@@ -167,11 +167,11 @@ namespace MetadataExtractor.Formats.Exif
             var longitudeRef = this.GetString(TagLongitudeRef);
 
             // Make sure we have the required values
-            if (latitudes == null || latitudes.Length != 3)
+            if (latitudes is null || latitudes.Length != 3)
                 return null;
-            if (longitudes == null || longitudes.Length != 3)
+            if (longitudes is null || longitudes.Length != 3)
                 return null;
-            if (latitudeRef == null || longitudeRef == null)
+            if (latitudeRef is null || longitudeRef is null)
                 return null;
 
 #pragma warning disable format
@@ -197,7 +197,7 @@ namespace MetadataExtractor.Formats.Exif
 
             var timeComponents = this.GetRationalArray(TagTimeStamp);
 
-            if (timeComponents == null || timeComponents.Length != 3)
+            if (timeComponents is null || timeComponents.Length != 3)
                 return false;
 
             date = date

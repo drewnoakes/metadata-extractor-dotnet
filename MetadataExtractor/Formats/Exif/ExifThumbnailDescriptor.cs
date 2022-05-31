@@ -29,13 +29,13 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetThumbnailLengthDescription()
         {
             var value = Directory.GetString(ExifThumbnailDirectory.TagThumbnailLength);
-            return value == null ? null : value + " bytes";
+            return value is null ? null : value + " bytes";
         }
 
         public string? GetThumbnailOffsetDescription()
         {
             var value = Directory.GetString(ExifThumbnailDirectory.TagThumbnailOffset);
-            return value == null ? null : value + " bytes";
+            return value is null ? null : value + " bytes";
         }
     }
 }

@@ -91,7 +91,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                                 var prop = (IXmpPropertyInfo)iterator.Next();
                                 var path = prop.Path;
 
-                                if (path == null)
+                                if (path is null)
                                     continue;
 
                                 var ns = prop.Namespace ?? "";

@@ -153,7 +153,7 @@ namespace MetadataExtractor.Formats.Iptc
                 {
                     var bytes = reader.GetBytes(tagByteCount);
                     var charset = Iso2022Converter.ConvertEscapeSequenceToEncodingName(bytes);
-                    if (charset == null)
+                    if (charset is null)
                     {
                         // Unable to determine the charset, so fall through and treat tag as a regular string
                         charset = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
@@ -218,7 +218,7 @@ namespace MetadataExtractor.Formats.Iptc
                 var oldStrings = directory.GetStringValueArray(tagIdentifier);
 
                 StringValue[] newStrings;
-                if (oldStrings == null)
+                if (oldStrings is null)
                 {
                     // TODO hitting this block means any prior value(s) are discarded
                     newStrings = new StringValue[1];

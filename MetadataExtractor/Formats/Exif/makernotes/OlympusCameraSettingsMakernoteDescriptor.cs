@@ -156,7 +156,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetFocusModeDescription()
         {
             var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagFocusMode) as ushort[];
-            if (values == null)
+            if (values is null)
             {
                 // check if it's only one value long also
                 if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFocusMode, out int value))
@@ -226,7 +226,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetFocusProcessDescription()
         {
             var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagFocusProcess) as ushort[];
-            if (values == null)
+            if (values is null)
             {
                 // check if it's only one value long also
                 if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFocusProcess, out int value))
@@ -688,7 +688,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetPictureModeDescription()
         {
             var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagPictureMode) as ushort[];
-            if (values == null)
+            if (values is null)
             {
                 // check if it's only one value long also
                 if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagPictureMode, out int value))

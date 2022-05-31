@@ -18,7 +18,7 @@ namespace MetadataExtractor.IO
         public IndexedSeekingReader(Stream stream, int baseOffset = 0, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
         {
-            if (stream == null)
+            if (stream is null)
                 throw new ArgumentNullException(nameof(stream));
             if (!stream.CanSeek)
                 throw new ArgumentException("Must be capable of seeking.", nameof(stream));

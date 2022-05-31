@@ -58,7 +58,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             // e.g., 2011:04:25 01:54:58
 
             var o = Directory.GetByteArray(NikonType2MakernoteDirectory.TagPowerUpTime);
-            if (o == null)
+            if (o is null)
                 return null;
 
             ushort year = ByteConvert.FromBigEndianToNative(BitConverter.ToUInt16(o, 0));
@@ -140,7 +140,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetAutoFocusPositionDescription()
         {
             var values = Directory.GetInt32Array(NikonType2MakernoteDirectory.TagAfFocusPosition);
-            if (values == null)
+            if (values is null)
                 return null;
 
             if (values.Length != 4 || values[0] != 0 || values[2] != 0 || values[3] != 0)
@@ -205,7 +205,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         private string? GetEvDescription(int tagType)
         {
             var values = Directory.GetInt32Array(tagType);
-            if (values == null || values.Length < 3 || values[2] == 0)
+            if (values is null || values.Length < 3 || values[2] == 0)
                 return null;
             return $"{(sbyte)values[0] * (sbyte)values[1] / (double)(sbyte)values[2]:0.##} EV";
         }
@@ -213,7 +213,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetIsoSettingDescription()
         {
             var values = Directory.GetInt32Array(NikonType2MakernoteDirectory.TagIso1);
-            if (values == null || values.Length < 2)
+            if (values is null || values.Length < 2)
                 return null;
             if (values[0] != 0 || values[1] == 0)
                 return "Unknown (" + Directory.GetString(NikonType2MakernoteDirectory.TagIso1) + ")";
@@ -233,7 +233,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetColorModeDescription()
         {
             var value = Directory.GetString(NikonType2MakernoteDirectory.TagCameraColorMode);
-            return value == null ? null : value.StartsWith("MODE1") ? "Mode I (sRGB)" : value;
+            return value is null ? null : value.StartsWith("MODE1") ? "Mode I (sRGB)" : value;
         }
 
         public string? GetFirmwareVersionDescription()

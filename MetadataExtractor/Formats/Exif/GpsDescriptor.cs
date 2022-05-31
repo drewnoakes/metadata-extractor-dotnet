@@ -82,20 +82,20 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetGpsLatitudeDescription()
         {
             var location = Directory.GetGeoLocation();
-            return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.Latitude);
+            return location is null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.Latitude);
         }
 
         public string? GetGpsLongitudeDescription()
         {
             var location = Directory.GetGeoLocation();
-            return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.Longitude);
+            return location is null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.Longitude);
         }
 
         public string? GetGpsTimeStampDescription()
         {
             // time in hour, min, sec
             var timeComponents = Directory.GetRationalArray(GpsDirectory.TagTimeStamp);
-            return timeComponents == null
+            return timeComponents is null
                 ? null
                 : $"{timeComponents[0].ToInt32():D2}:{timeComponents[1].ToInt32():D2}:{timeComponents[2].ToDouble():00.000} UTC";
         }
@@ -115,7 +115,7 @@ namespace MetadataExtractor.Formats.Exif
             var values = Directory.GetRationalArray(tagValue);
             var @ref = Directory.GetString(tagRef);
 
-            if (values == null || values.Length != 3 || @ref == null)
+            if (values is null || values.Length != 3 || @ref is null)
                 return null;
 
             var dec = GeoLocation.DegreesMinutesSecondsToDecimal(
@@ -127,7 +127,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetGpsDestinationReferenceDescription()
         {
             var value = Directory.GetString(GpsDirectory.TagDestDistanceRef);
-            if (value == null)
+            if (value is null)
                 return null;
 
             return (value.Trim().ToUpper()) switch
@@ -146,7 +146,7 @@ namespace MetadataExtractor.Formats.Exif
                 return null;
 
             var unit = GetGpsDestinationReferenceDescription();
-            return string.Format("{0} {1}", value.ToDouble().ToString("0.##"), unit == null ? "unit" : unit.ToLower());
+            return string.Format("{0} {1}", value.ToDouble().ToString("0.##"), unit is null ? "unit" : unit.ToLower());
         }
 
         public string? GetGpsDirectionDescription(int tagType)
@@ -160,7 +160,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetGpsDirectionReferenceDescription(int tagType)
         {
             var value = Directory.GetString(tagType);
-            if (value == null)
+            if (value is null)
                 return null;
 
             return (value.Trim().ToUpper()) switch
@@ -182,7 +182,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetGpsSpeedRefDescription()
         {
             var value = Directory.GetString(GpsDirectory.TagSpeedRef);
-            if (value == null)
+            if (value is null)
                 return null;
 
             return (value.Trim().ToUpper()) switch
@@ -201,13 +201,13 @@ namespace MetadataExtractor.Formats.Exif
                 return null;
 
             var unit = GetGpsSpeedRefDescription();
-            return string.Format("{0} {1}", value.ToDouble().ToString("0.##"), unit == null ? "unit" : unit.ToLower());
+            return string.Format("{0} {1}", value.ToDouble().ToString("0.##"), unit is null ? "unit" : unit.ToLower());
         }
 
         public string? GetGpsMeasureModeDescription()
         {
             var value = Directory.GetString(GpsDirectory.TagMeasureMode);
-            if (value == null)
+            if (value is null)
                 return null;
 
             return (value.Trim()) switch
@@ -222,7 +222,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetGpsStatusDescription()
         {
             var value = Directory.GetString(GpsDirectory.TagStatus);
-            if (value == null)
+            if (value is null)
                 return null;
 
             return (value.Trim().ToUpper()) switch

@@ -117,7 +117,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetInteropIndexDescription()
         {
             var value = Directory.GetString(TagInteropIndex);
-            if (value == null)
+            if (value is null)
                 return null;
             return string.Equals("R98", value.Trim(), StringComparison.OrdinalIgnoreCase)
                 ? "Recommended Exif Interoperability Rules (ExifR98)"
@@ -127,7 +127,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetReferenceBlackWhiteDescription()
         {
             var ints = Directory.GetInt32Array(TagReferenceBlackWhite);
-            if (ints == null || ints.Length < 6)
+            if (ints is null || ints.Length < 6)
                 return null;
             var blackR = ints[0];
             var whiteR = ints[1];
@@ -141,7 +141,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetYResolutionDescription()
         {
             var resolution = GetRationalOrDoubleString(TagYResolution);
-            if (resolution == null)
+            if (resolution is null)
                 return null;
             var unit = GetResolutionDescription();
             return $"{resolution} dots per {unit?.ToLower() ?? "unit"}";
@@ -150,7 +150,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetXResolutionDescription()
         {
             var resolution = GetRationalOrDoubleString(TagXResolution);
-            if (resolution == null)
+            if (resolution is null)
                 return null;
             var unit = GetResolutionDescription();
             return $"{resolution} dots per {unit?.ToLower() ?? "unit"}";
@@ -181,7 +181,7 @@ namespace MetadataExtractor.Formats.Exif
         private string? GetUnicodeDescription(int tag)
         {
             var bytes = Directory.GetByteArray(tag);
-            if (bytes == null)
+            if (bytes is null)
                 return null;
             try
             {
@@ -222,7 +222,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetYCbCrSubsamplingDescription()
         {
             var positions = Directory.GetInt32Array(TagYCbCrSubsampling);
-            if (positions == null || positions.Length < 2)
+            if (positions is null || positions.Length < 2)
                 return null;
             if (positions[0] == 2 && positions[1] == 1)
                 return "YCbCr4:2:2";
@@ -243,19 +243,19 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetSamplesPerPixelDescription()
         {
             var value = Directory.GetString(TagSamplesPerPixel);
-            return value == null ? null : value + " samples/pixel";
+            return value is null ? null : value + " samples/pixel";
         }
 
         public string? GetRowsPerStripDescription()
         {
             var value = Directory.GetString(TagRowsPerStrip);
-            return value == null ? null : value + " rows/strip";
+            return value is null ? null : value + " rows/strip";
         }
 
         public string? GetStripByteCountsDescription()
         {
             var value = Directory.GetString(TagStripByteCounts);
-            return value == null ? null : value + " bytes";
+            return value is null ? null : value + " bytes";
         }
 
         public string? GetPhotometricInterpretationDescription()
@@ -287,19 +287,19 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetBitsPerSampleDescription()
         {
             var value = Directory.GetString(TagBitsPerSample);
-            return value == null ? null : value + " bits/component/pixel";
+            return value is null ? null : value + " bits/component/pixel";
         }
 
         public string? GetImageWidthDescription()
         {
             var value = Directory.GetString(TagImageWidth);
-            return value == null ? null : value + " pixels";
+            return value is null ? null : value + " pixels";
         }
 
         public string? GetImageHeightDescription()
         {
             var value = Directory.GetString(TagImageHeight);
-            return value == null ? null : value + " pixels";
+            return value is null ? null : value + " pixels";
         }
 
         public string? GetNewSubfileTypeDescription()
@@ -506,7 +506,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetCfaPattern2Description()
         {
             var values = Directory.GetByteArray(TagCfaPattern2);
-            if (values == null)
+            if (values is null)
                 return null;
 
             if (Directory.GetObject(TagCfaRepeatPatternDim) is not ushort[] repeatPattern)
@@ -528,7 +528,7 @@ namespace MetadataExtractor.Formats.Exif
 
         private static string? FormatCfaPattern(int[]? pattern)
         {
-            if (pattern == null)
+            if (pattern is null)
                 return null;
             if (pattern.Length < 2)
                 return "<truncated data>";
@@ -577,7 +577,7 @@ namespace MetadataExtractor.Formats.Exif
             int[] ret;
 
             var values = Directory.GetByteArray(tagType);
-            if (values == null)
+            if (values is null)
                 return null;
 
             if (values.Length < 4)
@@ -681,7 +681,7 @@ namespace MetadataExtractor.Formats.Exif
             if (!Directory.TryGetRational(TagFocalPlaneXResolution, out Rational value))
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
-            return value.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
+            return value.Reciprocal.ToSimpleString() + (unit is null ? string.Empty : " " + unit.ToLower());
         }
 
         public string? GetFocalPlaneYResolutionDescription()
@@ -689,7 +689,7 @@ namespace MetadataExtractor.Formats.Exif
             if (!Directory.TryGetRational(TagFocalPlaneYResolution, out Rational value))
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
-            return value.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
+            return value.Reciprocal.ToSimpleString() + (unit is null ? string.Empty : " " + unit.ToLower());
         }
 
         public string? GetFocalPlaneResolutionUnitDescription()
@@ -897,7 +897,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetExposureTimeDescription()
         {
             var value = Directory.GetString(TagExposureTime);
-            return value == null ? null : value + " sec";
+            return value is null ? null : value + " sec";
         }
 
         public string? GetShutterSpeedDescription()
@@ -931,7 +931,7 @@ namespace MetadataExtractor.Formats.Exif
         public string? GetComponentConfigurationDescription()
         {
             var components = Directory.GetInt32Array(TagComponentsConfiguration);
-            if (components == null)
+            if (components is null)
                 return null;
             var componentStrings = new[] { string.Empty, "Y", "Cb", "Cr", "R", "G", "B" };
             var componentConfig = new StringBuilder();

@@ -24,7 +24,7 @@ namespace MetadataExtractor.Formats.QuickTime
         {
             var values = Directory.GetStringArray(QuickTimeFileTypeDirectory.TagCompatibleBrands);
 
-            if (values == null || values.Length == 0)
+            if (values is null || values.Length == 0)
                 return null;
 
             var sb = new StringBuilder();

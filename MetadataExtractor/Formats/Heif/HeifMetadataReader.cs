@@ -88,7 +88,7 @@ namespace MetadataExtractor.Formats.Heif
                     .SelectMany(i => i.FromItemId == primaryItem && i.Type == BoxTypes.DimgTag ? i.ToItemIds : new uint[0])
                     .ToArray();
                 var itemPropertyBox = boxes.Descendant<ItemPropertyBox>();
-                if (itemPropertyBox == null)
+                if (itemPropertyBox is null)
                     return;
                 var props = itemPropertyBox.Boxes.Descendant<ItemPropertyContainerBox>()?.Boxes;
                 var associations = itemPropertyBox.Boxes.Descendant<ItemPropertyAssociationBox>();

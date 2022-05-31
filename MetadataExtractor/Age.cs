@@ -20,7 +20,7 @@ namespace MetadataExtractor
         /// <returns>The parsed Age object, or null if the value could not be parsed</returns>
         public static Age? FromPanasonicString(string s)
         {
-            if (s == null)
+            if (s is null)
                 throw new ArgumentNullException(nameof(s));
 
             if (s.Length != 19 || s.StartsWith("9999:99:99"))

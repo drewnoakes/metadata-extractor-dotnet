@@ -129,7 +129,7 @@ namespace MetadataExtractor.Samples
                 // obtain the Exif SubIFD directory
                 var directory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
 
-                if (directory == null)
+                if (directory is null)
                     return null;
 
                 // query the tag's value
@@ -144,7 +144,7 @@ namespace MetadataExtractor.Samples
                 // obtain a specific directory
                 var directory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
 
-                if (directory == null)
+                if (directory is null)
                     return null;
 
                 // create a descriptor

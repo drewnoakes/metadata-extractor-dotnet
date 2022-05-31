@@ -135,7 +135,7 @@ namespace MetadataExtractor.Formats.Photoshop
                         case PhotoshopDirectory.TagExifData1:
                         case PhotoshopDirectory.TagExifData3:
                             var exifDirectories = new ExifReader().Extract(new ByteArrayReader(tagBytes));
-                            foreach (var exifDirectory in exifDirectories.Where(d => d.Parent == null))
+                            foreach (var exifDirectory in exifDirectories.Where(d => d.Parent is null))
                                 exifDirectory.Parent = directory;
                             directories.AddRange(exifDirectories);
                             break;

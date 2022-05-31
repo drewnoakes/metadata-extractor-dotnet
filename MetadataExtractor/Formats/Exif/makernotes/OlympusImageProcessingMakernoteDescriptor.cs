@@ -96,7 +96,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetMultipleExposureModeDescription()
         {
             var values = Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagMultipleExposureMode) as ushort[];
-            if (values == null)
+            if (values is null)
             {
                 // check if it's only one value long also
                 if (!Directory.TryGetInt32(OlympusImageProcessingMakernoteDirectory.TagMultipleExposureMode, out int value))

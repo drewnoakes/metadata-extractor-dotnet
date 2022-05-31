@@ -70,7 +70,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                     }
                 }
 
-                if (Makernote == null)
+                if (Makernote is null)
                     Makernote = hasMakernoteData ? "(Unknown)" : "N/A";
             }
         }

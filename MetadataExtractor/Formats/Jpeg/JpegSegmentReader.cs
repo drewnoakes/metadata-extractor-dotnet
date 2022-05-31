@@ -108,7 +108,7 @@ namespace MetadataExtractor.Formats.Jpeg
                     throw new JpegProcessingException("JPEG segment size would be less than zero");
 
                 // Check whether we are interested in this segment
-                if (segmentTypes == null || segmentTypes.Contains(segmentType))
+                if (segmentTypes is null || segmentTypes.Contains(segmentType))
                 {
                     var segmentOffset = reader.Position;
                     var segmentBytes = reader.GetBytes(segmentLength);

@@ -28,7 +28,7 @@ namespace MetadataExtractor.Formats.Jpeg
         {
             var value = Directory.GetString(JpegDnlDirectory.TagImageHeight);
 
-            return value == null ? null : value + " pixels";
+            return value is null ? null : value + " pixels";
         }
     }
 }

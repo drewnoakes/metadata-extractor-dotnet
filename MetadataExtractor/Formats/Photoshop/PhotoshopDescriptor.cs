@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.Photoshop
             {
                 var b = Directory.GetByteArray(PhotoshopDirectory.TagJpegQuality);
 
-                if (b == null)
+                if (b is null)
                     return Directory.GetString(PhotoshopDirectory.TagJpegQuality);
 
                 var reader = new ByteArrayReader(b);
@@ -131,7 +131,7 @@ namespace MetadataExtractor.Formats.Photoshop
             {
                 var bytes = Directory.GetByteArray(PhotoshopDirectory.TagPixelAspectRatio);
 
-                if (bytes == null)
+                if (bytes is null)
                     return null;
 
                 var reader = new ByteArrayReader(bytes);
@@ -150,7 +150,7 @@ namespace MetadataExtractor.Formats.Photoshop
             {
                 var bytes = Directory.GetByteArray(PhotoshopDirectory.TagPrintScale);
 
-                if (bytes == null)
+                if (bytes is null)
                     return null;
 
                 var reader = new ByteArrayReader(bytes);
@@ -179,7 +179,7 @@ namespace MetadataExtractor.Formats.Photoshop
             {
                 var bytes = Directory.GetByteArray(PhotoshopDirectory.TagResolutionInfo);
 
-                if (bytes == null)
+                if (bytes is null)
                     return null;
 
                 var reader = new ByteArrayReader(bytes);
@@ -202,7 +202,7 @@ namespace MetadataExtractor.Formats.Photoshop
             {
                 var bytes = Directory.GetByteArray(PhotoshopDirectory.TagVersion);
 
-                if (bytes == null)
+                if (bytes is null)
                     return null;
 
                 var reader = new ByteArrayReader(bytes);
@@ -235,7 +235,7 @@ namespace MetadataExtractor.Formats.Photoshop
             {
                 var bytes = Directory.GetByteArray(PhotoshopDirectory.TagSlices);
 
-                if (bytes == null)
+                if (bytes is null)
                     return null;
 
                 var reader = new ByteArrayReader(bytes);
@@ -258,7 +258,7 @@ namespace MetadataExtractor.Formats.Photoshop
             {
                 var v = Directory.GetByteArray(tagType);
 
-                if (v == null)
+                if (v is null)
                     return null;
 
                 var reader = new ByteArrayReader(v);
@@ -283,7 +283,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             var bytes = Directory.GetByteArray(tag);
 
-            if (bytes == null || bytes.Length == 0)
+            if (bytes is null || bytes.Length == 0)
                 return null;
 
             return bytes[0] == 0 ? "No" : "Yes";
@@ -293,7 +293,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             var bytes = Directory.GetByteArray(tag);
 
-            if (bytes == null)
+            if (bytes is null)
                 return null;
 
             var reader = new ByteArrayReader(bytes);
@@ -312,7 +312,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             var bytes = Directory.GetByteArray(tagType);
 
-            return bytes == null
+            return bytes is null
                 ? null
                 : Encoding.UTF8.GetString(bytes, 0, bytes.Length);
         }
@@ -321,7 +321,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             var bytes = Directory.GetByteArray(tagType);
 
-            return bytes == null
+            return bytes is null
                 ? null
                 : $"{bytes.Length} bytes binary data";
         }
@@ -331,7 +331,7 @@ namespace MetadataExtractor.Formats.Photoshop
             try
             {
                 var bytes = Directory.GetByteArray(tagType);
-                if (bytes == null)
+                if (bytes is null)
                     return null;
                 var reader = new ByteArrayReader(bytes);
                 int length = reader.GetByte(0);
@@ -348,7 +348,7 @@ namespace MetadataExtractor.Formats.Photoshop
             try
             {
                 var bytes = Directory.GetByteArray(tagType);
-                if (bytes == null)
+                if (bytes is null)
                     return null;
                 var reader = new ByteArrayReader(bytes);
                 int length = (int)(reader.Length - reader.GetByte((int)reader.Length - 1) - 1) / 26;

@@ -59,28 +59,28 @@ namespace MetadataExtractor.Formats.Jpeg
         {
             var value = Directory.GetString(JpegDirectory.TagImageWidth);
 
-            return value == null ? null : value + " pixels";
+            return value is null ? null : value + " pixels";
         }
 
         public string? GetImageHeightDescription()
         {
             var value = Directory.GetString(JpegDirectory.TagImageHeight);
 
-            return value == null ? null : value + " pixels";
+            return value is null ? null : value + " pixels";
         }
 
         public string? GetDataPrecisionDescription()
         {
             var value = Directory.GetString(JpegDirectory.TagDataPrecision);
 
-            return value == null ? null : value + " bits";
+            return value is null ? null : value + " bits";
         }
 
         public string? GetComponentDataDescription(int componentNumber)
         {
             var value = Directory.GetComponent(componentNumber);
 
-            if (value == null)
+            if (value is null)
                 return null;
 
             return $"{value.Name} component: {value}";

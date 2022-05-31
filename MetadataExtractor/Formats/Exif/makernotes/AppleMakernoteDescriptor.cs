@@ -36,7 +36,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetAccelerationVectorDescription()
         {
             var values = Directory.GetRationalArray(TagAccelerationVector);
-            if (values == null || values.Length != 3)
+            if (values is null || values.Length != 3)
                 return null;
             return $"{values[0].Absolute.ToDouble():N2}g {(values[0].IsPositive ? "left" : "right")}, " +
                    $"{values[1].Absolute.ToDouble():N2}g {(values[1].IsPositive ? "down" : "up")}, " +

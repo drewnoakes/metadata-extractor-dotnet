@@ -97,7 +97,7 @@ namespace MetadataExtractor.Formats.Png
         public string? GetBackgroundColorDescription()
         {
             var bytes = Directory.GetByteArray(PngDirectory.TagBackgroundColor);
-            if (bytes == null)
+            if (bytes is null)
                 return null;
 
             var reader = new SequentialByteArrayReader(bytes);

@@ -137,7 +137,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetCasioPreviewThumbnailDescription()
         {
             var bytes = Directory.GetByteArray(CasioType2MakernoteDirectory.TagPreviewThumbnail);
-            if (bytes == null)
+            if (bytes is null)
                 return null;
 
             return "<" + bytes.Length + " bytes of image data>";
@@ -229,7 +229,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetThumbnailDimensionsDescription()
         {
             var dimensions = Directory.GetInt32Array(CasioType2MakernoteDirectory.TagThumbnailDimensions);
-            if (dimensions == null || dimensions.Length != 2)
+            if (dimensions is null || dimensions.Length != 2)
                 return Directory.GetString(CasioType2MakernoteDirectory.TagThumbnailDimensions);
             return dimensions[0] + " x " + dimensions[1] + " pixels";
         }

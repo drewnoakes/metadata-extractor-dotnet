@@ -27,6 +27,8 @@
 
     <!-- This avoids needing to have .NET targeting packs installed (e.g. for .NET 3.5) -->
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
+
+    <PackageReference Include="CSharpIsNullAnalyzer" Version="0.1.300" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

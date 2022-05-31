@@ -185,7 +185,7 @@ namespace MetadataExtractor.Formats.Tiff
                     var format = TiffDataFormat.FromTiffFormatCode(formatCode, context.IsBigTiff);
 
                     ulong byteCount;
-                    if (format == null)
+                    if (format is null)
                     {
                         if (!handler.TryCustomProcessFormat(tagId, formatCode, componentCount, out byteCount))
                         {

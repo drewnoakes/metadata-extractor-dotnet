@@ -39,7 +39,7 @@ namespace MetadataExtractor
         public virtual string? GetDescription(int tagType)
         {
             var obj = Directory.GetObject(tagType);
-            if (obj == null)
+            if (obj is null)
                 return null;
 
             // special presentation for long arrays
@@ -67,7 +67,7 @@ namespace MetadataExtractor
         [Pure]
         public static string? ConvertBytesToVersionString(int[]? components, int majorDigits)
         {
-            if (components == null)
+            if (components is null)
                 return null;
 
             var version = new StringBuilder();
@@ -94,7 +94,7 @@ namespace MetadataExtractor
         protected string? GetVersionBytesDescription(int tagType, int majorDigits)
         {
             var values = Directory.GetInt32Array(tagType);
-            return values == null ? null : ConvertBytesToVersionString(values, majorDigits);
+            return values is null ? null : ConvertBytesToVersionString(values, majorDigits);
         }
 
         [Pure]
@@ -136,7 +136,7 @@ namespace MetadataExtractor
         protected string? GetByteLengthDescription(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);
-            if (bytes == null)
+            if (bytes is null)
                 return null;
             return $"({bytes.Length} byte{(bytes.Length == 1 ? string.Empty : "s")})";
         }
@@ -169,7 +169,7 @@ namespace MetadataExtractor
         protected string? GetFormattedString(int tagType, string format)
         {
             var value = Directory.GetString(tagType);
-            if (value == null)
+            if (value is null)
                 return null;
             return string.Format(format, value);
         }
@@ -220,7 +220,7 @@ namespace MetadataExtractor
         protected string? GetStringFrom7BitBytes(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);
-            if (bytes == null)
+            if (bytes is null)
                 return null;
             var length = bytes.Length;
             for (var index = 0; index < bytes.Length; index++)
@@ -239,7 +239,7 @@ namespace MetadataExtractor
         protected string? GetStringFromUtf8Bytes(int tag)
         {
             var values = Directory.GetByteArray(tag);
-            if (values == null)
+            if (values is null)
                 return null;
 
             try
@@ -277,7 +277,7 @@ namespace MetadataExtractor
         {
             var values = Directory.GetRationalArray(tagId);
 
-            if (values == null || values.Length != 4 || values[0].IsZero && values[2].IsZero)
+            if (values is null || values.Length != 4 || values[0].IsZero && values[2].IsZero)
                 return null;
 
             var sb = new StringBuilder();
@@ -355,7 +355,7 @@ namespace MetadataExtractor
         {
             var commentBytes = Directory.GetByteArray(tagType);
 
-            if (commentBytes == null)
+            if (commentBytes is null)
                 return null;
 
             if (commentBytes.Length == 0)

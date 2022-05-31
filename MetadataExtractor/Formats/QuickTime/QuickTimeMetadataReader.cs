@@ -39,7 +39,7 @@ namespace MetadataExtractor.Formats.QuickTime
 
             QuickTimeMetadataHeaderDirectory GetMetaHeaderDirectory()
             {
-                if (metaHeaderDirectory == null)
+                if (metaHeaderDirectory is null)
                 {
                     metaHeaderDirectory = new QuickTimeMetadataHeaderDirectory();
                     directories.Add(metaHeaderDirectory);

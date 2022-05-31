@@ -77,7 +77,7 @@ namespace MetadataExtractor.Formats.Netpbm
             while (true)
             {
                 var line = reader.ReadLine();
-                if (line == null)
+                if (line is null)
                     yield break;
 
                 var commentFromIndex = line.IndexOf('#');

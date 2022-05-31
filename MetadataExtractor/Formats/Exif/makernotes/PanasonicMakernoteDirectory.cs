@@ -579,7 +579,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         private static IEnumerable<Face> ParseFaces(byte[]? bytes, int firstRecordOffset, int posOffset, int recordLength)
         {
-            if (bytes == null)
+            if (bytes is null)
                 yield break;
 
             var reader = new ByteArrayReader(bytes, isMotorolaByteOrder: false);
@@ -609,7 +609,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public Age? GetAge(int tag)
         {
             var ageString = this.GetString(tag);
-            return ageString == null ? null : Age.FromPanasonicString(ageString);
+            return ageString is null ? null : Age.FromPanasonicString(ageString);
         }
     }
 }

@@ -321,7 +321,7 @@ namespace MetadataExtractor
 
             public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
             {
-                if (value == null)
+                if (value is null)
                     return base.ConvertFrom(context, culture, null);
 
                 var type = value.GetType();

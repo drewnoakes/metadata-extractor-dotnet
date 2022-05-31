@@ -73,7 +73,7 @@ namespace MetadataExtractor.Formats.Png
                 if (chunkDataLength < 0)
                     throw new PngProcessingException("PNG chunk length exceeds maximum");
                 var chunkType = new PngChunkType(reader.GetBytes(4));
-                var willStoreChunk = desiredChunkTypes == null || desiredChunkTypes.Contains(chunkType);
+                var willStoreChunk = desiredChunkTypes is null || desiredChunkTypes.Contains(chunkType);
 
                 byte[]? chunkData;
                 if (willStoreChunk)

@@ -123,7 +123,7 @@ namespace MetadataExtractor.Formats.Bmp
             }
             catch (IOException)
             {
-                if (directory == null)
+                if (directory is null)
                     AddError("Unable to read BMP file header", directories);
                 else
                     directory.AddError("Unable to read BMP file header");
@@ -393,7 +393,7 @@ namespace MetadataExtractor.Formats.Bmp
         private static void AddError(string errorMessage, List<Directory> directories)
         {
             ErrorDirectory? directory = directories.OfType<ErrorDirectory>().FirstOrDefault();
-            if (directory == null)
+            if (directory is null)
                 directories.Add(new ErrorDirectory(errorMessage));
             else
                 directory.AddError(errorMessage);

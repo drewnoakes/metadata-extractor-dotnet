@@ -176,7 +176,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         private string? GetTransformDescription(int tag)
         {
             var values = Directory.GetByteArray(tag);
-            if (values == null)
+            if (values is null)
                 return null;
 
             IndexedReader reader = new ByteArrayReader(values);
@@ -264,7 +264,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             // lens version has 4 parts separated by periods
             var bytes = Directory.GetByteArray(PanasonicMakernoteDirectory.TagLensFirmwareVersion);
-            if (bytes == null)
+            if (bytes is null)
                 return null;
 
             return string.Join(".", bytes.Select(b => b.ToString()).ToArray());
@@ -536,7 +536,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         private static string? BuildFacesDescription(IEnumerable<Face>? faces)
         {
-            if (faces == null)
+            if (faces is null)
                 return null;
 
             var description = string.Join(Environment.NewLine,
@@ -575,7 +575,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetAfAreaModeDescription()
         {
             var value = Directory.GetInt32Array(PanasonicMakernoteDirectory.TagAfAreaMode);
-            if (value == null || value.Length < 2)
+            if (value is null || value.Length < 2)
                 return null;
 
             switch (value[0])

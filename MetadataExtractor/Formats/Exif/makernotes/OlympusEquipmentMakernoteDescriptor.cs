@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetCameraType2Description()
         {
             var cameratype = Directory.GetString(OlympusEquipmentMakernoteDirectory.TagCameraType2);
-            if (cameratype == null)
+            if (cameratype is null)
                 return null;
 
             if (OlympusMakernoteDirectory.OlympusCameraTypes.TryGetValue(cameratype, out var mapped))
@@ -80,7 +80,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var str = Directory.GetString(OlympusEquipmentMakernoteDirectory.TagLensType);
 
-            if (str == null)
+            if (str is null)
                 return null;
 
             // The string contains six numbers:
@@ -157,7 +157,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var str = Directory.GetString(OlympusEquipmentMakernoteDirectory.TagExtender);
 
-            if (str == null)
+            if (str is null)
                 return null;
 
             // The string contains six numbers:

@@ -244,7 +244,7 @@ namespace MetadataExtractor.Formats.Iptc
             var date = this.GetString(dateTagType);
             var time = this.GetString(timeTagType);
 
-            if (date == null || time == null)
+            if (date is null || time is null)
                 return null;
 
             IFormatProvider provider = CultureInfo.InvariantCulture.DateTimeFormat;
