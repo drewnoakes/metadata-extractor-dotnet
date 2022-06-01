@@ -29,9 +29,9 @@ namespace MetadataExtractor.Formats.Xmp
         public const string JpegSegmentPreamblAlt = "://ns.adobe.com/xap/1.0/\0";
         public const string JpegSegmentPreambleExtension = "http://ns.adobe.com/xmp/extension/\0";
 
-        public static byte[] JpegSegmentPreambleBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreamble);
-        public static byte[] JpegSegmentPreambleAltBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreamblAlt);
-        public static byte[] JpegSegmentPreambleExtensionBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreambleExtension);
+        private static byte[] JpegSegmentPreambleBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreamble);
+        private static byte[] JpegSegmentPreambleAltBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreamblAlt);
+        private static byte[] JpegSegmentPreambleExtensionBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreambleExtension);
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new[] { JpegSegmentType.App1 };
 

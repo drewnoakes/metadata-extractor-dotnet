@@ -408,20 +408,13 @@ namespace MetadataExtractor.Formats.Png
                         if (textBytes.StartsWith(_pngApp1Xmp))
                         {
                             var reader = new ByteArrayReader(textBytes);
+                            Jpeg.JpegSegment jpegSeg = new Jpeg.JpegSegment(
+                                Jpeg.JpegSegmentType.App1,
+                                reader.GetBytes(_pngApp1Xmp.Length, byteCount - _pngApp1Xmp.Length),
+                                0);
 
-                            int offset = 0;
-                            if ((byteCount >= _pngApp1Xmp.Length + XmpReader.JpegSegmentPreambleBytes.Length) &&
-                                reader.GetBytes(_pngApp1Xmp.Length, XmpReader.JpegSegmentPreambleBytes.Length).EqualTo(XmpReader.JpegSegmentPreambleBytes))
-                            {
-                                offset = _pngApp1Xmp.Length + XmpReader.JpegSegmentPreambleBytes.Length;
-                            }
-                            else if ((byteCount >= _pngApp1Xmp.Length + XmpReader.JpegSegmentPreambleAltBytes.Length) &&
-                                reader.GetBytes(_pngApp1Xmp.Length, XmpReader.JpegSegmentPreambleAltBytes.Length).EqualTo(XmpReader.JpegSegmentPreambleAltBytes))
-                            {
-                                offset = _pngApp1Xmp.Length + XmpReader.JpegSegmentPreambleAltBytes.Length;
-                            }
-
-                            yield return new XmpReader().Extract(textBytes, offset, byteCount - offset);
+                            foreach (var xmpDirectory in new XmpReader().ReadJpegSegments(new[] { jpegSeg }))
+                                yield return xmpDirectory;
                         }
                         else
                         {
