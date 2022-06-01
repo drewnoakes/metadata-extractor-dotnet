@@ -291,6 +291,7 @@ const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagVerticalDatum = 4098
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagVerticalUnits = 4099 -> int
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagAndroidManufacturer = 35 -> int
 const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagAndroidModel = 36 -> int
+const MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreamblAlt = "://ns.adobe.com/xap/1.0/\0" -> string!
 MetadataExtractor.Directory.Directory(System.Collections.Generic.Dictionary<int, string!>? tagNameMap) -> void
 MetadataExtractor.Directory.RemoveTag(int tagId) -> void
 MetadataExtractor.Formats.Avi.AviRiffHandler.AddError(string! errorMessage) -> void
