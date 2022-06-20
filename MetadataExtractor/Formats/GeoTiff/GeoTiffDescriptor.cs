@@ -45,8 +45,17 @@ namespace MetadataExtractor.Formats.GeoTiff
             if (!Directory.TryGetUInt16(tagType, out ushort value))
                 return null;
 
+            // Requirement 16.4
+            // GeogAngularUnitsGeoKey and GeogAzimuthUnitsGeoKey values in the range 1024-32766 SHALL be EPSG Unit Of Measure (UOM) codes with type = angle.
+            // NOTE: In GeoTIFF v1.0 the range was 9100-9199
+
+            // Requirement 16.5
+            // GeogLinearUnitsGeoKey, ProjLinearUnitsGeoKey and VerticalUnitsGeoKey values in the range 1024-32766 SHALL be EPSG Unit Of Measure (UOM) codes with type = length.
+            // NOTE: In GeoTIFF v1.0 the range was 9000-9099. Several values in this range have been deprecated or deleted from the EPSG Dataset and should no longer be used.
+
             return value switch
             {
+                // Linear
                 9001 => "Linear Meter",
                 9002 => "Linear Foot",
                 9003 => "Linear Foot US Survey",
@@ -62,6 +71,43 @@ namespace MetadataExtractor.Formats.GeoTiff
                 9013 => "Linear Yard Indian",
                 9014 => "Linear Fathom",
                 9015 => "Linear Mile International Nautical",
+                9030 => "Linear Mile Nautical",
+                9031 => "Linear Meter German Legal",
+                9033 => "Linear Chain US Survey",
+                9034 => "Linear Link US Survey",
+                9035 => "Linear Mile US Survey",
+                9036 => "Linear Kilometer",
+                9037 => "Linear Yard Clarke",
+                9038 => "Linear Chain Clarke",
+                9039 => "Linear Link Clarke",
+                9040 => "Linear Yard British Sears 1922",
+                9041 => "Linear Foot British Sears 1922",
+                9042 => "Linear Chain British Sears 1922",
+                9043 => "Linear Link British Sears 1922",
+                9050 => "Linear Yard British Benoit 1895 A",
+                9051 => "Linear Foot British Benoit 1895 A",
+                9052 => "Linear Chain British Benoit 1895 A",
+                9053 => "Linear Link British Benoit 1895 A",
+                9060 => "Linear Yard British Benoit 1895 B",
+                9061 => "Linear Foot British Benoit 1895 B",
+                9062 => "Linear Chain British Benoit 1895 B",
+                9063 => "Linear Link British Benoit 1895 B",
+                9070 => "Linear Foot British 1865",
+                9080 => "Linear Foot Indian",
+                9081 => "Linear Foot Indian 1937",
+                9082 => "Linear Foot Indian 1962",
+                9083 => "Linear Foot Indian 1975",
+                9084 => "Linear Yard Indian",
+                9085 => "Linear Yard Indian 1937",
+                9086 => "Linear Yard Indian 1962",
+                9087 => "Linear Yard Indian 1975",
+                9093 => "Linear Mile Statute",
+                9094 => "Linear Foot Gold Coast",
+                9095 => "Linear Foot British 1936",
+                9096 => "Linear Yard",
+                9097 => "Linear Chain",
+                9098 => "Linear Link",
+                // Angular
                 9101 => "Angular Radian",
                 9102 => "Angular Degree",
                 9103 => "Angular Arc Minute",
@@ -70,6 +116,21 @@ namespace MetadataExtractor.Formats.GeoTiff
                 9106 => "Angular Gon",
                 9107 => "Angular DMS",
                 9108 => "Angular DMS Hemisphere",
+                9109 => "Angular Microradian",
+                9110 => "Angular Sexagesimal DMS",
+                9111 => "Angular Sexagesimal DM",
+                9112 => "Angular Centesimal Minute",
+                9113 => "Angular Centesimal Second",
+                9114 => "Angular 6400 mil",
+                9115 => "Angular DM",
+                9116 => "Angular Degree Hemisphere",
+                9117 => "Angular Hemisphere Degree",
+                9118 => "Angular DM Hemisphere",
+                9119 => "Angular Hemisphere DM",
+                9120 => "Angular Hemisphere DMS",
+                9121 => "Angular Sexagesimal DMS.s",
+                9122 => "Angular Degree (supplier to define representation)",
+                // Other
                 32767 => "User Defined",
                 _ => "Unknown (" + value + ")"
             };
@@ -79,6 +140,15 @@ namespace MetadataExtractor.Formats.GeoTiff
         {
             if (!Directory.TryGetUInt16(tagType, out ushort value))
                 return null;
+
+            // Requirement 14.4
+            // VerticalGeoKey values in the range 1024-32766 SHALL be either EPSG Vertical CRS Codes or EPSG geographic 3D CRS codes
+            // NOTE: In GeoTIFF v1.0 the ranges were 5000-5099 and 5200-5999. As at 2018-05-29 no EPSG vertical CRSs have been or are in this range.
+            // Values in this range have been and are used as EPSG vertical datum codes; in this document their use as codes for vertical CRSs is deprecated.
+
+            // Requirement 25.4
+            // VerticalDatumGeoKey values in the range 1024-32766 SHALL be EPSG vertical datum codes
+            // NOTE: In GeoTIFF v1.0 the range was given as 1-16383 but without reference to EPSG.
 
             return value switch
             {
@@ -131,12 +201,21 @@ namespace MetadataExtractor.Formats.GeoTiff
             if (!Directory.TryGetUInt16(GeoTiffDirectory.TagModelType, out ushort value))
                 return null;
 
+            // Requirement 8.4
+            // The GTModelTypeGeoKey value SHALL be:
+            // * 0 to indicate that the Model CRS in undefined or unknown; or
+            // * 1 to indicate that the Model CRS is a 2D projected coordinate reference system, indicated by the value of the ProjectedCRSGeoKey; or
+            // * 2 to indicate that the Model CRS is a geographic 2D coordinate reference system, indicated by the value of the GeodeticCRSGeoKey; or
+            // * 3 to indicate that the Model CRS is a geocentric Cartesian 3D coordinate reference system, indicated by the value of the GeodeticCRSGeoKey; or
+            // * 32767 to indicate that the Model CRS type is user-defined.
+
             return value switch
             {
+                0 => "Undefined",
                 1 => "Projected",
                 2 => "Geographic",
                 3 => "Geocentric",
-                32767 => "Geocentric",
+                32767 => "User Defined",
                 _ => "Unknown (" + value + ")"
             };
         }
@@ -146,12 +225,20 @@ namespace MetadataExtractor.Formats.GeoTiff
             if (!Directory.TryGetUInt16(GeoTiffDirectory.TagRasterType, out ushort value))
                 return null;
 
+            // Requirement 7.3
+            // The GTRasterTypeGeoKey value SHALL be:
+            // * 0 to indicate that the Raster type is undefined or unknown; or
+            // * 1 to indicate that the Raster type is PixelIsArea; or
+            // * 2 to indicate that the Raster type is PixelIsPoint; or
+            // * 32767 to indicate that the Raster type is user-defined.
+            // Recommendation: the use of 0 (undefined) or 32767 (user-defined) is not recommended
+
             return value switch
             {
-                1 => "Projected",
-                2 => "Geographic",
-                3 => "Geocentric",
-                32767 => "Geocentric",
+                0 => "Undefined",
+                1 => "PixelIsArea",
+                2 => "PixelIsPoint",
+                32767 => "User Defined",
                 _ => "Unknown (" + value + ")"
             };
         }
@@ -160,6 +247,10 @@ namespace MetadataExtractor.Formats.GeoTiff
         {
             if (!Directory.TryGetUInt16(GeoTiffDirectory.TagGeographicType, out ushort value))
                 return null;
+
+            // Requirement 13.4
+            // GeodeticCRSGeoKey values in the range 1024-32766 SHALL be EPSG geographic 2D or geocentric CRS codes
+            // NOTE: In GeoTIFF v1.0 the range was 4000-4999. Several values in this range have been deprecated or deleted from the EPSG Dataset and should no longer be used.
 
             return value switch
             {
@@ -198,11 +289,33 @@ namespace MetadataExtractor.Formats.GeoTiff
                 4033 => "OSU91A",
                 4034 => "Clarke 1880",
                 4035 => "Sphere",
+                4053 => "1924 Authalic Sphere",
                 4120 => "Greek",
                 4121 => "GGRS87",
                 4123 => "KKJ",
                 4124 => "RT90",
                 4133 => "EST92",
+                4134 => "PSD93",
+                4135 => "Old Hawaiian",
+                4136 => "St. Lawrence Island",
+                4137 => "St. Paul Island",
+                4138 => "St. George Island",
+                4139 => "Puerto Rico",
+                4141 => "Israel 1993",
+                4142 => "Locodjo 1965",
+                4143 => "Abidjan 1987",
+                4144 => "Kalianpur 1937",
+                4145 => "Kalianpur 1962",
+                4146 => "Kalianpur 1975",
+                4147 => "Hanoi 1972",
+                4148 => "Hartebeesthoek94",
+                4149 => "CH1903",
+                4150 => "CH1903+",
+                4151 => "CHTRF95",
+                4152 => "NAD83 HARN",
+                4153 => "Rassadiran",
+                4154 => "ED50 ED77",
+                4155 => "Dabola 1981",
                 4201 => "Adindan",
                 4202 => "AGD66",
                 4203 => "AGD84",
@@ -322,6 +435,63 @@ namespace MetadataExtractor.Formats.GeoTiff
                 4322 => "WGS 72",
                 4324 => "WGS 72BE",
                 4326 => "WGS 84",
+                4618 => "NAD83 CSRS",
+                4619 => "SWEREF99",
+                4620 => "Point 58",
+                4621 => "Fort Marigot",
+                4622 => "Guadeloupe 1948",
+                4623 => "CSG67",
+                4624 => "RGFG95",
+                4625 => "Martinique 1938",
+                4626 => "Reunion 1947",
+                4627 => "RGR92",
+                4628 => "Tahiti 52",
+                4629 => "Tahaa 54",
+                4630 => "IGN72 Nuku Hiva",
+                4632 => "Combani 1950",
+                4633 => "IGN56 Lifou",
+                4636 => "Petrels 1972",
+                4637 => "Perroud 1950",
+                4638 => "Saint Pierre et Miquelon 1950",
+                4639 => "MOP78",
+                4641 => "IGN53 Mare",
+                4642 => "ST84 Ile des Pins",
+                4643 => "ST71 Belep",
+                4644 => "NEA74 Noumea",
+                4646 => "Grand Comoros",
+                4657 => "Reykjavik 1900",
+                4658 => "Hjorsey 1955",
+                4659 => "ISN93",
+                4660 => "Helle 1954",
+                4661 => "LKS92",
+                4662 => "IGN72 Grande Terre",
+                4663 => "Porto Santo 1995",
+                4664 => "Azores Oriental 1995",
+                4665 => "Azores Central 1995",
+                4666 => "Lisbon 1890",
+                4667 => "IKBD-92",
+                4668 => "ED79",
+                4669 => "LKS94",
+                4670 => "IGM95",
+                4671 => "Voirol 1879",
+                4672 => "Chatham Islands 1971",
+                4673 => "Chatham Islands 1979",
+                4674 => "SIRGAS 2000",
+                4675 => "Guam 1963",
+                4676 => "Vientiane 1982",
+                4677 => "Lao 1993",
+                4678 => "Lao 1997",
+                4679 => "Jouik 1961",
+                4680 => "Nouakchott 1965",
+                4682 => "Gulshan 303",
+                4683 => "PRS92",
+                4684 => "Gan 1970",
+                4760 => "WGS 66",
+                4761 => "HTRS96",
+                4762 => "BDA2000",
+                4763 => "Pitcairn 2006",
+                4764 => "RSRGD2000",
+                4765 => "Slovenia 1996",
                 4801 => "Bern 1898 Bern",
                 4802 => "Bogota Bogota",
                 4803 => "Lisbon Lisbon",
@@ -335,9 +505,24 @@ namespace MetadataExtractor.Formats.GeoTiff
                 4811 => "Voirol 1875 Paris",
                 4812 => "Voirol Unifie Paris",
                 4813 => "Batavia Jakarta",
+                4814 => "RT38 Stockholm",
                 4815 => "Greek Athens",
+                4816 => "Carthage Paris",
+                4817 => "NGO 1948 Oslo",
+                4818 => "S-JTSK Ferro",
+                4820 => "Segara Jakarta",
+                4821 => "Voirol 1879 Paris",
+                4823 => "Sao Tome",
+                4824 => "Principe",
                 4901 => "ATF Paris",
                 4902 => "NDG Paris",
+                4903 => "Madrid 1870 Madrid",
+                4904 => "Lisbon 1890 Lisbon",
+                5451 => "Ocotepeque 1935",
+                6318 => "NAD83 2011",
+                6322 => "NAD83 PA11",
+                6325 => "NAD83 MA11",
+                6783 => "NAD83 CORS96",
                 32767 => "User Defined",
                 _ => "Unknown (" + value + ")"
             };
@@ -347,6 +532,10 @@ namespace MetadataExtractor.Formats.GeoTiff
         {
             if (!Directory.TryGetUInt16(GeoTiffDirectory.TagGeodeticDatum, out ushort value))
                 return null;
+
+            // Requirement 18.4
+            // GeodeticDatumGeoKey values in the range 1024-32766 SHALL be EPSG geodetic datum codes.
+            // NOTE: In GeoTIFF v1.0 the range was 6000-6999. Several values in this range have been deprecated or deleted from the EPSG Dataset and should no longer be used.
 
             return value switch
             {
@@ -504,6 +693,7 @@ namespace MetadataExtractor.Formats.GeoTiff
                 6322 => "WGS72",
                 6324 => "WGS72 Transit Broadcast Ephemeris",
                 6326 => "WGS84",
+                6742 => "Malaysia 2000",
                 6901 => "Ancienne Triangulation Francaise",
                 6902 => "Nord de Guerre",
                 32767 => "User Defined",
@@ -513,8 +703,12 @@ namespace MetadataExtractor.Formats.GeoTiff
 
         public string? GetPrimeMeridianDescription()
         {
-            if (!Directory.TryGetUInt16(GeoTiffDirectory.TagGeodeticDatum, out ushort value))
+            if (!Directory.TryGetUInt16(GeoTiffDirectory.TagGeographicPrimeMeridian, out ushort value))
                 return null;
+
+            // Requirement 19.4
+            // PrimeMeridianGeoKey values in the range 1024-32766 SHALL be EPSG Prime Meridian Codes
+            // NOTE: In GeoTIFF v1.0 the range was 8000-8999
 
             return value switch
             {
@@ -529,6 +723,9 @@ namespace MetadataExtractor.Formats.GeoTiff
                 8909 => "Ferro",
                 8910 => "Brussels",
                 8911 => "Stockholm",
+                8912 => "Athens",
+                8913 => "Oslo",
+                8914 => "Paris RGS",
                 32767 => "User Defined",
                 _ => "Unknown (" + value + ")"
             };
@@ -538,6 +735,10 @@ namespace MetadataExtractor.Formats.GeoTiff
         {
             if (!Directory.TryGetUInt16(GeoTiffDirectory.TagGeographicEllipsoid, out ushort value))
                 return null;
+
+            // Requirement 21.4
+            // EllipsoidGeoKey values in the range 1024-32766 SHALL be EPSG ellipsoid Codes
+            // NOTE: In GeoTIFF v1.0 the range was 7000-7999. Several values in this range have been deprecated or deleted from the EPSG Dataset and should no longer be used.
 
             return value switch
             {
@@ -576,6 +777,26 @@ namespace MetadataExtractor.Formats.GeoTiff
                 7033 => "OSU91A",
                 7034 => "Clarke 1880",
                 7035 => "Sphere",
+                7036 => "GRS 1967",
+                7041 => "Average Terrestrial System 1977",
+                7042 => "Everest 1830",
+                7043 => "WGS 72",
+                7044 => "Everest 1830 1962 Definition",
+                7045 => "Everest 1830 1975 Definition",
+                7046 => "Bessel Namibia GLM",
+                7047 => "GRS 1980 Authalic Sphere",
+                7048 => "GRS 1980 Authalic Sphere",
+                7049 => "IAG 1975",
+                7050 => "GRS 1967 Modified",
+                7051 => "Danish 1876",
+                7052 => "Clarke 1866 Authalic Sphere",
+                7053 => "Hough 1960",
+                7054 => "PZ-90",
+                7055 => "Clarke 1880 International Foot",
+                7056 => "Everest 1830 RSO 1969",
+                7057 => "International 1924 Authalic Sphere",
+                7058 => "Hughes 1980",
+                7059 => "Popular Visualisation Sphere",
                 32767 => "User Defined",
                 _ => "Unknown (" + value + ")"
             };
@@ -586,8 +807,22 @@ namespace MetadataExtractor.Formats.GeoTiff
             if (!Directory.TryGetUInt16(GeoTiffDirectory.TagProjectedCSType, out ushort value))
                 return null;
 
+            // Requirement 12.4
+            // ProjectedCRSGeoKey values in the range 1024-32766 SHALL be EPSG Projected CRS Codes
+            // NOTE: In GeoTIFF v1.0 the range was 20000-32760. Several values in this range have been deprecated or deleted from the EPSG Dataset and should no longer be used.
+
             return value switch
             {
+                2046 => "Hartebeesthoek94 Lo15",
+                2047 => "Hartebeesthoek94 Lo17",
+                2048 => "Hartebeesthoek94 Lo19",
+                2049 => "Hartebeesthoek94 Lo21",
+                2050 => "Hartebeesthoek94 Lo23",
+                2051 => "Hartebeesthoek94 Lo25",
+                2052 => "Hartebeesthoek94 Lo27",
+                2053 => "Hartebeesthoek94 Lo29",
+                2054 => "Hartebeesthoek94 Lo31",
+                2055 => "Hartebeesthoek94 Lo33",
                 2100 => "GGRS87 Greek Grid",
                 2176 => "ETRS89 Poland CS2000 zone 5",
                 2177 => "ETRS89 Poland CS2000 zone 7",
@@ -601,11 +836,132 @@ namespace MetadataExtractor.Formats.GeoTiff
                 2394 => "KKJ Finland zone 4",
                 2400 => "RT90 2 5 gon W",
                 2600 => "Lietuvos Koordinoei Sistema 1994",
+                3031 => "WGS 84 Antarctic Polar Stereographic",
+                3032 => "WGS 84 Australian Antarctic Polar Stereographic",
+                3033 => "WGS 84 Australian Antarctic Lambert",
+                3034 => "ETRS89-extended LCC Europe",
+                3035 => "ETRS89-extended LAEA Europe",
                 3053 => "Hjorsey 1955 Lambert",
                 3057 => "ISN93 Lambert 1993",
+                3081 => "NAD83 Texas State Mapping System",
+                3082 => "NAD83 Texas Centric Lambert Conformal",
+                3083 => "NAD83 Texas Centric Albers Equal Area",
+                3084 => "NAD83 HARN Texas Centric Lambert Conformal",
+                3085 => "NAD83 HARN Texas Centric Albers Equal Area",
                 3300 => "Estonian Coordinate System of 1992",
+                3407 => "Hong Kong 1963 Grid System",
+                3408 => "NSIDC EASE-Grid North",
+                3409 => "NSIDC EASE-Grid South",
+                3410 => "NSIDC EASE-Grid Global",
+                3411 => "NSIDC Sea Ice Polar Stereographic North",
+                3412 => "NSIDC Sea Ice Polar Stereographic South",
+                3413 => "WGS 84 NSIDC Sea Ice Polar Stereographic North",
+                3414 => "SVY21 Singapore TM",
                 3786 => "Popular Visualisation CRS / Mercator",
+                3812 => "ETRS89 Belgian Lambert 2008",
+                3814 => "NAD83 Mississippi TM",
+                3815 => "NAD83 HARN Mississippi TM",
+                3816 => "NAD83 NSRS2007 Mississippi TM",
                 3857 => "WGS 84 / Pseudo-Mercator",
+                4087 => "WGS 84 / World Equidistant Cylindrical",
+                4088 => "World Equidistant Cylindrical Sphere",
+                5329 => "Segara Jakarta NEIEZ",
+                5330 => "Batavia Jakarta NEIEZ",
+                5331 => "Makassar Jakarta NEIEZ",
+                5456 => "Ocotepeque 1935 Costa Rica Norte",
+                5457 => "Ocotepeque 1935 Costa Rica Sur",
+                5479 => "RSRGD2000 / MSLC2000",
+                5480 => "RSRGD2000 / BCLC2000",
+                5481 => "RSRGD2000 / PCLC2000",
+                5482 => "RSRGD2000 / RSPS2000",
+                5588 => "NAD27 New Brunswick Stereographic NAD27",
+                5589 => "Sibun Gorge 1922 Colony Grid",
+                5641 => "SIRGAS 2000 Brazil Mercator",
+                6784 => "NAD83 CORS96 Oregon Baker zone (m)",
+                6785 => "NAD83 CORS96 Oregon Baker zone (ft)",
+                6786 => "NAD83 2011 Oregon Baker zone (m)",
+                6787 => "NAD83 2011 Oregon Baker zone (ft)",
+                6788 => "NAD83 CORS96 Oregon Bend-Klamath Falls zone (m)",
+                6789 => "NAD83 CORS96 Oregon Bend-Klamath Falls zone (ft)",
+                6790 => "NAD83 2011 Oregon Bend-Klamath Falls zone (m)",
+                6791 => "NAD83 2011 Oregon Bend-Klamath Falls zone (ft)",
+                6792 => "NAD83 CORS96 Oregon Bend-Redmond-Prineville zone (m)",
+                6793 => "NAD83 CORS96 Oregon Bend-Redmond-Prineville zone (ft)",
+                6794 => "NAD83 2011 Oregon Bend-Redmond-Prineville zone (m)",
+                6795 => "NAD83 2011 Oregon Bend-Redmond-Prineville zone (ft)",
+                6796 => "NAD83 CORS96 Oregon Bend-Burns zone (m)",
+                6797 => "NAD83 CORS96 Oregon Bend-Burns zone (ft)",
+                6798 => "NAD83 2011 Oregon Bend-Burns zone (m)",
+                6799 => "NAD83 2011 Oregon Bend-Burns zone (ft)",
+                6800 => "NAD83 CORS96 Oregon Canyonville-Grants Pass zone (m)",
+                6801 => "NAD83 CORS96 Oregon Canyonville-Grants Pass zone (ft)",
+                6802 => "NAD83 2011 Oregon Canyonville-Grants Pass zone (m)",
+                6803 => "NAD83 2011 Oregon Canyonville-Grants Pass zone (ft)",
+                6804 => "NAD83 CORS96 Oregon Columbia River East zone (m)",
+                6805 => "NAD83 CORS96 Oregon Columbia River East zone (ft)",
+                6806 => "NAD83 2011 Oregon Columbia River East zone (m)",
+                6807 => "NAD83 2011 Oregon Columbia River East zone (ft)",
+                6808 => "NAD83 CORS96 Oregon Columbia River West zone (m)",
+                6809 => "NAD83 CORS96 Oregon Columbia River West zone (ft)",
+                6810 => "NAD83 2011 Oregon Columbia River West zone (m)",
+                6811 => "NAD83 2011 Oregon Columbia River West zone (ft)",
+                6812 => "NAD83 CORS96 Oregon Cottage Grove-Canyonville zone (m)",
+                6813 => "NAD83 CORS96 Oregon Cottage Grove-Canyonville zone (ft)",
+                6814 => "NAD83 2011 Oregon Cottage Grove-Canyonville zone (m)",
+                6815 => "NAD83 2011 Oregon Cottage Grove-Canyonville zone (ft)",
+                6816 => "NAD83 CORS96 Oregon Dufur-Madras zone (m)",
+                6817 => "NAD83 CORS96 Oregon Dufur-Madras zone (ft)",
+                6818 => "NAD83 2011 Oregon Dufur-Madras zone (m)",
+                6819 => "NAD83 2011 Oregon Dufur-Madras zone (ft)",
+                6820 => "NAD83 CORS96 Oregon Eugene zone (m)",
+                6821 => "NAD83 CORS96 Oregon Eugene zone (ft)",
+                6822 => "NAD83 2011 Oregon Eugene zone (m)",
+                6823 => "NAD83 2011 Oregon Eugene zone (ft)",
+                6824 => "NAD83 CORS96 Oregon Grants Pass-Ashland zone (m)",
+                6825 => "NAD83 CORS96 Oregon Grants Pass-Ashland zone (ft)",
+                6826 => "NAD83 2011 Oregon Grants Pass-Ashland zone (m)",
+                6827 => "NAD83 2011 Oregon Grants Pass-Ashland zone (ft)",
+                6828 => "NAD83 CORS96 Oregon Gresham-Warm Springs zone (m)",
+                6829 => "NAD83 CORS96 Oregon Gresham-Warm Springs zone (ft)",
+                6830 => "NAD83 2011 Oregon Gresham-Warm Springs zone (m)",
+                6831 => "NAD83 2011 Oregon Gresham-Warm Springs zone (ft)",
+                6832 => "NAD83 CORS96 Oregon La Grande zone (m)",
+                6833 => "NAD83 CORS96 Oregon La Grande zone (ft)",
+                6834 => "NAD83 2011 Oregon La Grande zone (m)",
+                6835 => "NAD83 2011 Oregon La Grande zone (ft)",
+                6836 => "NAD83 CORS96 Oregon Ontario zone (m)",
+                6837 => "NAD83 CORS96 Oregon Ontario zone (ft)",
+                6838 => "NAD83 2011 Oregon Ontario zone (m)",
+                6839 => "NAD83 2011 Oregon Ontario zone (ft)",
+                6840 => "NAD83 CORS96 Oregon Coast zone (m)",
+                6841 => "NAD83 CORS96 Oregon Coast zone (ft)",
+                6842 => "NAD83 2011 Oregon Coast zone (m)",
+                6843 => "NAD83 2011 Oregon Coast zone (ft)",
+                6844 => "NAD83 CORS96 Oregon Pendleton zone (m)",
+                6845 => "NAD83 CORS96 Oregon Pendleton zone (ft)",
+                6846 => "NAD83 2011 Oregon Pendleton zone (m)",
+                6847 => "NAD83 2011 Oregon Pendleton zone (ft)",
+                6848 => "NAD83 CORS96 Oregon Pendleton-La Grande zone (m)",
+                6849 => "NAD83 CORS96 Oregon Pendleton-La Grande zone (ft)",
+                6850 => "NAD83 2011 Oregon Pendleton-La Grande zone (m)",
+                6851 => "NAD83 2011 Oregon Pendleton-La Grande zone (ft)",
+                6852 => "NAD83 CORS96 Oregon Portland zone (m)",
+                6853 => "NAD83 CORS96 Oregon Portland zone (ft)",
+                6854 => "NAD83 2011 Oregon Portland zone (m)",
+                6855 => "NAD83 2011 Oregon Portland zone (ft)",
+                6856 => "NAD83 CORS96 Oregon Salem zone (m)",
+                6857 => "NAD83 CORS96 Oregon Salem zone (ft)",
+                6858 => "NAD83 2011 Oregon Salem zone (m)",
+                6859 => "NAD83 2011 Oregon Salem zone (ft)",
+                6860 => "NAD83 CORS96 Oregon Santiam Pass zone (m)",
+                6861 => "NAD83 CORS96 Oregon Santiam Pass zone (ft)",
+                6862 => "NAD83 2011 Oregon Santiam Pass zone (m)",
+                6863 => "NAD83 2011 Oregon Santiam Pass zone (ft)",
+                8065 => "NAD83 2011 PCCS zone 1 (ft)",
+                8066 => "NAD83 2011 PCCS zone 2 (ft)",
+                8067 => "NAD83 2011 PCCS zone 3 (ft)",
+                8068 => "NAD83 2011 PCCS zone 4 (ft)",
+                8441 => "Tananarive Laborde Grid",
                 20137 => "Adindan UTM zone 37N",
                 20138 => "Adindan UTM zone 38N",
                 20248 => "AGD66 AMG zone 48",
@@ -1061,6 +1417,7 @@ namespace MetadataExtractor.Formats.GeoTiff
                 28600 => "Qatar National Grid",
                 28991 => "RD Netherlands Old",
                 28992 => "RD Netherlands New",
+                29101 => "SAD69 Brazil Polyconic",
                 29118 => "SAD69 UTM zone 18N",
                 29119 => "SAD69 UTM zone 19N",
                 29120 => "SAD69 UTM zone 20N",
@@ -1592,6 +1949,10 @@ namespace MetadataExtractor.Formats.GeoTiff
             if (!Directory.TryGetUInt16(GeoTiffDirectory.TagProjection, out ushort value))
                 return null;
 
+            // Requirement 26.4
+            // ProjectionGeoKey values in the range 1024-32766 SHALL be valid EPSG map projection (coordinate operation) codes
+            // NOTE: In GeoTIFF v1.0 the range was 10000-19999. Several values in this range have been deprecated or deleted from the EPSG Dataset.
+
             return value switch
             {
                 10101 => "Alabama CS27 East",
@@ -2031,6 +2392,10 @@ namespace MetadataExtractor.Formats.GeoTiff
             if (!Directory.TryGetUInt16(GeoTiffDirectory.TagProjectedCoordinateTransform, out ushort value))
                 return null;
 
+            // Requirements Class 27.0: ProjMethodGeoKey
+            // 27.3: ProjMethodGeoKey values in the range 1-27 SHALL be GeoTIFF map projection method codes (NOTE: See Annex C)
+            // 27.4: ProjMethodGeoKey values in the range 28-32766 SHALL be reserved
+
             return value switch
             {
                 1 => "Transverse Mercator",
@@ -2061,6 +2426,50 @@ namespace MetadataExtractor.Formats.GeoTiff
                 26 => "New Zealand Map Grid",
                 27 => "Transverse Mercator South Orientated",
                 28 => "Cylindrical Equal Area",
+                9801 => "Lambert Conic Conformal 1SP",
+                9802 => "Lambert Conic Conformal 2SP",
+                9803 => "Lambert Conic Conformal 2SP Belgium",
+                9804 => "Mercator variant A",
+                9805 => "Mercator variant B",
+                9806 => "Cassini-Soldner",
+                9807 => "Transverse Mercator",
+                9808 => "Transverse Mercator South Orientated",
+                9809 => "Oblique Stereographic",
+                9810 => "Polar Stereographic variant A",
+                9811 => "New Zealand Map Grid",
+                9812 => "Hotine Oblique Mercator variant A",
+                9813 => "Laborde Oblique Mercator",
+                9814 => "Swiss Oblique Cylindrical",
+                9815 => "Hotine Oblique Mercator variant B",
+                9816 => "Tunisia Mining Grid",
+                9817 => "Lambert Conic Near-Conformal",
+                9818 => "American Polyconic",
+                9819 => "Krovak",
+                9820 => "Lambert Azimuthal Equal Area",
+                9821 => "Lambert Azimuthal Equal Area Spherical",
+                9822 => "Albers Equal Area",
+                9823 => "Equidistant Cylindrical Spherical",
+                9824 => "Transverse Mercator Zoned Grid System",
+                9825 => "Pseudo Plate Carree",
+                9826 => "Lambert Conic Conformal West Orientated",
+                9827 => "Bonne",
+                9828 => "Bonne South Orientated",
+                9829 => "Polar Stereographic variant B",
+                9830 => "Polar Stereographic variant C",
+                9831 => "Guam",
+                9832 => "Modified Azimuthal Equidistant",
+                9833 => "Hyperbolic Cassini-Soldner",
+                9834 => "Lambert Cylindrical Equal Area Spherical",
+                9835 => "Lambert Cylindrical Equal Area",
+                9836 => "Geocentric/Topocentric Conversions",
+                9837 => "Geographic/Topocentric Conversions",
+                9838 => "Vertical Perspective",
+                9839 => "Vertical Perspective Orthographic Case",
+                9840 => "Orthographic",
+                9841 => "Mercator 1SP Spherical",
+                9842 => "Equidistant Cylindrical",
+                9843 => "Axis Order Reversal 2D",
+                9844 => "Axis Order Reversal Geographic3D Horizontal",
                 32767 => "User Defined",
                 _ => "Unknown (" + value + ")"
             };

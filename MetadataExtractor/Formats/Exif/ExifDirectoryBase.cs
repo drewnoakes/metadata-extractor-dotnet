@@ -144,6 +144,13 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagPrimaryChromaticities = 0x013F;
 
+        /// <summary>
+        /// A color map for palette color images.
+        /// This field defines a Red-Green-Blue color map(often called a lookup table) for palette-color images.
+        /// In a palette-color image, a pixel value is used to index into an RGB lookup table.
+        /// </summary>
+        public const int TagColorMap = 0x0140;
+
         public const int TagTileWidth = 0x0142;
 
         public const int TagTileLength = 0x0143;
@@ -778,6 +785,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagHostComputer] = "Host Computer";
             map[TagWhitePoint] = "White Point";
             map[TagPrimaryChromaticities] = "Primary Chromaticities";
+            map[TagColorMap] = "Color Map";
             map[TagTileWidth] = "Tile Width";
             map[TagTileLength] = "Tile Length";
             map[TagTileOffsets] = "Tile Offsets";

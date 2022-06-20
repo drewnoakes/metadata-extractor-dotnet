@@ -28,6 +28,10 @@ namespace MetadataExtractor.Formats.GeoTiff
         public const int TagGeographicPrimeMeridianLong  = 0x080d;
         public const int TagGeographicToWgs84            = 0x080e;
 
+        // https://trac.osgeo.org/gdal/ticket/3901#comment:7
+        // https://github.com/opengeospatial/geotiff/pull/106
+        public const int TagGdalProjLinearUnitsInterpCorrectGeoKey = 0x0bf3;
+
         public const int TagProjectedCSType              = 0x0c00;
         public const int TagProjectedCSCitation          = 0x0c01;
         public const int TagProjection                   = 0x0c02;
@@ -96,6 +100,7 @@ namespace MetadataExtractor.Formats.GeoTiff
             { TagGeographicAzimuthUnits, "Azimuth Units" },
             { TagGeographicPrimeMeridianLong, "To WGS84" },
             { TagGeographicToWgs84, "To WGS84" },
+            { TagGdalProjLinearUnitsInterpCorrectGeoKey, "GDAL ProjLinearUnitsInterpCorrectGeoKey" },
             { TagProjectedCSType, "Projected Coordinate System Type" },
             { TagProjectedCSCitation, "Projected Coordinate System Citation" },
             { TagProjection, "Projection" },
