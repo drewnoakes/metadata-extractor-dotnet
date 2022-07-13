@@ -22,13 +22,13 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" PrivateAssets="All" />
+    <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 
     <!-- This avoids needing to have .NET targeting packs installed (e.g. for .NET 3.5) -->
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
 
-    <PackageReference Include="CSharpIsNullAnalyzer" Version="0.1.300" PrivateAssets="all" />
+    <PackageReference Include="CSharpIsNullAnalyzer" Version="0.1.329" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
