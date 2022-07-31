@@ -194,6 +194,8 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagRating = 0x4746;
 
+        public const int TagRatingPercent = 0x4749;
+
         public const int TagCfaRepeatPatternDim = 0x828D;
 
         /// <summary>There are two definitions for CFA pattern, I don't know the difference...</summary>
@@ -806,6 +808,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagRelatedImageWidth] = "Related Image Width";
             map[TagRelatedImageHeight] = "Related Image Height";
             map[TagRating] = "Rating";
+            map[TagRatingPercent] = "Rating Percent";
             map[TagCfaRepeatPatternDim] = "CFA Repeat Pattern Dim";
             map[TagCfaPattern2] = "CFA Pattern";
             map[TagBatteryLevel] = "Battery Level";
