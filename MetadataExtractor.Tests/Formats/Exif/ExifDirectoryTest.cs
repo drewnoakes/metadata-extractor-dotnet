@@ -53,6 +53,28 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
+        public void GeoLocationWithAltitude()
+        {
+            var metadata = ImageMetadataReader.ReadMetadata("Data/ABOVE_SEA_LEVEL.jpg");
+            var gpsDirectory = metadata.OfType<GpsDirectory>().First();
+            var geoLocation = gpsDirectory.GetGeoLocation();
+            Assert.NotNull(geoLocation);
+            Assert.True(geoLocation.Altitude > 1);
+        }
+
+        [Fact]
+        public void GetLocationWithAltitudeBelowSeaLevel()
+        {
+            var metadata = ImageMetadataReader.ReadMetadata("Data/BELOW_SEA_LEVEL.JPG");
+            var gpsDirectory = metadata.OfType<GpsDirectory>().First();
+            var geoLocation = gpsDirectory.GetGeoLocation();
+
+            Assert.NotNull(geoLocation);
+
+            Assert.True(geoLocation.Altitude < -1);
+        }
+
+        [Fact]
         public void GpsDate()
         {
             var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Data/withPanasonicFaces.jpg.app1", JpegSegmentType.App1);

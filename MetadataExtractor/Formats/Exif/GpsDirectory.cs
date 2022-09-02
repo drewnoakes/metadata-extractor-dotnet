@@ -163,8 +163,10 @@ namespace MetadataExtractor.Formats.Exif
         {
             var latitudes = this.GetRationalArray(TagLatitude);
             var longitudes = this.GetRationalArray(TagLongitude);
+            bool hasAltitude = this.TryGetRational(TagAltitude, out var altitude);
             var latitudeRef = this.GetString(TagLatitudeRef);
             var longitudeRef = this.GetString(TagLongitudeRef);
+            bool hasAltitudeRef = this.TryGetByte(TagAltitudeRef, out var altitudeRef);
 
             // Make sure we have the required values
             if (latitudes is null || latitudes.Length != 3)
@@ -183,7 +185,17 @@ namespace MetadataExtractor.Formats.Exif
             if (lat == null || lon == null)
                 return null;
 
-            return new GeoLocation((double)lat, (double)lon);
+            double? alt = null;
+
+            if (hasAltitude)
+            {
+                alt = altitude.ToDouble();
+
+                if (hasAltitudeRef && altitudeRef == 0x01) // Invert value when ref i 1, indicates that the value is below sea level
+                    alt = -1.0 * alt;
+            }
+
+            return new GeoLocation((double)lat, (double)lon, alt);
         }
 
         /// <summary>

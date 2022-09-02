@@ -16,6 +16,7 @@ const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagIsoSpeedLatitudeYYY = 
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagIsoSpeedLatitudeZZZ = 34869 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagModelTiePoint = 33922 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagPixelScale = 33550 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagRatingPercent = 18249 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagSampleFormat = 339 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagCameraTemperatureRangeMax = 6 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagCameraTemperatureRangeMin = 5 -> int
@@ -382,6 +383,8 @@ MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.Tiff.TiffStandard.BigTiff = 1 -> MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.Tiff.TiffStandard.Tiff = 0 -> MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.WebP.WebPRiffHandler.AddError(string! errorMessage) -> void
+MetadataExtractor.GeoLocation.Altitude.get -> double?
+MetadataExtractor.GeoLocation.GeoLocation(double latitude, double longitude, double? altitude) -> void
 MetadataExtractor.IO.IndexedReader.GetUInt64(int index) -> ulong
 MetadataExtractor.Rational.Absolute.get -> MetadataExtractor.Rational
 MetadataExtractor.Rational.IsPositive.get -> bool

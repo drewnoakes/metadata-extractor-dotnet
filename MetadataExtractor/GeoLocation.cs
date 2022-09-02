@@ -23,6 +23,20 @@ namespace MetadataExtractor
         {
             Latitude = latitude;
             Longitude = longitude;
+            Altitude = null;
+        }
+
+        /// <summary>
+        /// Initialises an instance of <see cref="GeoLocation"/>.
+        /// </summary>
+        /// <param name="latitude">the latitude, in degrees</param>
+        /// <param name="longitude">the longitude, in degrees</param>
+        /// <param name="altitude">the altitude, in meters</param>
+        public GeoLocation(double latitude, double longitude, double? altitude)
+        {
+            Latitude = latitude;
+            Longitude = longitude;
+            Altitude = altitude;
         }
 
         /// <value>the latitudinal angle of this location, in degrees.</value>
@@ -30,6 +44,9 @@ namespace MetadataExtractor
 
         /// <value>the longitudinal angle of this location, in degrees.</value>
         public double Longitude { get; }
+
+        /// <value>the altitude of this location, in meters, null indicates there is no altitude present in exif</value>
+        public double? Altitude { get; }
 
         /// <value>true, if both latitude and longitude are equal to zero</value>
         public bool IsZero => Latitude == 0 && Longitude == 0;
@@ -82,7 +99,8 @@ namespace MetadataExtractor
         #region Equality and Hashing
 
         private bool Equals(GeoLocation other) => Latitude.Equals(other.Latitude) &&
-                                                  Longitude.Equals(other.Longitude);
+                                                  Longitude.Equals(other.Longitude) &&
+                                                  Altitude.Equals(other.Altitude);
 
         public override bool Equals(object? obj)
         {
@@ -93,7 +111,7 @@ namespace MetadataExtractor
             return obj is GeoLocation location && Equals(location);
         }
 
-        public override int GetHashCode() => unchecked((Latitude.GetHashCode() * 397) ^ Longitude.GetHashCode());
+        public override int GetHashCode() => unchecked(((Latitude.GetHashCode() * 397) + (Altitude.GetHashCode() * 14)) ^ Longitude.GetHashCode());
 
         #endregion
 
@@ -101,9 +119,9 @@ namespace MetadataExtractor
 
         /// <returns>
         /// Returns a string representation of this object, of format:
-        /// <c>1.23, 4.56</c>
+        /// <c>1.23, 4.56, 8M</c>
         /// </returns>
-        public override string ToString() => Latitude + ", " + Longitude;
+        public override string ToString() => Latitude + ", " + Longitude + (Altitude == null ? string.Empty : $", {Altitude}M");
 
         /// <returns>
         /// a string representation of this location, of format:
