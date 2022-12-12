@@ -67,8 +67,13 @@ namespace MetadataExtractor.Formats.Ico
                 try
                 {
                     directory.Set(IcoDirectory.TagImageType, type);
-                    directory.Set(IcoDirectory.TagImageWidth, reader.GetByte());
-                    directory.Set(IcoDirectory.TagImageHeight, reader.GetByte());
+
+                    // See https://docs.fileformat.com/image/ico/ - An image width/height of 0 means 256
+                    int width = reader.GetByte();
+                    int height = reader.GetByte();
+                    directory.Set(IcoDirectory.TagImageWidth, width == 0 ? 256 : width);
+                    directory.Set(IcoDirectory.TagImageHeight, height == 0 ? 256 : height);
+
                     directory.Set(IcoDirectory.TagColourPaletteSize, reader.GetByte());
                     // Ignore this byte (normally zero, though .NET's System.Drawing.Icon.Save method writes 255)
                     reader.GetByte();
