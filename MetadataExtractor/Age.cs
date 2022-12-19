@@ -17,7 +17,8 @@ namespace MetadataExtractor
         /// <c>0031:07:15 00:00:00</c>
         /// </summary>
         /// <param name="s">The string in format <c>0031:07:15 00:00:00</c>.</param>
-        /// <returns>The parsed Age object, or null if the value could not be parsed</returns>
+        /// <returns>The parsed Age object, or <see langword="null"/> if the value could not be parsed</returns>
+        /// <exception cref="ArgumentNullException">The string <paramref name="s"/> is <see langword="null"/>.</exception>
         public static Age? FromPanasonicString(string s)
         {
             if (s is null)
@@ -26,20 +27,17 @@ namespace MetadataExtractor
             if (s.Length != 19 || s.StartsWith("9999:99:99"))
                 return null;
 
-            try
+            if (int.TryParse(s.Substring(0, 4), out var years) &&
+                int.TryParse(s.Substring(5, 2), out var months) &&
+                int.TryParse(s.Substring(8, 2), out var days) &&
+                int.TryParse(s.Substring(11, 2), out var hours) &&
+                int.TryParse(s.Substring(14, 2), out var minutes) &&
+                int.TryParse(s.Substring(17, 2), out var seconds))
             {
-                return new Age(
-                    years: int.Parse(s.Substring(0, 4 - 0)),
-                    months: int.Parse(s.Substring(5, 7 - 5)),
-                    days: int.Parse(s.Substring(8, 10 - 8)),
-                    hours: int.Parse(s.Substring(11, 13 - 11)),
-                    minutes: int.Parse(s.Substring(14, 16 - 14)),
-                    seconds: int.Parse(s.Substring(17, 19 - 17)));
+                return new Age(years, months, days, hours, minutes, seconds);
             }
-            catch (FormatException)
-            {
-                return null;
-            }
+
+            return null;
         }
 
         public Age(int years, int months, int days, int hours, int minutes, int seconds)
