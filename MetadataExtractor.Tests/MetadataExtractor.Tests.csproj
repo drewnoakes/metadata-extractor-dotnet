@@ -7,8 +7,6 @@
       $(RestoreAdditionalProjectSources);
       https://www.myget.org/F/xunit/api/v3/index.json
     </RestoreAdditionalProjectSources>
-
-    <GenerateRuntimeConfigDevFile>true</GenerateRuntimeConfigDevFile>
   </PropertyGroup>
 
   <ItemGroup>
