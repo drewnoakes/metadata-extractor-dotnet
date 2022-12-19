@@ -38,4 +38,16 @@
     <None Include="$(MSBuildThisFileDirectory)docs\$(PackageIcon)" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="System" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.Diagnostics" />
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="System.IO" />
+    <Using Include="System.Linq" />
+    <Using Include="System.Text" />
+    <Using Include="MetadataExtractor.IO" />
+    <Using Include="MetadataExtractor.Util" />
+  </ItemGroup>
+
 </Project>

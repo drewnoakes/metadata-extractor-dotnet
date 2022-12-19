@@ -2,7 +2,6 @@
 
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Tiff;
-using System.Collections.Generic;
 
 namespace MetadataExtractor.Formats.QuickTime
 {

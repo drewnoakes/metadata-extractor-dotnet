@@ -1,8 +1,5 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using MetadataExtractor.Formats.Avi;
 using MetadataExtractor.Formats.Bmp;
 using MetadataExtractor.Formats.Eps;
@@ -23,7 +20,6 @@ using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Tga;
 using MetadataExtractor.Formats.Wav;
 using MetadataExtractor.Formats.WebP;
-using MetadataExtractor.Util;
 
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;

@@ -1,8 +1,5 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System;
-using System.Text;
-
 namespace MetadataExtractor
 {
     /// <summary>Represents an age in years, months, days, hours, minutes and seconds.</summary>

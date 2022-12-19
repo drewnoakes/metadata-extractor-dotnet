@@ -1,16 +1,12 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using MetadataExtractor.Formats.Flir;
 using MetadataExtractor.Formats.Jpeg;
-using MetadataExtractor.Util;
 
 namespace MetadataExtractor.Samples
 {

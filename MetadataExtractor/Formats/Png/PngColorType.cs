@@ -3,7 +3,6 @@
 #if !NETSTANDARD1_3
 using System;
 #endif
-using System.Linq;
 
 namespace MetadataExtractor.Formats.Png
 {

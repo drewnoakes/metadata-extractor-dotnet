@@ -16,6 +16,7 @@ const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagIsoSpeedLatitudeYYY = 
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagIsoSpeedLatitudeZZZ = 34869 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagModelTiePoint = 33922 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagPixelScale = 33550 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagRatingPercent = 18249 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagSampleFormat = 339 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagCameraTemperatureRangeMax = 6 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FlirMakernoteDirectory.TagCameraTemperatureRangeMin = 5 -> int

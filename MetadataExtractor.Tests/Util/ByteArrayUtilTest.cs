@@ -2,8 +2,6 @@
 
 using Xunit;
 
-using MetadataExtractor.Util;
-
 namespace MetadataExtractor.Tests.Util
 {
     public class ByteArrayUtilTest

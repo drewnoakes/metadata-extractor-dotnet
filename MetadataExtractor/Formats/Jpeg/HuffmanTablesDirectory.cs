@@ -1,12 +1,5 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-
-using MetadataExtractor.Util;
-
 namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Directory of tables for the DHT (Define Huffman Table(s)) segment.</summary>
