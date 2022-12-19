@@ -2,7 +2,6 @@
 
 using System.Globalization;
 using MetadataExtractor.Formats.Exif;
-using Xunit;
 
 namespace MetadataExtractor.Tests
 {

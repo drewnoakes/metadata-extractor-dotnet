@@ -2,7 +2,6 @@
 
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Jpeg;
-using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {

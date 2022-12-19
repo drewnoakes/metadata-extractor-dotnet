@@ -2,7 +2,6 @@
 
 using MetadataExtractor.Formats.Adobe;
 using MetadataExtractor.Formats.Jpeg;
-using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Adobe
 {

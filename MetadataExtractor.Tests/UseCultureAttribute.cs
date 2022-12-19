@@ -2,7 +2,6 @@
 
 using System.Globalization;
 using System.Reflection;
-using Xunit;
 using Xunit.Sdk;
 
 // ReSharper disable MemberCanBePrivate.Global

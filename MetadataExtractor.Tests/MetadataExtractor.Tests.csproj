@@ -42,4 +42,8 @@
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="3.0.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="Xunit"/>
+  </ItemGroup>
+
 </Project>

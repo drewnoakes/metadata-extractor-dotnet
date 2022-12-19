@@ -2,7 +2,6 @@
 
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Xmp;
-using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Xmp
 {

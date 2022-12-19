@@ -2,7 +2,6 @@
 
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Jpeg;
-using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Icc
 {
