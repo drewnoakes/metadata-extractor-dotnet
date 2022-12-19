@@ -19,8 +19,11 @@
     <Deterministic>true</Deterministic>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+
+    <!-- https://github.com/dotnet/project-system/blob/main/docs/build-acceleration.md -->
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
