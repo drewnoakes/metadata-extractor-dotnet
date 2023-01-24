@@ -40,15 +40,11 @@ namespace MetadataExtractor.IO
         public abstract int ToUnshiftedOffset(int localOffset);
 
         /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
-        /// <remarks>
-        /// Implementations must validate <paramref name="index"/> by calling <see cref="ValidateIndex"/>.
-        /// </remarks>
+        /// <remarks>Implementations should assume <paramref name="index"/> has already been validated.</remarks>
         /// <param name="index">The index from which to read the byte</param>
         /// <returns>The read byte value</returns>
-        /// <exception cref="ArgumentException"><c>index</c> is negative</exception>
-        /// <exception cref="BufferBoundsException">if the requested byte is beyond the end of the underlying data source</exception>
         /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
-        public abstract byte GetByte(int index);
+        protected abstract byte GetByteInternal(int index);
 
         /// <summary>Returns the required number of bytes from the specified index from the underlying source.</summary>
         /// <param name="index">The index from which the bytes begins in the underlying source</param>
@@ -96,8 +92,23 @@ namespace MetadataExtractor.IO
             var byteIndex = index / 8;
             var bitIndex = index % 8;
             ValidateIndex(byteIndex, 1);
-            var b = GetByte(byteIndex);
+            var b = GetByteInternal(byteIndex);
             return ((b >> bitIndex) & 1) == 1;
+        }
+
+        /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
+        /// <remarks>
+        /// Implementations must validate <paramref name="index"/> by calling <see cref="ValidateIndex"/>.
+        /// </remarks>
+        /// <param name="index">The index from which to read the byte</param>
+        /// <returns>The read byte value</returns>
+        /// <exception cref="ArgumentException"><c>index</c> is negative</exception>
+        /// <exception cref="BufferBoundsException">if the requested byte is beyond the end of the underlying data source</exception>
+        /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
+        public byte GetByte(int index)
+        {
+            ValidateIndex(index, 1);
+            return GetByteInternal(index);
         }
 
         /// <summary>Returns a signed 8-bit int calculated from one byte of data at the specified index.</summary>
@@ -107,7 +118,7 @@ namespace MetadataExtractor.IO
         public sbyte GetSByte(int index)
         {
             ValidateIndex(index, 1);
-            return unchecked((sbyte)GetByte(index));
+            return unchecked((sbyte)GetByteInternal(index));
         }
 
 #pragma warning disable format
@@ -123,13 +134,13 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return (ushort)
-                    (GetByte(index    ) << 8 |
-                     GetByte(index + 1));
+                    (GetByteInternal(index    ) << 8 |
+                     GetByteInternal(index + 1));
             }
             // Intel ordering - LSB first
             return (ushort)
-                (GetByte(index + 1) << 8 |
-                 GetByte(index    ));
+                (GetByteInternal(index + 1) << 8 |
+                 GetByteInternal(index    ));
         }
 
         /// <summary>Returns a signed 16-bit int calculated from two bytes of data at the specified index (MSB, LSB).</summary>
@@ -143,13 +154,13 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return (short)
-                    (GetByte(index    ) << 8 |
-                     GetByte(index + 1));
+                    (GetByteInternal(index    ) << 8 |
+                     GetByteInternal(index + 1));
             }
             // Intel ordering - LSB first
             return (short)
-                (GetByte(index + 1) << 8 |
-                 GetByte(index));
+                (GetByteInternal(index + 1) << 8 |
+                 GetByteInternal(index));
         }
 
         /// <summary>Get a 24-bit unsigned integer from the buffer, returning it as an int.</summary>
@@ -163,15 +174,15 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first (big endian)
                 return
-                    GetByte(index    ) << 16 |
-                    GetByte(index + 1)  << 8 |
-                    GetByte(index + 2);
+                    GetByteInternal(index    ) << 16 |
+                    GetByteInternal(index + 1)  << 8 |
+                    GetByteInternal(index + 2);
             }
             // Intel ordering - LSB first (little endian)
             return
-                GetByte(index + 2) << 16 |
-                GetByte(index + 1) <<  8 |
-                GetByte(index    );
+                GetByteInternal(index + 2) << 16 |
+                GetByteInternal(index + 1) <<  8 |
+                GetByteInternal(index    );
         }
 
         /// <summary>Get a 32-bit unsigned integer from the buffer, returning it as a long.</summary>
@@ -185,17 +196,17 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first (big endian)
                 return (uint)
-                    (GetByte(index    ) << 24 |
-                     GetByte(index + 1) << 16 |
-                     GetByte(index + 2) <<  8 |
-                     GetByte(index + 3));
+                    (GetByteInternal(index    ) << 24 |
+                     GetByteInternal(index + 1) << 16 |
+                     GetByteInternal(index + 2) <<  8 |
+                     GetByteInternal(index + 3));
             }
             // Intel ordering - LSB first (little endian)
             return (uint)
-                (GetByte(index + 3) << 24 |
-                 GetByte(index + 2) << 16 |
-                 GetByte(index + 1) <<  8 |
-                 GetByte(index    ));
+                (GetByteInternal(index + 3) << 24 |
+                 GetByteInternal(index + 2) << 16 |
+                 GetByteInternal(index + 1) <<  8 |
+                 GetByteInternal(index    ));
         }
 
         /// <summary>Returns a signed 32-bit integer from four bytes of data at the specified index the buffer.</summary>
@@ -209,17 +220,17 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first (big endian)
                 return
-                    GetByte(index    ) << 24 |
-                    GetByte(index + 1) << 16 |
-                    GetByte(index + 2) <<  8 |
-                    GetByte(index + 3);
+                    GetByteInternal(index    ) << 24 |
+                    GetByteInternal(index + 1) << 16 |
+                    GetByteInternal(index + 2) <<  8 |
+                    GetByteInternal(index + 3);
             }
             // Intel ordering - LSB first (little endian)
             return
-                GetByte(index + 3) << 24 |
-                GetByte(index + 2) << 16 |
-                GetByte(index + 1) <<  8 |
-                GetByte(index    );
+                GetByteInternal(index + 3) << 24 |
+                GetByteInternal(index + 2) << 16 |
+                GetByteInternal(index + 1) <<  8 |
+                GetByteInternal(index    );
         }
 
         /// <summary>Get a signed 64-bit integer from the buffer.</summary>
@@ -233,25 +244,25 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return
-                    (long)GetByte(index    ) << 56 |
-                    (long)GetByte(index + 1) << 48 |
-                    (long)GetByte(index + 2) << 40 |
-                    (long)GetByte(index + 3) << 32 |
-                    (long)GetByte(index + 4) << 24 |
-                    (long)GetByte(index + 5) << 16 |
-                    (long)GetByte(index + 6) <<  8 |
-                          GetByte(index + 7);
+                    (long)GetByteInternal(index    ) << 56 |
+                    (long)GetByteInternal(index + 1) << 48 |
+                    (long)GetByteInternal(index + 2) << 40 |
+                    (long)GetByteInternal(index + 3) << 32 |
+                    (long)GetByteInternal(index + 4) << 24 |
+                    (long)GetByteInternal(index + 5) << 16 |
+                    (long)GetByteInternal(index + 6) <<  8 |
+                          GetByteInternal(index + 7);
             }
             // Intel ordering - LSB first
             return
-                (long)GetByte(index + 7) << 56 |
-                (long)GetByte(index + 6) << 48 |
-                (long)GetByte(index + 5) << 40 |
-                (long)GetByte(index + 4) << 32 |
-                (long)GetByte(index + 3) << 24 |
-                (long)GetByte(index + 2) << 16 |
-                (long)GetByte(index + 1) <<  8 |
-                      GetByte(index    );
+                (long)GetByteInternal(index + 7) << 56 |
+                (long)GetByteInternal(index + 6) << 48 |
+                (long)GetByteInternal(index + 5) << 40 |
+                (long)GetByteInternal(index + 4) << 32 |
+                (long)GetByteInternal(index + 3) << 24 |
+                (long)GetByteInternal(index + 2) << 16 |
+                (long)GetByteInternal(index + 1) <<  8 |
+                      GetByteInternal(index    );
         }
 
         /// <summary>Get an unsigned 64-bit integer from the buffer.</summary>
@@ -265,25 +276,25 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return
-                    (ulong)GetByte(index    ) << 56 |
-                    (ulong)GetByte(index + 1) << 48 |
-                    (ulong)GetByte(index + 2) << 40 |
-                    (ulong)GetByte(index + 3) << 32 |
-                    (ulong)GetByte(index + 4) << 24 |
-                    (ulong)GetByte(index + 5) << 16 |
-                    (ulong)GetByte(index + 6) <<  8 |
-                          GetByte(index + 7);
+                    (ulong)GetByteInternal(index    ) << 56 |
+                    (ulong)GetByteInternal(index + 1) << 48 |
+                    (ulong)GetByteInternal(index + 2) << 40 |
+                    (ulong)GetByteInternal(index + 3) << 32 |
+                    (ulong)GetByteInternal(index + 4) << 24 |
+                    (ulong)GetByteInternal(index + 5) << 16 |
+                    (ulong)GetByteInternal(index + 6) <<  8 |
+                          GetByteInternal(index + 7);
             }
             // Intel ordering - LSB first
             return
-                (ulong)GetByte(index + 7) << 56 |
-                (ulong)GetByte(index + 6) << 48 |
-                (ulong)GetByte(index + 5) << 40 |
-                (ulong)GetByte(index + 4) << 32 |
-                (ulong)GetByte(index + 3) << 24 |
-                (ulong)GetByte(index + 2) << 16 |
-                (ulong)GetByte(index + 1) <<  8 |
-                      GetByte(index    );
+                (ulong)GetByteInternal(index + 7) << 56 |
+                (ulong)GetByteInternal(index + 6) << 48 |
+                (ulong)GetByteInternal(index + 5) << 40 |
+                (ulong)GetByteInternal(index + 4) << 32 |
+                (ulong)GetByteInternal(index + 3) << 24 |
+                (ulong)GetByteInternal(index + 2) << 16 |
+                (ulong)GetByteInternal(index + 1) <<  8 |
+                      GetByteInternal(index    );
         }
 
 #pragma warning restore format
@@ -299,15 +310,15 @@ namespace MetadataExtractor.IO
             ValidateIndex(index, 4);
             if (IsMotorolaByteOrder)
             {
-                float res = GetByte(index) << 8 | GetByte(index + 1);
-                var d = GetByte(index + 2) << 8 | GetByte(index + 3);
+                float res = GetByteInternal(index) << 8 | GetByteInternal(index + 1);
+                var d = GetByteInternal(index + 2) << 8 | GetByteInternal(index + 3);
                 return (float)(res + d / 65536.0);
             }
             else
             {
                 // this particular branch is untested
-                var d = GetByte(index + 1) << 8 | GetByte(index);
-                float res = GetByte(index + 3) << 8 | GetByte(index + 2);
+                var d = GetByteInternal(index + 1) << 8 | GetByteInternal(index);
+                float res = GetByteInternal(index + 3) << 8 | GetByteInternal(index + 2);
                 return (float)(res + d / 65536.0);
             }
         }
