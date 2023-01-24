@@ -169,7 +169,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             long atomSize = a.Reader.GetUInt32();
                             if (atomSize < 24)
                             {
-                                GetMetaHeaderDirectory().AddError("Invalid ilist atom type");
+                                GetMetaHeaderDirectory().AddError("Invalid ilst atom type");
                                 a.Reader.Skip(atomSize - 4);
                                 continue;
                             }
@@ -179,7 +179,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             // atom type for each metadata item atom is the index of the key
                             if (atomType < 1 || atomType > metaDataKeys.Count)
                             {
-                                GetMetaHeaderDirectory().AddError("Invalid ilist atom type");
+                                GetMetaHeaderDirectory().AddError("Invalid ilst atom type");
                                 a.Reader.Skip(atomSize - 8);
                                 continue;
                             }
@@ -228,7 +228,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             }
                             else
                             {
-                                GetMetaHeaderDirectory().AddError($"Unsupported ilist key \"{key}\"");
+                                GetMetaHeaderDirectory().AddError($"Unsupported ilst key \"{key}\"");
                             }
                         }
 

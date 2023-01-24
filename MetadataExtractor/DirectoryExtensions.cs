@@ -819,112 +819,112 @@ namespace MetadataExtractor
 
                 if (componentType == typeof(float))
                 {
-                    var vals = (float[])array;
-                    for (var i = 0; i < vals.Length; i++)
+                    var values = (float[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.AppendFormat("{0:0.###}", vals[i]);
+                        str.AppendFormat("{0:0.###}", values[i]);
                     }
                 }
                 else if (componentType == typeof(double))
                 {
-                    var vals = (double[])array;
-                    for (var i = 0; i < vals.Length; i++)
+                    var values = (double[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.AppendFormat("{0:0.###}", vals[i]);
+                        str.AppendFormat("{0:0.###}", values[i]);
                     }
                 }
                 else if (componentType == typeof(int))
                 {
-                    var vals = (int[])array;
-                    for (var i = 0; i < vals.Length; i++)
+                    var values = (int[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.Append(vals[i]);
+                        str.Append(values[i]);
                     }
                 }
                 else if (componentType == typeof(uint))
                 {
-                    var vals = (uint[])array;
-                    for (var i = 0; i < vals.Length; i++)
+                    var values = (uint[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.Append(vals[i]);
+                        str.Append(values[i]);
                     }
                 }
                 else if (componentType == typeof(short))
                 {
-                    var vals = (short[])array;
-                    for (var i = 0; i < vals.Length; i++)
+                    var values = (short[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.Append(vals[i]);
+                        str.Append(values[i]);
                     }
                 }
                 else if (componentType == typeof(ushort))
                 {
-                    var vals = (ushort[])array;
-                    for (var i = 0; i < vals.Length; i++)
+                    var values = (ushort[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.Append(vals[i]);
+                        str.Append(values[i]);
                     }
                 }
                 else if (componentType == typeof(byte))
                 {
-                    var vals = (byte[])array;
-                    for (var i = 0; i < vals.Length; i++)
+                    var values = (byte[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.Append(vals[i]);
+                        str.Append(values[i]);
                     }
                 }
                 else if (componentType == typeof(sbyte))
                 {
-                    var vals = (sbyte[])array;
-                    for (var i = 0; i < vals.Length; i++)
+                    var values = (sbyte[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.Append(vals[i]);
+                        str.Append(values[i]);
                     }
                 }
                 else if (componentType == typeof(Rational))
                 {
-                    var vals = (Rational[])array;
-                    for (var i = 0; i < vals.Length; i++)
+                    var values = (Rational[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.Append(vals[i]);
+                        str.Append(values[i]);
                     }
                 }
                 else if (componentType == typeof(string))
                 {
-                    var vals = (string[])array;
-                    for (var i = 0; i < vals.Length; i++)
+                    var values = (string[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.Append(vals[i]);
+                        str.Append(values[i]);
                     }
                 }
                 else if (componentType is { IsByRef: true })
                 {
-                    var vals = (object[])array;
-                    for (var i = 0; i < vals.Length; i++)
+                    var values = (object[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.Append(vals[i]);
+                        str.Append(values[i]);
                     }
                 }
                 else
