@@ -64,6 +64,7 @@ namespace MetadataExtractor.Benchmarks
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
+    [SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "Memory stream doesn't need to be disposed")]
     public class JpegBenchmark
     {
         private readonly MemoryStream _stream;

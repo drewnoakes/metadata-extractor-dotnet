@@ -21,7 +21,7 @@ namespace MetadataExtractor
             if (s is null)
                 throw new ArgumentNullException(nameof(s));
 
-            if (s.Length != 19 || s.StartsWith("9999:99:99"))
+            if (s.Length != 19 || s.StartsWith("9999:99:99", StringComparison.Ordinal))
                 return null;
 
             if (int.TryParse(s.Substring(0, 4), out var years) &&

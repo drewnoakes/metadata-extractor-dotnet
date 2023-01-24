@@ -160,7 +160,7 @@ namespace MetadataExtractor.Formats.Icc
                             {
                                 name = Encoding.UTF8.GetString(bytes, ofs, len);
                             }
-                            res.Append(" ").Append(str).Append("(").Append(name).Append(")");
+                            res.Append(' ').Append(str).Append('(').Append(name).Append(')');
                         }
                         return res.ToString();
                     }

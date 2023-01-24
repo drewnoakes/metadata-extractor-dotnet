@@ -132,7 +132,7 @@ namespace MetadataExtractor.Formats.Avi
                 {
                     var reader = new ByteArrayReader(payload);
                     var str = reader.GetString(0, payload.Length, Encoding.ASCII);
-                    if (str.Length == 26 && str.EndsWith("\n\0"))
+                    if (str.Length == 26 && str.EndsWith("\n\0", StringComparison.Ordinal))
                     {
                         // ?0A 00? "New Line" + padded to nearest WORD boundary
                         str = str.Substring(0, 24);

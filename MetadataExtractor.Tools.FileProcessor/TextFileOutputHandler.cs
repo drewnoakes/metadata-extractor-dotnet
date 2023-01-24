@@ -14,13 +14,13 @@ namespace MetadataExtractor.Tools.FileProcessor
     /// </summary>
     internal class TextFileOutputHandler : FileHandlerBase
     {
-        private static readonly string NEW_LINE = "\n";
-        private static readonly string subdir = @"metadata\dotnet";
+        private const string NEW_LINE = "\n";
+        private const string Subdir = @"metadata\dotnet";
 
         public override void OnStartingDirectory(string directoryPath)
         {
             base.OnStartingDirectory(directoryPath);
-            System.IO.Directory.Delete(Path.Combine(directoryPath, subdir), recursive: true);
+            System.IO.Directory.Delete(Path.Combine(directoryPath, Subdir), recursive: true);
         }
 
         public override void OnBeforeExtraction(string filePath, string relativePath, TextWriter log)
@@ -105,11 +105,11 @@ namespace MetadataExtractor.Tools.FileProcessor
 
                     void WriteLevel(Directory? parent, int level)
                     {
-                        const int indent = 4;
+                        const int Indent = 4;
 
                         foreach (var child in tree[parent])
                         {
-                            writer.Write(new string(' ', level * indent));
+                            writer.Write(new string(' ', level * Indent));
                             writer.Write($"- {child.Name}\n");
                             WriteLevel(child, level + 1);
                         }
@@ -153,7 +153,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         {
             var directoryPath = Path.GetDirectoryName(filePath);
             Debug.Assert(directoryPath != null);
-            var metadataPath = Path.Combine(directoryPath, subdir);
+            var metadataPath = Path.Combine(directoryPath, Subdir);
             var fileName = Path.GetFileName(filePath);
 
             // Create the output directory if it doesn't exist

@@ -53,8 +53,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
                 {
                     app1[i] = b;
 
-                    // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                    exifReader.ReadJpegSegments(segments).ToList();
+                    _ = exifReader.ReadJpegSegments(segments).ToList();
                 }
 
                 app1[i] = original;

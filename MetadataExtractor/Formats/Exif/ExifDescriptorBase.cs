@@ -536,7 +536,7 @@ namespace MetadataExtractor.Formats.Exif
             string[] cfaColors = { "Red", "Green", "Blue", "Cyan", "Magenta", "Yellow", "White" };
 
             var ret = new StringBuilder();
-            ret.Append("[");
+            ret.Append('[');
             for (var pos = 2; pos < end; pos++)
             {
                 if (pattern[pos] <= cfaColors.Length - 1)
@@ -545,11 +545,11 @@ namespace MetadataExtractor.Formats.Exif
                     ret.Append("Unknown");  // indicated pattern position is outside the array bounds
 
                 if ((pos - 2) % pattern[1] == 0)
-                    ret.Append(",");
+                    ret.Append(',');
                 else if (pos != end - 1)
                     ret.Append("][");
             }
-            ret.Append("]");
+            ret.Append(']');
 
             return ret.ToString();
         }

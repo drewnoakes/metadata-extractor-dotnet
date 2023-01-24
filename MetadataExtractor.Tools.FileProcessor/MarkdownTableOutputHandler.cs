@@ -77,7 +77,7 @@ namespace MetadataExtractor.Tools.FileProcessor
 
             var extension = Path.GetExtension(filePath);
 
-            if (extension == string.Empty)
+            if (extension.Length == 0)
                 return;
 
             // Sanitise the extension

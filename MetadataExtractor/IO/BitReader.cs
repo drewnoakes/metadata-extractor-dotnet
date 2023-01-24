@@ -6,8 +6,8 @@ namespace MetadataExtractor.IO
     {
         private readonly SequentialReader _source;
 
-        private byte _mask = 0;
-        private byte _currentByte = 0;
+        private byte _mask;
+        private byte _currentByte;
 
         public BitReader(SequentialReader source)
         {

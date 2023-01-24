@@ -229,7 +229,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetColorModeDescription()
         {
             var value = Directory.GetString(NikonType2MakernoteDirectory.TagCameraColorMode);
-            return value is null ? null : value.StartsWith("MODE1") ? "Mode I (sRGB)" : value;
+            return value is null ? null : value.StartsWith("MODE1", StringComparison.Ordinal) ? "Mode I (sRGB)" : value;
         }
 
         public string? GetFirmwareVersionDescription()
