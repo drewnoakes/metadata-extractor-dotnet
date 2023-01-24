@@ -1,5 +1,10 @@
 root = true
 
+[*]
+
+# Spell checker configuration
+spelling_exclusion_path = spelling.dic
+
 [*.cs]
 indent_size = 4
 indent_style = space
