@@ -90,6 +90,7 @@ namespace MetadataExtractor.Formats.Png
         /// For more guidance: http://www.w3.org/TR/PNG-Decoders.html#D.Text-chunk-processing
         /// </summary>
         private static readonly Encoding _latin1Encoding = Encoding.GetEncoding("ISO-8859-1");
+        private static readonly Encoding _utf8Encoding = Encoding.GetEncoding("UTF-8");
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="IOException"/>
@@ -248,7 +249,7 @@ namespace MetadataExtractor.Formats.Png
             else if (chunkType == PngChunkType.iTXt)
             {
                 var reader = new SequentialByteArrayReader(bytes);
-                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
+                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_utf8Encoding);
                 var compressionFlag = reader.GetSByte();
                 var compressionMethod = reader.GetSByte();
 
@@ -432,7 +433,14 @@ namespace MetadataExtractor.Formats.Png
 
                 static PngDirectory ReadTextDirectory(string keyword, byte[] textBytes, PngChunkType pngChunkType)
                 {
-                    var textPairs = new[] { new KeyValuePair(keyword, new StringValue(textBytes, _latin1Encoding)) };
+                    var encoding = _latin1Encoding;
+
+                    if (pngChunkType == PngChunkType.iTXt)
+                    {
+                        encoding = _utf8Encoding;
+                    }
+
+                    var textPairs = new[] { new KeyValuePair(keyword, new StringValue(textBytes, encoding)) };
                     var directory = new PngDirectory(pngChunkType);
                     directory.Set(PngDirectory.TagTextualData, textPairs);
                     return directory;
