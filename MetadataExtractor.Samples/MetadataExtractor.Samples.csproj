@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MetadataExtractor\MetadataExtractor.csproj" />
-    <PackageReference Include="GeographicLib.NET" Version="1.52.0" />
+    <PackageReference Include="GeographicLib.NET" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>
