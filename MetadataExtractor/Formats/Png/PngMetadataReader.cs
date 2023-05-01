@@ -249,7 +249,8 @@ namespace MetadataExtractor.Formats.Png
             else if (chunkType == PngChunkType.iTXt)
             {
                 var reader = new SequentialByteArrayReader(bytes);
-                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_utf8Encoding);
+                var keywordStringValue = reader.GetNullTerminatedStringValue(maxLengthBytes: 79);
+                var keyword = keywordStringValue.ToString(_utf8Encoding);
                 var compressionFlag = reader.GetSByte();
                 var compressionMethod = reader.GetSByte();
 
@@ -257,7 +258,9 @@ namespace MetadataExtractor.Formats.Png
                 var languageTagBytes = reader.GetNullTerminatedBytes(bytes.Length);
                 var translatedKeywordBytes = reader.GetNullTerminatedBytes(bytes.Length);
 
-                var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTagBytes.Length - 1 - translatedKeywordBytes.Length - 1;
+                // bytes left for compressed text is:
+                // total bytes length - (Keyword length + null byte + comp flag byte + comp method byte + lang length + null byte + translated length + null byte)
+                var bytesLeft = bytes.Length - keywordStringValue.Bytes.Length - 1 - 1 - 1 - languageTagBytes.Length - 1 - translatedKeywordBytes.Length - 1;
                 byte[]? textBytes = null;
                 if (compressionFlag == 0)
                 {
