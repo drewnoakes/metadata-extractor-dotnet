@@ -90,7 +90,7 @@ namespace MetadataExtractor.Formats.Png
         /// For more guidance: http://www.w3.org/TR/PNG-Decoders.html#D.Text-chunk-processing
         /// </summary>
         private static readonly Encoding _latin1Encoding = Encoding.GetEncoding("ISO-8859-1");
-        private static readonly Encoding _utf8Encoding = Encoding.GetEncoding("UTF-8");
+        private static readonly Encoding _utf8Encoding = Encoding.UTF8;
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="IOException"/>
