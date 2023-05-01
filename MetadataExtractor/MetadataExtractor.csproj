@@ -45,7 +45,7 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
 
   <!-- Analyzers -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
