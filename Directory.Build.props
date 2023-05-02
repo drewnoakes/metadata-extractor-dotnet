@@ -30,8 +30,6 @@
 
     <!-- This avoids needing to have .NET targeting packs installed (e.g. for .NET 3.5) -->
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
-
-    <PackageReference Include="CSharpIsNullAnalyzer" Version="0.1.329" PrivateAssets="all" />
   </ItemGroup>
 
   <!-- Analyzers -->
@@ -40,7 +38,8 @@
     <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" />
+    <PackageReference Include="CSharpIsNullAnalyzer" Version="0.1.329" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
