@@ -383,6 +383,8 @@ MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.Tiff.TiffStandard.BigTiff = 1 -> MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.Tiff.TiffStandard.Tiff = 0 -> MetadataExtractor.Formats.Tiff.TiffStandard
 MetadataExtractor.Formats.WebP.WebPRiffHandler.AddError(string! errorMessage) -> void
+MetadataExtractor.GeoLocation.Altitude.get -> double?
+MetadataExtractor.GeoLocation.GeoLocation(double latitude, double longitude, double? altitude) -> void
 MetadataExtractor.IO.IndexedReader.GetUInt64(int index) -> ulong
 MetadataExtractor.Rational.Absolute.get -> MetadataExtractor.Rational
 MetadataExtractor.Rational.IsPositive.get -> bool
