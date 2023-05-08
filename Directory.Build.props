@@ -38,7 +38,7 @@
     <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CSharpIsNullAnalyzer" Version="0.1.329" PrivateAssets="all" />
+    <PackageReference Include="CSharpIsNullAnalyzer" Version="0.1.492" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
   </ItemGroup>
 
