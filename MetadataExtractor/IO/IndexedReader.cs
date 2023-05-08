@@ -43,7 +43,7 @@ namespace MetadataExtractor.IO
         /// <remarks>Implementations should assume <paramref name="index"/> has already been validated.</remarks>
         /// <param name="index">The index from which to read the byte</param>
         /// <returns>The read byte value</returns>
-        /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
+        /// <exception cref="IOException">if the byte is unable to be read</exception>
         protected abstract byte GetByteInternal(int index);
 
         /// <summary>Returns the required number of bytes from the specified index from the underlying source.</summary>
@@ -52,7 +52,7 @@ namespace MetadataExtractor.IO
         /// <returns>The requested bytes</returns>
         /// <exception cref="ArgumentException"><c>index</c> or <c>count</c> are negative</exception>
         /// <exception cref="BufferBoundsException">if the requested bytes extend beyond the end of the underlying data source</exception>
-        /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
+        /// <exception cref="IOException">if the byte is unable to be read</exception>
         public abstract byte[] GetBytes(int index, int count);
 
         /// <summary>
@@ -64,10 +64,10 @@ namespace MetadataExtractor.IO
         /// </remarks>
         /// <param name="index">the index from which the required bytes start</param>
         /// <param name="bytesRequested">the number of bytes which are required</param>
-        /// <exception cref="System.IO.IOException">if the stream ends before the required number of bytes are acquired</exception>
+        /// <exception cref="IOException">if the stream ends before the required number of bytes are acquired</exception>
         protected abstract void ValidateIndex(int index, int bytesRequested);
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         protected abstract bool IsValidIndex(int index, int bytesRequested);
 
         /// <summary>Returns the length of the data source in bytes.</summary>
@@ -80,13 +80,13 @@ namespace MetadataExtractor.IO
         /// will have to read and buffer the entire data source in order to determine the length.
         /// </remarks>
         /// <value>the length of the data source, in bytes.</value>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public abstract long Length { get; }
 
         /// <summary>Gets whether a bit at a specific index is set or not.</summary>
         /// <param name="index">the number of bits at which to test</param>
         /// <returns>true if the bit is set, otherwise false</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public bool GetBit(int index)
         {
             var byteIndex = index / 8;
@@ -104,7 +104,7 @@ namespace MetadataExtractor.IO
         /// <returns>The read byte value</returns>
         /// <exception cref="ArgumentException"><c>index</c> is negative</exception>
         /// <exception cref="BufferBoundsException">if the requested byte is beyond the end of the underlying data source</exception>
-        /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
+        /// <exception cref="IOException">if the byte is unable to be read</exception>
         public byte GetByte(int index)
         {
             ValidateIndex(index, 1);
@@ -114,7 +114,7 @@ namespace MetadataExtractor.IO
         /// <summary>Returns a signed 8-bit int calculated from one byte of data at the specified index.</summary>
         /// <param name="index">position within the data buffer to read byte</param>
         /// <returns>the 8 bit signed byte value</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public sbyte GetSByte(int index)
         {
             ValidateIndex(index, 1);
@@ -126,7 +126,7 @@ namespace MetadataExtractor.IO
         /// <summary>Returns an unsigned 16-bit int calculated from two bytes of data at the specified index.</summary>
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public ushort GetUInt16(int index)
         {
             ValidateIndex(index, 2);
@@ -146,7 +146,7 @@ namespace MetadataExtractor.IO
         /// <summary>Returns a signed 16-bit int calculated from two bytes of data at the specified index (MSB, LSB).</summary>
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public short GetInt16(int index)
         {
             ValidateIndex(index, 2);
@@ -166,7 +166,7 @@ namespace MetadataExtractor.IO
         /// <summary>Get a 24-bit unsigned integer from the buffer, returning it as an int.</summary>
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the unsigned 24-bit int value as a long, between 0x00000000 and 0x00FFFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public int GetInt24(int index)
         {
             ValidateIndex(index, 3);
@@ -188,7 +188,7 @@ namespace MetadataExtractor.IO
         /// <summary>Get a 32-bit unsigned integer from the buffer, returning it as a long.</summary>
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the unsigned 32-bit int value as a long, between 0x00000000 and 0xFFFFFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public uint GetUInt32(int index)
         {
             ValidateIndex(index, 4);
@@ -212,7 +212,7 @@ namespace MetadataExtractor.IO
         /// <summary>Returns a signed 32-bit integer from four bytes of data at the specified index the buffer.</summary>
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the signed 32 bit int value, between 0x00000000 and 0xFFFFFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public int GetInt32(int index)
         {
             ValidateIndex(index, 4);
@@ -236,7 +236,7 @@ namespace MetadataExtractor.IO
         /// <summary>Get a signed 64-bit integer from the buffer.</summary>
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the 64 bit int value, between 0x0000000000000000 and 0xFFFFFFFFFFFFFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public long GetInt64(int index)
         {
             ValidateIndex(index, 8);
@@ -268,7 +268,7 @@ namespace MetadataExtractor.IO
         /// <summary>Get an unsigned 64-bit integer from the buffer.</summary>
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the 64 bit int value, between 0x0000000000000000 and 0xFFFFFFFFFFFFFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public ulong GetUInt64(int index)
         {
             ValidateIndex(index, 8);
@@ -304,7 +304,7 @@ namespace MetadataExtractor.IO
         /// This particular fixed point encoding has one sign bit, 15 numerator bits and 16 denominator bits.
         /// </remarks>
         /// <returns>the floating point value</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public float GetS15Fixed16(int index)
         {
             ValidateIndex(index, 4);
@@ -323,13 +323,13 @@ namespace MetadataExtractor.IO
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public float GetFloat32(int index) => BitConverter.ToSingle(BitConverter.GetBytes(GetInt32(index)), 0);
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public double GetDouble64(int index) => BitConverter.Int64BitsToDouble(GetInt64(index));
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public string GetString(int index, int bytesRequested, Encoding encoding)
         {
             var bytes = GetBytes(index, bytesRequested);
@@ -347,7 +347,7 @@ namespace MetadataExtractor.IO
         /// </param>
         /// <param name="encoding">An optional string encoding. If none is provided, <see cref="Encoding.UTF8"/> is used.</param>
         /// <returns>The read <see cref="string"/></returns>
-        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        /// <exception cref="IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         public string GetNullTerminatedString(int index, int maxLengthBytes, Encoding? encoding = null)
         {
             var bytes = GetNullTerminatedBytes(index, maxLengthBytes);
@@ -366,7 +366,7 @@ namespace MetadataExtractor.IO
         /// </param>
         /// <param name="encoding">An optional string encoding to use when interpreting bytes.</param>
         /// <returns>The read <see cref="StringValue"/></returns>
-        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        /// <exception cref="IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         public StringValue GetNullTerminatedStringValue(int index, int maxLengthBytes, Encoding? encoding = null)
         {
             var bytes = GetNullTerminatedBytes(index, maxLengthBytes);
@@ -383,7 +383,7 @@ namespace MetadataExtractor.IO
         /// the returned array will be <paramref name="maxLengthBytes"/> long.
         /// </param>
         /// <returns>The read byte array.</returns>
-        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        /// <exception cref="IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         public byte[] GetNullTerminatedBytes(int index, int maxLengthBytes)
         {
             var buffer = GetBytes(index, maxLengthBytes);

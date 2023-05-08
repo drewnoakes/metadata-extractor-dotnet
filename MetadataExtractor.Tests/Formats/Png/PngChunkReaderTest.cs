@@ -9,7 +9,7 @@ namespace MetadataExtractor.Tests.Formats.Png
     public sealed class PngChunkReaderTest
     {
         /// <exception cref="PngProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         private static IList<PngChunk> ProcessFile(string filePath)
         {
             using var stream = TestDataUtil.OpenRead(filePath);

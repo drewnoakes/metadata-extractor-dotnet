@@ -8,7 +8,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IptcReaderTest
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         private static IptcDirectory ProcessBytes(string filePath)
         {
             var bytes = TestDataUtil.GetBytes(filePath);

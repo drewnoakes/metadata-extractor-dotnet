@@ -8,7 +8,7 @@ namespace MetadataExtractor.Formats.Png
         private static readonly byte[] _pngSignatureBytes = { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A };
 
         /// <exception cref="PngProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public IEnumerable<PngChunk> Extract(SequentialReader reader, ICollection<PngChunkType>? desiredChunkTypes)
         {
             //

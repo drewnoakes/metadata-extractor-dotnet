@@ -49,7 +49,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// <param name="valueOffset">The offset into the data stream at which the tag's value starts.</param>
         /// <param name="byteCount">The number of bytes that the tag's value spans.</param>
         /// <returns><see langword="true"/> if processing was successful and default processing should be suppressed, otherwise <see langword="false"/>.</returns>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         bool CustomProcessTag(in TiffReaderContext context, int tagId, int valueOffset, int byteCount);
 
         bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount);

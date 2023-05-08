@@ -12,7 +12,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// <param name="reader">the <see cref="IndexedReader"/> from which the data should be read</param>
         /// <param name="handler">the <see cref="ITiffHandler"/> that will coordinate processing and accept read values</param>
         /// <exception cref="TiffProcessingException">if an error occurred during the processing of TIFF data that could not be ignored or recovered from</exception>
-        /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
+        /// <exception cref="IOException">an error occurred while accessing the required data</exception>
         /// <exception cref="TiffProcessingException"/>
         public static void ProcessTiff(IndexedReader reader, ITiffHandler handler)
         {
@@ -99,7 +99,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// <param name="handler">The <see cref="ITiffHandler"/> that will coordinate processing and accept read values.</param>
         /// <param name="context">Context for the TIFF read operation.</param>
         /// <param name="ifdOffset">The offset at which the IFD data starts.</param>
-        /// <exception cref="System.IO.IOException">An error occurred while accessing the required data.</exception>
+        /// <exception cref="IOException">An error occurred while accessing the required data.</exception>
         public static void ProcessIfd(ITiffHandler handler, TiffReaderContext context, int ifdOffset)
         {
             // Standard TIFF
@@ -299,7 +299,7 @@ namespace MetadataExtractor.Formats.Tiff
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         private static void ProcessTag(ITiffHandler handler, int tagId, int tagValueOffset, int componentCount, TiffDataFormatCode formatCode, IndexedReader reader)
         {
             switch (formatCode)
