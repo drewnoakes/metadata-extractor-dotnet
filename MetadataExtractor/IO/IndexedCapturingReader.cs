@@ -131,12 +131,21 @@ namespace MetadataExtractor.IO
 
         public override int ToUnshiftedOffset(int localOffset) => localOffset;
 
-        public override byte GetByte(int index)
+        private void GetPosition(int index, out int chunkIndex, out int innerIndex)
         {
-            ValidateIndex(index, 1);
+#if NET35 || NET45 || NETSTANDARD2_0
+            chunkIndex = Math.DivRem(index, _chunkLength, out innerIndex);
+#elif NET5_0_OR_GREATER
+            (chunkIndex, innerIndex) = Math.DivRem(index, _chunkLength);
+#else
+            chunkIndex = index / _chunkLength;
+            innerIndex = index % _chunkLength;
+#endif
+        }
 
-            var chunkIndex = index / _chunkLength;
-            var innerIndex = index % _chunkLength;
+        protected override byte GetByteInternal(int index)
+        {
+            GetPosition(index, out int chunkIndex, out int innerIndex);
             var chunk = _chunks[chunkIndex];
             return chunk[innerIndex];
         }
@@ -151,8 +160,7 @@ namespace MetadataExtractor.IO
             var toIndex = 0;
             while (remaining != 0)
             {
-                var fromChunkIndex = fromIndex / _chunkLength;
-                var fromInnerIndex = fromIndex % _chunkLength;
+                GetPosition(fromIndex, out int fromChunkIndex, out int fromInnerIndex);
                 var length = Math.Min(remaining, _chunkLength - fromInnerIndex);
                 var chunk = _chunks[fromChunkIndex];
                 Array.Copy(chunk, fromInnerIndex, bytes, toIndex, length);
@@ -188,7 +196,7 @@ namespace MetadataExtractor.IO
 
             public override int ToUnshiftedOffset(int localOffset) => localOffset + _baseOffset;
 
-            public override byte GetByte(int index) => _baseReader.GetByte(_baseOffset + index);
+            protected override byte GetByteInternal(int index) => _baseReader.GetByteInternal(_baseOffset + index);
 
             public override byte[] GetBytes(int index, int count) => _baseReader.GetBytes(_baseOffset + index, count);
 

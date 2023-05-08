@@ -41,7 +41,7 @@ namespace MetadataExtractor.IO
 
         public override long Length { get; }
 
-        public override byte GetByte(int index)
+        protected override byte GetByteInternal(int index)
         {
             ValidateIndex(index, 1);
 

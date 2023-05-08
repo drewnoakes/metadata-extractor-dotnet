@@ -1,1 +1,5 @@
 ﻿#nullable enable
+abstract MetadataExtractor.IO.IndexedReader.GetByteInternal(int index) -> byte
+MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
+override MetadataExtractor.IO.ByteArrayReader.GetByteInternal(int index) -> byte
+override MetadataExtractor.IO.IndexedSeekingReader.GetByteInternal(int index) -> byte

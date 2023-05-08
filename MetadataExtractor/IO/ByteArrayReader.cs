@@ -33,9 +33,8 @@ namespace MetadataExtractor.IO
 
         public override long Length => _buffer.Length - _baseOffset;
 
-        public override byte GetByte(int index)
+        protected override byte GetByteInternal(int index)
         {
-            ValidateIndex(index, 1);
             return _buffer[index + _baseOffset];
         }
 
