@@ -290,7 +290,7 @@ namespace MetadataExtractor.Formats.Heif
                         var exifBytes = GetExifBytes();
 
                         var parser = new ExifReader();
-                        var dirs = parser.Extract(new ByteArrayReader(exifBytes));
+                        var dirs = parser.Extract(new ByteArrayReader(exifBytes), exifStartOffset: 0);
                         directories.AddRange(dirs);
 
                         byte[] GetExifBytes()

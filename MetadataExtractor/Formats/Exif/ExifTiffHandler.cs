@@ -19,9 +19,13 @@ namespace MetadataExtractor.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ExifTiffHandler : DirectoryTiffHandler
     {
-        public ExifTiffHandler(List<Directory> directories)
+        private readonly int _exifStartOffset;
+
+        public ExifTiffHandler(List<Directory> directories, int exifStartOffset)
             : base(directories)
-        { }
+        {
+            _exifStartOffset = exifStartOffset;
+        }
 
         /// <exception cref="TiffProcessingException"/>
         public override TiffStandard ProcessTiffMarker(ushort marker)
@@ -123,11 +127,11 @@ namespace MetadataExtractor.Formats.Exif
 
         public override bool HasFollowerIfd()
         {
-            // If the next Ifd is IFD1, it's a thumbnail for JPG and some TIFF-based images
+            // If the next IFD is IFD1, it's a thumbnail for JPG and some TIFF-based images
             // NOTE: this is not true for some other image types, but those are not implemented yet
             if (CurrentDirectory is ExifIfd0Directory)
             {
-                PushDirectory(new ExifThumbnailDirectory());
+                PushDirectory(new ExifThumbnailDirectory(_exifStartOffset));
                 return true;
             }
             else
@@ -257,7 +261,7 @@ namespace MetadataExtractor.Formats.Exif
 
             if (CurrentDirectory is PanasonicRawIfd0Directory)
             {
-                // these contain binary data with specific offsets, and can't be processed as regular ifd's.
+                // these contain binary data with specific offsets, and can't be processed as regular IFD's.
                 // The binary data is broken into 'fake' tags and there is a pattern.
                 switch (tagId)
                 {

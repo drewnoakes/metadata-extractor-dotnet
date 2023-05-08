@@ -16,7 +16,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             Directory subIfdDirectory = new ExifSubIfdDirectory();
             Directory ifd0Directory = new ExifIfd0Directory();
-            Directory thumbDirectory = new ExifThumbnailDirectory();
+            Directory thumbDirectory = new ExifThumbnailDirectory(exifStartOffset: 0);
             Assert.False(subIfdDirectory.HasError);
             Assert.False(ifd0Directory.HasError);
             Assert.False(thumbDirectory.HasError);
