@@ -25,7 +25,7 @@ namespace MetadataExtractor.Formats.Photoshop
         //private const int TagTAnnotations = 0xC44F;
 
         public PhotoshopTiffHandler(List<Directory> directories)
-            : base(directories)
+            : base(directories, exifStartOffset: 0)
         {
         }
 

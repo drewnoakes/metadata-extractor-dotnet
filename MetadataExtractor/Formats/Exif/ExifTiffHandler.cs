@@ -19,9 +19,13 @@ namespace MetadataExtractor.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ExifTiffHandler : DirectoryTiffHandler
     {
-        public ExifTiffHandler(List<Directory> directories)
+        private readonly int _exifStartOffset;
+
+        public ExifTiffHandler(List<Directory> directories, int exifStartOffset)
             : base(directories)
-        { }
+        {
+            _exifStartOffset = exifStartOffset;
+        }
 
         /// <exception cref="TiffProcessingException"/>
         public override TiffStandard ProcessTiffMarker(ushort marker)
@@ -127,7 +131,7 @@ namespace MetadataExtractor.Formats.Exif
             // NOTE: this is not true for some other image types, but those are not implemented yet
             if (CurrentDirectory is ExifIfd0Directory)
             {
-                PushDirectory(new ExifThumbnailDirectory());
+                PushDirectory(new ExifThumbnailDirectory(_exifStartOffset));
                 return true;
             }
             else

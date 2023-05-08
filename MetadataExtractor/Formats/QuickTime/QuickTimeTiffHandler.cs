@@ -9,7 +9,7 @@ namespace MetadataExtractor.Formats.QuickTime
         where T : Directory, new()
     {
         public QuickTimeTiffHandler(List<Directory> directories)
-            : base(directories)
+            : base(directories, exifStartOffset: 0)
         {
         }
 

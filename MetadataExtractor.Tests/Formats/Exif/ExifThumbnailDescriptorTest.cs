@@ -11,7 +11,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void GetYCbCrSubsamplingDescription()
         {
-            var directory = new ExifThumbnailDirectory();
+            var directory = new ExifThumbnailDirectory(exifStartOffset: 0);
             var descriptor = new ExifThumbnailDescriptor(directory);
 
             directory.Set(ExifDirectoryBase.TagYCbCrSubsampling, new[] { 2, 1 });

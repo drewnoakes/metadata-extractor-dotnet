@@ -345,7 +345,7 @@ namespace MetadataExtractor.Formats.Png
                 {
                     TiffReader.ProcessTiff(
                         new ByteArrayReader(bytes),
-                        new ExifTiffHandler(directories));
+                        new ExifTiffHandler(directories, exifStartOffset: 0));
                 }
                 catch (Exception ex)
                 {
@@ -387,7 +387,7 @@ namespace MetadataExtractor.Formats.Png
                         if (ExifReader.StartsWithJpegExifPreamble(textBytes))
                             offset = ExifReader.JpegSegmentPreambleLength;
 
-                        foreach (var exifDirectory in new ExifReader().Extract(new ByteArrayReader(textBytes, offset)))
+                        foreach (var exifDirectory in new ExifReader().Extract(new ByteArrayReader(textBytes, offset), exifStartOffset: 0))
                             yield return exifDirectory;
                     }
                     else

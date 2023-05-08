@@ -32,8 +32,9 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetThumbnailOffsetDescription()
         {
-            var value = Directory.GetString(ExifThumbnailDirectory.TagThumbnailOffset);
-            return value is null ? null : value + " bytes";
+            var offset = Directory.AdjustedThumbnailOffset;
+
+            return offset is null ? null : offset + " bytes";
         }
     }
 }

@@ -129,7 +129,7 @@ namespace MetadataExtractor.Formats.Photoshop
                             break;
                         case PhotoshopDirectory.TagExifData1:
                         case PhotoshopDirectory.TagExifData3:
-                            var exifDirectories = new ExifReader().Extract(new ByteArrayReader(tagBytes));
+                            var exifDirectories = new ExifReader().Extract(new ByteArrayReader(tagBytes), exifStartOffset: 0);
                             foreach (var exifDirectory in exifDirectories.Where(d => d.Parent is null))
                                 exifDirectory.Parent = directory;
                             directories.AddRange(exifDirectories);

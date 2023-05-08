@@ -33,16 +33,16 @@ namespace MetadataExtractor.Formats.Exif
 
         protected override IEnumerable<Directory> Extract(byte[] segmentBytes, int preambleLength)
         {
-            return Extract(new ByteArrayReader(segmentBytes, baseOffset: preambleLength));
+            return Extract(new ByteArrayReader(segmentBytes, baseOffset: preambleLength), preambleLength);
         }
 
         /// <summary>
         /// Reads TIFF formatted Exif data a specified offset within a <see cref="IndexedReader"/>.
         /// </summary>
-        public DirectoryList Extract(IndexedReader reader)
+        public DirectoryList Extract(IndexedReader reader, int exifStartOffset)
         {
             var directories = new List<Directory>();
-            var exifTiffHandler = new ExifTiffHandler(directories);
+            var exifTiffHandler = new ExifTiffHandler(directories, exifStartOffset);
 
             try
             {

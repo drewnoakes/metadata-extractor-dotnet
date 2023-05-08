@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.WebP
                     var reader = ExifReader.StartsWithJpegExifPreamble(payload)
                         ? new ByteArrayReader(payload, ExifReader.JpegSegmentPreambleLength)
                         : new ByteArrayReader(payload);
-                    _directories.AddRange(new ExifReader().Extract(reader));
+                    _directories.AddRange(new ExifReader().Extract(reader, exifStartOffset: 0));
                     break;
                 }
                 case "ICCP":
