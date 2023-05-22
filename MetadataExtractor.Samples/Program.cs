@@ -21,9 +21,9 @@ internal static class Program
 {
     private static void Main()
     {
-        const string filePath = "../MetadataExtractor.Tests/Data/withIptcExifGps.jpg";
+        const string FilePath = "../MetadataExtractor.Tests/Data/withIptcExifGps.jpg";
 
-        Console.WriteLine($"Processing file: {filePath}");
+        Console.WriteLine($"Processing file: {FilePath}");
 
         // There are multiple ways to get a Metadata object for a file
 
@@ -36,7 +36,7 @@ internal static class Program
         //
         try
         {
-            var directories = ImageMetadataReader.ReadMetadata(filePath);
+            var directories = ImageMetadataReader.ReadMetadata(FilePath);
 
             Print(directories, "Using ImageMetadataReader");
         }
@@ -60,7 +60,7 @@ internal static class Program
         //
         try
         {
-            var directories = JpegMetadataReader.ReadMetadata(filePath);
+            var directories = JpegMetadataReader.ReadMetadata(FilePath);
 
             Print(directories, "Using JpegMetadataReader");
         }
@@ -86,7 +86,7 @@ internal static class Program
             // Handle only Exif and IPTC from JPEG
             var readers = new IJpegSegmentMetadataReader[] { new ExifReader(), new IptcReader() };
 
-            var directories = JpegMetadataReader.ReadMetadata(filePath, readers);
+            var directories = JpegMetadataReader.ReadMetadata(FilePath, readers);
 
             Print(directories, "Using JpegMetadataReader for Exif and IPTC only");
         }
