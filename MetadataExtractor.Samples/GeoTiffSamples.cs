@@ -160,7 +160,7 @@ internal static class GeoTiffSamples
 
         Console.Out.WriteLine($"Corners (WGS84 UTM): [\n  [{upperLeftUtm}],\n  [{lowerLeftUtm}],\n  [{lowerRightUtm}],\n  [{upperRightUtm}]\n]");
 
-        // Convert the corners into latitute/longitude pairs.
+        // Convert the corners into latitude/longitude pairs.
 
         var upperLeftLatLon  = UtmToLatLon(zone, isNorthernHemisphere, upperLeftUtm);
         var lowerLeftLatLon  = UtmToLatLon(zone, isNorthernHemisphere, lowerLeftUtm);
