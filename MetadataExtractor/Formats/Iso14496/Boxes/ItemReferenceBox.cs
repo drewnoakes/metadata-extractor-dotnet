@@ -13,7 +13,7 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
             while (reader.IsWithinBox(location))
             {
                 var box = BoxReader.ReadBox(reader, (l, r) => new SingleItemTypeReferenceBox(l, r, Version));
-                if (box != null)
+                if (box is not null)
                     list.Add((SingleItemTypeReferenceBox)box);
             }
             Boxes = list;

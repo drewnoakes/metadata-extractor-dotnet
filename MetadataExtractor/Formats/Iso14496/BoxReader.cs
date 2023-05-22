@@ -11,7 +11,7 @@ namespace MetadataExtractor.Formats.Iso14496
             var boxes = new List<Box>();
 
             Box? item;
-            while ((item = ReadBox(reader)) != null)
+            while ((item = ReadBox(reader)) is not null)
             {
                 boxes.Add(item);
             }
@@ -25,7 +25,7 @@ namespace MetadataExtractor.Formats.Iso14496
             while (sr.IsWithinBox(loc))
             {
                 var box = ReadBox(sr);
-                if (box != null)
+                if (box is not null)
                     ret.Add(box);
             }
 

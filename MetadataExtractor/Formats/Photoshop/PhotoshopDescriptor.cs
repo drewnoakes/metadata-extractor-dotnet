@@ -463,7 +463,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 var str = new StringBuilder();
 
                 str.Append($"\"{name}\" having ");
-                if (fillRecord != null)
+                if (fillRecord is not null)
                     str.Append($"initial fill rule \"{fillRecord}\" and ");
 
                 str.Append(paths.Count).Append(paths.Count == 1 ? " subpath:" : " subpaths:");

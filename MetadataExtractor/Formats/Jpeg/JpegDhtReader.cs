@@ -23,7 +23,7 @@ namespace MetadataExtractor.Formats.Jpeg
                 Extract(new SequentialByteArrayReader(segment.Bytes), directory);
             }
 
-            if (directory != null)
+            if (directory is not null)
                 return new List<Directory>() { directory };
 
             return Directory.EmptyList;

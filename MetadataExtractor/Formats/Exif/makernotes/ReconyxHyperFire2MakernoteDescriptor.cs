@@ -26,7 +26,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return Directory.GetUInt16(tagType).ToString();
                 case ReconyxHyperFire2MakernoteDirectory.TagFirmwareVersion:
                     var version = Directory.GetObject(tagType) as Version;
-                    if (version != null)
+                    if (version is not null)
                         return $"{version.Major}.{version.Minor}{(char)version.Build}";
                     else
                         return string.Empty;

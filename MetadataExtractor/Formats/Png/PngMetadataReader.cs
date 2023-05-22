@@ -185,9 +185,9 @@ namespace MetadataExtractor.Formats.Png
                         ex = e;
                     }
 
-                    if (iccDirectory != null)
+                    if (iccDirectory is not null)
                         yield return iccDirectory;
-                    else if (ex != null)
+                    else if (ex is not null)
                         directory.AddError($"Exception decompressing {nameof(PngChunkType.iCCP)} chunk: {ex.Message}");
                 }
                 else
@@ -238,7 +238,7 @@ namespace MetadataExtractor.Formats.Png
                     yield return directory;
                 }
 
-                if (textBytes != null)
+                if (textBytes is not null)
                 {
                     foreach (var directory in ProcessTextChunk(keyword, textBytes))
                     {
@@ -291,7 +291,7 @@ namespace MetadataExtractor.Formats.Png
                     yield return directory;
                 }
 
-                if (textBytes != null)
+                if (textBytes is not null)
                 {
                     foreach (var directory in ProcessTextChunk(keyword, textBytes))
                     {

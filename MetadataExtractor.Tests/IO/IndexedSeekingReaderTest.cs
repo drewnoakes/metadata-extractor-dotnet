@@ -33,13 +33,13 @@ namespace MetadataExtractor.Tests.IO
 
         private void DeleteTempFile()
         {
-            if (_stream != null)
+            if (_stream is not null)
             {
                 _stream.Dispose();
                 _stream = null;
             }
 
-            if (_tempFile != null)
+            if (_tempFile is not null)
             {
                 if (File.Exists(_tempFile))
                     File.Delete(_tempFile);

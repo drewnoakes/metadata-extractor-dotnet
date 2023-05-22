@@ -180,7 +180,7 @@ namespace MetadataExtractor
         /// <returns>the tag value's description as a String</returns>
         public string? GetDescription(int tagType)
         {
-            Debug.Assert(_descriptor != null);
+            Debug.Assert(_descriptor is not null);
             return _descriptor!.GetDescription(tagType);
         }
 
