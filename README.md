@@ -159,7 +159,7 @@ A PCL build was supported until [version 1.5.3](https://www.nuget.org/packages/M
 
 ## Building
 
-Building this repo requires a recent version of Visual Studio 2019. Ensure you have the _.NET Core Development Tools_ workload installed via the Visual Studio Installer.
+Building this repo requires a recent version of Visual Studio 2022. Ensure you have the _.NET Core Development Tools_ workload installed via the Visual Studio Installer.
 
 The library itself, once built, may be consumed from projects in much earlier versions of Visual Studio.
 
