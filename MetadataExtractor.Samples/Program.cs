@@ -3,6 +3,7 @@
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.Formats.Xmp;
 
 #pragma warning disable 8321
 
@@ -113,6 +114,15 @@ namespace MetadataExtractor.Samples
                     // Each directory stores values in tags
                     foreach (var tag in directory.Tags)
                         Console.WriteLine(tag);
+
+                    // XMP values are handled slightly differently
+                    if (directory is XmpDirectory { XmpMeta: { } xmpMeta })
+                    {
+                        foreach (var property in xmpMeta.Properties)
+                        {
+                            Console.WriteLine($"{property.Namespace} :: {property.Path} = {property.Value}");
+                        }
+                    }
 
                     // Each directory may also contain error messages
                     foreach (var error in directory.Errors)
