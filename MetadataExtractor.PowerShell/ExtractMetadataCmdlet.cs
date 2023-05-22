@@ -33,7 +33,7 @@ namespace MetadataExtractor.PowerShell
             // XmpDirectory gets special treatment -- we use the XmpMeta object to list properties
             var xmp = directory as XmpDirectory;
 
-            if (xmp?.XmpMeta != null)
+            if (xmp?.XmpMeta is not null)
             {
                 if (Raw)
                 {

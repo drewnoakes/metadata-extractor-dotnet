@@ -89,7 +89,7 @@ namespace MetadataExtractor.Formats.Iptc
 
             foreach (var encoding in encodings)
             {
-                Debug.Assert(encoding != null);
+                Debug.Assert(encoding is not null);
                 try
                 {
                     // ReSharper disable once ReturnValueOfPureMethodIsNotUsed

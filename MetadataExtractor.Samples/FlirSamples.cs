@@ -51,7 +51,7 @@ public static class FlirSamples
         height = flirRawDataDirectory.GetInt32(FlirRawDataDirectory.TagRawThermalImageHeight);
         imageBytes = flirRawDataDirectory.GetByteArray(FlirRawDataDirectory.TagRawThermalImage);
 
-        return imageBytes != null;
+        return imageBytes is not null;
     }
 
     public static void WritePng(byte[] thermalImageBytes, int width, int height, string outputFile)

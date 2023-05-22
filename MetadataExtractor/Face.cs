@@ -78,10 +78,10 @@ namespace MetadataExtractor
             result.Append(" width: ").Append(Width);
             result.Append(" height: ").Append(Height);
 
-            if (Name != null)
+            if (Name is not null)
                 result.Append(" name: ").Append(Name);
 
-            if (Age != null)
+            if (Age is not null)
                 result.Append(" age: ").Append(Age.ToFriendlyString());
 
             return result.ToString();
