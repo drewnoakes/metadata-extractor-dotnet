@@ -7,6 +7,7 @@ namespace MetadataExtractor.Formats.Iptc
         private const int Dot = 0xe280a2;
         private const byte LatinCapitalA = (byte)'A';
         private const byte LatinCapitalG = (byte)'G';
+        private const byte MinusSign = (byte)'-';
         private const byte PercentSign = (byte)'%';
         private const byte Esc = 0x1B;
 
@@ -19,12 +20,15 @@ namespace MetadataExtractor.Formats.Iptc
             if (bytes.Length > 3 && bytes[0] == Esc && (bytes[3] | (bytes[2] << 8) | (bytes[1] << 16)) == Dot && bytes[4] == LatinCapitalA)
                 return "ISO-8859-1";
 
+            if (bytes.Length > 2 && bytes[0] == Esc && bytes[1] == MinusSign && bytes[2] == LatinCapitalA)
+                return "ISO-8859-1";
+
             return null;
         }
 
         /// <summary>Attempts to guess the encoding of a string provided as a byte array.</summary>
         /// <remarks>
-        /// Encodings trialled are, in order:
+        /// Encodings trialed are, in order:
         /// <list type="bullet">
         ///   <item>UTF-8</item>
         ///   <item>ISO-8859-1</item>
