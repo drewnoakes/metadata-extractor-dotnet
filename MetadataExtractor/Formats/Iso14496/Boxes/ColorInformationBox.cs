@@ -7,7 +7,7 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
 #if NET35 || NET45
         private static readonly byte[] _emptyByteArray = new byte[0];
 #else
-        private static readonly byte[] _emptyByteArray = System.Array.Empty<byte>();
+        private static readonly byte[] _emptyByteArray = Array.Empty<byte>();
 #endif
 
         public const uint NclxTag = 0x6E636C78; // nclx
