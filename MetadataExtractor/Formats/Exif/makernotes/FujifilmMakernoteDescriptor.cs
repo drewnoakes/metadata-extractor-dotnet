@@ -63,7 +63,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             };
         }
 
-        private string? GetMakernoteVersionDescription()
+        public string? GetMakernoteVersionDescription()
         {
             return GetVersionBytesDescription(FujifilmMakernoteDirectory.TagMakernoteVersion, 2);
         }
@@ -351,6 +351,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 0x400 => "F4/Velvia",
                 0x500 => "Pro Neg. Std",
                 0x501 => "Pro Neg. Hi",
+                0x600 => "Classic Chrome",
+                0x700 => "Eterna",
+                0x800 => "Classic Negative",
+                0x900 => "Bleach Bypass",
+                0xa00 => "Nostalgic Neg",
                 _ => "Unknown (" + value + ")",
             };
         }
