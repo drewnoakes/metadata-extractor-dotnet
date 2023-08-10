@@ -44,6 +44,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagMaxApertureAtMinFocal = 0x1406;
         public const int TagMaxApertureAtMaxFocal = 0x1407;
         public const int TagAutoDynamicRange = 0x140b;
+        public const int TagImageNumber = 0x1438;
         public const int TagFacesDetected = 0x4100;
         /// <summary>Left, top, right and bottom coordinates in full-sized image for each face detected.</summary>
         public const int TagFacePositions = 0x4103;
@@ -92,6 +93,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagMaxApertureAtMinFocal, "Maximum Aperture at Minimum Focal Length" },
             { TagMaxApertureAtMaxFocal, "Maximum Aperture at Maximum Focal Length" },
             { TagAutoDynamicRange, "Auto Dynamic Range" },
+            { TagImageNumber, "Image Number" },
             { TagFacesDetected, "Faces Detected" },
             { TagFacePositions, "Face Positions" },
             { TagFaceRecInfo, "Face Detection Data" },
