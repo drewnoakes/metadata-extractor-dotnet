@@ -1,5 +1,7 @@
 ﻿#nullable enable
 abstract MetadataExtractor.IO.IndexedReader.GetByteInternal(int index) -> byte
+const MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDirectory.TagImageNumber = 5176 -> int
+MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDescriptor.GetMakernoteVersionDescription() -> string?
 MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
 override MetadataExtractor.IO.ByteArrayReader.GetByteInternal(int index) -> byte
 override MetadataExtractor.IO.IndexedSeekingReader.GetByteInternal(int index) -> byte
