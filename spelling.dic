@@ -1,4 +1,6 @@
 async
+Colour
+coloured
 Digilux
 exif
 Exiftool
@@ -24,9 +26,10 @@ rationals
 Reconyx
 sbytes
 sszzz
+stdout
 tkhd
 trak
 trie
+uncoloured
 uuid
 Yakov
-Colour
