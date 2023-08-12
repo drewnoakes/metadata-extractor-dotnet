@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class GifImageDescriptor : TagDescriptor<GifImageDirectory>
     {
         public GifImageDescriptor(GifImageDirectory directory)

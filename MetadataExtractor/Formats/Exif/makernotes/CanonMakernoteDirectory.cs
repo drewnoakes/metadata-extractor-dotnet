@@ -9,7 +9,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Many tag definitions explained here: http://www.ozhiker.com/electronics/pjmt/jpeg_info/canon_mn.html
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class CanonMakernoteDirectory : Directory
     {
 #pragma warning disable format

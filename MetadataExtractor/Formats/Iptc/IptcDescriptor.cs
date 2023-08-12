@@ -11,7 +11,6 @@ namespace MetadataExtractor.Formats.Iptc
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Akihiko Kusanagi https://github.com/nagix</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class IptcDescriptor : TagDescriptor<IptcDirectory>
     {
         public IptcDescriptor(IptcDirectory directory)

@@ -3,7 +3,6 @@
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PngDescriptor : TagDescriptor<PngDirectory>
     {
         public PngDescriptor(PngDirectory directory)

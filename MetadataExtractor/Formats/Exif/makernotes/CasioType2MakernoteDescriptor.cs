@@ -6,7 +6,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="CasioType2MakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class CasioType2MakernoteDescriptor : TagDescriptor<CasioType2MakernoteDirectory>
     {
         public CasioType2MakernoteDescriptor(CasioType2MakernoteDirectory directory)

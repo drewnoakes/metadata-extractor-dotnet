@@ -9,7 +9,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </summary>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class LeicaType5MakernoteDescriptor : TagDescriptor<LeicaType5MakernoteDirectory>
     {
         public LeicaType5MakernoteDescriptor(LeicaType5MakernoteDirectory directory)

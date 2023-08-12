@@ -5,7 +5,6 @@ namespace MetadataExtractor.Formats.Eps
     /// <summary>Provides human-readable string versions of the tags stored in a <see cref="EpsDirectory"/>.</summary>
     /// <author>Payton Garland</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class EpsDescriptor : TagDescriptor<EpsDirectory>
     {
         public EpsDescriptor(EpsDirectory directory)

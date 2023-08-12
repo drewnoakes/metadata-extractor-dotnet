@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Jfxx
 {
     /// <summary>Directory of tags and values for the SOF0 Jfif segment.</summary>
     /// <author>Drew Noakes</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JfxxDirectory : Directory
     {
         public const int TagExtensionCode = 5;

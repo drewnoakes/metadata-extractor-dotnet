@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Sony cameras that use the Sony Type 1 makernote tags.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class SonyType1MakernoteDirectory : Directory
     {
         public const int TagCameraInfo = 0x0010;

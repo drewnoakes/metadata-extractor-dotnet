@@ -8,7 +8,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="ReconyxHyperFireMakernoteDirectory"/>.
     /// </summary>
     /// <author>Todd West http://cascadescarnivoreproject.blogspot.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class ReconyxUltraFireMakernoteDescriptor : TagDescriptor<ReconyxUltraFireMakernoteDirectory>
     {
         public ReconyxUltraFireMakernoteDescriptor(ReconyxUltraFireMakernoteDirectory directory)

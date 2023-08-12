@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Describes Exif tags that contain Global Positioning System (GPS) data.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class GpsDirectory : ExifDirectoryBase
     {
         /// <summary>GPS tag version GPSVersionID 0 0 BYTE 4</summary>

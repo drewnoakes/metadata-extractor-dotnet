@@ -3,7 +3,6 @@
 namespace MetadataExtractor.Formats.Avi
 {
     /// <author>Payton Garland</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AviDescriptor : TagDescriptor<AviDirectory>
     {
         public AviDescriptor(AviDirectory directory)

@@ -8,7 +8,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </remarks>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class LeicaType5MakernoteDirectory : Directory
     {
         public const int TagLensModel = 0x0303;

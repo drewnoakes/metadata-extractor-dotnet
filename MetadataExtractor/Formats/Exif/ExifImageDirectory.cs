@@ -6,7 +6,6 @@ namespace MetadataExtractor.Formats.Exif
     /// <remarks>Holds information about image IFD's in a chain after the first. The first page is stored in IFD0.</remarks>
     /// <remarks>Currently, this only applies to multi-page TIFF images</remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class ExifImageDirectory : ExifDirectoryBase
     {
         public ExifImageDirectory() : base(_tagNameMap)

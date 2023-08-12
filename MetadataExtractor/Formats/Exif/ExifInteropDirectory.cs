@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Describes Exif interoperability tags.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class ExifInteropDirectory : ExifDirectoryBase
     {
         private static readonly Dictionary<int, string> _tagNameMap = new();

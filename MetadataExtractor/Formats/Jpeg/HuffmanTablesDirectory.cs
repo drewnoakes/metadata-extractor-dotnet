@@ -5,7 +5,6 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <summary>Directory of tables for the DHT (Define Huffman Table(s)) segment.</summary>
     /// <author>Nadahar</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class HuffmanTablesDirectory : Directory
     {
         public const int TagNumberOfTables = 1;

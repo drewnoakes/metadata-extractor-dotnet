@@ -12,7 +12,6 @@ namespace MetadataExtractor.Formats.Jpeg
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public enum JpegSegmentType : byte
     {
         /// <summary>For temporary use in arithmetic coding.</summary>

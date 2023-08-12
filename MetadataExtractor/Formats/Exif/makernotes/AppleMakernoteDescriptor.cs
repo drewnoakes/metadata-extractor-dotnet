@@ -9,7 +9,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </summary>
     /// <remarks>Using information from http://owl.phy.queensu.ca/~phil/exiftool/TagNames/Apple.html</remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AppleMakernoteDescriptor : TagDescriptor<AppleMakernoteDirectory>
     {
         public AppleMakernoteDescriptor(AppleMakernoteDirectory directory)

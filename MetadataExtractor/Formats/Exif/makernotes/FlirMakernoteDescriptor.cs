@@ -2,7 +2,6 @@
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class FlirMakernoteDescriptor : TagDescriptor<FlirMakernoteDirectory>
     {
         public FlirMakernoteDescriptor(FlirMakernoteDirectory directory)

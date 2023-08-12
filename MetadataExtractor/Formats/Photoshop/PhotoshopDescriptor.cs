@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Photoshop
 {
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PhotoshopDescriptor : TagDescriptor<PhotoshopDirectory>
     {
         public PhotoshopDescriptor(PhotoshopDirectory directory)

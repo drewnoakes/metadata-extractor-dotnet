@@ -3,7 +3,6 @@
 namespace MetadataExtractor.Formats.FileType
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class FileTypeDirectory : Directory
     {
         public const int TagDetectedFileTypeName = 1;
@@ -19,7 +18,6 @@ namespace MetadataExtractor.Formats.FileType
             { TagExpectedFileNameExtension, "Expected File Name Extension" },
         };
 
-        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public FileTypeDirectory(Util.FileType fileType) : base(_tagNameMap)
         {
             SetDescriptor(new FileTypeDescriptor(this));

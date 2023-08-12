@@ -2,7 +2,6 @@
 
 namespace MetadataExtractor.Formats.QuickTime
 {
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class QuickTimeFileTypeDirectory : Directory
     {
         public const int TagMajorBrand = 1;

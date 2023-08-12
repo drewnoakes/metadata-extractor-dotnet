@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Kodak cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class KodakMakernoteDirectory : Directory
     {
         public const int TagKodakModel = 0;

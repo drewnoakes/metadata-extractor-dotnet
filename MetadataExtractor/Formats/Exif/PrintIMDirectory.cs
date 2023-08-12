@@ -6,7 +6,6 @@ namespace MetadataExtractor.Formats.Exif
     /// chosen specifically to make processing easier</remarks>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class PrintIMDirectory : Directory
     {
         public const int TagPrintImVersion = 0x0000;

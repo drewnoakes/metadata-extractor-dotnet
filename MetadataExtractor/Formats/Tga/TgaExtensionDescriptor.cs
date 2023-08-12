@@ -3,7 +3,6 @@
 namespace MetadataExtractor.Formats.Tga
 {
     /// <author>Dmitry Shechtman</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class TgaExtensionDescriptor : TagDescriptor<TgaExtensionDirectory>
     {
         public TgaExtensionDescriptor(TgaExtensionDirectory directory)

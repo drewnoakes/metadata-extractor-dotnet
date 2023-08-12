@@ -6,8 +6,6 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor
 {
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class DirectoryExtensions
     {
         #region Byte

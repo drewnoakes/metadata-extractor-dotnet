@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Kyocera and Contax cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class KyoceraMakernoteDirectory : Directory
     {
         public const int TagProprietaryThumbnail = 0x0001;

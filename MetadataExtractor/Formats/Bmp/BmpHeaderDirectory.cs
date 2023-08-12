@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class BmpHeaderDirectory : Directory
     {
         public const int TagBitmapType = -2;
