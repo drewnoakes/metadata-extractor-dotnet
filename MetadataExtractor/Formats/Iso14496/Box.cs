@@ -7,7 +7,7 @@ namespace MetadataExtractor.Formats.Iso14496
 #if NET35 || NET45
         private static readonly Box[] _emptyChildren = new Box[0];
 #else
-        private static readonly Box[] _emptyChildren = System.Array.Empty<Box>();
+        private static readonly Box[] _emptyChildren = Array.Empty<Box>();
 #endif
 
         private readonly BoxLocation _location;

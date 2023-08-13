@@ -16,7 +16,6 @@ namespace MetadataExtractor.Formats.Xmp
     /// </remarks>
     /// <author>Torsten Skadell</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class XmpDirectory : Directory
     {
         public const int TagXmpValueCount = 0xFFFF;

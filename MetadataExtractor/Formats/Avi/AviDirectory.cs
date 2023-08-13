@@ -3,7 +3,6 @@
 namespace MetadataExtractor.Formats.Avi
 {
     /// <author>Payton Garland</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AviDirectory : Directory
     {
         public const int TagFramesPerSecond = 1;

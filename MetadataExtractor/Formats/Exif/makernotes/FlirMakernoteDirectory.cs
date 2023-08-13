@@ -2,7 +2,6 @@
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class FlirMakernoteDirectory : Directory
     {
         public const int TagImageTemperatureMax = 0x0001;

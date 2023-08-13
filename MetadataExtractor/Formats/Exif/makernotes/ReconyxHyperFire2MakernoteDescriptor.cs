@@ -8,7 +8,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="ReconyxHyperFire2MakernoteDirectory"/>.
     /// </summary>
     /// <remarks>Reconyx uses a fixed makernote block. Tag values are the byte index of the tag within the makernote.</remarks>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class ReconyxHyperFire2MakernoteDescriptor : TagDescriptor<ReconyxHyperFire2MakernoteDirectory>
     {
         public ReconyxHyperFire2MakernoteDescriptor(ReconyxHyperFire2MakernoteDirectory directory)

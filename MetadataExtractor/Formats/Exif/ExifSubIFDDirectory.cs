@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Describes Exif tags from the SubIFD directory.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class ExifSubIfdDirectory : ExifDirectoryBase
     {
         /// <summary>This tag is a pointer to the Exif Interop IFD.</summary>

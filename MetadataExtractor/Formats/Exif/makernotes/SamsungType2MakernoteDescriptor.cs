@@ -11,7 +11,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </summary>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class SamsungType2MakernoteDescriptor : TagDescriptor<SamsungType2MakernoteDirectory>
     {
         public SamsungType2MakernoteDescriptor(SamsungType2MakernoteDirectory directory)

@@ -11,7 +11,6 @@ namespace MetadataExtractor.Formats.Jfxx
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JfxxDescriptor : TagDescriptor<JfxxDirectory>
     {
         public JfxxDescriptor(JfxxDirectory directory)

@@ -7,7 +7,6 @@ namespace MetadataExtractor.Formats.Exif
     /// </summary>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class PanasonicRawWbInfo2Descriptor : TagDescriptor<PanasonicRawWbInfo2Directory>
     {
         public PanasonicRawWbInfo2Descriptor(PanasonicRawWbInfo2Directory directory)

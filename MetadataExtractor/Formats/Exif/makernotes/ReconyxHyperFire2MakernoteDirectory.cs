@@ -3,7 +3,6 @@
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Reconyx HyperFire 2 cameras.</summary>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class ReconyxHyperFire2MakernoteDirectory : Directory
     {
         public const int TagFileNumber = 16;

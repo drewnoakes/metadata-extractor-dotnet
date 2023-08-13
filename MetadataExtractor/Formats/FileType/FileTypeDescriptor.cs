@@ -3,7 +3,6 @@
 namespace MetadataExtractor.Formats.FileType
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class FileTypeDescriptor : TagDescriptor<FileTypeDirectory>
     {
         public FileTypeDescriptor(FileTypeDirectory directory)

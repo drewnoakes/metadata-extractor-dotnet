@@ -8,7 +8,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </summary>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class OlympusFocusInfoMakernoteDirectory : Directory
     {
         public const int TagFocusInfoVersion = 0x0000;

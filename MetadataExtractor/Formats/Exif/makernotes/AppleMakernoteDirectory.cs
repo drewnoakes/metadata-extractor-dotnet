@@ -5,7 +5,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <summary>Describes tags specific to Apple cameras.</summary>
     /// <remarks>Using information from http://owl.phy.queensu.ca/~phil/exiftool/TagNames/Apple.html</remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AppleMakernoteDirectory : Directory
     {
 #pragma warning disable format

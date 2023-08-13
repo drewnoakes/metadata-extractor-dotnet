@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Sanyo cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class SanyoMakernoteDirectory : Directory
     {
         public const int TagMakernoteOffset = 0x00ff;

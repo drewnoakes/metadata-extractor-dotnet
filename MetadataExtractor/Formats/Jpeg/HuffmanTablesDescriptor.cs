@@ -12,7 +12,6 @@ namespace MetadataExtractor.Formats.Jpeg
     /// </remarks>
     /// <author>Nadahar</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class HuffmanTablesDescriptor : TagDescriptor<HuffmanTablesDirectory>
     {
         public HuffmanTablesDescriptor(HuffmanTablesDirectory directory)

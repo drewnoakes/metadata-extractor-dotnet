@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Holds the data found in Photoshop "ducky" segments, created during Save-for-Web.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class DuckyDirectory : Directory
     {
         public const int TagQuality = 1;

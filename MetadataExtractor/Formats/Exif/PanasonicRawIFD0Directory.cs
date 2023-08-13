@@ -5,7 +5,6 @@ namespace MetadataExtractor.Formats.Exif
     /// <remarks>These tags are found in IFD0 of Panasonic/Leica RAW, RW2 and RWL images.</remarks>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class PanasonicRawIfd0Directory : Directory
     {
         public const int TagPanasonicRawVersion = 0x0001;

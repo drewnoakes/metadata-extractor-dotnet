@@ -5,7 +5,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <summary>Describes tags specific to DJI aircraft cameras.</summary>
     /// <remarks>Using information from https://metacpan.org/pod/distribution/Image-ExifTool/lib/Image/ExifTool/TagNames.pod#DJI-Tags</remarks>
     /// <author>Charlie Matherne, adapted from Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class DjiMakernoteDirectory : Directory
     {
         // Retrieved from

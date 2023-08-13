@@ -7,7 +7,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// that appear specific to those manufacturers.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class OlympusMakernoteDirectory : Directory
     {
         /// <summary>Used by Konica / Minolta cameras.</summary>

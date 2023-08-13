@@ -14,7 +14,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// it from the first byte of Makernote itself.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class KyoceraMakernoteDescriptor : TagDescriptor<KyoceraMakernoteDirectory>
     {
         public KyoceraMakernoteDescriptor(KyoceraMakernoteDirectory directory)

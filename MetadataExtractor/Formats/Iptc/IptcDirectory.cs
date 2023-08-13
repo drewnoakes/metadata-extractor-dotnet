@@ -7,7 +7,6 @@ namespace MetadataExtractor.Formats.Iptc
     /// <summary>Describes tags used by the International Press Telecommunications Council (IPTC) metadata format.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Akihiko Kusanagi https://github.com/nagix</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class IptcDirectory : Directory
     {
         public const int TagEnvelopeRecordVersion = 0x0100;

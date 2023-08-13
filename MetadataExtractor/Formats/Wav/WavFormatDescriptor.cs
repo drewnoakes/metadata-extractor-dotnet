@@ -5,7 +5,6 @@ using static MetadataExtractor.Formats.Wav.WavFormatDirectory;
 namespace MetadataExtractor.Formats.Wav
 {
     /// <author>Dmitry Shechtman</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class WavFormatDescriptor : TagDescriptor<WavFormatDirectory>
     {
 #if NET35 || NET45

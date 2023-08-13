@@ -5,7 +5,6 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <summary>Directory of tags and values for the SOF0 JPEG segment.</summary>
     /// <remarks>This segment holds basic metadata about the image.</remarks>
     /// <author>Darrell Silver http://www.darrellsilver.com and Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JpegDirectory : Directory
     {
         public const int TagCompressionType = -3;

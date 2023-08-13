@@ -3,7 +3,6 @@
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class PngChromaticitiesDirectory : Directory
     {
         public const int TagWhitePointX = 1;

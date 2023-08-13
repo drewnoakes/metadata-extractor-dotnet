@@ -5,8 +5,6 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "IdentifierTypo")]
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public sealed class PngChunkType
     {
         private static readonly ICollection<string> _identifiersAllowingMultiples
@@ -126,7 +124,6 @@ namespace MetadataExtractor.Formats.Png
             AreMultipleAllowed = _identifiersAllowingMultiples.Contains(Identifier);
         }
 
-        [SuppressMessage("ReSharper", "UnusedParameter.Local")]
         private static void ValidateBytes(byte[] bytes)
         {
             if (bytes.Length != 4)

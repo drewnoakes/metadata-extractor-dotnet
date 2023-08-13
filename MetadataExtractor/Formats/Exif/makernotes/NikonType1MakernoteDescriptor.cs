@@ -18,7 +18,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </c></pre>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class NikonType1MakernoteDescriptor : TagDescriptor<NikonType1MakernoteDirectory>
     {
         public NikonType1MakernoteDescriptor(NikonType1MakernoteDirectory directory)

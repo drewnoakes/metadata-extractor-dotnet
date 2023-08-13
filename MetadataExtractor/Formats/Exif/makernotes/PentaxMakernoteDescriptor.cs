@@ -9,7 +9,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/pentax_mn.html
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PentaxMakernoteDescriptor : TagDescriptor<PentaxMakernoteDirectory>
     {
         public PentaxMakernoteDescriptor(PentaxMakernoteDirectory directory)

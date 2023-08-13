@@ -3,7 +3,6 @@
 namespace MetadataExtractor.Formats.Pcx
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PcxDescriptor : TagDescriptor<PcxDirectory>
     {
         public PcxDescriptor(PcxDirectory directory)

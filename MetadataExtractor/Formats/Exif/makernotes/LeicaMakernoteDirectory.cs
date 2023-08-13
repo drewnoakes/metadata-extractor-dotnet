@@ -7,7 +7,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Tag reference from: http://gvsoft.homedns.org/exif/makernote-leica-type1.html
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class LeicaMakernoteDirectory : Directory
     {
         public const int TagQuality = 0x0300;

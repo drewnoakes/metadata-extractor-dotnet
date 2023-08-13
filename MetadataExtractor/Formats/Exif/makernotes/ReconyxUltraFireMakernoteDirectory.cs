@@ -5,7 +5,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <summary>Describes tags specific to Reconyx UltraFire cameras.</summary>
     /// <author>Todd West http://cascadescarnivoreproject.blogspot.com</author>
     /// <remarks>Reconyx uses a fixed makernote block.  Tag values are the byte index of the tag within the makernote.</remarks>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class ReconyxUltraFireMakernoteDirectory : Directory
     {
         /// <summary>

@@ -11,7 +11,6 @@ namespace MetadataExtractor.Formats.Jfif
     /// </list>
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JfifDescriptor : TagDescriptor<JfifDirectory>
     {
         public JfifDescriptor(JfifDirectory directory)

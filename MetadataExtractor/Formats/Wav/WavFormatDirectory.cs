@@ -3,7 +3,6 @@
 namespace MetadataExtractor.Formats.Wav
 {
     /// <author>Dmitry Shechtman</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class WavFormatDirectory : Directory
     {
         public const int TagFormat = 1;

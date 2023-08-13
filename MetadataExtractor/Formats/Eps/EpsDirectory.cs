@@ -4,7 +4,6 @@ namespace MetadataExtractor.Formats.Eps
 {
     /// <author>Payton Garland</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class EpsDirectory : Directory
     {
         // Sources: https://www-cdf.fnal.gov/offline/PostScript/5001.PDF

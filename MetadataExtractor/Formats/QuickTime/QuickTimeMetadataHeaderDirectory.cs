@@ -2,7 +2,6 @@
 
 namespace MetadataExtractor.Formats.QuickTime
 {
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class QuickTimeMetadataHeaderDirectory : Directory
     {
         public const int TagAlbum = 1;

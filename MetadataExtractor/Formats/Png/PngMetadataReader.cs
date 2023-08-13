@@ -188,7 +188,7 @@ namespace MetadataExtractor.Formats.Png
                     if (iccDirectory is not null)
                         yield return iccDirectory;
                     else if (ex is not null)
-                        directory.AddError($"Exception decompressing {nameof(PngChunkType.iCCP)} chunk: {ex.Message}");
+                        directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.iCCP)} chunk: {ex.Message}");
                 }
                 else
                 {
@@ -227,7 +227,7 @@ namespace MetadataExtractor.Formats.Png
                     if (!TryDeflate(bytes, bytesLeft, out textBytes, out string? errorMessage))
                     {
                         var directory = new PngDirectory(PngChunkType.zTXt);
-                        directory.AddError($"Exception decompressing {nameof(PngChunkType.zTXt)} chunk with keyword \"{keyword}\": {errorMessage}");
+                        directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.zTXt)} chunk with keyword \"{keyword}\": {errorMessage}");
                         yield return directory;
                     }
                 }
@@ -273,7 +273,7 @@ namespace MetadataExtractor.Formats.Png
                         if (!TryDeflate(bytes, bytesLeft, out textBytes, out string? errorMessage))
                         {
                             var directory = new PngDirectory(PngChunkType.iTXt);
-                            directory.AddError($"Exception decompressing {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {errorMessage}");
+                            directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {errorMessage}");
                             yield return directory;
                         }
                     }

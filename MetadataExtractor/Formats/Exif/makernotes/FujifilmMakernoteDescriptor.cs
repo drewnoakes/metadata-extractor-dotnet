@@ -22,9 +22,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </item>
     /// </list>
     /// </summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public sealed class FujifilmMakernoteDescriptor : TagDescriptor<FujifilmMakernoteDirectory>
+    /// <author>Drew Noakes https://drewnoakes.com</author>    public sealed class FujifilmMakernoteDescriptor : TagDescriptor<FujifilmMakernoteDirectory>
     {
         public FujifilmMakernoteDescriptor(FujifilmMakernoteDirectory directory)
             : base(directory)

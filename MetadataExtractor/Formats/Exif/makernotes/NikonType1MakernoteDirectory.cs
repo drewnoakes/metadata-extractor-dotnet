@@ -15,7 +15,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </c></pre>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class NikonType1MakernoteDirectory : Directory
     {
         public const int TagUnknown1 = 0x0002;

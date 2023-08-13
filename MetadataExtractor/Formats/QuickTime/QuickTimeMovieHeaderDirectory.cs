@@ -2,7 +2,6 @@
 
 namespace MetadataExtractor.Formats.QuickTime
 {
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class QuickTimeMovieHeaderDirectory : Directory
     {
         public const int TagVersion = 1;
