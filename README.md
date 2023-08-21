@@ -14,7 +14,7 @@ Either add this to your project file
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="MetadataExtractor" Version="2.8.0" />
+    <PackageReference Include="MetadataExtractor" Version="2.8.1" />
 </ItemGroup>
 ```
 

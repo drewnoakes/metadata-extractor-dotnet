@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <VersionPrefix>2.8.0</VersionPrefix>
+    <VersionPrefix>2.8.1</VersionPrefix>
     <DebugType>portable</DebugType>
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
