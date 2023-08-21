@@ -258,8 +258,7 @@ namespace MetadataExtractor.Formats.Exif
                         return true;
                 }
             }
-
-            if (CurrentDirectory is PanasonicRawIfd0Directory)
+            else if (CurrentDirectory is PanasonicRawIfd0Directory)
             {
                 // these contain binary data with specific offsets, and can't be processed as regular IFD's.
                 // The binary data is broken into 'fake' tags and there is a pattern.
@@ -280,6 +279,22 @@ namespace MetadataExtractor.Formats.Exif
                         Directories.Add(dirDistort);
                         ProcessBinary(dirDistort, valueOffset, context.Reader, byteCount, isSigned: true, arrayLength: 1);
                         return true;
+                }
+
+                // Panasonic RAW sometimes contains an embedded version of the data as a JPG file.
+                if (tagId == PanasonicRawIfd0Directory.TagJpgFromRaw)
+                {
+                    // Extract information from embedded image since it is metadata-rich
+                    var bytes = context.Reader.GetBytes(valueOffset, byteCount);
+                    var stream = new MemoryStream(bytes);
+
+                    foreach (var directory in JpegMetadataReader.ReadMetadata(stream))
+                    {
+                        directory.Parent = CurrentDirectory;
+                        Directories.Add(directory);
+                    }
+
+                    return true;
                 }
 
                 static void ProcessBinary(Directory directory, int tagValueOffset, IndexedReader reader, int byteCount, bool isSigned, int arrayLength)
@@ -324,22 +339,6 @@ namespace MetadataExtractor.Formats.Exif
 
                     }
                 }
-            }
-
-            // Panasonic RAW sometimes contains an embedded version of the data as a JPG file.
-            if (tagId == PanasonicRawIfd0Directory.TagJpgFromRaw && CurrentDirectory is PanasonicRawIfd0Directory)
-            {
-                // Extract information from embedded image since it is metadata-rich
-                var bytes = context.Reader.GetBytes(valueOffset, byteCount);
-                var stream = new MemoryStream(bytes);
-
-                foreach (var directory in JpegMetadataReader.ReadMetadata(stream))
-                {
-                    directory.Parent = CurrentDirectory;
-                    Directories.Add(directory);
-                }
-
-                return true;
             }
 
             return false;
