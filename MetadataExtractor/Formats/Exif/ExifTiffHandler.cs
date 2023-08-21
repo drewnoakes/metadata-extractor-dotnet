@@ -341,6 +341,30 @@ namespace MetadataExtractor.Formats.Exif
                 }
             }
 
+            if (tagId is NikonType2MakernoteDirectory.TagPictureControl or NikonType2MakernoteDirectory.TagPictureControl2 && CurrentDirectory is NikonType2MakernoteDirectory)
+            {
+                if (byteCount == 58)
+                {
+                    var bytes = context.Reader.GetBytes(valueOffset, byteCount);
+                    var directory = NikonPictureControl1Directory.FromBytes(bytes);
+                    directory.Parent = CurrentDirectory;
+                    Directories.Add(directory);
+                    return true;
+                }
+                else if (byteCount == 68)
+                {
+                    var bytes = context.Reader.GetBytes(valueOffset, byteCount);
+                    var directory = NikonPictureControl2Directory.FromBytes(bytes);
+                    directory.Parent = CurrentDirectory;
+                    Directories.Add(directory);
+                    return true;
+                }
+                else if (byteCount == 74)
+                {
+                    // TODO NikonPictureControl3Directory
+                }
+            }
+
             return false;
         }
 
