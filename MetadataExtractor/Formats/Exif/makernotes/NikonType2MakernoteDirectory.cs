@@ -336,7 +336,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public const int TagImageAuthentication = 0x0020;
 
-        public const int TagUnknown35 = 0x0021;
+        public const int TagFaceDetect = 0x0021;
 
         /// <summary>The active D-Lighting setting.</summary>
         /// <remarks>
@@ -378,7 +378,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// </remarks>
         public const int TagVignetteControl = 0x002a;
 
-        public const int TagUnknown40 = 0x002b;
+        public const int TagDistortInfo = 0x002b;
 
         public const int TagUnknown41 = 0x002c;
 
@@ -647,7 +647,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public const int TagSceneAssist = 0x009C;
 
-        public const int TagUnknown11 = 0x009D;
+        public const int TagDateStampMode = 0x009D;
 
         public const int TagRetouchHistory = 0x009E;
 
@@ -776,7 +776,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public const int TagUnknown31 = 0x00B2;
 
-        public const int TagUnknown32 = 0x00B3;
+        public const int TagToningEffect = 0x00B3;
 
         public const int TagUnknown33 = 0x00B4;
 
@@ -790,9 +790,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public const int TagAfTune = 0x00B9;
 
-        public const int TagUnknown49 = 0x00BB;
+        public const int TagRetouchInfo = 0x00BB;
 
-        public const int TagUnknown50 = 0x00BD;
+        public const int TagPictureControl2 = 0x00BD;
 
         public const int TagUnknown51 = 0x0103;
 
@@ -851,7 +851,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagSensorPixelSize, "Sensor Pixel Size" },
             { TagUnknown10, "Unknown 10" },
             { TagSceneAssist, "Scene Assist" },
-            { TagUnknown11, "Unknown 11" },
+            { TagDateStampMode, "Date Stamp Mode" },
             { TagRetouchHistory, "Retouch History" },
             { TagUnknown12, "Unknown 12" },
             { TagFlashSyncMode, "Flash Sync Mode" },
@@ -871,7 +871,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagColorSpace, "Color Space" },
             { TagVrInfo, "VR Info" },
             { TagImageAuthentication, "Image Authentication" },
-            { TagUnknown35, "Unknown 35" },
+            { TagFaceDetect, "Face Detect" },
             { TagActiveDLighting, "Active D-Lighting" },
             { TagPictureControl, "Picture Control" },
             { TagWorldTime, "World Time" },
@@ -881,7 +881,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagUnknown38, "Unknown 38" },
             { TagUnknown39, "Unknown 39" },
             { TagVignetteControl, "Vignette Control" },
-            { TagUnknown40, "Unknown 40" },
+            { TagDistortInfo, "Distort Info" },
             { TagUnknown41, "Unknown 41" },
             { TagUnknown42, "Unknown 42" },
             { TagUnknown43, "Unknown 43" },
@@ -905,7 +905,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagMultiExposure, "Multi Exposure" },
             { TagHighIsoNoiseReduction, "High ISO Noise Reduction" },
             { TagUnknown31, "Unknown 31" },
-            { TagUnknown32, "Unknown 32" },
+            { TagToningEffect, "Toning Effect" },
             { TagUnknown33, "Unknown 33" },
             { TagUnknown48, "Unknown 48" },
             { TagPowerUpTime, "Power Up Time" },
@@ -927,8 +927,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagNoiseReduction, "Noise Reduction" },
             { TagLinearizationTable, "Linearization Table" },
             { TagNikonCaptureData, "Nikon Capture Data" },
-            { TagUnknown49, "Unknown 49" },
-            { TagUnknown50, "Unknown 50" },
+            { TagRetouchInfo, "Retouch Info" },
+            { TagPictureControl2, "Picture Control 2" },
             { TagUnknown51, "Unknown 51" },
             { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
             { TagUnknown52, "Unknown 52" },
