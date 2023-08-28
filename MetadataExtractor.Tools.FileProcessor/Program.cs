@@ -90,7 +90,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                 }
 
                 if (!markdownFormat)
-                    Console.Out.WriteLine("Processed {0:#,##0.##} MB file in {1:#,##0.##} ms\n", new FileInfo(filePath).Length/(1024d*1024), stopwatch.Elapsed.TotalMilliseconds);
+                    Console.Out.WriteLine("Processed {0:#,##0.##} MB file in {1:#,##0.##} ms\n", new FileInfo(filePath).Length / (1024d * 1024), stopwatch.Elapsed.TotalMilliseconds);
 
                 if (markdownFormat)
                 {
