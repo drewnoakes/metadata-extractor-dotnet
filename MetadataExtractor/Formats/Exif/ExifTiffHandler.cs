@@ -210,6 +210,16 @@ namespace MetadataExtractor.Formats.Exif
                 return true;
             }
 
+            // Custom processing for Apple RunTime tag
+            if (tagId == AppleMakernoteDirectory.TagRunTime && CurrentDirectory is AppleMakernoteDirectory)
+            {
+                var bytes = context.Reader.GetBytes(valueOffset, byteCount);
+                var directory = AppleRunTimeMakernoteDirectory.Parse(bytes);
+                directory.Parent = CurrentDirectory;
+                Directories.Add(directory);
+                return true;
+            }
+
             if (HandlePrintIM(CurrentDirectory!, tagId))
             {
                 var printIMDirectory = new PrintIMDirectory { Parent = CurrentDirectory };
