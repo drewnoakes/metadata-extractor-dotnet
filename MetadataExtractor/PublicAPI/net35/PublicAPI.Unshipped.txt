@@ -1,5 +1,9 @@
 ﻿#nullable enable
 abstract MetadataExtractor.IO.IndexedReader.GetByteInternal(int index) -> byte
+const MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.TagEpoch = 2 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.TagFlags = 1 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.TagScale = 3 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.TagValue = 4 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDirectory.TagImageNumber = 5176 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Directory.TagBrightness = 52 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Directory.TagContrast = 51 -> int
@@ -34,6 +38,17 @@ const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.Tag
 const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.TagPictureControl2 = 189 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.TagRetouchInfo = 187 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.TagToningEffect = 179 -> int
+MetadataExtractor.Formats.Apple.BplistReader
+MetadataExtractor.Formats.Apple.BplistReader.BplistReader() -> void
+MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults
+MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.Get(byte key) -> object!
+MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.GetTopObject() -> System.Collections.Generic.Dictionary<byte, byte>?
+MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor
+MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.AppleRunTimeMakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory! directory) -> void
+MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.GetFlagsDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.GetValueDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory
+MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.AppleRunTimeMakernoteDirectory() -> void
 MetadataExtractor.Formats.Exif.Makernotes.FujifilmMakernoteDescriptor.GetMakernoteVersionDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Descriptor
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Descriptor.GetFilterEffectDescription() -> string?
@@ -50,9 +65,14 @@ MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.NikonPi
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory.NikonPictureControl2Directory() -> void
 MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
+override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.GetDescription(int tagType) -> string?
+override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Descriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Directory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory.Name.get -> string!
 override MetadataExtractor.IO.ByteArrayReader.GetByteInternal(int index) -> byte
 override MetadataExtractor.IO.IndexedSeekingReader.GetByteInternal(int index) -> byte
+static MetadataExtractor.Formats.Apple.BplistReader.IsValid(byte[]! bplist) -> bool
+static MetadataExtractor.Formats.Apple.BplistReader.Parse(byte[]! bplist) -> MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults!
+static MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Parse(byte[]! bytes) -> MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory!
