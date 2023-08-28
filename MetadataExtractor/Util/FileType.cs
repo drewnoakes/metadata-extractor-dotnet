@@ -121,7 +121,7 @@ namespace MetadataExtractor.Util
             "EPS",
             "TGA",
             "MP3",
-            "HEIC",
+            "HEIF",
             "MP4"
         };
 
