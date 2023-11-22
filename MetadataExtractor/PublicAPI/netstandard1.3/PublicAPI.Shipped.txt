@@ -3992,7 +3992,7 @@ MetadataExtractor.StringValue.Encoding.get -> System.Text.Encoding?
 MetadataExtractor.StringValue.StringValue() -> void
 MetadataExtractor.StringValue.StringValue(byte[]! bytes, System.Text.Encoding? encoding = null) -> void
 MetadataExtractor.StringValue.ToString(int index, int count) -> string!
-MetadataExtractor.StringValue.ToString(System.Text.Encoding! encoder) -> string!
+MetadataExtractor.StringValue.ToString(System.Text.Encoding! encoding) -> string!
 MetadataExtractor.Tag
 MetadataExtractor.Tag.Description.get -> string?
 MetadataExtractor.Tag.DirectoryName.get -> string!
