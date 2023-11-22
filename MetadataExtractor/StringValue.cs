@@ -110,7 +110,7 @@ namespace MetadataExtractor
 
         public override string ToString() => ToString(Encoding ?? DefaultEncoding);
 
-        public string ToString(Encoding encoder) => encoder.GetString(Bytes, 0, Bytes.Length);
+        public string ToString(Encoding encoding) => encoding.GetString(Bytes, 0, Bytes.Length);
 
         public string ToString(int index, int count) => (Encoding ?? DefaultEncoding).GetString(Bytes, index, count);
 
