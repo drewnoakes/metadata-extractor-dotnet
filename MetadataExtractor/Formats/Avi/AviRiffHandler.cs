@@ -84,7 +84,7 @@ namespace MetadataExtractor.Formats.Avi
                             string time = new DateTime(new TimeSpan(hours, minutes, seconds).Ticks).ToString("HH:mm:ss");
 
                             directory.Set(AviDirectory.TagDuration, time);
-                            directory.Set(AviDirectory.TagVideoCodec, fccHandler!);
+                            directory.Set(AviDirectory.TagVideoCodec, fccHandler);
                         }
                         else if (fccType == "auds")
                         {
