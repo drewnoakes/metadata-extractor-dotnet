@@ -288,11 +288,16 @@ namespace MetadataExtractor.IO
         /// reading will stop and the string will be truncated to this length.
         /// </param>
         /// <param name="encoding">An optional string encoding. If none is provided, <see cref="Encoding.UTF8"/> is used.</param>
+        /// <param name="moveToMaxLength">
+        /// If <see langword="true"/>, this reader will move forwards <paramref name="moveToMaxLength"/>
+        /// bytes, regardless of whether a null byte is found or not. The returned array is not impacted
+        /// by this value, and will always have trailing nulls removed.
+        /// </param>
         /// <returns>The read <see cref="string"/></returns>
         /// <exception cref="IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
-        public string GetNullTerminatedString(int maxLengthBytes, Encoding? encoding = null)
+        public string GetNullTerminatedString(int maxLengthBytes, Encoding? encoding = null, bool moveToMaxLength = false)
         {
-            var bytes = GetNullTerminatedBytes(maxLengthBytes);
+            var bytes = GetNullTerminatedBytes(maxLengthBytes, moveToMaxLength);
 
             return (encoding ?? Encoding.UTF8).GetString(bytes, 0, bytes.Length);
         }
@@ -305,11 +310,16 @@ namespace MetadataExtractor.IO
         /// reading will stop and the string will be truncated to this length.
         /// </param>
         /// <param name="encoding">An optional string encoding to use when interpreting bytes.</param>
+        /// <param name="moveToMaxLength">
+        /// If <see langword="true"/>, this reader will move forwards <paramref name="moveToMaxLength"/>
+        /// bytes, regardless of whether a null byte is found or not. The returned array is not impacted
+        /// by this value, and will always have trailing nulls removed.
+        /// </param>
         /// <returns>The read string as a <see cref="StringValue"/>, excluding the null terminator.</returns>
         /// <exception cref="IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
-        public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding? encoding = null)
+        public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding? encoding = null, bool moveToMaxLength = false)
         {
-            var bytes = GetNullTerminatedBytes(maxLengthBytes);
+            var bytes = GetNullTerminatedBytes(maxLengthBytes, moveToMaxLength);
 
             return new StringValue(bytes, encoding);
         }
@@ -321,20 +331,42 @@ namespace MetadataExtractor.IO
         /// The maximum number of bytes to read.  If a <c>\0</c> byte is not reached within this limit,
         /// the returned array will be <paramref name="maxLengthBytes"/> long.
         /// </param>
+        /// <param name="moveToMaxLength">
+        /// If <see langword="true"/>, this reader will move forwards <paramref name="moveToMaxLength"/>
+        /// bytes, regardless of whether a null byte is found or not. The returned array is not impacted
+        /// by this value, and will always have trailing nulls removed.
+        /// </param>
         /// <returns>The read byte array, excluding the null terminator.</returns>
         /// <exception cref="IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
-        public byte[] GetNullTerminatedBytes(int maxLengthBytes)
+        public byte[] GetNullTerminatedBytes(int maxLengthBytes, bool moveToMaxLength = false)
         {
-            var buffer = new byte[maxLengthBytes];
+            // The number of non-null bytes
+            int length;
 
-            // Count the number of non-null bytes
-            var length = 0;
-            while (length < buffer.Length && (buffer[length] = GetByte()) != 0)
-                length++;
+            byte[] buffer;
 
+            if (moveToMaxLength)
+            {
+                buffer = GetBytes(maxLengthBytes);
+                length = Array.IndexOf(buffer, (byte)'\0') switch
+                {
+                    -1 => maxLengthBytes,
+                    int i => i
+                };
+            }
+            else
+            {
+                buffer = new byte[maxLengthBytes];
+                length = 0;
+
+                while (length < buffer.Length && (buffer[length] = GetByte()) != 0)
+                    length++;
+            }
+
+            if (length == 0)
+                return Empty.ByteArray;
             if (length == maxLengthBytes)
                 return buffer;
-
             var bytes = new byte[length];
             if (length > 0)
                 Array.Copy(buffer, bytes, length);
