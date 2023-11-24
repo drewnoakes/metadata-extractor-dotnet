@@ -752,19 +752,19 @@ namespace MetadataExtractor.Formats.Exif
             {
                 var directory = new ReconyxHyperFireMakernoteDirectory();
                 Directories.Add(directory);
-                ProcessReconyxHyperFireMakernote(directory, makernoteOffset, context.Reader);
+                ProcessReconyxHyperFireMakernote(directory, context.Reader.WithShiftedBaseOffset(makernoteOffset));
             }
             else if (string.Equals("RECONYXUF", firstNineChars, StringComparison.OrdinalIgnoreCase))
             {
                 var directory = new ReconyxUltraFireMakernoteDirectory();
                 Directories.Add(directory);
-                ProcessReconyxUltraFireMakernote(directory, makernoteOffset, context.Reader);
+                ProcessReconyxUltraFireMakernote(directory, context.Reader.WithShiftedBaseOffset(makernoteOffset)r);
             }
             else if (string.Equals("RECONYXH2", firstNineChars, StringComparison.OrdinalIgnoreCase))
             {
                 var directory = new ReconyxHyperFire2MakernoteDirectory();
                 Directories.Add(directory);
-                ProcessReconyxHyperFire2Makernote(directory, makernoteOffset, context.Reader);
+                ProcessReconyxHyperFire2Makernote(directory, context.Reader.WithShiftedBaseOffset(makernoteOffset));
             }
             else if (string.Equals("SAMSUNG", cameraMake, StringComparison.OrdinalIgnoreCase))
             {
@@ -914,16 +914,16 @@ namespace MetadataExtractor.Formats.Exif
             }
         }
 
-        private static void ProcessReconyxHyperFireMakernote(ReconyxHyperFireMakernoteDirectory directory, int makernoteOffset, IndexedReader reader)
+        private static void ProcessReconyxHyperFireMakernote(ReconyxHyperFireMakernoteDirectory directory, IndexedReader reader)
         {
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagMakernoteVersion, reader.GetUInt16(makernoteOffset));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagMakernoteVersion, reader.GetUInt16(0));
 
             // revision and build are reversed from .NET ordering
-            ushort major = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion);
-            ushort minor = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 2);
-            ushort revision = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 4);
-            string buildYear = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 6).ToString("x4");
-            string buildDate = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 8).ToString("x4");
+            ushort major = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion);
+            ushort minor = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 2);
+            ushort revision = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 4);
+            string buildYear = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 6).ToString("x4");
+            string buildDate = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 8).ToString("x4");
             string buildYearAndDate = buildYear + buildDate;
             if (int.TryParse(buildYear + buildDate, out int build))
             {
@@ -935,24 +935,24 @@ namespace MetadataExtractor.Formats.Exif
                 directory.AddError("Error processing Reconyx HyperFire makernote data: build '" + buildYearAndDate + "' is not in the expected format and will be omitted from Firmware Version.");
             }
 
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagTriggerMode, new string((char)reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagTriggerMode), 1));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagTriggerMode, new string((char)reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagTriggerMode), 1));
             directory.Set(ReconyxHyperFireMakernoteDirectory.TagSequence,
                           new[]
                           {
-                              reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagSequence),
-                              reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagSequence + 2)
+                              reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagSequence),
+                              reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagSequence + 2)
                           });
 
-            uint eventNumberHigh = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagEventNumber);
-            uint eventNumberLow = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagEventNumber + 2);
+            uint eventNumberHigh = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagEventNumber);
+            uint eventNumberLow = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagEventNumber + 2);
             directory.Set(ReconyxHyperFireMakernoteDirectory.TagEventNumber, (eventNumberHigh << 16) + eventNumberLow);
 
-            ushort seconds = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal);
-            ushort minutes = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 2);
-            ushort hour = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 4);
-            ushort month = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 6);
-            ushort day = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 8);
-            ushort year = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 10);
+            ushort seconds = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal);
+            ushort minutes = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 2);
+            ushort hour = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 4);
+            ushort month = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 6);
+            ushort day = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 8);
+            ushort year = reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 10);
             if (seconds < 60 &&
                 minutes < 60 &&
                 hour < 24 &&
@@ -967,62 +967,62 @@ namespace MetadataExtractor.Formats.Exif
                 directory.AddError("Error processing Reconyx HyperFire makernote data: Date/Time Original " + year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds + " is not a valid date/time.");
             }
 
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagMoonPhase, reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagMoonPhase));
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagAmbientTemperatureFahrenheit, reader.GetInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagAmbientTemperatureFahrenheit));
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagAmbientTemperature, reader.GetInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagAmbientTemperature));
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagSerialNumber, reader.GetString(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagSerialNumber, 28, Encoding.Unicode));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagMoonPhase, reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagMoonPhase));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagAmbientTemperatureFahrenheit, reader.GetInt16(ReconyxHyperFireMakernoteDirectory.TagAmbientTemperatureFahrenheit));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagAmbientTemperature, reader.GetInt16(ReconyxHyperFireMakernoteDirectory.TagAmbientTemperature));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagSerialNumber, reader.GetString(ReconyxHyperFireMakernoteDirectory.TagSerialNumber, 28, Encoding.Unicode));
             // two unread bytes: the serial number's terminating null
 
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagContrast, reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagContrast));
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagBrightness, reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagBrightness));
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagSharpness, reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagSharpness));
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagSaturation, reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagSaturation));
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagInfraredIlluminator, reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagInfraredIlluminator));
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagMotionSensitivity, reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagMotionSensitivity));
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagBatteryVoltage, reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagBatteryVoltage) / 1000.0);
-            directory.Set(ReconyxHyperFireMakernoteDirectory.TagUserLabel, reader.GetNullTerminatedString(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagUserLabel, 44));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagContrast, reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagContrast));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagBrightness, reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagBrightness));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagSharpness, reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagSharpness));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagSaturation, reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagSaturation));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagInfraredIlluminator, reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagInfraredIlluminator));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagMotionSensitivity, reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagMotionSensitivity));
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagBatteryVoltage, reader.GetUInt16(ReconyxHyperFireMakernoteDirectory.TagBatteryVoltage) / 1000.0);
+            directory.Set(ReconyxHyperFireMakernoteDirectory.TagUserLabel, reader.GetNullTerminatedString(ReconyxHyperFireMakernoteDirectory.TagUserLabel, 44));
         }
 
-        private static void ProcessReconyxUltraFireMakernote(ReconyxUltraFireMakernoteDirectory directory, int makernoteOffset, IndexedReader reader)
+        private static void ProcessReconyxUltraFireMakernote(ReconyxUltraFireMakernoteDirectory directory, IndexedReader reader)
         {
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagLabel, reader.GetString(makernoteOffset, 9, Encoding.UTF8));
-            uint makernoteId = ByteConvert.FromBigEndianToNative(reader.GetUInt32(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagMakernoteId));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagLabel, reader.GetString(0, 9, Encoding.UTF8));
+            uint makernoteId = ByteConvert.FromBigEndianToNative(reader.GetUInt32(ReconyxUltraFireMakernoteDirectory.TagMakernoteId));
             directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernoteId, makernoteId);
             if (makernoteId != ReconyxUltraFireMakernoteDirectory.MakernoteId)
             {
                 directory.AddError("Error processing Reconyx UltraFire makernote data: unknown Makernote ID 0x" + makernoteId.ToString("x8"));
                 return;
             }
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernoteSize, ByteConvert.FromBigEndianToNative(reader.GetUInt32(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagMakernoteSize)));
-            uint makernotePublicId = ByteConvert.FromBigEndianToNative(reader.GetUInt32(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagMakernotePublicId));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernoteSize, ByteConvert.FromBigEndianToNative(reader.GetUInt32(ReconyxUltraFireMakernoteDirectory.TagMakernoteSize)));
+            uint makernotePublicId = ByteConvert.FromBigEndianToNative(reader.GetUInt32(ReconyxUltraFireMakernoteDirectory.TagMakernotePublicId));
             directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernotePublicId, makernotePublicId);
             if (makernotePublicId != ReconyxUltraFireMakernoteDirectory.MakernotePublicId)
             {
                 directory.AddError("Error processing Reconyx UltraFire makernote data: unknown Makernote Public ID 0x" + makernotePublicId.ToString("x8"));
                 return;
             }
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernotePublicSize, ByteConvert.FromBigEndianToNative(reader.GetUInt16(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagMakernotePublicSize)));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagMakernotePublicSize, ByteConvert.FromBigEndianToNative(reader.GetUInt16(ReconyxUltraFireMakernoteDirectory.TagMakernotePublicSize)));
 
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagCameraVersion, ProcessReconyxUltraFireVersion(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagCameraVersion, reader));
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagUibVersion, ProcessReconyxUltraFireVersion(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagUibVersion, reader));
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagBtlVersion, ProcessReconyxUltraFireVersion(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagBtlVersion, reader));
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagPexVersion, ProcessReconyxUltraFireVersion(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagPexVersion, reader));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagCameraVersion, ProcessReconyxUltraFireVersion(ReconyxUltraFireMakernoteDirectory.TagCameraVersion, reader));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagUibVersion, ProcessReconyxUltraFireVersion(ReconyxUltraFireMakernoteDirectory.TagUibVersion, reader));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagBtlVersion, ProcessReconyxUltraFireVersion(ReconyxUltraFireMakernoteDirectory.TagBtlVersion, reader));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagPexVersion, ProcessReconyxUltraFireVersion(ReconyxUltraFireMakernoteDirectory.TagPexVersion, reader));
 
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagEventType, reader.GetString(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagEventType, 1, Encoding.UTF8));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagEventType, reader.GetString(ReconyxUltraFireMakernoteDirectory.TagEventType, 1, Encoding.UTF8));
             directory.Set(ReconyxUltraFireMakernoteDirectory.TagSequence,
                           new[]
                           {
-                              reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagSequence),
-                              reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagSequence + 1)
+                              reader.GetByte(ReconyxUltraFireMakernoteDirectory.TagSequence),
+                              reader.GetByte(ReconyxUltraFireMakernoteDirectory.TagSequence + 1)
                           });
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagEventNumber, ByteConvert.FromBigEndianToNative(reader.GetUInt32(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagEventNumber)));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagEventNumber, ByteConvert.FromBigEndianToNative(reader.GetUInt32(ReconyxUltraFireMakernoteDirectory.TagEventNumber)));
 
-            byte seconds = reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal);
-            byte minutes = reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 1);
-            byte hour = reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 2);
-            byte day = reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 3);
-            byte month = reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 4);
-            ushort year = ByteConvert.FromBigEndianToNative(reader.GetUInt16(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 5));
+            byte seconds = reader.GetByte(ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal);
+            byte minutes = reader.GetByte(ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 1);
+            byte hour = reader.GetByte(ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 2);
+            byte day = reader.GetByte(ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 3);
+            byte month = reader.GetByte(ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 4);
+            ushort year = ByteConvert.FromBigEndianToNative(reader.GetUInt16(ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 5));
             if (seconds < 60 &&
                 minutes < 60 &&
                 hour < 24 &&
@@ -1036,17 +1036,17 @@ namespace MetadataExtractor.Formats.Exif
             {
                 directory.AddError("Error processing Reconyx UltraFire makernote data: Date/Time Original " + year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds + " is not a valid date/time.");
             }
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagDayOfWeek, reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDayOfWeek));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagDayOfWeek, reader.GetByte(ReconyxUltraFireMakernoteDirectory.TagDayOfWeek));
 
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagMoonPhase, reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagMoonPhase));
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagAmbientTemperatureFahrenheit, ByteConvert.FromBigEndianToNative(reader.GetInt16(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagAmbientTemperatureFahrenheit)));
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagAmbientTemperature, ByteConvert.FromBigEndianToNative(reader.GetInt16(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagAmbientTemperature)));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagMoonPhase, reader.GetByte(ReconyxUltraFireMakernoteDirectory.TagMoonPhase));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagAmbientTemperatureFahrenheit, ByteConvert.FromBigEndianToNative(reader.GetInt16(ReconyxUltraFireMakernoteDirectory.TagAmbientTemperatureFahrenheit)));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagAmbientTemperature, ByteConvert.FromBigEndianToNative(reader.GetInt16(ReconyxUltraFireMakernoteDirectory.TagAmbientTemperature)));
 
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagFlash, reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagFlash));
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagBatteryVoltage, ByteConvert.FromBigEndianToNative(reader.GetUInt16(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagBatteryVoltage)) / 1000.0);
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagSerialNumber, reader.GetString(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagSerialNumber, 14, Encoding.UTF8));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagFlash, reader.GetByte(ReconyxUltraFireMakernoteDirectory.TagFlash));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagBatteryVoltage, ByteConvert.FromBigEndianToNative(reader.GetUInt16(ReconyxUltraFireMakernoteDirectory.TagBatteryVoltage)) / 1000.0);
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagSerialNumber, reader.GetString(ReconyxUltraFireMakernoteDirectory.TagSerialNumber, 14, Encoding.UTF8));
             // unread byte: the serial number's terminating null
-            directory.Set(ReconyxUltraFireMakernoteDirectory.TagUserLabel, reader.GetNullTerminatedString(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagUserLabel, 20, Encoding.UTF8));
+            directory.Set(ReconyxUltraFireMakernoteDirectory.TagUserLabel, reader.GetNullTerminatedString(ReconyxUltraFireMakernoteDirectory.TagUserLabel, 20, Encoding.UTF8));
         }
 
         private static string ProcessReconyxUltraFireVersion(int versionOffset, IndexedReader reader)
@@ -1060,39 +1060,39 @@ namespace MetadataExtractor.Formats.Exif
             return major + "." + minor + "." + year + "." + month + "." + day + revision;
         }
 
-        private static void ProcessReconyxHyperFire2Makernote(ReconyxHyperFire2MakernoteDirectory directory, int makernoteOffset, IndexedReader reader)
+        private static void ProcessReconyxHyperFire2Makernote(ReconyxHyperFire2MakernoteDirectory directory, IndexedReader reader)
         {
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagFileNumber, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagFileNumber));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagDirectoryNumber, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagDirectoryNumber));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagFileNumber, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagFileNumber));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagDirectoryNumber, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagDirectoryNumber));
 
-            ushort major = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagFirmwareVersion);
-            ushort minor = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagFirmwareVersion + 2);
-            ushort revision = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagFirmwareVersion + 4);
+            ushort major = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagFirmwareVersion);
+            ushort minor = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagFirmwareVersion + 2);
+            ushort revision = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagFirmwareVersion + 4);
             directory.Set(ReconyxHyperFire2MakernoteDirectory.TagFirmwareVersion, new Version(major, minor, revision));
 
-            ushort year = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagFirmwareDate);
-            ushort other = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagFirmwareDate + 2);
+            ushort year = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagFirmwareDate);
+            ushort other = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagFirmwareDate + 2);
             directory.Set(ReconyxHyperFire2MakernoteDirectory.TagFirmwareDate, new DateTime(int.Parse(year.ToString("x4")), int.Parse((other >> 8).ToString("x2")), int.Parse((other & 0xFF).ToString("x2"))));
 
             directory.Set(ReconyxHyperFire2MakernoteDirectory.TagTriggerMode,
-                reader.GetNullTerminatedString(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagTriggerMode, 2));
+                reader.GetNullTerminatedString(ReconyxHyperFire2MakernoteDirectory.TagTriggerMode, 2));
             directory.Set(ReconyxHyperFire2MakernoteDirectory.TagSequence,
                 new[]
                 {
-                    reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagSequence),
-                    reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagSequence + 2)
+                    reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagSequence),
+                    reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagSequence + 2)
                 });
 
-            ushort eventNumberHigh = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagEventNumber);
-            ushort eventNumberLow = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagEventNumber + 2);
+            ushort eventNumberHigh = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagEventNumber);
+            ushort eventNumberLow = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagEventNumber + 2);
             directory.Set(ReconyxHyperFire2MakernoteDirectory.TagEventNumber, (eventNumberHigh << 16) + eventNumberLow);
 
-            ushort seconds = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal);
-            ushort minutes = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal + 2);
-            ushort hour = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal + 4);
-            ushort month = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal + 6);
-            ushort day = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal + 8);
-            year = reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal + 10);
+            ushort seconds = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal);
+            ushort minutes = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal + 2);
+            ushort hour = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal + 4);
+            ushort month = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal + 6);
+            ushort day = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal + 8);
+            year = reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal + 10);
             if (seconds < 60 &&
                 minutes < 60 &&
                 hour < 24 &&
@@ -1106,26 +1106,26 @@ namespace MetadataExtractor.Formats.Exif
             {
                 directory.AddError("Error processing Reconyx HyperFire 2 makernote data: Date/Time Original " + year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds + " is not a valid date/time.");
             }
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagDayOfWeek, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagDayOfWeek));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagDayOfWeek, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagDayOfWeek));
 
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagMoonPhase, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagMoonPhase));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureFahrenheit, reader.GetInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureFahrenheit));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureCelcius, reader.GetInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureCelcius));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagMoonPhase, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagMoonPhase));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureFahrenheit, reader.GetInt16(ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureFahrenheit));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureCelcius, reader.GetInt16(ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureCelcius));
 
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagContrast, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagContrast));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagBrightness, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagBrightness));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagSharpness, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagSharpness));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagSaturation, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagSaturation));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagFlash, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagFlash));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagAmbientInfrared, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagAmbientInfrared));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagAmbientLight, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagAmbientLight));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagMotionSensitivity, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagMotionSensitivity));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagBatteryVoltage, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagBatteryVoltage) / 1000.0);
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagBatteryVoltageAvg, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagBatteryVoltageAvg) / 1000.0);
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagBatteryType, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagBatteryType));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagUserLabel, reader.GetNullTerminatedString(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagUserLabel, 22));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagContrast, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagContrast));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagBrightness, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagBrightness));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagSharpness, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagSharpness));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagSaturation, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagSaturation));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagFlash, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagFlash));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagAmbientInfrared, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagAmbientInfrared));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagAmbientLight, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagAmbientLight));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagMotionSensitivity, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagMotionSensitivity));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagBatteryVoltage, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagBatteryVoltage) / 1000.0);
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagBatteryVoltageAvg, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagBatteryVoltageAvg) / 1000.0);
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagBatteryType, reader.GetUInt16(ReconyxHyperFire2MakernoteDirectory.TagBatteryType));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagUserLabel, reader.GetNullTerminatedString(ReconyxHyperFire2MakernoteDirectory.TagUserLabel, 22));
             // two unread bytes: terminating null of unicode string
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagSerialNumber, reader.GetString(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagSerialNumber, 28, Encoding.Unicode));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagSerialNumber, reader.GetString(ReconyxHyperFire2MakernoteDirectory.TagSerialNumber, 28, Encoding.Unicode));
         }
     }
 }
