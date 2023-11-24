@@ -21,7 +21,7 @@ namespace MetadataExtractor.Formats.Tga
         public const int TagAttributesType = 14;
 
         private static readonly string[] _tagNames =
-        {
+        [
             "Author Name",
             "Comments",
             "Date/Time",
@@ -36,7 +36,7 @@ namespace MetadataExtractor.Formats.Tga
             "Thumbnail Offset",
             "Scan Line Table Offset",
             "Attributes Type"
-        };
+        ];
 
         public TgaExtensionDirectory() : base(null)
         {

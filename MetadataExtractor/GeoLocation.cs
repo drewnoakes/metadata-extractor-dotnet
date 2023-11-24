@@ -57,7 +57,7 @@ namespace MetadataExtractor
             var d = (int)value;
             var m = Math.Abs((value % 1) * 60);
             var s = (m % 1) * 60;
-            return new[] { d, (int)m, s };
+            return [d, (int)m, s];
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ namespace MetadataExtractor.Formats.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkReader
     {
-        private static readonly byte[] _pngSignatureBytes = { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A };
+        private static readonly byte[] _pngSignatureBytes = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A];
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="IOException"/>

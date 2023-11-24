@@ -11,7 +11,7 @@ public sealed class BplistReader
     // https://opensource.apple.com/source/CF/CF-550/CFBinaryPList.c
     // https://synalysis.com/how-to-decode-apple-binary-property-list-files/
 
-    private static readonly byte[] _bplistHeader = { (byte)'b', (byte)'p', (byte)'l', (byte)'i', (byte)'s', (byte)'t', (byte)'0', (byte)'0' };
+    private static readonly byte[] _bplistHeader = [(byte)'b', (byte)'p', (byte)'l', (byte)'i', (byte)'s', (byte)'t', (byte)'0', (byte)'0'];
 
     /// <summary>
     /// Gets whether <paramref name="bplist"/> starts with the expected header bytes.

@@ -23,7 +23,7 @@ namespace MetadataExtractor.Formats.Tga
         public const int TagColormap = 16;
 
         private static readonly string[] _tagNames =
-        {
+        [
             "Image ID Length",
             "Data Type",
             "Color Map Type",
@@ -40,7 +40,7 @@ namespace MetadataExtractor.Formats.Tga
             "Vertical Order",
             "Image ID",
             "Color Map"
-        };
+        ];
 
         public TgaHeaderDirectory() : base(null)
         {

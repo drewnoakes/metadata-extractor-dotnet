@@ -16,7 +16,7 @@ namespace MetadataExtractor.Formats.Wav
         public const int TagSubformat = 9;
 
         private readonly string[] _tagNames =
-        {
+        [
             "Format",
             "Channels",
             "Sampling Rate",
@@ -26,7 +26,7 @@ namespace MetadataExtractor.Formats.Wav
             "Valid Bits Per Sample",
             "Speaker Position Mask",
             "Subformat"
-        };
+        ];
 
         public WavFormatDirectory() : base(null)
         {

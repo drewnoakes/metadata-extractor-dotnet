@@ -431,10 +431,10 @@ namespace MetadataExtractor
                 return strings;
 
             if (o is string s)
-                return new[] { s };
+                return [s];
 
             if (o is StringValue sv)
-                return new[] { sv.ToString() };
+                return [sv.ToString()];
 
             if (o is StringValue[] stringValues)
             {
@@ -484,7 +484,7 @@ namespace MetadataExtractor
             if (o is StringValue[] stringValues)
                 return stringValues;
             if (o is StringValue sv)
-                return new[] { sv };
+                return [sv];
 
             return null;
         }
@@ -545,7 +545,7 @@ namespace MetadataExtractor
 
             var nullableInt = o as int?;
             if (nullableInt != null)
-                return new[] { (int)o };
+                return [(int)o];
 
             return null;
         }
@@ -604,7 +604,7 @@ namespace MetadataExtractor
 
             var nullableInt = o as int?;
             if (nullableInt != null)
-                return new[] { (byte)nullableInt.Value };
+                return [(byte)nullableInt.Value];
 
             return null;
         }
@@ -629,7 +629,7 @@ namespace MetadataExtractor
         // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
         // Custom format reference: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
         private static readonly string[] _datePatterns =
-        {
+        [
             "yyyy:MM:dd HH:mm:ss.fff",
             "yyyy:MM:dd HH:mm:ss.fffzzz",
             "yyyy:MM:dd HH:mm:ss",
@@ -659,7 +659,7 @@ namespace MetadataExtractor
             "yyyy-MM",
             "yyyyMMdd", // as used in IPTC data
             "yyyy"
-        };
+        ];
 
         /// <summary>Attempts to return the specified tag's value as a DateTime.</summary>
         /// <remarks>

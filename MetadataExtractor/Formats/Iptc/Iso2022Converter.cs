@@ -82,10 +82,10 @@ namespace MetadataExtractor.Formats.Iptc
                 return Encoding.UTF8;
 
             Encoding[] encodings =
-            {
+            [
                 Encoding.UTF8,
                 Encoding.GetEncoding("iso-8859-1") // Latin-1
-            };
+            ];
 
             foreach (var encoding in encodings)
             {
