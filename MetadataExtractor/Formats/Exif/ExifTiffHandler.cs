@@ -758,7 +758,7 @@ namespace MetadataExtractor.Formats.Exif
             {
                 var directory = new ReconyxUltraFireMakernoteDirectory();
                 Directories.Add(directory);
-                ProcessReconyxUltraFireMakernote(directory, context.Reader.WithShiftedBaseOffset(makernoteOffset)r);
+                ProcessReconyxUltraFireMakernote(directory, context.Reader.WithShiftedBaseOffset(makernoteOffset));
             }
             else if (string.Equals("RECONYXH2", firstNineChars, StringComparison.OrdinalIgnoreCase))
             {

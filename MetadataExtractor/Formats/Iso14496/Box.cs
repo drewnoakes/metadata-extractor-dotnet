@@ -4,7 +4,7 @@ namespace MetadataExtractor.Formats.Iso14496
 {
     internal class Box
     {
-        private static readonly IEnumerable<Box> s_emptyBoxEnumerable = [];
+        private static readonly IEnumerable<Box> _emptyBoxEnumerable = [];
 
         private readonly BoxLocation _location;
 
@@ -18,7 +18,7 @@ namespace MetadataExtractor.Formats.Iso14496
             return sr.GetBytes((int)((long)NextPosition - sr.Position));
         }
 
-        public virtual IEnumerable<Box> Children() => s_emptyBoxEnumerable;
+        public virtual IEnumerable<Box> Children() => _emptyBoxEnumerable;
 
         public override string ToString() => $"{TypeStringConverter.ToTypeString(Type)} @ {_location.NextPosition}";
     }
