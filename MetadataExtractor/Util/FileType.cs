@@ -94,7 +94,7 @@ namespace MetadataExtractor.Util
     public static class FileTypeExtensions
     {
         private static readonly string[] _shortNames =
-        {
+        [
             "Unknown",
             "JPEG",
             "TIFF",
@@ -123,10 +123,10 @@ namespace MetadataExtractor.Util
             "MP3",
             "HEIF",
             "MP4"
-        };
+        ];
 
         private static readonly string[] _longNames =
-        {
+        [
             "Unknown",
             "Joint Photographic Experts Group",
             "Tagged Image File Format",
@@ -155,10 +155,10 @@ namespace MetadataExtractor.Util
             "MPEG Audio Layer III",
             "High Efficiency Image File Format",
             "MPEG-4 Part 14",
-        };
+        ];
 
         private static readonly string?[] _mimeTypes =
-        {
+        [
             null,
             "image/jpeg",
             "image/tiff",
@@ -187,39 +187,39 @@ namespace MetadataExtractor.Util
             "audio/mpeg",
             "image/heic",
             "video/mp4",
-        };
+        ];
 
         private static readonly string[]?[] _extensions =
-        {
+        [
             null,
-            new[] { "jpg", "jpeg", "jpe" },
-            new[] { "tiff", "tif" },
-            new[] { "psd" },
-            new[] { "png" },
-            new[] { "bmp" },
-            new[] { "gif" },
-            new[] { "ico" },
-            new[] { "pcx" },
+            ["jpg", "jpeg", "jpe"],
+            ["tiff", "tif"],
+            ["psd"],
+            ["png"],
+            ["bmp"],
+            ["gif"],
+            ["ico"],
+            ["pcx"],
             null, // RIFF
-            new[] { "wav", "wave" },
-            new[] { "avi" },
-            new[] { "webp" },
-            new[] { "arw" },
-            new[] { "crw" },
-            new[] { "cr2" },
-            new[] { "nef" },
-            new[] { "orf" },
-            new[] { "raf" },
-            new[] { "rw2" },
-            new[] { "mov" },
-            new[] { "pbm", "ppm" },
-            new[] { "cr3", "crm" },
-            new[] { "eps", "epsf", "epsi" },
-            new[] { "tga", "icb", "vda", "vst" },
-            new[] { "mp3" },
-            new[] { "heic", "heif", "avci" },
-            new[] { "mp4", "m4a", "m4p", "m4b", "m4r", "m4v" }
-        };
+            ["wav", "wave"],
+            ["avi"],
+            ["webp"],
+            ["arw"],
+            ["crw"],
+            ["cr2"],
+            ["nef"],
+            ["orf"],
+            ["raf"],
+            ["rw2"],
+            ["mov"],
+            ["pbm", "ppm"],
+            ["cr3", "crm"],
+            ["eps", "epsf", "epsi"],
+            ["tga", "icb", "vda", "vst"],
+            ["mp3"],
+            ["heic", "heif", "avci"],
+            ["mp4", "m4a", "m4p", "m4b", "m4r", "m4v"]
+        ];
 
         public static string GetName(this FileType fileType)
         {

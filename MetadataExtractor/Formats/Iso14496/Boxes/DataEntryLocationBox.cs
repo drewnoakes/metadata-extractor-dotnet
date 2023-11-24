@@ -10,8 +10,12 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
         public DataEntryLocationBox(BoxLocation location, SequentialReader reader, bool hasName)
             : base(location, reader)
         {
-            Name = hasName ? reader.GetNullTerminatedString((int)reader.BytesRemainingInBox(location), Encoding.UTF8) : "";
-            Location = !reader.IsWithinBox(location) ? "" : reader.GetNullTerminatedString((int)reader.BytesRemainingInBox(location), Encoding.UTF8);
+            Name = hasName
+                ? reader.GetNullTerminatedString(maxLengthBytes: (int)reader.BytesRemainingInBox(location), Encoding.UTF8)
+                : "";
+            Location = reader.IsWithinBox(location)
+                ? reader.GetNullTerminatedString(maxLengthBytes: (int)reader.BytesRemainingInBox(location), Encoding.UTF8)
+                : "";
         }
     }
 }

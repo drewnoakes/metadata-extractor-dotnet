@@ -351,7 +351,7 @@ namespace MetadataExtractor.Formats.Bmp
                         reader.Skip(headerOffset + profileOffset - reader.Position);
                         if (csType == (long)BmpHeaderDirectory.ColorSpaceType.ProfileLinked)
                         {
-                            directory.Set(BmpHeaderDirectory.TagLinkedProfile, reader.GetNullTerminatedString(profileSize, Encoding.GetEncoding(1252)));
+                            directory.Set(BmpHeaderDirectory.TagLinkedProfile, reader.GetNullTerminatedString(profileSize, Encoding.GetEncoding(1252), moveToMaxLength: true));
                         }
                         else
                         {

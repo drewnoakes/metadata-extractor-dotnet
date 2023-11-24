@@ -8,9 +8,9 @@ namespace MetadataExtractor.Formats.Wav
         public const int TagSampleLength = 1;
 
         private readonly string[] _tagNames =
-        {
+        [
             "Number of Samples"
-        };
+        ];
 
         public WavFactDirectory() : base(null)
         {

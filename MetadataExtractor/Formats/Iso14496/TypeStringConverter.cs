@@ -7,13 +7,12 @@ namespace MetadataExtractor.Formats.Iso14496
         public static string ToTypeString(uint input)
         {
             return new(
-                new[]
-                {
+                [
                     (char)(input >> 24),
                     (char)((input >> 16) & 0xFF),
                     (char)((input >> 8) & 0xFF),
                     (char)(input & 0xFF)
-                });
+                ]);
         }
 
         public static uint ToTypeId(string typeString)

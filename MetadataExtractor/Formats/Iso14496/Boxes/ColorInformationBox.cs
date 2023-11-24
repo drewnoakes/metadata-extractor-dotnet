@@ -4,11 +4,7 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
 {
     internal sealed class ColorInformationBox : Box
     {
-#if NET35 || NET45
-        private static readonly byte[] _emptyByteArray = new byte[0];
-#else
-        private static readonly byte[] _emptyByteArray = Array.Empty<byte>();
-#endif
+        private static readonly byte[] _emptyByteArray = [];
 
         public const uint NclxTag = 0x6E636C78; // nclx
         public const uint RICCTag = 0x72494343; // rICC

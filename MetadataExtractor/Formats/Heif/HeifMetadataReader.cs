@@ -81,7 +81,7 @@ namespace MetadataExtractor.Formats.Heif
             void ParseImageProperties()
             {
                 uint[] allPrimaryTiles = (boxes.Descendant<ItemReferenceBox>()?.Boxes ?? new SingleItemTypeReferenceBox[0])
-                    .SelectMany(i => i.FromItemId == primaryItem && i.Type == BoxTypes.DimgTag ? i.ToItemIds : new uint[0])
+                    .SelectMany(i => i.FromItemId == primaryItem && i.Type == BoxTypes.DimgTag ? i.ToItemIds : [])
                     .ToArray();
                 var itemPropertyBox = boxes.Descendant<ItemPropertyBox>();
                 if (itemPropertyBox is null)
@@ -99,7 +99,7 @@ namespace MetadataExtractor.Formats.Heif
                     {
                         ParsePropertyBoxes(
                             "HEIC Thumbnail Properties",
-                            ImageProperties(itemRef.FromItemId, new uint[0], associations, props));
+                            ImageProperties(itemRef.FromItemId, [], associations, props));
                     }
                 }
 

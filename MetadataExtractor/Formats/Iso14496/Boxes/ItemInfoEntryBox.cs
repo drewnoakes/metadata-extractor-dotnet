@@ -18,7 +18,7 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
         public ulong ContentLength { get; }
         public ulong TransferLength { get; }
         public byte GroupIdCount { get; }
-        public uint[] GroupIds { get; } = new uint[0];
+        public uint[] GroupIds { get; } = [];
         public uint ItemType { get; }
         public string ItemUri { get; } = "";
 

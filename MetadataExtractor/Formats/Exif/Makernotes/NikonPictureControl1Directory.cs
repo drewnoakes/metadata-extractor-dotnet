@@ -59,9 +59,9 @@ public sealed class NikonPictureControl1Directory : Directory
 
         NikonPictureControl1Directory directory = new();
 
-        directory.Set(TagPictureControlVersion, reader.GetNullTerminatedStringValue(4));
-        directory.Set(TagPictureControlName, reader.GetNullTerminatedStringValue(20));
-        directory.Set(TagPictureControlBase, reader.GetNullTerminatedStringValue(20));
+        directory.Set(TagPictureControlVersion, reader.GetNullTerminatedStringValue(4, moveToMaxLength: true));
+        directory.Set(TagPictureControlName, reader.GetNullTerminatedStringValue(20, moveToMaxLength: true));
+        directory.Set(TagPictureControlBase, reader.GetNullTerminatedStringValue(20, moveToMaxLength: true));
         reader.Skip(4);
         directory.Set(TagPictureControlAdjust, reader.GetByte());
         directory.Set(TagPictureControlQuickAdjust, reader.GetByte());

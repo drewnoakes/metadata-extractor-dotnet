@@ -393,6 +393,8 @@ namespace MetadataExtractor.IO
             while (length < buffer.Length && buffer[length] != 0)
                 length++;
 
+            if (length == 0)
+                return Empty.ByteArray;
             if (length == maxLengthBytes)
                 return buffer;
 

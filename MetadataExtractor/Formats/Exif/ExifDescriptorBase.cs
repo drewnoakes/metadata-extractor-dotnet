@@ -532,7 +532,7 @@ namespace MetadataExtractor.Formats.Exif
             if (end > pattern.Length)
                 return "<invalid pattern size>";
 
-            string[] cfaColors = { "Red", "Green", "Blue", "Cyan", "Magenta", "Yellow", "White" };
+            string[] cfaColors = ["Red", "Green", "Blue", "Cyan", "Magenta", "Yellow", "White"];
 
             var ret = new StringBuilder();
             ret.Append('[');

@@ -232,7 +232,7 @@ namespace MetadataExtractor.Formats.Iptc
             return GetDate(TagDigitalDateCreated, TagDigitalTimeCreated);
         }
 
-        private static readonly string[] _formats = { "yyyyMMddHHmmsszzzz", "yyyyMMddHHmmsszzz", "yyyyMMddHHmmss" };
+        private static readonly string[] _formats = ["yyyyMMddHHmmsszzzz", "yyyyMMddHHmmsszzz", "yyyyMMddHHmmss"];
 
         private DateTimeOffset? GetDate(int dateTagType, int timeTagType)
         {
