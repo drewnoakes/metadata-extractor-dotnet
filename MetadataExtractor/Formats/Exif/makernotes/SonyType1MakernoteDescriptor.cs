@@ -645,7 +645,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetSequenceNumberDescription()
         {
-            if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagReleaseMode, out int value))
+            if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagSequenceNumber, out int value))
                 return null;
 
             return value switch
