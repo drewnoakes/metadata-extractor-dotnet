@@ -9,33 +9,32 @@ using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directo
 using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
 #endif
 
-namespace MetadataExtractor.Formats.Avi
+namespace MetadataExtractor.Formats.Avi;
+
+/// <summary>Obtains metadata from Avi files.</summary>
+/// <author>Drew Noakes https://drewnoakes.com</author>
+public static class AviMetadataReader
 {
-    /// <summary>Obtains metadata from Avi files.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-    public static class AviMetadataReader
+    /// <exception cref="IOException"/>
+    /// <exception cref="RiffProcessingException"/>
+    public static DirectoryList ReadMetadata(string filePath)
     {
-        /// <exception cref="IOException"/>
-        /// <exception cref="RiffProcessingException"/>
-        public static DirectoryList ReadMetadata(string filePath)
-        {
-            var directories = new List<Directory>();
+        var directories = new List<Directory>();
 
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream));
+        using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            directories.AddRange(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+        directories.Add(new FileMetadataReader().Read(filePath));
 
-            return directories;
-        }
+        return directories;
+    }
 
-        /// <exception cref="IOException"/>
-        /// <exception cref="RiffProcessingException"/>
-        public static DirectoryList ReadMetadata(Stream stream)
-        {
-            var directories = new List<Directory>();
-            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new AviRiffHandler(directories));
-            return directories;
-        }
+    /// <exception cref="IOException"/>
+    /// <exception cref="RiffProcessingException"/>
+    public static DirectoryList ReadMetadata(Stream stream)
+    {
+        var directories = new List<Directory>();
+        new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new AviRiffHandler(directories));
+        return directories;
     }
 }

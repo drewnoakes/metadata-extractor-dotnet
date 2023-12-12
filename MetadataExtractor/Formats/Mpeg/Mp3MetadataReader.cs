@@ -6,13 +6,12 @@ using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directo
 using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
 #endif
 
-namespace MetadataExtractor.Formats.Mpeg
+namespace MetadataExtractor.Formats.Mpeg;
+
+public static class Mp3MetadataReader
 {
-    public static class Mp3MetadataReader
+    public static DirectoryList ReadMetadata(Stream stream)
     {
-        public static DirectoryList ReadMetadata(Stream stream)
-        {
-            return new[] { new Mp3Reader().Extract(new SequentialStreamReader(stream)) };
-        }
+        return new[] { new Mp3Reader().Extract(new SequentialStreamReader(stream)) };
     }
 }

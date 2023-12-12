@@ -1,33 +1,32 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-namespace MetadataExtractor.Formats.Tga
+namespace MetadataExtractor.Formats.Tga;
+
+/// <author>Dmitry Shechtman</author>
+public sealed class TgaExtensionDescriptor : TagDescriptor<TgaExtensionDirectory>
 {
-    /// <author>Dmitry Shechtman</author>
-    public sealed class TgaExtensionDescriptor : TagDescriptor<TgaExtensionDirectory>
+    public TgaExtensionDescriptor(TgaExtensionDirectory directory)
+        : base(directory)
     {
-        public TgaExtensionDescriptor(TgaExtensionDirectory directory)
-            : base(directory)
-        {
-        }
+    }
 
-        public override string? GetDescription(int tagType)
+    public override string? GetDescription(int tagType)
+    {
+        return tagType switch
         {
-            return tagType switch
-            {
-                TgaExtensionDirectory.TagAttributesType => GetAttributesTypeDescription(),
-                _ => base.GetDescription(tagType),
-            };
-        }
+            TgaExtensionDirectory.TagAttributesType => GetAttributesTypeDescription(),
+            _ => base.GetDescription(tagType),
+        };
+    }
 
-        public string? GetAttributesTypeDescription()
-        {
-            return GetIndexedDescription(
-                TgaExtensionDirectory.TagAttributesType,
-                "No alpha data included",
-                "Undefined alpha data; ignore",
-                "Undefined alpha data; retain",
-                "Useful alpha data",
-                "Pre-multiplied alpha data");
-        }
+    public string? GetAttributesTypeDescription()
+    {
+        return GetIndexedDescription(
+            TgaExtensionDirectory.TagAttributesType,
+            "No alpha data included",
+            "Undefined alpha data; ignore",
+            "Undefined alpha data; retain",
+            "Useful alpha data",
+            "Pre-multiplied alpha data");
     }
 }

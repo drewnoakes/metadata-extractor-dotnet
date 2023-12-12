@@ -8,28 +8,27 @@ using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directo
 using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
 #endif
 
-namespace MetadataExtractor.Formats.Eps
+namespace MetadataExtractor.Formats.Eps;
+
+/// <summary>Obtains metadata from EPS files.</summary>
+/// <author>Payton Garland</author>
+/// <author>Kevin Mott https://github.com/kwhopper</author>
+public static class EpsMetadataReader
 {
-    /// <summary>Obtains metadata from EPS files.</summary>
-    /// <author>Payton Garland</author>
-    /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public static class EpsMetadataReader
+    public static DirectoryList ReadMetadata(string filePath)
     {
-        public static DirectoryList ReadMetadata(string filePath)
-        {
-            var directories = new List<Directory>();
+        var directories = new List<Directory>();
 
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(new EpsReader().Extract(stream));
+        using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            directories.AddRange(new EpsReader().Extract(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+        directories.Add(new FileMetadataReader().Read(filePath));
 
-            return directories;
-        }
+        return directories;
+    }
 
-        public static DirectoryList ReadMetadata(Stream stream)
-        {
-            return new EpsReader().Extract(stream);
-        }
+    public static DirectoryList ReadMetadata(Stream stream)
+    {
+        return new EpsReader().Extract(stream);
     }
 }

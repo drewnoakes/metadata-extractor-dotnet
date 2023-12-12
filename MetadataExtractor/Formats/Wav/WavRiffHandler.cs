@@ -2,34 +2,33 @@
 
 using MetadataExtractor.Formats.Riff;
 
-namespace MetadataExtractor.Formats.Wav
+namespace MetadataExtractor.Formats.Wav;
+
+/// <summary>
+/// Implementation of <see cref="IRiffHandler"/> specialising in WAV support.
+/// </summary>
+/// <remarks>
+/// Extracts data from chunk/list types:
+/// <list type="bullet">
+///   <item><c>"fmt "</c>: base format data</item>
+///   <item><c>"fact"</c>: number of samples</item>
+/// </list>
+/// Source:
+/// http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html
+/// </remarks>
+/// <author>Dmitry Shechtman</author>
+public sealed class WavRiffHandler : RiffHandler
 {
-    /// <summary>
-    /// Implementation of <see cref="IRiffHandler"/> specialising in WAV support.
-    /// </summary>
-    /// <remarks>
-    /// Extracts data from chunk/list types:
-    /// <list type="bullet">
-    ///   <item><c>"fmt "</c>: base format data</item>
-    ///   <item><c>"fact"</c>: number of samples</item>
-    /// </list>
-    /// Source:
-    /// http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html
-    /// </remarks>
-    /// <author>Dmitry Shechtman</author>
-    public sealed class WavRiffHandler : RiffHandler
-    {
-        public WavRiffHandler(List<Directory> directories)
-            : base(directories, new Dictionary<string, Func<List<Directory>, IRiffChunkHandler>>
-            {
-                { "fmt ", d => new WavFormatHandler(d) },
-                { "fact", d => new WavFactHandler(d) }
-            })
+    public WavRiffHandler(List<Directory> directories)
+        : base(directories, new Dictionary<string, Func<List<Directory>, IRiffChunkHandler>>
         {
-        }
-
-        public override bool ShouldAcceptRiffIdentifier(string identifier) => identifier == "WAVE";
-
-        public override bool ShouldAcceptList(string fourCc) => false;
+            { "fmt ", d => new WavFormatHandler(d) },
+            { "fact", d => new WavFactHandler(d) }
+        })
+    {
     }
+
+    public override bool ShouldAcceptRiffIdentifier(string identifier) => identifier == "WAVE";
+
+    public override bool ShouldAcceptList(string fourCc) => false;
 }

@@ -4,35 +4,34 @@
 using System.Runtime.Serialization;
 #endif
 
-namespace MetadataExtractor
+namespace MetadataExtractor;
+
+/// <summary>An exception class thrown upon an unexpected condition that was fatal for the processing of an image.</summary>
+/// <author>Drew Noakes https://drewnoakes.com</author>
+#if !NETSTANDARD1_3
+[Serializable]
+#endif
+public class ImageProcessingException : Exception
 {
-    /// <summary>An exception class thrown upon an unexpected condition that was fatal for the processing of an image.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !NETSTANDARD1_3
-    [Serializable]
-#endif
-    public class ImageProcessingException : Exception
+    public ImageProcessingException(string? message)
+        : base(message)
     {
-        public ImageProcessingException(string? message)
-            : base(message)
-        {
-        }
+    }
 
-        public ImageProcessingException(string? message, Exception? innerException)
-            : base(message, innerException)
-        {
-        }
+    public ImageProcessingException(string? message, Exception? innerException)
+        : base(message, innerException)
+    {
+    }
 
-        public ImageProcessingException(Exception? innerException)
-            : base(null, innerException)
-        {
-        }
+    public ImageProcessingException(Exception? innerException)
+        : base(null, innerException)
+    {
+    }
 
 #if !NETSTANDARD1_3
-        protected ImageProcessingException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
-#endif
+    protected ImageProcessingException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    {
     }
+#endif
 }

@@ -4,35 +4,34 @@
 using System.Runtime.Serialization;
 #endif
 
-namespace MetadataExtractor
+namespace MetadataExtractor;
+
+/// <summary>Base class for all metadata specific exceptions.</summary>
+/// <author>Drew Noakes https://drewnoakes.com</author>
+#if !NETSTANDARD1_3
+[Serializable]
+#endif
+public class MetadataException : Exception
 {
-    /// <summary>Base class for all metadata specific exceptions.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !NETSTANDARD1_3
-    [Serializable]
-#endif
-    public class MetadataException : Exception
+    public MetadataException(string? msg)
+        : base(msg)
     {
-        public MetadataException(string? msg)
-            : base(msg)
-        {
-        }
+    }
 
-        public MetadataException(Exception? innerException)
-            : base(null, innerException)
-        {
-        }
+    public MetadataException(Exception? innerException)
+        : base(null, innerException)
+    {
+    }
 
-        public MetadataException(string? msg, Exception? innerException)
-            : base(msg, innerException)
-        {
-        }
+    public MetadataException(string? msg, Exception? innerException)
+        : base(msg, innerException)
+    {
+    }
 
 #if !NETSTANDARD1_3
-        protected MetadataException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
-#endif
+    protected MetadataException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
+    {
     }
+#endif
 }
