@@ -497,16 +497,17 @@ namespace MetadataExtractor.Formats.Exif
             var cameraMake = Directories.OfType<ExifIfd0Directory>().FirstOrDefault()?.GetString(ExifDirectoryBase.TagMake);
 
 #pragma warning disable format
-            var firstTwoChars    = context.Reader.GetString(makernoteOffset, 2, Encoding.UTF8);
-            var firstThreeChars  = context.Reader.GetString(makernoteOffset, 3, Encoding.UTF8);
-            var firstFourChars   = context.Reader.GetString(makernoteOffset, 4, Encoding.UTF8);
-            var firstFiveChars   = context.Reader.GetString(makernoteOffset, 5, Encoding.UTF8);
-            var firstSixChars    = context.Reader.GetString(makernoteOffset, 6, Encoding.UTF8);
-            var firstSevenChars  = context.Reader.GetString(makernoteOffset, 7, Encoding.UTF8);
-            var firstEightChars  = context.Reader.GetString(makernoteOffset, 8, Encoding.UTF8);
-            var firstNineChars   = context.Reader.GetString(makernoteOffset, 9, Encoding.UTF8);
-            var firstTenChars    = context.Reader.GetString(makernoteOffset, 10, Encoding.UTF8);
-            var firstTwelveChars = context.Reader.GetString(makernoteOffset, 12, Encoding.UTF8);
+            var firstTwoChars      = context.Reader.GetString(makernoteOffset, 2, Encoding.UTF8);
+            var firstThreeChars    = context.Reader.GetString(makernoteOffset, 3, Encoding.UTF8);
+            var firstFourChars     = context.Reader.GetString(makernoteOffset, 4, Encoding.UTF8);
+            var firstFiveChars     = context.Reader.GetString(makernoteOffset, 5, Encoding.UTF8);
+            var firstSixChars      = context.Reader.GetString(makernoteOffset, 6, Encoding.UTF8);
+            var firstSevenChars    = context.Reader.GetString(makernoteOffset, 7, Encoding.UTF8);
+            var firstEightChars    = context.Reader.GetString(makernoteOffset, 8, Encoding.UTF8);
+            var firstNineChars     = context.Reader.GetString(makernoteOffset, 9, Encoding.UTF8);
+            var firstTenChars      = context.Reader.GetString(makernoteOffset, 10, Encoding.UTF8);
+            var firstTwelveChars   = context.Reader.GetString(makernoteOffset, 12, Encoding.UTF8);
+            var firstFourteenChars = context.Reader.GetString(makernoteOffset, 14, Encoding.UTF8);
 #pragma warning restore format
 
             if (string.Equals("OLYMP\0", firstSixChars, StringComparison.Ordinal) ||
@@ -525,6 +526,14 @@ namespace MetadataExtractor.Formats.Exif
                 // http://exiv2.org/makernote.html
                 PushDirectory(new OlympusMakernoteDirectory());
                 TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), 12);
+            }
+            else if (string.Equals("OM SYSTEM\0\0\0II", firstFourteenChars, StringComparison.Ordinal))
+            {
+                // Olympus Makernote (OM SYSTEM)
+                // Note that data is relative to the beginning of the makernote
+                // http://exiv2.org/makernote.html
+                PushDirectory(new OlympusMakernoteDirectory());
+                TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), 16);
             }
             else if (cameraMake is not null && cameraMake.StartsWith("MINOLTA", StringComparison.OrdinalIgnoreCase))
             {
