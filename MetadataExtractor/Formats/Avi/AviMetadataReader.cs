@@ -3,12 +3,6 @@
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Riff;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Avi
 {
     /// <summary>Obtains metadata from Avi files.</summary>
@@ -17,7 +11,7 @@ namespace MetadataExtractor.Formats.Avi
     {
         /// <exception cref="IOException"/>
         /// <exception cref="RiffProcessingException"/>
-        public static DirectoryList ReadMetadata(string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 
@@ -31,7 +25,7 @@ namespace MetadataExtractor.Formats.Avi
 
         /// <exception cref="IOException"/>
         /// <exception cref="RiffProcessingException"/>
-        public static DirectoryList ReadMetadata(Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
         {
             var directories = new List<Directory>();
             new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new AviRiffHandler(directories));

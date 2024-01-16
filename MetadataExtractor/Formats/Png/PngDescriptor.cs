@@ -79,11 +79,7 @@ namespace MetadataExtractor.Formats.Png
                 ? null
                 : string.Join(
                     "\n",
-                    pairs.Select(kv => $"{kv.Key}: {kv.Value}")
-#if NET35
-                    .ToArray()
-#endif
-                    );
+                    pairs.Select(kv => $"{kv.Key}: {kv.Value}"));
         }
 
         public string? GetBackgroundColorDescription()

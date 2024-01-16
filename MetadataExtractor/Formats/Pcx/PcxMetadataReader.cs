@@ -2,12 +2,6 @@
 
 using MetadataExtractor.Formats.FileSystem;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Pcx
 {
     /// <summary>Obtains metadata from PCX image files.</summary>
@@ -15,7 +9,7 @@ namespace MetadataExtractor.Formats.Pcx
     public static class PcxMetadataReader
     {
         /// <exception cref="IOException"/>
-        public static DirectoryList ReadMetadata(string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 

@@ -1,18 +1,12 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Reads metadata stored within PSD file format data.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PsdReader
     {
-        public DirectoryList Extract(SequentialReader reader)
+        public IReadOnlyList<Directory> Extract(SequentialReader reader)
         {
             var directory = new PsdHeaderDirectory();
 

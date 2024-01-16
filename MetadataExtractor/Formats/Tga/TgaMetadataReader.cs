@@ -2,12 +2,6 @@
 
 using MetadataExtractor.Formats.FileSystem;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Tga
 {
     /// <summary>Obtains metadata from TGA (Truevision) files.</summary>
@@ -16,7 +10,7 @@ namespace MetadataExtractor.Formats.Tga
     {
         /// <exception cref="IOException"/>
         /// <exception cref="ArgumentException"/>
-        public static DirectoryList ReadMetadata(string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 
@@ -30,7 +24,7 @@ namespace MetadataExtractor.Formats.Tga
 
         /// <exception cref="IOException"/>
         /// <exception cref="ArgumentException"/>
-        public static DirectoryList ReadMetadata(Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
         {
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", nameof(stream));
