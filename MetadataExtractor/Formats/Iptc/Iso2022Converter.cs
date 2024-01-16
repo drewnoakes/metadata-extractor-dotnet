@@ -89,11 +89,9 @@ namespace MetadataExtractor.Formats.Iptc
 
             foreach (var encoding in encodings)
             {
-                Debug.Assert(encoding is not null);
                 try
                 {
-                    // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                    var s = encoding!.GetString(bytes, 0, bytes.Length);
+                    var s = encoding.GetString(bytes, 0, bytes.Length);
                     if (s.IndexOf((char)65533) != -1)
                         continue;
                     return encoding;
