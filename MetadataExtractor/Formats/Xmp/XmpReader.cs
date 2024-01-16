@@ -75,10 +75,29 @@ namespace MetadataExtractor.Formats.Xmp
             if (xmpBytes.Length < offset + length)
                 throw new ArgumentException("Extends beyond length of byte array.", nameof(length));
 
+            ReadOnlySpan<byte> bytes = xmpBytes.AsSpan(offset, length);
+
             // Trim any trailing null bytes
             // https://github.com/drewnoakes/metadata-extractor-dotnet/issues/154
-            while (xmpBytes[offset + length - 1] == 0)
-                length--;
+            while (bytes[bytes.Length - 1] == 0)
+                bytes = bytes.Slice(0, bytes.Length - 1);
+
+            // Validate the end of the XMP package
+            // https://github.com/drewnoakes/metadata-extractor-dotnet/issues/356
+            ScanForEnding(bytes, """<?xpacket end="r"?>"""u8);
+            ScanForEnding(bytes, """<?xpacket end="w"?>"""u8);
+
+            void ScanForEnding(ReadOnlySpan<byte> bytes, ReadOnlySpan<byte> pattern)
+            {
+                var i1 = bytes.IndexOf(pattern);
+
+                if (i1 != -1)
+                {
+                    i1 += pattern.Length;
+                    if (i1 < length)
+                        length = i1;
+                }
+            }
 
             var directory = new XmpDirectory();
             try
