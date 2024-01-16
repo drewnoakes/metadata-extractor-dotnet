@@ -89,13 +89,13 @@ namespace MetadataExtractor.Formats.Xmp
 
             void ScanForEnding(ReadOnlySpan<byte> bytes, ReadOnlySpan<byte> pattern)
             {
-                var i1 = bytes.IndexOf(pattern);
+                var index = bytes.IndexOf(pattern);
 
-                if (i1 != -1)
+                if (index != -1)
                 {
-                    i1 += pattern.Length;
-                    if (i1 < length)
-                        length = i1;
+                    index += pattern.Length;
+                    if (index < length)
+                        length = index;
                 }
             }
 
