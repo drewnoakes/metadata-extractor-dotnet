@@ -2,18 +2,12 @@
 
 using MetadataExtractor.Formats.Icc;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpReader
     {
-        public DirectoryList Extract(SequentialReader reader)
+        public IReadOnlyList<Directory> Extract(SequentialReader reader)
         {
             var directories = new List<Directory>();
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);

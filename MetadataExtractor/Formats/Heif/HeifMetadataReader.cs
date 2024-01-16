@@ -6,11 +6,6 @@ using MetadataExtractor.Formats.Iso14496.Boxes;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.Formats.Xmp;
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
 
 namespace MetadataExtractor.Formats.Heif
 {
@@ -20,7 +15,7 @@ namespace MetadataExtractor.Formats.Heif
         private const int ExifTag = 0x45786966; // "Exif"
         private const int MimeTag = 0x6D696D65; // "mime"
 
-        public static DirectoryList ReadMetadata(Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
         {
             var directories = new List<Directory>();
 

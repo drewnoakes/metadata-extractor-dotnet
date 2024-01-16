@@ -2,12 +2,6 @@
 
 using MetadataExtractor.Formats.FileSystem;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Eps
 {
     /// <summary>Obtains metadata from EPS files.</summary>
@@ -15,7 +9,7 @@ namespace MetadataExtractor.Formats.Eps
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public static class EpsMetadataReader
     {
-        public static DirectoryList ReadMetadata(string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 
@@ -27,7 +21,7 @@ namespace MetadataExtractor.Formats.Eps
             return directories;
         }
 
-        public static DirectoryList ReadMetadata(Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
         {
             return new EpsReader().Extract(stream);
         }

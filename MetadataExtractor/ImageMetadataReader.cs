@@ -21,12 +21,6 @@ using MetadataExtractor.Formats.Tga;
 using MetadataExtractor.Formats.Wav;
 using MetadataExtractor.Formats.WebP;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 // ReSharper disable RedundantCaseLabel
 
 namespace MetadataExtractor
@@ -66,7 +60,7 @@ namespace MetadataExtractor
         /// <returns>A list of <see cref="Directory"/> instances containing the various types of metadata found within the file's data.</returns>
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="IOException"/>
-        public static DirectoryList ReadMetadata(Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
         {
             var fileType = FileTypeDetector.DetectFileType(stream);
 
@@ -119,7 +113,7 @@ namespace MetadataExtractor
         /// <returns>A list of <see cref="Directory"/> instances containing the various types of metadata found within the file's data.</returns>
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="IOException"/>
-        public static DirectoryList ReadMetadata(string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 
