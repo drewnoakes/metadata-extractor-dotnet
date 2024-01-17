@@ -145,13 +145,13 @@ This library targets:
 
 - .NET Framework 4.5 (`net45`)
 - .NET Standard 1.3 (`netstandard1.3`)
-- .NET Standard 2.0 (`netstandard2.0`)
+- .NET Standard 2.1 (`netstandard2.1`)
 
 All target frameworks are provided via the [one NuGet package](https://www.nuget.org/packages/MetadataExtractor).
 
 `netstandard1.3` implements version 1.3 of the [.NET Standard](https://docs.microsoft.com/en-us/dotnet/articles/standard/library) which covers .NET Core, Mono, Xamarin platforms, UWP, and future platforms. 
 
-`netstandard2.0` implements version 2.0 of the .NET Standard, which uses newer APIs where possible.
+`netstandard2.1` implements version 2.1 of the .NET Standard, which uses newer APIs where possible.
 
 `net45` targets the full .NET Framework, from version 4.5 onwards.
 

@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+#if NETFRAMEWORK || NETSTANDARD1_3
+
 namespace System.Diagnostics.CodeAnalysis
 {
     /// <summary>Specifies that null is allowed as an input even if the corresponding type disallows it.</summary>
@@ -84,3 +86,5 @@ namespace System.Diagnostics.CodeAnalysis
         public bool ParameterValue { get; }
     }
 }
+
+#endif
