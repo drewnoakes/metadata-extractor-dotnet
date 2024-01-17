@@ -65,9 +65,6 @@ MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.NikonPi
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory.NikonPictureControl2Directory() -> void
 MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
-MetadataExtractor.IO.SequentialReader.GetNullTerminatedBytes(int maxLengthBytes, bool moveToMaxLength = false) -> byte[]!
-MetadataExtractor.IO.SequentialReader.GetNullTerminatedString(int maxLengthBytes, System.Text.Encoding? encoding = null, bool moveToMaxLength = false) -> string!
-MetadataExtractor.IO.SequentialReader.GetNullTerminatedStringValue(int maxLengthBytes, System.Text.Encoding? encoding = null, bool moveToMaxLength = false) -> MetadataExtractor.StringValue
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Descriptor.GetDescription(int tagType) -> string?

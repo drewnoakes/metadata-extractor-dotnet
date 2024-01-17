@@ -3940,9 +3940,9 @@ MetadataExtractor.IO.SequentialReader.GetFloat32() -> float
 MetadataExtractor.IO.SequentialReader.GetInt16() -> short
 MetadataExtractor.IO.SequentialReader.GetInt32() -> int
 MetadataExtractor.IO.SequentialReader.GetInt64() -> long
-MetadataExtractor.IO.SequentialReader.GetNullTerminatedBytes(int maxLengthBytes) -> byte[]!
-MetadataExtractor.IO.SequentialReader.GetNullTerminatedString(int maxLengthBytes, System.Text.Encoding? encoding = null) -> string!
-MetadataExtractor.IO.SequentialReader.GetNullTerminatedStringValue(int maxLengthBytes, System.Text.Encoding? encoding = null) -> MetadataExtractor.StringValue
+MetadataExtractor.IO.SequentialReader.GetNullTerminatedBytes(int maxLengthBytes, bool moveToMaxLength = false) -> byte[]!
+MetadataExtractor.IO.SequentialReader.GetNullTerminatedString(int maxLengthBytes, System.Text.Encoding? encoding = null, bool moveToMaxLength = false) -> string!
+MetadataExtractor.IO.SequentialReader.GetNullTerminatedStringValue(int maxLengthBytes, System.Text.Encoding? encoding = null, bool moveToMaxLength = false) -> MetadataExtractor.StringValue
 MetadataExtractor.IO.SequentialReader.GetS15Fixed16() -> float
 MetadataExtractor.IO.SequentialReader.GetSByte() -> sbyte
 MetadataExtractor.IO.SequentialReader.GetString(int bytesRequested, System.Text.Encoding! encoding) -> string!
