@@ -89,6 +89,27 @@ namespace MetadataExtractor.Util
             MaxDepth = Math.Max(MaxDepth, depth);
         }
 
+        /// <summary>Store the given value at the specified path.</summary>
+        internal void Add(T value, ReadOnlySpan<byte> part)
+        {
+            var depth = 0;
+            var node = _root;
+
+            foreach (var b in part)
+            {
+                if (!node.Children.TryGetValue(b, out ByteTrieNode? child))
+                {
+                    child = new ByteTrieNode();
+                    node.Children[b] = child;
+                }
+                node = child;
+                depth++;
+            }
+
+            node.SetValue(value);
+            MaxDepth = Math.Max(MaxDepth, depth);
+        }
+
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => throw new NotSupportedException();
 
         IEnumerator IEnumerable.GetEnumerator() => throw new NotSupportedException();
