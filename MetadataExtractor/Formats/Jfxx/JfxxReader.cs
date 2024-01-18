@@ -17,9 +17,9 @@ namespace MetadataExtractor.Formats.Jfxx
     {
         public const string JpegSegmentPreamble = "JFXX";
 
-        protected override byte[] PreambleBytes { get; } = Encoding.ASCII.GetBytes(JpegSegmentPreamble);
+        protected override ReadOnlySpan<byte> PreambleBytes => "JFXX"u8;
 
-        public override ICollection<JpegSegmentType> SegmentTypes { get; } = new[] { JpegSegmentType.App0 };
+        public override ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App0];
 
         protected override IEnumerable<Directory> Extract(byte[] segmentBytes, int preambleLength)
         {

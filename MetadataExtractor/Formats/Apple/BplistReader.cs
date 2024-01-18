@@ -11,21 +11,21 @@ public sealed class BplistReader
     // https://opensource.apple.com/source/CF/CF-550/CFBinaryPList.c
     // https://synalysis.com/how-to-decode-apple-binary-property-list-files/
 
-    private static readonly byte[] _bplistHeader = [(byte)'b', (byte)'p', (byte)'l', (byte)'i', (byte)'s', (byte)'t', (byte)'0', (byte)'0'];
+    private static ReadOnlySpan<byte> BplistHeader => "bplist00"u8;
 
     /// <summary>
     /// Gets whether <paramref name="bplist"/> starts with the expected header bytes.
     /// </summary>
     public static bool IsValid(byte[] bplist)
     {
-        if (bplist.Length < _bplistHeader.Length)
+        if (bplist.Length < BplistHeader.Length)
         {
             return false;
         }
 
-        for (int i = 0; i < _bplistHeader.Length; i++)
+        for (int i = 0; i < BplistHeader.Length; i++)
         {
-            if (bplist[i] != _bplistHeader[i])
+            if (bplist[i] != BplistHeader[i])
             {
                 return false;
             }

@@ -18,19 +18,19 @@ namespace MetadataExtractor.Formats.Icc
     public sealed class IccReader : IJpegSegmentMetadataReader
     {
         public const string JpegSegmentPreamble = "ICC_PROFILE"; // TODO what are the extra three bytes here? are they always the same?
-        private static readonly byte[] _jpegSegmentPreambleBytes = Encoding.UTF8.GetBytes(JpegSegmentPreamble);
+        private static ReadOnlySpan<byte> JpegSegmentPreambleBytes => "ICC_PROFILE"u8;
 
         // NOTE the header is 14 bytes, while "ICC_PROFILE" is 11
         private const int JpegSegmentPreambleLength = 14;
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new[] { JpegSegmentType.App2 };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.App2];
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // ICC data can be spread across multiple JPEG segments.
 
             // Skip any segments that do not contain the required preamble
-            var iccSegments = segments.Where(segment => segment.Bytes.Length > JpegSegmentPreambleLength && segment.Bytes.StartsWith(_jpegSegmentPreambleBytes)).ToList();
+            var iccSegments = segments.Where(segment => segment.Bytes.Length > JpegSegmentPreambleLength && segment.Bytes.AsSpan().StartsWith(JpegSegmentPreambleBytes)).ToList();
 
             if (iccSegments.Count == 0)
                 return Enumerable.Empty<Directory>();

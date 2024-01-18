@@ -15,16 +15,16 @@ namespace MetadataExtractor.Formats.Exif
     {
         public const string JpegSegmentPreamble = "Exif\x0\x0";
 
-        private static readonly byte[] _preambleBytes = Encoding.ASCII.GetBytes(JpegSegmentPreamble);
+        private static ReadOnlySpan<byte> ExifPreamble => "Exif\x0\x0"u8;
 
-        public static bool StartsWithJpegExifPreamble(byte[] bytes) => bytes.StartsWith(_preambleBytes);
+        public static bool StartsWithJpegExifPreamble(byte[] bytes) => bytes.AsSpan().StartsWith(ExifPreamble);
 
-        public static int JpegSegmentPreambleLength => _preambleBytes.Length;
+        public static int JpegSegmentPreambleLength => ExifPreamble.Length;
 
         /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble "Exif\0\0".</summary>
-        protected override byte[] PreambleBytes => _preambleBytes;
+        protected override ReadOnlySpan<byte> PreambleBytes => ExifPreamble;
 
-        public override ICollection<JpegSegmentType> SegmentTypes { get; } = new[] { JpegSegmentType.App1 };
+        public override ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App1];
 
         protected override IEnumerable<Directory> Extract(byte[] segmentBytes, int preambleLength)
         {

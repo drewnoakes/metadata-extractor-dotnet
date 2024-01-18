@@ -20,9 +20,9 @@ namespace MetadataExtractor.Formats.Photoshop
     {
         public const string JpegSegmentPreamble = "Photoshop 3.0";
 
-        protected override byte[] PreambleBytes { get; } = Encoding.ASCII.GetBytes(JpegSegmentPreamble);
+        protected override ReadOnlySpan<byte> PreambleBytes => "Photoshop 3.0"u8;
 
-        public override ICollection<JpegSegmentType> SegmentTypes { get; } = new[] { JpegSegmentType.AppD };
+        public override ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.AppD];
 
         protected override IEnumerable<Directory> Extract(byte[] segmentBytes, int preambleLength)
         {
