@@ -22,10 +22,10 @@ namespace MetadataExtractor.Formats.Xmp
         public const string JpegSegmentPreamble = "http://ns.adobe.com/xap/1.0/\0";
         public const string JpegSegmentPreambleExtension = "http://ns.adobe.com/xmp/extension/\0";
 
-        private static byte[] JpegSegmentPreambleBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreamble);
-        private static byte[] JpegSegmentPreambleExtensionBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreambleExtension);
+        private static ReadOnlySpan<byte> JpegSegmentPreambleBytes => "http://ns.adobe.com/xap/1.0/\0"u8;
+        private static ReadOnlySpan<byte> JpegSegmentPreambleExtensionBytes => "http://ns.adobe.com/xmp/extension/\0"u8;
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new[] { JpegSegmentType.App1 };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.App1];
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
@@ -61,8 +61,8 @@ namespace MetadataExtractor.Formats.Xmp
 
         private static string GetExtendedDataGuid(JpegSegment segment) => Encoding.UTF8.GetString(segment.Bytes, JpegSegmentPreambleExtensionBytes.Length, 32);
 
-        private static bool IsXmpSegment(JpegSegment segment) => segment.Bytes.StartsWith(JpegSegmentPreambleBytes);
-        private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Bytes.StartsWith(JpegSegmentPreambleExtensionBytes);
+        private static bool IsXmpSegment(JpegSegment segment) => segment.Bytes.AsSpan().StartsWith(JpegSegmentPreambleBytes);
+        private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Bytes.AsSpan().StartsWith(JpegSegmentPreambleExtensionBytes);
 
         public XmpDirectory Extract(byte[] xmpBytes) => Extract(xmpBytes, 0, xmpBytes.Length);
 

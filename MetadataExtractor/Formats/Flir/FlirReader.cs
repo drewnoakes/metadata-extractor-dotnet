@@ -12,9 +12,9 @@ namespace MetadataExtractor.Formats.Flir
 
         public bool ExtractRawThermalImage { get; set; }
 
-        private byte[] PreambleBytes { get; } = Encoding.ASCII.GetBytes(JpegSegmentPreamble);
+        private ReadOnlySpan<byte> PreambleBytes => "FLIR\0"u8;
 
-        public ICollection<JpegSegmentType> SegmentTypes { get; } = new[] { JpegSegmentType.App1 };
+        public ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App1];
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
@@ -26,7 +26,7 @@ namespace MetadataExtractor.Formats.Flir
             foreach (var segment in segments)
             {
                 // Skip segments not starting with the required preamble
-                if (segment.Bytes.StartsWith(preamble))
+                if (segment.Bytes.AsSpan().StartsWith(preamble))
                 {
                     length += segment.Bytes.Length - preambleLength;
                 }
@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Flir
             foreach (var segment in segments)
             {
                 // Skip segments not starting with the required preamble
-                if (segment.Bytes.StartsWith(preamble))
+                if (segment.Bytes.AsSpan().StartsWith(preamble))
                 {
                     merged.Write(segment.Bytes, preambleLength, segment.Bytes.Length - preambleLength);
                 }
