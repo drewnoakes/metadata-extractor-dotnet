@@ -19,13 +19,13 @@ namespace MetadataExtractor.Tests.Util
             foreach (var s1 in strings)
                 Assert.Same(s1, trie.Find(Encoding.UTF8.GetBytes(s1)));
 
-            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("Not Included")));
-            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("HELL")));
-            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("HEL")));
-            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("HE")));
-            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("Also Not Included")));
+            Assert.Equal("DEFAULT", trie.Find("Not Included"u8.ToArray()));
+            Assert.Equal("DEFAULT", trie.Find("HELL"u8.ToArray()));
+            Assert.Equal("DEFAULT", trie.Find("HEL"u8.ToArray()));
+            Assert.Equal("DEFAULT", trie.Find("HE"u8.ToArray()));
+            Assert.Equal("DEFAULT", trie.Find("Also Not Included"u8.ToArray()));
 
-            Assert.Equal("HELLO", trie.Find(Encoding.UTF8.GetBytes("HELLO MUM")));
+            Assert.Equal("HELLO", trie.Find("HELLO MUM"u8.ToArray()));
             Assert.Equal("HELLO WORLD".Length, trie.MaxDepth);
         }
     }
