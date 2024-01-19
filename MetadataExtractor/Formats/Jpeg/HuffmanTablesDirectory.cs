@@ -226,18 +226,18 @@ namespace MetadataExtractor.Formats.Jpeg
             if (TableClass == HuffmanTableClass.DC)
             {
                 return
-                    _lengthBytes.EqualTo(HuffmanTablesDirectory.TypicalLuminanceDcLengths) &&
-                    _valueBytes.EqualTo(HuffmanTablesDirectory.TypicalLuminanceDcValues) ||
-                    _lengthBytes.EqualTo(HuffmanTablesDirectory.TypicalChrominanceDcLengths) &&
-                    _valueBytes.EqualTo(HuffmanTablesDirectory.TypicalChrominanceDcValues);
+                    _lengthBytes.AsSpan().SequenceEqual(HuffmanTablesDirectory.TypicalLuminanceDcLengths) &&
+                    _valueBytes.AsSpan().SequenceEqual(HuffmanTablesDirectory.TypicalLuminanceDcValues) ||
+                    _lengthBytes.AsSpan().SequenceEqual(HuffmanTablesDirectory.TypicalChrominanceDcLengths) &&
+                    _valueBytes.AsSpan().SequenceEqual(HuffmanTablesDirectory.TypicalChrominanceDcValues);
             }
             else if (TableClass == HuffmanTableClass.AC)
             {
                 return
-                    _lengthBytes.EqualTo(HuffmanTablesDirectory.TypicalLuminanceAcLengths) &&
-                    _valueBytes.EqualTo(HuffmanTablesDirectory.TypicalLuminanceAcValues) ||
-                    _lengthBytes.EqualTo(HuffmanTablesDirectory.TypicalChrominanceAcLengths) &&
-                    _valueBytes.EqualTo(HuffmanTablesDirectory.TypicalChrominanceAcValues);
+                    _lengthBytes.AsSpan().SequenceEqual(HuffmanTablesDirectory.TypicalLuminanceAcLengths) &&
+                    _valueBytes.AsSpan().SequenceEqual(HuffmanTablesDirectory.TypicalLuminanceAcValues) ||
+                    _lengthBytes.AsSpan().SequenceEqual(HuffmanTablesDirectory.TypicalChrominanceAcLengths) &&
+                    _valueBytes.AsSpan().SequenceEqual(HuffmanTablesDirectory.TypicalChrominanceAcValues);
             }
             return false;
         }

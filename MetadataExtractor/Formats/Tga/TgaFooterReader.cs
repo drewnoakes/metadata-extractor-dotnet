@@ -20,7 +20,7 @@ namespace MetadataExtractor.Formats.Tga
         public bool TryGetOffsets(Stream stream, out int extOffset, out int devOffset)
         {
             var footer = Extract(stream, -FooterSize, SeekOrigin.End);
-            if (footer.Signature.RegionEquals(0, FooterSignature.Length, FooterSignature))
+            if (footer.Signature.AsSpan().SequenceEqual(FooterSignature))
             {
                 extOffset = footer.ExtOffset;
                 devOffset = footer.DevOffset;
