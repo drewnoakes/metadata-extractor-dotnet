@@ -149,8 +149,8 @@ namespace MetadataExtractor.Tests
             return directory;
         }
 
-        private static readonly IEnumerable<object> _singleValues = new object[]
-        {
+        private static readonly IEnumerable<object> _singleValues =
+        [
             (byte)1,
             (sbyte)2,
             (short)3,
@@ -164,10 +164,10 @@ namespace MetadataExtractor.Tests
             (double)11,
             new Rational(12, 1),
             "13"
-        };
+        ];
 
-        private static readonly IEnumerable<object> _singleZeroValues = new object[]
-        {
+        private static readonly IEnumerable<object> _singleZeroValues =
+        [
             (byte)0,
             (sbyte)0,
             (short)0,
@@ -181,10 +181,10 @@ namespace MetadataExtractor.Tests
             (double)0,
             new Rational(0, 0),
             "0"
-        };
+        ];
 
-        private static readonly IEnumerable<object> _arraysOfSingleValues = new object[]
-        {
+        private static readonly IEnumerable<object> _arraysOfSingleValues =
+        [
             new byte[] { 1 },
             new sbyte[] { 2 },
             new short[] { 3 },
@@ -198,10 +198,10 @@ namespace MetadataExtractor.Tests
             new double[] { 11 },
             new[] { new Rational(12, 1) },
             new[] { "13" }
-        };
+        ];
 
-        private static readonly IEnumerable<object> _arraysOfSingleZeroValues = new object[]
-        {
+        private static readonly IEnumerable<object> _arraysOfSingleZeroValues =
+        [
             new byte[] { 0 },
             new sbyte[] { 0 },
             new short[] { 0 },
@@ -215,7 +215,7 @@ namespace MetadataExtractor.Tests
             new double[] { 0 },
             new[] { new Rational(0, 0) },
             new[] { "0" }
-        };
+        ];
 
         #endregion
     }

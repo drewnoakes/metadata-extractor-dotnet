@@ -15,7 +15,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             var segment = new JpegSegment(type, TestDataUtil.GetBytes(filePath), 0);
 
-            return new ExifReader().ReadJpegSegments(new[] { segment }).ToList();
+            return new ExifReader().ReadJpegSegments([segment]).ToList();
         }
 
         public static T ProcessSegmentBytes<T>(string filePath, JpegSegmentType type) where T : Directory
@@ -43,8 +43,8 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void ReadJpegSegmentWithNoExifData()
         {
-            var badExifSegment = new JpegSegment(JpegSegmentType.App1, new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, offset: 0);
-            var directories = new ExifReader().ReadJpegSegments(new[] { badExifSegment });
+            var badExifSegment = new JpegSegment(JpegSegmentType.App1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], offset: 0);
+            var directories = new ExifReader().ReadJpegSegments([badExifSegment]);
             Assert.Empty(directories);
         }
 
@@ -122,7 +122,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             // This metadata contains different orientations for the thumbnail and the main image.
             // These values used to be merged into a single directory, causing errors.
-            // This unit test demonstrates correct behaviour.
+            // This unit test demonstrates correct behavior.
             var directories = ProcessSegmentBytes("Data/repeatedOrientationTagWithDifferentValues.jpg.app1", JpegSegmentType.App1).ToList();
 
             var ifd0Directory = directories.OfType<ExifIfd0Directory>().First();

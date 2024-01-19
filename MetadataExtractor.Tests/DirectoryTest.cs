@@ -49,7 +49,7 @@ namespace MetadataExtractor.Tests
             Assert.Equal(value.ToString(), _directory.GetString(tagType));
             Assert.True(_directory.TryGetRational(tagType, out Rational rational));
             Assert.Equal(new Rational(value, 1), rational);
-            Assert.Equal(new[] { value }, _directory.GetInt32Array(tagType));
+            Assert.Equal([value], _directory.GetInt32Array(tagType));
             Assert.Equal(new[] { unchecked((byte)value) }, _directory.GetByteArray(tagType));
         }
 

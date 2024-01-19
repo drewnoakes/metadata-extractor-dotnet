@@ -41,7 +41,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void ReadSpecificSegments()
         {
-            var segments = ReadSegments("Data/withExifAndIptc.jpg", new[] { JpegSegmentType.App0, JpegSegmentType.App2 });
+            var segments = ReadSegments("Data/withExifAndIptc.jpg", [JpegSegmentType.App0, JpegSegmentType.App2]);
 
             Assert.Equal(2, segments.Count);
 
