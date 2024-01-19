@@ -4,18 +4,16 @@ namespace MetadataExtractor.Formats.Jpeg
 {
     public abstract class JpegSegmentWithPreambleMetadataReader : IJpegSegmentMetadataReader
     {
-        protected abstract byte[] PreambleBytes { get; }
+        protected abstract ReadOnlySpan<byte> PreambleBytes { get; }
 
         public abstract ICollection<JpegSegmentType> SegmentTypes { get; }
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
-            var preamble = PreambleBytes;
-
             // Skip segments not starting with the required preamble
             return segments
-                .Where(segment => segment.Bytes.StartsWith(preamble))
-                .SelectMany(segment => Extract(segment.Bytes, preambleLength: preamble.Length));
+                .Where(segment => segment.Bytes.AsSpan().StartsWith(PreambleBytes))
+                .SelectMany(segment => Extract(segment.Bytes, preambleLength: PreambleBytes.Length));
         }
 
         protected abstract IEnumerable<Directory> Extract(byte[] segmentBytes, int preambleLength);

@@ -4,7 +4,7 @@ namespace MetadataExtractor.Util
 {
     internal static class ByteArrayExtensions
     {
-        public static bool RegionEquals(this byte[] bytes, int offset, int count, byte[] comparand)
+        public static bool RegionEquals(this byte[] bytes, int offset, int count, ReadOnlySpan<byte> comparand)
         {
             if (offset < 0 ||                   // invalid arg
                 count < 0 ||                    // invalid arg

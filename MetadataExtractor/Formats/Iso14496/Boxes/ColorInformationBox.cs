@@ -4,8 +4,6 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
 {
     internal sealed class ColorInformationBox : Box
     {
-        private static readonly byte[] _emptyByteArray = [];
-
         public const uint NclxTag = 0x6E636C78; // nclx
         public const uint RICCTag = 0x72494343; // rICC
         public const uint ProfTag = 0x70726F66; // prof
@@ -30,7 +28,7 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
                     TransferCharacteristics = sr.GetUInt16();
                     MatrixCharacteristics = sr.GetUInt16();
                     FullRangeFlag = (sr.GetByte() & 128) == 128;
-                    IccProfile = _emptyByteArray;
+                    IccProfile = [];
                     break;
                 }
                 case RICCTag:
@@ -41,7 +39,7 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
                 }
                 default:
                 {
-                    IccProfile = _emptyByteArray;
+                    IccProfile = [];
                     break;
                 }
             }

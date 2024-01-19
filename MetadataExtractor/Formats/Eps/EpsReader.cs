@@ -254,7 +254,7 @@ namespace MetadataExtractor.Formats.Eps
         /// </summary>
         private static void ExtractXmpData(List<Directory> directories, SequentialReader reader)
         {
-            byte[] xmp = ReadUntil(reader, Encoding.UTF8.GetBytes("<?xpacket end=\"w\"?>"));
+            byte[] xmp = ReadUntil(reader, "<?xpacket end=\"w\"?>"u8);
             directories.Add(new XmpReader().Extract(xmp));
         }
 
@@ -262,7 +262,7 @@ namespace MetadataExtractor.Formats.Eps
         /// Reads all bytes until the given sentinel is observed.
         /// The sentinel will be included in the returned bytes.
         /// </summary>
-        private static byte[] ReadUntil(SequentialReader reader, byte[] sentinel)
+        private static byte[] ReadUntil(SequentialReader reader, ReadOnlySpan<byte> sentinel)
         {
             var bytes = new MemoryStream();
 

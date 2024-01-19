@@ -9,7 +9,7 @@ namespace MetadataExtractor.Formats.Riff
 
         public Util.FileType CheckType(byte[] bytes)
         {
-            if (!bytes.RegionEquals(0, 4, Encoding.UTF8.GetBytes("RIFF")))
+            if (!bytes.RegionEquals(0, 4, "RIFF"u8))
                 return Util.FileType.Unknown;
             var fourCC = Encoding.UTF8.GetString(bytes, index: 8, count: 4);
             return fourCC switch

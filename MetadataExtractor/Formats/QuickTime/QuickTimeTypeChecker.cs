@@ -10,61 +10,61 @@ namespace MetadataExtractor.Formats.QuickTime
             // http://www.ftyps.com
 
             // QuickTime Mov
-            { Util.FileType.QuickTime, Encoding.UTF8.GetBytes("moov") },
-            { Util.FileType.QuickTime, Encoding.UTF8.GetBytes("wide") },
-            { Util.FileType.QuickTime, Encoding.UTF8.GetBytes("mdat") },
-            { Util.FileType.QuickTime, Encoding.UTF8.GetBytes("free") },
-            { Util.FileType.QuickTime, Encoding.UTF8.GetBytes("qt  ") },
-            { Util.FileType.QuickTime, Encoding.UTF8.GetBytes("3g2a") },
+            { Util.FileType.QuickTime, "moov"u8 },
+            { Util.FileType.QuickTime, "wide"u8 },
+            { Util.FileType.QuickTime, "mdat"u8 },
+            { Util.FileType.QuickTime, "free"u8 },
+            { Util.FileType.QuickTime, "qt  "u8 },
+            { Util.FileType.QuickTime, "3g2a"u8 },
 
             // MP4
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("3gp5") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("avc1") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("iso2") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("isom") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("M4A ") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("M4B ") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("M4P ") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("M4V ") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("M4VH") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("M4VP") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("mmp4") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("mp41") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("mp42") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("mp71") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("MSNV") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDAS") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDSC") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDSH") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDSM") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDSP") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDSS") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDXC") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDXH") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDXM") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDXP") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("NDXS") },
-            { Util.FileType.Mp4, Encoding.UTF8.GetBytes("nvr1") },
+            { Util.FileType.Mp4, "3gp5"u8 },
+            { Util.FileType.Mp4, "avc1"u8 },
+            { Util.FileType.Mp4, "iso2"u8 },
+            { Util.FileType.Mp4, "isom"u8 },
+            { Util.FileType.Mp4, "M4A "u8 },
+            { Util.FileType.Mp4, "M4B "u8 },
+            { Util.FileType.Mp4, "M4P "u8 },
+            { Util.FileType.Mp4, "M4V "u8 },
+            { Util.FileType.Mp4, "M4VH"u8 },
+            { Util.FileType.Mp4, "M4VP"u8 },
+            { Util.FileType.Mp4, "mmp4"u8 },
+            { Util.FileType.Mp4, "mp41"u8 },
+            { Util.FileType.Mp4, "mp42"u8 },
+            { Util.FileType.Mp4, "mp71"u8 },
+            { Util.FileType.Mp4, "MSNV"u8 },
+            { Util.FileType.Mp4, "NDAS"u8 },
+            { Util.FileType.Mp4, "NDSC"u8 },
+            { Util.FileType.Mp4, "NDSH"u8 },
+            { Util.FileType.Mp4, "NDSM"u8 },
+            { Util.FileType.Mp4, "NDSP"u8 },
+            { Util.FileType.Mp4, "NDSS"u8 },
+            { Util.FileType.Mp4, "NDXC"u8 },
+            { Util.FileType.Mp4, "NDXH"u8 },
+            { Util.FileType.Mp4, "NDXM"u8 },
+            { Util.FileType.Mp4, "NDXP"u8 },
+            { Util.FileType.Mp4, "NDXS"u8 },
+            { Util.FileType.Mp4, "nvr1"u8 },
 
             // HEIF
-            { Util.FileType.Heif, Encoding.UTF8.GetBytes("mif1") },
-            { Util.FileType.Heif, Encoding.UTF8.GetBytes("msf1") },
-            { Util.FileType.Heif, Encoding.UTF8.GetBytes("heic") },
-            { Util.FileType.Heif, Encoding.UTF8.GetBytes("heix") },
-            { Util.FileType.Heif, Encoding.UTF8.GetBytes("hevc") },
-            { Util.FileType.Heif, Encoding.UTF8.GetBytes("hevx") },
+            { Util.FileType.Heif, "mif1"u8 },
+            { Util.FileType.Heif, "msf1"u8 },
+            { Util.FileType.Heif, "heic"u8 },
+            { Util.FileType.Heif, "heix"u8 },
+            { Util.FileType.Heif, "hevc"u8 },
+            { Util.FileType.Heif, "hevx"u8 },
 
             // CRX
-            { Util.FileType.Crx, Encoding.UTF8.GetBytes("crx ") }
+            { Util.FileType.Crx, "crx "u8 }
         };
 
-        private static readonly byte[] _ftypBytes = Encoding.UTF8.GetBytes("ftyp");
+        private static ReadOnlySpan<byte> FtypBytes => "ftyp"u8;
 
         public int ByteCount => 12;
 
         public Util.FileType CheckType(byte[] bytes)
         {
-            return bytes.RegionEquals(4, 4, _ftypBytes)
+            return bytes.RegionEquals(4, 4, FtypBytes)
                 ? _ftypTrie.Find(bytes, 8, 4)
                 : Util.FileType.Unknown;
         }

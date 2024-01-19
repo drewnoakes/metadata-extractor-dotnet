@@ -2,18 +2,11 @@
 
 namespace MetadataExtractor.Formats.Tga
 {
-    internal readonly struct TgaFooter
+    internal readonly struct TgaFooter(int extOffset, int devOffset, byte[] signature)
     {
-        public int ExtOffset { get; }
-        public int DevOffset { get; }
-        public byte[] Signature { get; }
-
-        public TgaFooter(int extOffset, int devOffset, byte[] signature)
-        {
-            ExtOffset = extOffset;
-            DevOffset = devOffset;
-            Signature = signature;
-        }
+        public int ExtOffset { get; } = extOffset;
+        public int DevOffset { get; } = devOffset;
+        public byte[] Signature { get; } = signature;
     }
 
     /// <summary>Reads TGA image file footer.</summary>
@@ -22,12 +15,12 @@ namespace MetadataExtractor.Formats.Tga
     {
         private const int FooterSize = 26;
 
-        private static readonly byte[] _footerSignature = Encoding.ASCII.GetBytes("TRUEVISION-XFILE.\0");
+        private static ReadOnlySpan<byte> FooterSignature => "TRUEVISION-XFILE.\0"u8;
 
         public bool TryGetOffsets(Stream stream, out int extOffset, out int devOffset)
         {
             var footer = Extract(stream, -FooterSize, SeekOrigin.End);
-            if (footer.Signature.RegionEquals(0, _footerSignature.Length, _footerSignature))
+            if (footer.Signature.RegionEquals(0, FooterSignature.Length, FooterSignature))
             {
                 extOffset = footer.ExtOffset;
                 devOffset = footer.DevOffset;
@@ -45,7 +38,7 @@ namespace MetadataExtractor.Formats.Tga
             return new TgaFooter(
                 extOffset: reader.GetInt32(),
                 devOffset: reader.GetInt32(),
-                signature: reader.GetBytes(_footerSignature.Length));
+                signature: reader.GetBytes(FooterSignature.Length));
         }
     }
 }
