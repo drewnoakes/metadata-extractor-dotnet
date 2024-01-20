@@ -46,7 +46,7 @@ namespace MetadataExtractor.Tests.Formats.Png
             Assert.Equal(PngChunkType.iTXt, directories[5].GetPngChunkType());
             var pairs = (IList<KeyValuePair>?)directories[5].GetObject(PngDirectory.TagTextualData);
             Assert.NotNull(pairs);
-            Assert.Equal(1, pairs!.Count);
+            Assert.Single(pairs);
             Assert.Equal("Comment", pairs[0].Key);
             Assert.Equal("Created with GIMP", pairs[0].Value.ToString());
         }
