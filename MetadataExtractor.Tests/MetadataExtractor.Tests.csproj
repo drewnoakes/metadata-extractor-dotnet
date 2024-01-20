@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net472</TargetFrameworks>
+    <TargetFrameworks>net8.0;net472</TargetFrameworks>
 
     <RestoreAdditionalProjectSources>
       $(RestoreAdditionalProjectSources);
@@ -14,11 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
-    <PackageReference Include="xunit" Version="2.4.2" PrivateAssets="all" />
-    <PackageReference Include="xunit.analyzers" Version="1.1.0" PrivateAssets="all" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all">
+    <PackageReference Include="xunit" Version="2.6.6" PrivateAssets="all" />
+    <PackageReference Include="xunit.analyzers" Version="1.10.0" PrivateAssets="all" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
