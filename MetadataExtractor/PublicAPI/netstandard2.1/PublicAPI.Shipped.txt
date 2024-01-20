@@ -4406,8 +4406,6 @@ static MetadataExtractor.TagDescriptor<T>.GetFStopDescription(double fStop) -> s
 static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(short bigEndian) -> short
 static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(uint bigEndian) -> uint
 static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(ushort bigEndian) -> ushort
-static MetadataExtractor.Util.ByteConvert.ToInt32BigEndian(byte[]! bytes) -> int
-static MetadataExtractor.Util.ByteConvert.ToInt32LittleEndian(byte[]! bytes) -> int
 static MetadataExtractor.Util.FileTypeDetector.DetectFileType(System.IO.Stream! stream) -> MetadataExtractor.Util.FileType
 static MetadataExtractor.Util.FileTypeExtensions.GetAllExtensions(this MetadataExtractor.Util.FileType fileType) -> System.Collections.Generic.IEnumerable<string!>?
 static MetadataExtractor.Util.FileTypeExtensions.GetCommonExtension(this MetadataExtractor.Util.FileType fileType) -> string?
