@@ -291,7 +291,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(10, reader.Length);
             Assert.Equal(0, reader.GetByte(0));
             Assert.Equal(1, reader.GetByte(1));
-            Assert.Equal(new byte[] { 0, 1 }, reader.GetBytes(0, 2));
+            Assert.Equal([0, 1], reader.GetBytes(0, 2));
             Assert.Equal(4, reader.ToUnshiftedOffset(4));
 
             reader = reader.WithShiftedBaseOffset(2);
@@ -300,7 +300,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(8, reader.Length);
             Assert.Equal(2, reader.GetByte(0));
             Assert.Equal(3, reader.GetByte(1));
-            Assert.Equal(new byte[] { 2, 3 }, reader.GetBytes(0, 2));
+            Assert.Equal([2, 3], reader.GetBytes(0, 2));
             Assert.Equal(6, reader.ToUnshiftedOffset(4));
 
             reader = reader.WithShiftedBaseOffset(2);
@@ -309,7 +309,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(6, reader.Length);
             Assert.Equal(4, reader.GetByte(0));
             Assert.Equal(5, reader.GetByte(1));
-            Assert.Equal(new byte[] { 4, 5 }, reader.GetBytes(0, 2));
+            Assert.Equal([4, 5], reader.GetBytes(0, 2));
             Assert.Equal(8, reader.ToUnshiftedOffset(4));
         }
     }

@@ -11,7 +11,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void UserCommentDescription_EmptyEncoding()
         {
-            var commentBytes = Encoding.UTF8.GetBytes("\x0\x0\x0\x0\x0\x0\x0\x0This is a comment");
+            var commentBytes = "\x0\x0\x0\x0\x0\x0\x0\x0This is a comment"u8.ToArray();
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
@@ -21,7 +21,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void UserCommentDescription_BlankAscii()
         {
-            var commentBytes = Encoding.UTF8.GetBytes("ASCII\x0\x0\x0          ");
+            var commentBytes = "ASCII\x0\x0\x0          "u8.ToArray();
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
@@ -32,7 +32,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void UserCommentDescription_ZeroLengthAscii1()
         {
             // the 10-byte encoding region is only partially full
-            var commentBytes = Encoding.UTF8.GetBytes("ASCII\x0\x0\x0");
+            var commentBytes = "ASCII\x0\x0\x0"u8.ToArray();
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
@@ -43,7 +43,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void UserCommentDescription_ZeroLengthAscii2()
         {
             // fill the 10-byte encoding region
-            var commentBytes = Encoding.UTF8.GetBytes("ASCII\x0\x0\x0\x0\x0");
+            var commentBytes = "ASCII\x0\x0\x0\x0\x0"u8.ToArray();
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);

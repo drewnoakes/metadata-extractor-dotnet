@@ -29,12 +29,12 @@ namespace MetadataExtractor.Tests
             Assert.Null(TagDescriptor<MockDirectory>.ConvertBytesToVersionString(null, 1));
             Assert.Null(TagDescriptor<MockDirectory>.ConvertBytesToVersionString(Array.Empty<int>(), 1));
 
-            Assert.Equal("1.00", TagDescriptor<MockDirectory>.ConvertBytesToVersionString(new[] { 0, 1, 0, 0 }, 2));
-            Assert.Equal(".100", TagDescriptor<MockDirectory>.ConvertBytesToVersionString(new[] { 0, 1, 0, 0 }, 1));
+            Assert.Equal("1.00", TagDescriptor<MockDirectory>.ConvertBytesToVersionString([0, 1, 0, 0], 2));
+            Assert.Equal(".100", TagDescriptor<MockDirectory>.ConvertBytesToVersionString([0, 1, 0, 0], 1));
 
-            Assert.Equal("2.10", TagDescriptor<MockDirectory>.ConvertBytesToVersionString(new[] { 0x30, 0x32, 0x31, 0x30 }, 2));
-            Assert.Equal(".210", TagDescriptor<MockDirectory>.ConvertBytesToVersionString(new[] { 0x30, 0x32, 0x31, 0x30 }, 1));
-            Assert.Equal("21.0", TagDescriptor<MockDirectory>.ConvertBytesToVersionString(new[] { 0x30, 0x32, 0x31, 0x30 }, 3));
+            Assert.Equal("2.10", TagDescriptor<MockDirectory>.ConvertBytesToVersionString([0x30, 0x32, 0x31, 0x30], 2));
+            Assert.Equal(".210", TagDescriptor<MockDirectory>.ConvertBytesToVersionString([0x30, 0x32, 0x31, 0x30], 1));
+            Assert.Equal("21.0", TagDescriptor<MockDirectory>.ConvertBytesToVersionString([0x30, 0x32, 0x31, 0x30], 3));
         }
     }
 }

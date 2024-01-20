@@ -27,7 +27,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
         public void ReadJpegSegments_InvalidData()
         {
             var app2 = new JpegSegment(JpegSegmentType.App2, TestDataUtil.GetBytes("Data/iccDataInvalid1.jpg.app2"), offset: 0);
-            var directory = new IccReader().ReadJpegSegments(new[] { app2 });
+            var directory = new IccReader().ReadJpegSegments([app2]);
             Assert.NotNull(directory);
             Assert.True(directory.Single().HasError);
         }
