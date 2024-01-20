@@ -12,8 +12,8 @@ namespace MetadataExtractor.Tests.Formats.Png
         [Fact]
         public void GetColorTypeDescription()
         {
-            PngDirectory directory = new PngDirectory(PngChunkType.IHDR);
-            PngDescriptor descriptor = new PngDescriptor(directory);
+            var directory = new PngDirectory(PngChunkType.IHDR);
+            var descriptor = new PngDescriptor(directory);
 
             directory.Set(PngDirectory.TagColorType, 6);
             Assert.Equal("True Color with Alpha", descriptor.GetColorTypeDescription());
@@ -23,8 +23,8 @@ namespace MetadataExtractor.Tests.Formats.Png
         [Fact]
         public void GetCompressionTypeDescription()
         {
-            PngDirectory directory = new PngDirectory(PngChunkType.IHDR);
-            PngDescriptor descriptor = new PngDescriptor(directory);
+            var directory = new PngDirectory(PngChunkType.IHDR);
+            var descriptor = new PngDescriptor(directory);
 
             directory.Set(PngDirectory.TagCompressionType, 0);
             Assert.Equal("Deflate", descriptor.GetCompressionTypeDescription());
@@ -34,8 +34,8 @@ namespace MetadataExtractor.Tests.Formats.Png
         [Fact]
         public void GetFilterMethodDescription()
         {
-            PngDirectory directory = new PngDirectory(PngChunkType.IHDR);
-            PngDescriptor descriptor = new PngDescriptor(directory);
+            var directory = new PngDirectory(PngChunkType.IHDR);
+            var descriptor = new PngDescriptor(directory);
 
             directory.Set(PngDirectory.TagFilterMethod, 0);
             Assert.Equal("Adaptive", descriptor.GetFilterMethodDescription());
@@ -67,8 +67,8 @@ namespace MetadataExtractor.Tests.Formats.Png
         [Fact]
         public void GetIsSrgbColorSpaceDescription()
         {
-            PngDirectory directory = new PngDirectory(PngChunkType.sRGB);
-            PngDescriptor descriptor = new PngDescriptor(directory);
+            var directory = new PngDirectory(PngChunkType.sRGB);
+            var descriptor = new PngDescriptor(directory);
 
             directory.Set(PngDirectory.TagSrgbRenderingIntent, 0);
             Assert.Equal("Perceptual", descriptor.GetIsSrgbColorSpaceDescription());
@@ -78,8 +78,8 @@ namespace MetadataExtractor.Tests.Formats.Png
         [Fact]
         public void GetUnitSpecifierDescription()
         {
-            PngDirectory directory = new PngDirectory(PngChunkType.pHYs);
-            PngDescriptor descriptor = new PngDescriptor(directory);
+            var directory = new PngDirectory(PngChunkType.pHYs);
+            var descriptor = new PngDescriptor(directory);
 
             directory.Set(PngDirectory.TagUnitSpecifier, 1);
             Assert.Equal("Metres", descriptor.GetUnitSpecifierDescription());
@@ -92,11 +92,11 @@ namespace MetadataExtractor.Tests.Formats.Png
             var latin1Encoding = Encoding.GetEncoding("iso-8859-1"); // Latin-1
 
             var textPairs = new List<KeyValuePair>();
-            StringValue value = new StringValue(latin1Encoding.GetBytes("value"), latin1Encoding);
+            var value = new StringValue(latin1Encoding.GetBytes("value"), latin1Encoding);
             textPairs.Add(new KeyValuePair("keyword", value));
 
-            PngDirectory directory = new PngDirectory(PngChunkType.tEXt);
-            PngDescriptor descriptor = new PngDescriptor(directory);
+            var directory = new PngDirectory(PngChunkType.tEXt);
+            var descriptor = new PngDescriptor(directory);
             directory.Set(PngDirectory.TagTextualData, textPairs);
             Assert.Equal("keyword: value", descriptor.GetTextualDataDescription());
             Assert.Equal("keyword: value", directory.GetDescription(PngDirectory.TagTextualData));
@@ -117,8 +117,8 @@ namespace MetadataExtractor.Tests.Formats.Png
         [Fact]
         public void GetBackgroundColorDescription()
         {
-            PngDirectory directory = new PngDirectory(PngChunkType.bKGD);
-            PngDescriptor descriptor = new PngDescriptor(directory);
+            var directory = new PngDirectory(PngChunkType.bKGD);
+            var descriptor = new PngDescriptor(directory);
 
             directory.Set(PngDirectory.TagBackgroundColor, new byte[] { 52 });
             Assert.Equal("Palette Index 52", descriptor.GetBackgroundColorDescription());
