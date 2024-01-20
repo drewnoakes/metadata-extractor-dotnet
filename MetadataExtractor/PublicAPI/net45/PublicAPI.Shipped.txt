@@ -1,7 +1,7 @@
 ﻿#nullable enable
 abstract MetadataExtractor.Directory.Name.get -> string!
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.Extract(byte[]! segmentBytes, int preambleLength) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
-abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.PreambleBytes.get -> byte[]!
+abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.PreambleBytes.get -> System.ReadOnlySpan<byte>
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 abstract MetadataExtractor.Formats.Riff.RiffChunkHandler<T>.MinSize.get -> int
 abstract MetadataExtractor.Formats.Riff.RiffChunkHandler<T>.Populate(T! directory, byte[]! payload) -> void
@@ -4031,7 +4031,6 @@ MetadataExtractor.TagDescriptor<T>.GetStringFrom7BitBytes(int tagType) -> string
 MetadataExtractor.TagDescriptor<T>.GetStringFromUtf8Bytes(int tag) -> string?
 MetadataExtractor.TagDescriptor<T>.GetVersionBytesDescription(int tagType, int majorDigits) -> string?
 MetadataExtractor.TagDescriptor<T>.TagDescriptor(T! directory) -> void
-MetadataExtractor.Util.ByteArrayUtil
 MetadataExtractor.Util.ByteConvert
 MetadataExtractor.Util.ByteTrie<T>
 MetadataExtractor.Util.ByteTrie<T>.Add(T value, params byte[]![]! parts) -> void
@@ -4404,8 +4403,6 @@ static MetadataExtractor.Rational.operator ==(MetadataExtractor.Rational a, Meta
 static MetadataExtractor.TagDescriptor<T>.ConvertBytesToVersionString(int[]? components, int majorDigits) -> string?
 static MetadataExtractor.TagDescriptor<T>.GetFocalLengthDescription(double mm) -> string!
 static MetadataExtractor.TagDescriptor<T>.GetFStopDescription(double fStop) -> string!
-static MetadataExtractor.Util.ByteArrayUtil.EqualTo(this byte[]! source, byte[]! compare) -> bool
-static MetadataExtractor.Util.ByteArrayUtil.StartsWith(this byte[]! source, byte[]! pattern) -> bool
 static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(short bigEndian) -> short
 static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(uint bigEndian) -> uint
 static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(ushort bigEndian) -> ushort

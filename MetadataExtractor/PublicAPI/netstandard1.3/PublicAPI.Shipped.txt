@@ -4024,7 +4024,6 @@ MetadataExtractor.TagDescriptor<T>.GetStringFrom7BitBytes(int tagType) -> string
 MetadataExtractor.TagDescriptor<T>.GetStringFromUtf8Bytes(int tag) -> string?
 MetadataExtractor.TagDescriptor<T>.GetVersionBytesDescription(int tagType, int majorDigits) -> string?
 MetadataExtractor.TagDescriptor<T>.TagDescriptor(T! directory) -> void
-MetadataExtractor.Util.ByteArrayUtil
 MetadataExtractor.Util.ByteConvert
 MetadataExtractor.Util.ByteTrie<T>
 MetadataExtractor.Util.ByteTrie<T>.Add(T value, params byte[]![]! parts) -> void

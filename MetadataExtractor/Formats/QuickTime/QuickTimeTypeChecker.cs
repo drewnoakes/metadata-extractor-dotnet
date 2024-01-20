@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.QuickTime
 
         public Util.FileType CheckType(byte[] bytes)
         {
-            return bytes.RegionEquals(4, 4, FtypBytes)
+            return bytes.AsSpan(4, 4).SequenceEqual(FtypBytes)
                 ? _ftypTrie.Find(bytes, 8, 4)
                 : Util.FileType.Unknown;
         }
