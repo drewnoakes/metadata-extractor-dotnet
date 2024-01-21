@@ -1,7 +1,7 @@
 ﻿#nullable enable
 abstract MetadataExtractor.Directory.Name.get -> string!
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.Extract(byte[]! segmentBytes, int preambleLength) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
-abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.PreambleBytes.get -> byte[]!
+abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.PreambleBytes.get -> System.ReadOnlySpan<byte>
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 abstract MetadataExtractor.Formats.Riff.RiffChunkHandler<T>.MinSize.get -> int
 abstract MetadataExtractor.Formats.Riff.RiffChunkHandler<T>.Populate(T! directory, byte[]! payload) -> void
@@ -4396,13 +4396,9 @@ static MetadataExtractor.Rational.operator ==(MetadataExtractor.Rational a, Meta
 static MetadataExtractor.TagDescriptor<T>.ConvertBytesToVersionString(int[]? components, int majorDigits) -> string?
 static MetadataExtractor.TagDescriptor<T>.GetFocalLengthDescription(double mm) -> string!
 static MetadataExtractor.TagDescriptor<T>.GetFStopDescription(double fStop) -> string!
-static MetadataExtractor.Util.ByteArrayUtil.EqualTo(this byte[]! source, byte[]! compare) -> bool
-static MetadataExtractor.Util.ByteArrayUtil.StartsWith(this byte[]! source, byte[]! pattern) -> bool
 static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(short bigEndian) -> short
 static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(uint bigEndian) -> uint
 static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(ushort bigEndian) -> ushort
-static MetadataExtractor.Util.ByteConvert.ToInt32BigEndian(byte[]! bytes) -> int
-static MetadataExtractor.Util.ByteConvert.ToInt32LittleEndian(byte[]! bytes) -> int
 static MetadataExtractor.Util.FileTypeDetector.DetectFileType(System.IO.Stream! stream) -> MetadataExtractor.Util.FileType
 static MetadataExtractor.Util.FileTypeExtensions.GetAllExtensions(this MetadataExtractor.Util.FileType fileType) -> System.Collections.Generic.IEnumerable<string!>?
 static MetadataExtractor.Util.FileTypeExtensions.GetCommonExtension(this MetadataExtractor.Util.FileType fileType) -> string?
