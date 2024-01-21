@@ -1,10 +1,10 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Buffers.Binary;
 using System.IO.Compression;
-
 using MetadataExtractor.Formats.Exif;
-using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Xmp;
@@ -14,8 +14,8 @@ namespace MetadataExtractor.Formats.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PngMetadataReader
     {
-        private static readonly HashSet<PngChunkType> _desiredChunkTypes = new()
-        {
+        private static readonly HashSet<PngChunkType> _desiredChunkTypes =
+        [
             PngChunkType.IHDR,
             PngChunkType.PLTE,
             PngChunkType.tRNS,
@@ -31,7 +31,7 @@ namespace MetadataExtractor.Formats.Png
             PngChunkType.pHYs,
             PngChunkType.sBIT,
             PngChunkType.eXIf
-        };
+        ];
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="IOException"/>
@@ -141,7 +141,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.gAMA)
             {
-                var gammaInt = ByteConvert.ToInt32BigEndian(bytes);
+                var gammaInt = BinaryPrimitives.ReadInt32BigEndian(bytes);
                 var directory = new PngDirectory(PngChunkType.gAMA);
                 directory.Set(PngDirectory.TagGamma, gammaInt / 100000.0);
                 yield return directory;
