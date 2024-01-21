@@ -30,7 +30,7 @@ namespace MetadataExtractor.Formats.Icc
             // ICC data can be spread across multiple JPEG segments.
 
             // Skip any segments that do not contain the required preamble
-            var iccSegments = segments.Where(segment => segment.Bytes.Length > JpegSegmentPreambleLength && segment.Bytes.AsSpan().StartsWith(JpegSegmentPreambleBytes)).ToList();
+            var iccSegments = segments.Where(segment => segment.Span.StartsWith(JpegSegmentPreambleBytes)).ToList();
 
             if (iccSegments.Count == 0)
                 return Enumerable.Empty<Directory>();
