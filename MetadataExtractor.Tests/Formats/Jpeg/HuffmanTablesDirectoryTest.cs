@@ -43,14 +43,14 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             _directory.AddTable(new HuffmanTable(
                 HuffmanTableClass.AC,
                 0,
-                HuffmanTablesDirectory.TypicalChrominanceAcLengths,
-                HuffmanTablesDirectory.TypicalChrominanceAcValues
+                HuffmanTablesDirectory.TypicalChrominanceAcLengths.ToArray(),
+                HuffmanTablesDirectory.TypicalChrominanceAcValues.ToArray()
             ));
             _directory.AddTable(new HuffmanTable(
                 HuffmanTableClass.DC,
                 0,
-                HuffmanTablesDirectory.TypicalLuminanceDcLengths,
-                HuffmanTablesDirectory.TypicalLuminanceDcValues
+                HuffmanTablesDirectory.TypicalLuminanceDcLengths.ToArray(),
+                HuffmanTablesDirectory.TypicalLuminanceDcValues.ToArray()
             ));
 
             Assert.True(_directory.GetTable(0).IsTypical());
