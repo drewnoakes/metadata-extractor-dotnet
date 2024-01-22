@@ -12,7 +12,7 @@ namespace MetadataExtractor.Formats.Iptc
         private const byte Esc = 0x1B;
 
         /// <summary>Attempts to convert the given ISO2022 escape sequence to an encoding name.</summary>
-        public static string? ConvertEscapeSequenceToEncodingName(byte[] bytes)
+        public static string? ConvertEscapeSequenceToEncodingName(ReadOnlySpan<byte> bytes)
         {
             if (bytes.Length > 2 && bytes[0] == Esc && bytes[1] == PercentSign && bytes[2] == LatinCapitalG)
                 return "UTF-8";

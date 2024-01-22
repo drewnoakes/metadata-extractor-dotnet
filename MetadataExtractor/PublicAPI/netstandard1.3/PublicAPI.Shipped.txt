@@ -4341,7 +4341,7 @@ static MetadataExtractor.Formats.Heif.HeifMetadataReader.ReadMetadata(System.IO.
 static MetadataExtractor.Formats.Icc.IccReader.GetStringFromUInt32(uint d) -> string!
 static MetadataExtractor.Formats.Ico.IcoMetadataReader.ReadMetadata(string! filePath) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Ico.IcoMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
-static MetadataExtractor.Formats.Iptc.Iso2022Converter.ConvertEscapeSequenceToEncodingName(byte[]! bytes) -> string?
+static MetadataExtractor.Formats.Iptc.Iso2022Converter.ConvertEscapeSequenceToEncodingName(System.ReadOnlySpan<byte> bytes) -> string?
 static MetadataExtractor.Formats.Jpeg.HuffmanTable.TypeOf(int value) -> MetadataExtractor.Formats.Jpeg.HuffmanTableClass
 static MetadataExtractor.Formats.Jpeg.JpegMetadataReader.AllReaders.get -> System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.IJpegSegmentMetadataReader!>!
 static MetadataExtractor.Formats.Jpeg.JpegMetadataReader.Process(System.IO.Stream! stream, System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.IJpegSegmentMetadataReader!>? readers = null) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
