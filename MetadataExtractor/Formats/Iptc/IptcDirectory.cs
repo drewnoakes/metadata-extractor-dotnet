@@ -89,7 +89,7 @@ namespace MetadataExtractor.Formats.Iptc
 
         private static readonly Dictionary<int, string> _tagNameMap = new()
         {
-            { TagEnvelopeRecordVersion, "Enveloped Record Version" },
+            { TagEnvelopeRecordVersion, "Envelope Record Version" },
             { TagDestination, "Destination" },
             { TagFileFormat, "File Format" },
             { TagFileVersion, "File Version" },
