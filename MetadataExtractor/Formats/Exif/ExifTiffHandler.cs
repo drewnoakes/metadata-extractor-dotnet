@@ -446,7 +446,7 @@ namespace MetadataExtractor.Formats.Exif
                     }
                     else if (sourceValue is Array sourceArray)
                     {
-                        if (valueOffset + valueCount < sourceArray.Length)
+                        if (valueOffset + valueCount <= sourceArray.Length)
                         {
                             var array = Array.CreateInstance(sourceArray.GetType().GetElementType(), valueCount);
                             Array.Copy(sourceArray, valueOffset, array, 0, valueCount);
