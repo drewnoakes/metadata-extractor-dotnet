@@ -31,14 +31,14 @@ namespace MetadataExtractor.Formats.Iptc
 
         internal const byte IptcMarkerByte = 0x1c;
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new[] { JpegSegmentType.AppD };
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.AppD];
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // Ensure data starts with the IPTC marker byte
             return segments
                 .Where(segment => segment.Bytes.Length != 0 && segment.Bytes[0] == IptcMarkerByte)
-                .Select(segment => (Directory)Extract(new SequentialByteArrayReader(segment.Bytes), segment.Bytes.Length));
+                .Select(segment => Extract(new SequentialByteArrayReader(segment.Bytes), segment.Bytes.Length));
         }
 
         /// <summary>Reads IPTC values and returns them in an <see cref="IptcDirectory"/>.</summary>
@@ -166,7 +166,6 @@ namespace MetadataExtractor.Formats.Iptc
                     if (tagByteCount == 2)
                     {
                         var shortValue = reader.GetUInt16();
-                        reader.Skip(tagByteCount - 2);
                         directory.Set(tagIdentifier, shortValue);
                         return;
                     }
@@ -208,7 +207,7 @@ namespace MetadataExtractor.Formats.Iptc
 
             if (directory.ContainsTag(tagIdentifier))
             {
-                // this fancy string[] business avoids using an ArrayList for performance reasons
+                // We already have a value for this tag. Append this value to any prior value(s).
                 var oldStrings = directory.GetStringValueArray(tagIdentifier);
 
                 StringValue[] newStrings;
