@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Buffers.Binary;
+
 namespace MetadataExtractor
 {
     /// <summary>
@@ -62,7 +64,22 @@ namespace MetadataExtractor
         {
             try
             {
+#if NETSTANDARD1_3 || NETFRAMEWORK
                 return int.Parse(ToString());
+#else
+                if (Bytes.Length < 100)
+                {
+                    var encoding = Encoding ?? DefaultEncoding;
+                    int charCount = encoding.GetCharCount(Bytes);
+                    Span<char> chars = stackalloc char[charCount];
+                    encoding.GetChars(Bytes, chars);
+                    return int.Parse(chars);
+                }
+                else
+                {
+                    return int.Parse(ToString());
+                }
+#endif
             }
             catch (Exception)
             {
@@ -86,7 +103,22 @@ namespace MetadataExtractor
         {
             try
             {
+#if NETSTANDARD1_3 || NETFRAMEWORK
                 return uint.Parse(ToString());
+#else
+                if (Bytes.Length < 100)
+                {
+                    var encoding = Encoding ?? DefaultEncoding;
+                    int charCount = encoding.GetCharCount(Bytes);
+                    Span<char> chars = stackalloc char[charCount];
+                    encoding.GetChars(Bytes, chars);
+                    return uint.Parse(chars);
+                }
+                else
+                {
+                    return uint.Parse(ToString());
+                }
+#endif
             }
             catch (Exception)
             {
