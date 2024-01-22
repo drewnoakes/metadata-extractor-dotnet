@@ -90,7 +90,7 @@ namespace MetadataExtractor.Util
         }
 
         /// <summary>Store the given value at the specified path.</summary>
-        internal void Add(T value, ReadOnlySpan<byte> part)
+        public void Add(T value, ReadOnlySpan<byte> part)
         {
             var depth = 0;
             var node = _root;

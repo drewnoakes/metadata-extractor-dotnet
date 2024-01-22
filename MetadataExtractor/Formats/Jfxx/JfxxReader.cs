@@ -15,9 +15,9 @@ namespace MetadataExtractor.Formats.Jfxx
     /// <author>Drew Noakes</author>
     public sealed class JfxxReader : JpegSegmentWithPreambleMetadataReader
     {
-        public const string JpegSegmentPreamble = "JFXX";
+        public static ReadOnlySpan<byte> JpegSegmentPreamble => "JFXX"u8;
 
-        protected override ReadOnlySpan<byte> PreambleBytes => "JFXX"u8;
+        protected override ReadOnlySpan<byte> PreambleBytes => JpegSegmentPreamble;
 
         public override ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App0];
 

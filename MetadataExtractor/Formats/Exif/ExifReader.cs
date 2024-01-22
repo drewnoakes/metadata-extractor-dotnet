@@ -13,16 +13,14 @@ namespace MetadataExtractor.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifReader : JpegSegmentWithPreambleMetadataReader
     {
-        public const string JpegSegmentPreamble = "Exif\x0\x0";
+        public static ReadOnlySpan<byte> JpegSegmentPreamble => "Exif\x0\x0"u8;
 
-        private static ReadOnlySpan<byte> ExifPreamble => "Exif\x0\x0"u8;
+        public static bool StartsWithJpegExifPreamble(byte[] bytes) => bytes.AsSpan().StartsWith(JpegSegmentPreamble);
 
-        public static bool StartsWithJpegExifPreamble(byte[] bytes) => bytes.AsSpan().StartsWith(ExifPreamble);
-
-        public static int JpegSegmentPreambleLength => ExifPreamble.Length;
+        public static int JpegSegmentPreambleLength => JpegSegmentPreamble.Length;
 
         /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble "Exif\0\0".</summary>
-        protected override ReadOnlySpan<byte> PreambleBytes => ExifPreamble;
+        protected override ReadOnlySpan<byte> PreambleBytes => JpegSegmentPreamble;
 
         public override ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App1];
 
