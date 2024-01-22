@@ -1,5 +1,6 @@
 ﻿#nullable enable
 abstract MetadataExtractor.IO.IndexedReader.GetByteInternal(int index) -> byte
+abstract MetadataExtractor.IO.SequentialReader.GetBytes(System.Span<byte> bytes) -> void
 const MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.TagEpoch = 2 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.TagFlags = 1 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.TagScale = 3 -> int
@@ -73,6 +74,8 @@ override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descripto
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory.Name.get -> string!
 override MetadataExtractor.IO.ByteArrayReader.GetByteInternal(int index) -> byte
 override MetadataExtractor.IO.IndexedSeekingReader.GetByteInternal(int index) -> byte
+override MetadataExtractor.IO.SequentialByteArrayReader.GetBytes(System.Span<byte> bytes) -> void
+override MetadataExtractor.IO.SequentialStreamReader.GetBytes(System.Span<byte> bytes) -> void
 static MetadataExtractor.Formats.Apple.BplistReader.IsValid(byte[]! bplist) -> bool
 static MetadataExtractor.Formats.Apple.BplistReader.Parse(byte[]! bplist) -> MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults!
 static MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Parse(byte[]! bytes) -> MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory!

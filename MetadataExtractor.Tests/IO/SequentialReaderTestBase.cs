@@ -236,7 +236,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Fact]
-        public void OverflowBoundsCalculation()
+        public void GetBytes_OverflowBoundsCalculation()
         {
             var reader = CreateReader(new byte[10]);
             var ex = Assert.Throws<IOException>(() => reader.GetBytes(15));
@@ -244,7 +244,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Fact]
-        public void GetBytesEof()
+        public void GetBytes_Eof()
         {
             CreateReader(new byte[50]).GetBytes(50);
 
@@ -255,8 +255,45 @@ namespace MetadataExtractor.Tests.IO
             Assert.Throws<IOException>(() => CreateReader(new byte[50]).GetBytes(51));
         }
 
+#if NET
         [Fact]
-        public void GetByteEof()
+        public void GetBytes_Span()
+        {
+            var bytes = new byte[] { 0, 1, 2, 3, 4, 5 };
+            for (var i = 0; i < bytes.Length; i++)
+            {
+                var reader = CreateReader(bytes);
+#pragma warning disable CA2014 // Do not use stackalloc in loops
+                Span<byte> span = stackalloc byte[i];
+#pragma warning restore CA2014 // Do not use stackalloc in loops
+                reader.GetBytes(span);
+                Assert.Equal(bytes.Take(i).ToArray(), span.ToArray());
+            }
+        }
+
+        [Fact]
+        public void GetBytes_OverflowBoundsCalculation_Span()
+        {
+            var reader = CreateReader(new byte[10]);
+            var ex = Assert.Throws<IOException>(() => reader.GetBytes(stackalloc byte[15]));
+            Assert.Equal("End of data reached.", ex.Message);
+        }
+
+        [Fact]
+        public void GetBytes_Eof_Span()
+        {
+            CreateReader(new byte[50]).GetBytes(stackalloc byte[50]);
+
+            var reader = CreateReader(new byte[50]);
+            reader.GetBytes(stackalloc byte[25]);
+            reader.GetBytes(stackalloc byte[25]);
+
+            Assert.Throws<IOException>(() => CreateReader(new byte[50]).GetBytes(stackalloc byte[51]));
+        }
+#endif
+
+        [Fact]
+        public void GetByte_Eof()
         {
             CreateReader(new byte[1]).GetByte();
 
