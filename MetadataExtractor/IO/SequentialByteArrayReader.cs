@@ -39,6 +39,15 @@ namespace MetadataExtractor.IO
             return bytes;
         }
 
+        public override void GetBytes(Span<byte> bytes)
+        {
+            if (_index + bytes.Length > _bytes.Length)
+                throw new IOException("End of data reached.");
+
+            _bytes.AsSpan(_index, bytes.Length).CopyTo(bytes);
+            _index += bytes.Length;
+        }
+
         public override void GetBytes(byte[] buffer, int offset, int count)
         {
             if (_index + count > _bytes.Length)
