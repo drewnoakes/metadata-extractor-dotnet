@@ -7,23 +7,18 @@ namespace MetadataExtractor.Formats.Jpeg
     /// </summary>
     /// <seealso cref="JpegSegmentReader"/>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class JpegSegment
+    public sealed class JpegSegment(JpegSegmentType type, byte[] bytes, long offset)
     {
-        public JpegSegmentType Type { get; }
+        public JpegSegmentType Type { get; } = type;
 
-        public byte[] Bytes { get; }
+        public byte[] Bytes { get; } = bytes;
 
         /// <summary>
         /// The start offset of the segment within the JPEG stream from which they were extracted.
         /// </summary>
-        public long Offset { get; }
+        public long Offset { get; } = offset;
 
-        public JpegSegment(JpegSegmentType type, byte[] bytes, long offset)
-        {
-            Type = type;
-            Bytes = bytes;
-            Offset = offset;
-        }
+        internal ReadOnlySpan<byte> Span => Bytes.AsSpan();
 
         public override string ToString() => $"[{Type}] {Bytes.Length:N0} bytes at offset {Offset}";
     }

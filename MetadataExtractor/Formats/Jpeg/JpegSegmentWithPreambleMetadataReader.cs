@@ -12,7 +12,7 @@ namespace MetadataExtractor.Formats.Jpeg
         {
             // Skip segments not starting with the required preamble
             return segments
-                .Where(segment => segment.Bytes.AsSpan().StartsWith(PreambleBytes))
+                .Where(segment => segment.Span.StartsWith(PreambleBytes))
                 .SelectMany(segment => Extract(segment.Bytes, preambleLength: PreambleBytes.Length));
         }
 

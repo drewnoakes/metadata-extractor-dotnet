@@ -26,7 +26,7 @@ namespace MetadataExtractor.Formats.Flir
             foreach (var segment in segments)
             {
                 // Skip segments not starting with the required preamble
-                if (segment.Bytes.AsSpan().StartsWith(preamble))
+                if (segment.Span.StartsWith(preamble))
                 {
                     length += segment.Bytes.Length - preambleLength;
                 }
@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Flir
             foreach (var segment in segments)
             {
                 // Skip segments not starting with the required preamble
-                if (segment.Bytes.AsSpan().StartsWith(preamble))
+                if (segment.Span.StartsWith(preamble))
                 {
                     merged.Write(segment.Bytes, preambleLength, segment.Bytes.Length - preambleLength);
                 }

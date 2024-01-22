@@ -61,8 +61,8 @@ namespace MetadataExtractor.Formats.Xmp
 
         private static string GetExtendedDataGuid(JpegSegment segment) => Encoding.UTF8.GetString(segment.Bytes, JpegSegmentPreambleExtensionBytes.Length, 32);
 
-        private static bool IsXmpSegment(JpegSegment segment) => segment.Bytes.AsSpan().StartsWith(JpegSegmentPreambleBytes);
-        private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Bytes.AsSpan().StartsWith(JpegSegmentPreambleExtensionBytes);
+        private static bool IsXmpSegment(JpegSegment segment) => segment.Span.StartsWith(JpegSegmentPreambleBytes);
+        private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Span.StartsWith(JpegSegmentPreambleExtensionBytes);
 
         public XmpDirectory Extract(byte[] xmpBytes) => Extract(xmpBytes, 0, xmpBytes.Length);
 
