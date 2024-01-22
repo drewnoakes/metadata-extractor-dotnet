@@ -4035,8 +4035,7 @@ MetadataExtractor.Util.ByteConvert
 MetadataExtractor.Util.ByteTrie<T>
 MetadataExtractor.Util.ByteTrie<T>.Add(T value, params byte[]![]! parts) -> void
 MetadataExtractor.Util.ByteTrie<T>.ByteTrie(T defaultValue) -> void
-MetadataExtractor.Util.ByteTrie<T>.Find(byte[]! bytes) -> T
-MetadataExtractor.Util.ByteTrie<T>.Find(byte[]! bytes, int offset, int count) -> T
+MetadataExtractor.Util.ByteTrie<T>.Find(System.ReadOnlySpan<byte> bytes) -> T
 MetadataExtractor.Util.ByteTrie<T>.MaxDepth.get -> int
 MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Arw = 13 -> MetadataExtractor.Util.FileType
