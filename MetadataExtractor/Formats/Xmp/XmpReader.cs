@@ -19,7 +19,7 @@ namespace MetadataExtractor.Formats.Xmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class XmpReader : IJpegSegmentMetadataReader
     {
-        public static ReadOnlySpan<byte> JpegSegmentPreamble=> "http://ns.adobe.com/xap/1.0/\0"u8;
+        public static ReadOnlySpan<byte> JpegSegmentPreamble => "http://ns.adobe.com/xap/1.0/\0"u8;
         public static ReadOnlySpan<byte> JpegSegmentPreambleExtension => "http://ns.adobe.com/xmp/extension/\0"u8;
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.App1];

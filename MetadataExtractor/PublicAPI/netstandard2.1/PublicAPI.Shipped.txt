@@ -2331,8 +2331,8 @@ const MetadataExtractor.Formats.Xmp.Schema.ExifSpecificProperties = "http://ns.a
 const MetadataExtractor.Formats.Xmp.Schema.ExifTiffProperties = "http://ns.adobe.com/tiff/1.0/" -> string!
 const MetadataExtractor.Formats.Xmp.Schema.XmpProperties = "http://ns.adobe.com/xap/1.0/" -> string!
 const MetadataExtractor.Formats.Xmp.XmpDirectory.TagXmpValueCount = 65535 -> int
-const MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreamble = "http://ns.adobe.com/xap/1.0/\0" -> string!
-const MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreambleExtension = "http://ns.adobe.com/xmp/extension/\0" -> string!
+static MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreambleExtension.get -> System.ReadOnlySpan<byte>
 MetadataExtractor.Age
 MetadataExtractor.Age.Age(int years, int months, int days, int hours, int minutes, int seconds) -> void
 MetadataExtractor.Age.Days.get -> int
