@@ -30,10 +30,10 @@ namespace MetadataExtractor.Util
         public int MaxDepth { get; private set; }
 
         /// <summary>
-        /// Initialises a new instance of <see cref="ByteTrie{T}"/> with specified default value.
+        /// Initializes a new instance of <see cref="ByteTrie{T}"/> with specified default value.
         /// </summary>
         /// <param name="defaultValue">
-        /// The default value to use in <see cref="ByteTrie{T}.Find(byte[])"/> when no path matches.
+        /// The default value to use in <see cref="ByteTrie{T}.Find(ReadOnlySpan{byte})"/> when no path matches.
         /// </param>
         public ByteTrie(T defaultValue) => _root.SetValue(defaultValue);
 
@@ -41,23 +41,12 @@ namespace MetadataExtractor.Util
         /// <remarks>
         /// If not found, returns the default value specified in the constructor.
         /// </remarks>
-        public T Find(byte[] bytes) => Find(bytes, 0, bytes.Length);
-
-        /// <summary>Return the most specific value stored for this byte sequence.</summary>
-        /// <remarks>
-        /// If not found, returns the default value specified in the constructor.
-        /// </remarks>
-        public T Find(byte[] bytes, int offset, int count)
+        public T Find(ReadOnlySpan<byte> bytes)
         {
-            var maxIndex = offset + count;
-            if (maxIndex > bytes.Length)
-                throw new ArgumentOutOfRangeException(nameof(offset), "Offset and length are not in bounds for byte array.");
-
             var node = _root;
             var value = node.Value;
-            for (var i = offset; i < maxIndex; i++)
+            foreach (var b in bytes)
             {
-                var b = bytes[i];
                 if (!node.Children.TryGetValue(b, out node))
                     break;
                 if (node.HasValue)
