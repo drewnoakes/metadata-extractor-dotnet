@@ -1,6 +1,7 @@
 async
 avci
 bplist
+classpath
 Colour
 coloured
 Digilux
@@ -33,6 +34,7 @@ rationals
 Reconyx
 sbytes
 sszzz
+stderr
 stdout
 targa
 Thunderscan
@@ -43,4 +45,5 @@ Truevision
 uncoloured
 uuid
 webp
+xmpcore
 Yakov
