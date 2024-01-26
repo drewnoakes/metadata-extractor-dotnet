@@ -4034,9 +4034,9 @@ MetadataExtractor.TagDescriptor<T>.TagDescriptor(T! directory) -> void
 MetadataExtractor.Util.ByteConvert
 MetadataExtractor.Util.ByteTrie<T>
 MetadataExtractor.Util.ByteTrie<T>.Add(T value, params byte[]![]! parts) -> void
+MetadataExtractor.Util.ByteTrie<T>.Add(T value, System.ReadOnlySpan<byte> part) -> void
 MetadataExtractor.Util.ByteTrie<T>.ByteTrie(T defaultValue) -> void
-MetadataExtractor.Util.ByteTrie<T>.Find(byte[]! bytes) -> T
-MetadataExtractor.Util.ByteTrie<T>.Find(byte[]! bytes, int offset, int count) -> T
+MetadataExtractor.Util.ByteTrie<T>.Find(System.ReadOnlySpan<byte> bytes) -> T
 MetadataExtractor.Util.ByteTrie<T>.MaxDepth.get -> int
 MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Arw = 13 -> MetadataExtractor.Util.FileType
@@ -4418,14 +4418,14 @@ static readonly MetadataExtractor.Formats.Exif.Makernotes.OlympusMakernoteDirect
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFireMakernoteDirectory.MakernoteVersion -> ushort
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernoteId -> uint
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernotePublicId -> uint
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcValues -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcValues -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcValues -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcValues -> byte[]!
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcValues.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcValues.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcValues.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcValues.get -> System.ReadOnlySpan<byte>
 static readonly MetadataExtractor.Formats.Png.PngChunkType.bKGD -> MetadataExtractor.Formats.Png.PngChunkType!
 static readonly MetadataExtractor.Formats.Png.PngChunkType.cHRM -> MetadataExtractor.Formats.Png.PngChunkType!
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType!

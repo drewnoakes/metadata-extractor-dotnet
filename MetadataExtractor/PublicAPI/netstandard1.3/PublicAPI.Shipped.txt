@@ -276,7 +276,7 @@ const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagYCbCrSubsampling = 530
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagYResolution = 283 -> int
 const MetadataExtractor.Formats.Exif.ExifIfd0Directory.TagExifSubIfdOffset = 34665 -> int
 const MetadataExtractor.Formats.Exif.ExifIfd0Directory.TagGpsInfoOffset = 34853 -> int
-const MetadataExtractor.Formats.Exif.ExifReader.JpegSegmentPreamble = "Exif\0\0" -> string!
+static MetadataExtractor.Formats.Exif.ExifReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 const MetadataExtractor.Formats.Exif.ExifSubIfdDirectory.TagInteropOffset = 40965 -> int
 const MetadataExtractor.Formats.Exif.ExifThumbnailDirectory.TagThumbnailLength = 514 -> int
 const MetadataExtractor.Formats.Exif.ExifThumbnailDirectory.TagThumbnailOffset = 513 -> int
@@ -1768,7 +1768,7 @@ const MetadataExtractor.Formats.Flir.FlirRawDataDirectory.TagRawThermalImage = 1
 const MetadataExtractor.Formats.Flir.FlirRawDataDirectory.TagRawThermalImageHeight = 4 -> int
 const MetadataExtractor.Formats.Flir.FlirRawDataDirectory.TagRawThermalImageType = 34 -> int
 const MetadataExtractor.Formats.Flir.FlirRawDataDirectory.TagRawThermalImageWidth = 2 -> int
-const MetadataExtractor.Formats.Flir.FlirReader.JpegSegmentPreamble = "FLIR\0" -> string!
+static MetadataExtractor.Formats.Flir.FlirReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartContourInterval = 47017 -> int
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartCorrDate = 47005 -> int
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartCountryOrigin = 47006 -> int
@@ -1953,7 +1953,7 @@ const MetadataExtractor.Formats.Icc.IccDirectory.TagTag_KTrc = 1800688195 -> int
 const MetadataExtractor.Formats.Icc.IccDirectory.TagTag_RTrc = 1918128707 -> int
 const MetadataExtractor.Formats.Icc.IccDirectory.TagTag_RXyz = 1918392666 -> int
 const MetadataExtractor.Formats.Icc.IccDirectory.TagXyzValues = 68 -> int
-const MetadataExtractor.Formats.Icc.IccReader.JpegSegmentPreamble = "ICC_PROFILE" -> string!
+static MetadataExtractor.Formats.Icc.IccReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 const MetadataExtractor.Formats.Ico.IcoDirectory.TagBitsPerPixel = 7 -> int
 const MetadataExtractor.Formats.Ico.IcoDirectory.TagColourPaletteSize = 4 -> int
 const MetadataExtractor.Formats.Ico.IcoDirectory.TagColourPlanes = 5 -> int
@@ -2047,9 +2047,9 @@ const MetadataExtractor.Formats.Jfif.JfifDirectory.TagThumbHeight = 13 -> int
 const MetadataExtractor.Formats.Jfif.JfifDirectory.TagThumbWidth = 12 -> int
 const MetadataExtractor.Formats.Jfif.JfifDirectory.TagUnits = 7 -> int
 const MetadataExtractor.Formats.Jfif.JfifDirectory.TagVersion = 5 -> int
-const MetadataExtractor.Formats.Jfif.JfifReader.JpegSegmentPreamble = "JFIF" -> string!
+static MetadataExtractor.Formats.Jfif.JfifReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 const MetadataExtractor.Formats.Jfxx.JfxxDirectory.TagExtensionCode = 5 -> int
-const MetadataExtractor.Formats.Jfxx.JfxxReader.JpegSegmentPreamble = "JFXX" -> string!
+static MetadataExtractor.Formats.Jfxx.JfxxReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 const MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TagNumberOfTables = 1 -> int
 const MetadataExtractor.Formats.Jpeg.JpegCommentDirectory.TagComment = 0 -> int
 const MetadataExtractor.Formats.Jpeg.JpegDirectory.TagComponentData1 = 6 -> int
@@ -2091,7 +2091,7 @@ const MetadataExtractor.Formats.Pcx.PcxDirectory.TagYMin = 4 -> int
 const MetadataExtractor.Formats.Photoshop.DuckyDirectory.TagComment = 2 -> int
 const MetadataExtractor.Formats.Photoshop.DuckyDirectory.TagCopyright = 3 -> int
 const MetadataExtractor.Formats.Photoshop.DuckyDirectory.TagQuality = 1 -> int
-const MetadataExtractor.Formats.Photoshop.DuckyReader.JpegSegmentPreamble = "Ducky" -> string!
+static MetadataExtractor.Formats.Photoshop.DuckyReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 const MetadataExtractor.Formats.Photoshop.PhotoshopDirectory.TagAlphaChannels = 1006 -> int
 const MetadataExtractor.Formats.Photoshop.PhotoshopDirectory.TagAlphaIdentifiers = 1053 -> int
 const MetadataExtractor.Formats.Photoshop.PhotoshopDirectory.TagAlternateDuotoneColors = 1066 -> int
@@ -2180,7 +2180,7 @@ const MetadataExtractor.Formats.Photoshop.PhotoshopDirectory.TagWinDevmode = 108
 const MetadataExtractor.Formats.Photoshop.PhotoshopDirectory.TagWorkflowUrl = 1051 -> int
 const MetadataExtractor.Formats.Photoshop.PhotoshopDirectory.TagXml = 1002 -> int
 const MetadataExtractor.Formats.Photoshop.PhotoshopDirectory.TagXmpData = 1060 -> int
-const MetadataExtractor.Formats.Photoshop.PhotoshopReader.JpegSegmentPreamble = "Photoshop 3.0" -> string!
+static MetadataExtractor.Formats.Photoshop.PhotoshopReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 const MetadataExtractor.Formats.Photoshop.PsdHeaderDirectory.TagBitsPerChannel = 4 -> int
 const MetadataExtractor.Formats.Photoshop.PsdHeaderDirectory.TagChannelCount = 1 -> int
 const MetadataExtractor.Formats.Photoshop.PsdHeaderDirectory.TagColorMode = 5 -> int
@@ -2331,8 +2331,8 @@ const MetadataExtractor.Formats.Xmp.Schema.ExifSpecificProperties = "http://ns.a
 const MetadataExtractor.Formats.Xmp.Schema.ExifTiffProperties = "http://ns.adobe.com/tiff/1.0/" -> string!
 const MetadataExtractor.Formats.Xmp.Schema.XmpProperties = "http://ns.adobe.com/xap/1.0/" -> string!
 const MetadataExtractor.Formats.Xmp.XmpDirectory.TagXmpValueCount = 65535 -> int
-const MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreamble = "http://ns.adobe.com/xap/1.0/\0" -> string!
-const MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreambleExtension = "http://ns.adobe.com/xmp/extension/\0" -> string!
+static MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreambleExtension.get -> System.ReadOnlySpan<byte>
 MetadataExtractor.Age
 MetadataExtractor.Age.Age(int years, int months, int days, int hours, int minutes, int seconds) -> void
 MetadataExtractor.Age.Days.get -> int
@@ -4027,9 +4027,9 @@ MetadataExtractor.TagDescriptor<T>.TagDescriptor(T! directory) -> void
 MetadataExtractor.Util.ByteConvert
 MetadataExtractor.Util.ByteTrie<T>
 MetadataExtractor.Util.ByteTrie<T>.Add(T value, params byte[]![]! parts) -> void
+MetadataExtractor.Util.ByteTrie<T>.Add(T value, System.ReadOnlySpan<byte> part) -> void
 MetadataExtractor.Util.ByteTrie<T>.ByteTrie(T defaultValue) -> void
-MetadataExtractor.Util.ByteTrie<T>.Find(byte[]! bytes) -> T
-MetadataExtractor.Util.ByteTrie<T>.Find(byte[]! bytes, int offset, int count) -> T
+MetadataExtractor.Util.ByteTrie<T>.Find(ReadOnlySpan<byte> bytes) -> T
 MetadataExtractor.Util.ByteTrie<T>.MaxDepth.get -> int
 MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Arw = 13 -> MetadataExtractor.Util.FileType
@@ -4411,14 +4411,14 @@ static readonly MetadataExtractor.Formats.Exif.Makernotes.OlympusMakernoteDirect
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFireMakernoteDirectory.MakernoteVersion -> ushort
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernoteId -> uint
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernotePublicId -> uint
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcValues -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcValues -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcValues -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcValues -> byte[]!
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcValues.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcValues.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcValues.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcValues.get -> System.ReadOnlySpan<byte>
 static readonly MetadataExtractor.Formats.Png.PngChunkType.bKGD -> MetadataExtractor.Formats.Png.PngChunkType!
 static readonly MetadataExtractor.Formats.Png.PngChunkType.cHRM -> MetadataExtractor.Formats.Png.PngChunkType!
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType!
