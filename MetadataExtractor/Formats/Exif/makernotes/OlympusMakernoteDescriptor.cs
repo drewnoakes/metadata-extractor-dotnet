@@ -482,19 +482,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(OlympusMakernoteDirectory.TagWbMode) is not short[] values)
                 return null;
 
-            return $"{values[0]} {values[1]}".Trim() switch
+            return ((int)values[0], (int)values[1]) switch
             {
-                "1" or "1 0" => "Auto",
-                "1 2" => "Auto (2)",
-                "1 4" => "Auto (4)",
-                "2 2" => "3000 Kelvin",
-                "2 3" => "3700 Kelvin",
-                "2 4" => "4000 Kelvin",
-                "2 5" => "4500 Kelvin",
-                "2 6" => "5500 Kelvin",
-                "2 7" => "6500 Kelvin",
-                "2 8" => "7500 Kelvin",
-                "3 0" => "One-touch",
+                (1, 0) => "Auto",
+                (1, 2) => "Auto (2)",
+                (1, 4) => "Auto (4)",
+                (2, 2) => "3000 Kelvin",
+                (2, 3) => "3700 Kelvin",
+                (2, 4) => "4000 Kelvin",
+                (2, 5) => "4500 Kelvin",
+                (2, 6) => "5500 Kelvin",
+                (2, 7) => "6500 Kelvin",
+                (2, 8) => "7500 Kelvin",
+                (3, 0) => "One-touch",
                 _ => $"Unknown ({values[0]} {values[1]})",
             };
         }
