@@ -5,13 +5,8 @@ namespace MetadataExtractor.Formats.Eps
     /// <summary>Provides human-readable string versions of the tags stored in a <see cref="EpsDirectory"/>.</summary>
     /// <author>Payton Garland</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public sealed class EpsDescriptor : TagDescriptor<EpsDirectory>
+    public sealed class EpsDescriptor(EpsDirectory directory) : TagDescriptor<EpsDirectory>(directory)
     {
-        public EpsDescriptor(EpsDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)

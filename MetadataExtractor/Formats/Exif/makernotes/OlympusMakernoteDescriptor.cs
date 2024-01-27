@@ -6,12 +6,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="OlympusMakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class OlympusMakernoteDescriptor : TagDescriptor<OlympusMakernoteDirectory>
+    public sealed class OlympusMakernoteDescriptor(OlympusMakernoteDirectory directory) : TagDescriptor<OlympusMakernoteDirectory>(directory)
     {
-        public OlympusMakernoteDescriptor(OlympusMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
 
         // TODO extend support for some offset-encoded byte[] tags: http://www.ozhiker.com/electronics/pjmt/jpeg_info/olympus_mn.html
         public override string? GetDescription(int tagType)
@@ -474,7 +470,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(OlympusMakernoteDirectory.TagColourMatrix) is not short[] values)
                 return null;
 
-            return string.Join(" ", values.Select(b => b.ToString()).ToArray());
+            return string.Join(" ", values.Select(b => b.ToString()));
         }
 
         public string? GetWbModeDescription()

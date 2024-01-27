@@ -11,13 +11,8 @@ namespace MetadataExtractor.Formats.Iptc
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Akihiko Kusanagi https://github.com/nagix</author>
-    public sealed class IptcDescriptor : TagDescriptor<IptcDirectory>
+    public sealed class IptcDescriptor(IptcDirectory directory) : TagDescriptor<IptcDirectory>(directory)
     {
-        public IptcDescriptor(IptcDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
@@ -35,7 +30,7 @@ namespace MetadataExtractor.Formats.Iptc
                 TagTimeCreated => GetTimeCreatedDescription(),
                 TagDigitalTimeCreated => GetDigitalTimeCreatedDescription(),
                 TagTimeSent => GetTimeSentDescription(),
-                _ => base.GetDescription(tagType),
+                _ => base.GetDescription(tagType)
             };
         }
 
@@ -57,7 +52,7 @@ namespace MetadataExtractor.Formats.Iptc
 
         public string? GetFileFormatDescription()
         {
-            return GetIndexedDescription(TagFileFormat,
+            return GetIndexedDescription(TagFileFormat, [
                 "No ObjectData",
                 "IPTC-NAA Digital Newsphoto Parameter Record",
                 "IPTC7901 Recommended Message Format",
@@ -87,7 +82,8 @@ namespace MetadataExtractor.Formats.Iptc
                 "Tape Archive [.TAR]",
                 "Tidningarnas Telegrambyra NITF version (TTNITF DTD)",
                 "Ritzaus Bureau NITF version (RBNITF DTD)",
-                "Corel Draw [.CDR]");
+                "Corel Draw [.CDR]"
+            ]);
         }
 
         public string? GetByLineDescription()

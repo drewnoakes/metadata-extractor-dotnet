@@ -3,13 +3,8 @@
 namespace MetadataExtractor.Formats.Photoshop
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PsdHeaderDescriptor : TagDescriptor<PsdHeaderDirectory>
+    public sealed class PsdHeaderDescriptor(PsdHeaderDirectory directory) : TagDescriptor<PsdHeaderDirectory>(directory)
     {
-        public PsdHeaderDescriptor(PsdHeaderDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
@@ -19,7 +14,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 PsdHeaderDirectory.TagColorMode => GetColorModeDescription(),
                 PsdHeaderDirectory.TagImageHeight => GetImageHeightDescription(),
                 PsdHeaderDirectory.TagImageWidth => GetImageWidthDescription(),
-                _ => base.GetDescription(tagType),
+                _ => base.GetDescription(tagType)
             };
         }
 
@@ -41,7 +36,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
         public string? GetColorModeDescription()
         {
-            return GetIndexedDescription(PsdHeaderDirectory.TagColorMode,
+            return GetIndexedDescription(PsdHeaderDirectory.TagColorMode, [
                 "Bitmap",
                 "Grayscale",
                 "Indexed",
@@ -51,7 +46,8 @@ namespace MetadataExtractor.Formats.Photoshop
                 null,
                 "Multichannel",
                 "Duotone",
-                "Lab");
+                "Lab"
+            ]);
         }
 
         public string? GetImageHeightDescription()

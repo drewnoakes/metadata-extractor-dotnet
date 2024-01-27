@@ -5,13 +5,8 @@ using static MetadataExtractor.Formats.Wav.WavFormatDirectory;
 namespace MetadataExtractor.Formats.Wav
 {
     /// <author>Dmitry Shechtman</author>
-    public sealed class WavFormatDescriptor : TagDescriptor<WavFormatDirectory>
+    public sealed class WavFormatDescriptor(WavFormatDirectory directory) : TagDescriptor<WavFormatDirectory>(directory)
     {
-        public WavFormatDescriptor(WavFormatDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tag)
         {
             return tag switch
@@ -20,7 +15,7 @@ namespace MetadataExtractor.Formats.Wav
                 TagSamplesPerSec => Directory.GetUInt32(tag).ToString("0 bps"),
                 TagBytesPerSec => Directory.GetUInt32(tag).ToString("0 bps"),
                 TagSubformat => BitConverter.ToString(Directory.GetByteArray(tag) ?? Empty.ByteArray).Replace("-", ""),
-                _ => base.GetDescription(tag),
+                _ => base.GetDescription(tag)
             };
         }
 

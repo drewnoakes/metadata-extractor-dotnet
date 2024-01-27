@@ -1,5 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Globalization;
+
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
@@ -12,13 +14,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </remarks>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class OlympusRawInfoMakernoteDescriptor : TagDescriptor<OlympusRawInfoMakernoteDirectory>
+    public sealed class OlympusRawInfoMakernoteDescriptor(OlympusRawInfoMakernoteDirectory directory)
+        : TagDescriptor<OlympusRawInfoMakernoteDirectory>(directory)
     {
-        public OlympusRawInfoMakernoteDescriptor(OlympusRawInfoMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
@@ -36,7 +34,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagColorMatrix2) is not short[] values)
                 return null;
 
-            return string.Join(" ", values.Select(b => b.ToString()).ToArray());
+            return string.Join(" ", values.Select(b => b.ToString(CultureInfo.InvariantCulture)));
         }
 
         public string? GetYCbCrCoefficientsDescription()
@@ -50,7 +48,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 ret[i] = new Rational(values[2 * i], values[2 * i + 1]);
             }
 
-            return string.Join(" ", ret.Select(r => r.ToDecimal().ToString()).ToArray());
+            return string.Join(" ", ret.Select(r => r.ToDecimal().ToString(CultureInfo.InvariantCulture)));
         }
 
         public string? GetOlympusLightSourceDescription()
@@ -72,7 +70,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 36 => "White Fluorescent",
                 256 => "One Touch White Balance",
                 512 => "Custom 1-4",
-                _ => "Unknown (" + value + ")",
+                _ => $"Unknown ({value})"
             };
         }
     }

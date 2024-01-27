@@ -11,13 +11,8 @@ namespace MetadataExtractor.Formats.Jfif
     /// </list>
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes</author>
-    public sealed class JfifDescriptor : TagDescriptor<JfifDirectory>
+    public sealed class JfifDescriptor(JfifDirectory directory) : TagDescriptor<JfifDirectory>(directory)
     {
-        public JfifDescriptor(JfifDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
@@ -26,7 +21,7 @@ namespace MetadataExtractor.Formats.Jfif
                 JfifDirectory.TagResY => GetImageResYDescription(),
                 JfifDirectory.TagVersion => GetImageVersionDescription(),
                 JfifDirectory.TagUnits => GetImageResUnitsDescription(),
-                _ => base.GetDescription(tagType),
+                _ => base.GetDescription(tagType)
             };
         }
 
@@ -60,7 +55,7 @@ namespace MetadataExtractor.Formats.Jfif
                 0 => "none",
                 1 => "inch",
                 2 => "centimetre",
-                _ => "unit",
+                _ => "unit"
             };
         }
     }

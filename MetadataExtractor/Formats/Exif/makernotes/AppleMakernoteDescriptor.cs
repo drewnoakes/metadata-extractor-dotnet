@@ -9,13 +9,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </summary>
     /// <remarks>Using information from http://owl.phy.queensu.ca/~phil/exiftool/TagNames/Apple.html</remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class AppleMakernoteDescriptor : TagDescriptor<AppleMakernoteDirectory>
+    public class AppleMakernoteDescriptor(AppleMakernoteDirectory directory)
+        : TagDescriptor<AppleMakernoteDirectory>(directory)
     {
-        public AppleMakernoteDescriptor(AppleMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

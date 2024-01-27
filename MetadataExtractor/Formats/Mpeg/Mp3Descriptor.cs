@@ -2,11 +2,7 @@
 
 namespace MetadataExtractor.Formats.Mpeg
 {
-    public sealed class Mp3Descriptor : TagDescriptor<Mp3Directory>
+    public sealed class Mp3Descriptor(Mp3Directory directory) : TagDescriptor<Mp3Directory>(directory)
     {
-        public Mp3Descriptor(Mp3Directory directory)
-            : base(directory)
-        {
-        }
     }
 }

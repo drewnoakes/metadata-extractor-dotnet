@@ -23,13 +23,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </list>
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class FujifilmMakernoteDescriptor : TagDescriptor<FujifilmMakernoteDirectory>
+    public sealed class FujifilmMakernoteDescriptor(FujifilmMakernoteDirectory directory)
+        : TagDescriptor<FujifilmMakernoteDirectory>(directory)
     {
-        public FujifilmMakernoteDescriptor(FujifilmMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

@@ -9,13 +9,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </summary>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class LeicaType5MakernoteDescriptor : TagDescriptor<LeicaType5MakernoteDirectory>
+    public class LeicaType5MakernoteDescriptor(LeicaType5MakernoteDirectory directory)
+        : TagDescriptor<LeicaType5MakernoteDirectory>(directory)
     {
-        public LeicaType5MakernoteDescriptor(LeicaType5MakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
@@ -42,7 +38,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 "1 1 0 0" => "Aperture-priority AE (1)",
                 "2 0 0 0" => "Shutter speed priority AE",  // guess
                 "3 0 0 0" => "Manual",
-                _ => "Unknown (" + join + ")",
+                _ => $"Unknown ({join})"
             };
             return ret;
         }

@@ -4,11 +4,8 @@ namespace MetadataExtractor.Formats.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public class GifImageDescriptor : TagDescriptor<GifImageDirectory>
+    public class GifImageDescriptor(GifImageDirectory directory)
+        : TagDescriptor<GifImageDirectory>(directory)
     {
-        public GifImageDescriptor(GifImageDirectory directory)
-            : base(directory)
-        {
-        }
     }
 }

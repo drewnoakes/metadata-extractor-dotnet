@@ -9,13 +9,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/pentax_mn.html
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PentaxMakernoteDescriptor : TagDescriptor<PentaxMakernoteDirectory>
+    public sealed class PentaxMakernoteDescriptor(PentaxMakernoteDirectory directory)
+        : TagDescriptor<PentaxMakernoteDirectory>(directory)
     {
-        public PentaxMakernoteDescriptor(PentaxMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
@@ -31,7 +27,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 PentaxMakernoteDirectory.TagSaturation => GetSaturationDescription(),
                 PentaxMakernoteDirectory.TagIsoSpeed => GetIsoSpeedDescription(),
                 PentaxMakernoteDirectory.TagColour => GetColourDescription(),
-                _ => base.GetDescription(tagType),
+                _ => base.GetDescription(tagType)
             };
         }
 
@@ -53,26 +49,23 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 16 => "ISO 200",
                 100 => "ISO 100",
                 200 => "ISO 200",
-                _ => "Unknown (" + value + ")",
+                _ => $"Unknown ({value})"
             };
         }
 
         public string? GetSaturationDescription()
         {
-            return GetIndexedDescription(PentaxMakernoteDirectory.TagSaturation,
-                "Normal", "Low", "High");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagSaturation, ["Normal", "Low", "High"]);
         }
 
         public string? GetContrastDescription()
         {
-            return GetIndexedDescription(PentaxMakernoteDirectory.TagContrast,
-                "Normal", "Low", "High");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagContrast, ["Normal", "Low", "High"]);
         }
 
         public string? GetSharpnessDescription()
         {
-            return GetIndexedDescription(PentaxMakernoteDirectory.TagSharpness,
-                "Normal", "Soft", "Hard");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagSharpness, ["Normal", "Soft", "Hard"]);
         }
 
         public string? GetDigitalZoomDescription()
@@ -97,15 +90,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetFocusModeDescription()
         {
-            return GetIndexedDescription(PentaxMakernoteDirectory.TagFocusMode,
-                2,
-                "Custom", "Auto");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagFocusMode, 2, ["Custom", "Auto"]);
         }
 
         public string? GetQualityLevelDescription()
         {
-            return GetIndexedDescription(PentaxMakernoteDirectory.TagQualityLevel,
-                "Good", "Better", "Best");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagQualityLevel, ["Good", "Better", "Best"]);
         }
 
         public string? GetCaptureModeDescription()

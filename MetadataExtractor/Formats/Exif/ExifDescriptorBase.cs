@@ -8,13 +8,9 @@ namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Base class for several Exif format descriptor classes.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public abstract class ExifDescriptorBase<T> : TagDescriptor<T> where T : Directory
+    public abstract class ExifDescriptorBase<T>(T directory)
+        : TagDescriptor<T>(directory) where T : Directory
     {
-        protected ExifDescriptorBase(T directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
 #pragma warning disable format

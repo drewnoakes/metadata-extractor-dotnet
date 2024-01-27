@@ -17,15 +17,10 @@ namespace MetadataExtractor.Formats.Exif
     /// Includes support for camera manufacturer makernotes.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifTiffHandler : DirectoryTiffHandler
+    public class ExifTiffHandler(List<Directory> directories, int exifStartOffset)
+        : DirectoryTiffHandler(directories)
     {
-        private readonly int _exifStartOffset;
-
-        public ExifTiffHandler(List<Directory> directories, int exifStartOffset)
-            : base(directories)
-        {
-            _exifStartOffset = exifStartOffset;
-        }
+        private readonly int _exifStartOffset = exifStartOffset;
 
         /// <exception cref="TiffProcessingException"/>
         public override TiffStandard ProcessTiffMarker(ushort marker)

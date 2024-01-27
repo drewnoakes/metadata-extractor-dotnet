@@ -7,13 +7,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Thanks to David Carson for the initial version of this class.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class SonyType1MakernoteDescriptor : TagDescriptor<SonyType1MakernoteDirectory>
+    public sealed class SonyType1MakernoteDescriptor(SonyType1MakernoteDirectory directory)
+        : TagDescriptor<SonyType1MakernoteDirectory>(directory)
     {
-        public SonyType1MakernoteDescriptor(SonyType1MakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
@@ -82,7 +78,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 0x88 => "Minolta/Sony AF 1.4x APO (D)",
                 0x90 => "Minolta AF 1.4x APO II",
                 0xa0 => "Minolta AF 1.4x APO",
-                _ => "Unknown (" + value + ")",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -102,7 +98,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 0x50 => "Flash",
                 0x60 => "Fluorescent",
                 0x70 => "Custom",
-                _ => "Unknown (" + value + ")",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -143,7 +139,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 18 => "LV3",
                 19 => "LV4",
                 20 => "LV5",
-                _ => $"Unknown ({value})",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -156,7 +152,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 0 => "Off",
                 1 => "On",
-                _ => "N/A",
+                _ => "N/A"
             };
         }
 
@@ -255,7 +251,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 1 => "Fine",
                 2 => "Extra Fine",
                 0xFFFF => "N/A",
-                _ => $"Unknown ({value})",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -270,7 +266,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 1 => "On (Continuous)",
                 2 => "On (Shooting)",
                 0xFFFF => "N/A",
-                _ => $"Unknown ({value})",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -284,7 +280,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 0 => "Off",
                 1 => "On",
                 0xFFFF => "N/A",
-                _ => $"Unknown ({value})",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -368,7 +364,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 0 => "Off",
                 2 => "Auto",
                 0xffffffff => "N/A",
-                _ => $"Unknown ({value})",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -382,7 +378,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 0 => "Off",
                 2 => "Auto",
                 0xffffffff => "N/A",
-                _ => $"Unknown ({value})",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -396,14 +392,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 0 => "Off",
                 2 => "Auto",
                 0xffffffff => "N/A",
-                _ => $"Unknown ({value})",
+                _ => $"Unknown ({value})"
             };
         }
 
         public string? GetAutoPortraitFramedDescription()
         {
-            return GetIndexedDescription(SonyType1MakernoteDirectory.TagAutoPortraitFramed,
-                "No", "Yes");
+            return GetIndexedDescription(SonyType1MakernoteDirectory.TagAutoPortraitFramed, ["No", "Yes"]);
         }
 
         public string? GetFocusModeDescription()
@@ -547,7 +542,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 26 => "Fireworks",
                 27 => "Food",
                 28 => "Pet",
-                _ => "Unknown (" + value + ")",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -581,7 +576,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 0 => "Off",
                 1 => "Auto",
                 0xffff => "n/a",
-                _ => "Unknown (" + value + ")",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -602,7 +597,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 3 => "+3/3",
                 128 => "n/a",
                 32767 => "High",
-                _ => "Unknown (" + value + ")",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -618,7 +613,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 5 => "Exposure Bracketing",
                 6 => "White Balance Bracketing",
                 65535 => "n/a",
-                _ => "Unknown (" + value + ")",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -631,7 +626,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 0 => "Single",
                 65535 => "n/a",
-                _ => value.ToString(),
+                _ => value.ToString()
             };
         }
     }

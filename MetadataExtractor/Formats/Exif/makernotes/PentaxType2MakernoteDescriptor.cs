@@ -2,11 +2,8 @@
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
-    public sealed class PentaxType2MakernoteDescriptor : TagDescriptor<PentaxType2MakernoteDirectory>
+    public sealed class PentaxType2MakernoteDescriptor(PentaxType2MakernoteDirectory directory)
+        : TagDescriptor<PentaxType2MakernoteDirectory>(directory)
     {
-        public PentaxType2MakernoteDescriptor(PentaxType2MakernoteDirectory directory)
-            : base(directory)
-        {
-        }
     }
 }

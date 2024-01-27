@@ -6,12 +6,8 @@ namespace MetadataExtractor.Formats.Jpeg
     /// Provides human-readable string representations of tag values stored in a <see cref="JpegDnlDirectory"/>.
     /// </summary>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public sealed class JpegDnlDescriptor : TagDescriptor<JpegDnlDirectory>
+    public sealed class JpegDnlDescriptor(JpegDnlDirectory directory): TagDescriptor<JpegDnlDirectory>(directory)
     {
-        public JpegDnlDescriptor(JpegDnlDirectory directory)
-            : base(directory)
-        { }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

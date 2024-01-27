@@ -3,13 +3,8 @@
 namespace MetadataExtractor.Formats.Avi
 {
     /// <author>Payton Garland</author>
-    public class AviDescriptor : TagDescriptor<AviDirectory>
+    public class AviDescriptor(AviDirectory directory) : TagDescriptor<AviDirectory>(directory)
     {
-        public AviDescriptor(AviDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)

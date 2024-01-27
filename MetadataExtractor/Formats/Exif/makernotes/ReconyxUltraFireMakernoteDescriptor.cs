@@ -8,13 +8,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="ReconyxHyperFireMakernoteDirectory"/>.
     /// </summary>
     /// <author>Todd West http://cascadescarnivoreproject.blogspot.com</author>
-    public sealed class ReconyxUltraFireMakernoteDescriptor : TagDescriptor<ReconyxUltraFireMakernoteDirectory>
+    public sealed class ReconyxUltraFireMakernoteDescriptor(ReconyxUltraFireMakernoteDirectory directory)
+        : TagDescriptor<ReconyxUltraFireMakernoteDirectory>(directory)
     {
-        public ReconyxUltraFireMakernoteDescriptor(ReconyxUltraFireMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)
@@ -50,7 +46,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case ReconyxUltraFireMakernoteDirectory.TagMoonPhase:
                     return GetIndexedDescription(tagType, "New", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Waning Crescent");
                 case ReconyxUltraFireMakernoteDirectory.TagFlash:
-                    return GetIndexedDescription(tagType, "Off", "On");
+                    return GetIndexedDescription(tagType, ["Off", "On"]);
                 case ReconyxUltraFireMakernoteDirectory.TagSerialNumber:
                     return Directory.GetString(tagType);
                 case ReconyxUltraFireMakernoteDirectory.TagBatteryVoltage:

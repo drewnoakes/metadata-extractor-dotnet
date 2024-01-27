@@ -4,13 +4,9 @@ namespace MetadataExtractor.Formats.Photoshop
 {
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PhotoshopDescriptor : TagDescriptor<PhotoshopDirectory>
+    public sealed class PhotoshopDescriptor(PhotoshopDirectory directory)
+        : TagDescriptor<PhotoshopDirectory>(directory)
     {
-        public PhotoshopDescriptor(PhotoshopDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)

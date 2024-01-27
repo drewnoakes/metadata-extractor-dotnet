@@ -12,13 +12,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </remarks>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class OlympusFocusInfoMakernoteDescriptor : TagDescriptor<OlympusFocusInfoMakernoteDirectory>
+    public sealed class OlympusFocusInfoMakernoteDescriptor(OlympusFocusInfoMakernoteDirectory directory)
+        : TagDescriptor<OlympusFocusInfoMakernoteDirectory>(directory)
     {
-        public OlympusFocusInfoMakernoteDescriptor(OlympusFocusInfoMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
@@ -45,8 +41,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetAutoFocusDescription()
         {
-            return GetIndexedDescription(OlympusFocusInfoMakernoteDirectory.TagAutoFocus,
-                "Off", "On");
+            return GetIndexedDescription(OlympusFocusInfoMakernoteDirectory.TagAutoFocus, ["Off", "On"]);
         }
 
         /// <remarks>
@@ -113,7 +108,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values.Length == 0)
                 return null;
 
-            var join = $"{values[0]}" + (values.Length > 1 ? $"{ values[1]}" : "");
+            var join = $"{values[0]}" + (values.Length > 1 ? $"{values[1]}" : "");
 
             return join switch
             {
@@ -121,7 +116,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 "1" => "On",
                 "0 0" => "Off",
                 "1 0" => "On",
-                _ => "Unknown (" + join + ")",
+                _ => $"Unknown ({join})"
             };
         }
 
@@ -140,8 +135,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetMacroLedDescription()
         {
-            return GetIndexedDescription(OlympusFocusInfoMakernoteDirectory.TagMacroLed,
-                "Off", "On");
+            return GetIndexedDescription(OlympusFocusInfoMakernoteDirectory.TagMacroLed, ["Off", "On"]);
         }
 
         /// <remarks>

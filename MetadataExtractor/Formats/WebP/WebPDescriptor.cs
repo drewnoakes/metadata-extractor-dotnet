@@ -3,11 +3,7 @@
 namespace MetadataExtractor.Formats.WebP
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class WebPDescriptor : TagDescriptor<WebPDirectory>
+    public class WebPDescriptor(WebPDirectory directory) : TagDescriptor<WebPDirectory>(directory)
     {
-        public WebPDescriptor(WebPDirectory directory)
-            : base(directory)
-        {
-        }
     }
 }

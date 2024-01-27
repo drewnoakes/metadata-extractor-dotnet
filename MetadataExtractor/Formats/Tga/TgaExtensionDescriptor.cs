@@ -3,13 +3,9 @@
 namespace MetadataExtractor.Formats.Tga
 {
     /// <author>Dmitry Shechtman</author>
-    public sealed class TgaExtensionDescriptor : TagDescriptor<TgaExtensionDirectory>
+    public sealed class TgaExtensionDescriptor(TgaExtensionDirectory directory)
+        : TagDescriptor<TgaExtensionDirectory>(directory)
     {
-        public TgaExtensionDescriptor(TgaExtensionDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

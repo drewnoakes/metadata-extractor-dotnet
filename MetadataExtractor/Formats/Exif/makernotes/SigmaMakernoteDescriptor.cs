@@ -6,20 +6,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="SigmaMakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SigmaMakernoteDescriptor : TagDescriptor<SigmaMakernoteDirectory>
+    public class SigmaMakernoteDescriptor(SigmaMakernoteDirectory directory) : TagDescriptor<SigmaMakernoteDirectory>(directory)
     {
-        public SigmaMakernoteDescriptor(SigmaMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
             {
                 SigmaMakernoteDirectory.TagExposureMode => GetExposureModeDescription(),
                 SigmaMakernoteDirectory.TagMeteringMode => GetMeteringModeDescription(),
-                _ => base.GetDescription(tagType),
+                _ => base.GetDescription(tagType)
             };
         }
 
@@ -34,7 +29,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 '8' => "Multi Segment",
                 'A' => "Average",
                 'C' => "Center Weighted Average",
-                _ => value,
+                _ => value
             };
         }
 
@@ -50,7 +45,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 'M' => "Manual",
                 'P' => "Program AE",
                 'S' => "Shutter Speed Priority AE",
-                _ => value,
+                _ => value
             };
         }
     }

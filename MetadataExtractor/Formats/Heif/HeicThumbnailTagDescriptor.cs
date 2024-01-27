@@ -2,11 +2,8 @@
 
 namespace MetadataExtractor.Formats.Heif
 {
-    public class HeicThumbnailTagDescriptor : TagDescriptor<HeicThumbnailDirectory>
+    public class HeicThumbnailTagDescriptor(HeicThumbnailDirectory directory)
+        : TagDescriptor<HeicThumbnailDirectory>(directory)
     {
-        public HeicThumbnailTagDescriptor(HeicThumbnailDirectory directory)
-            : base(directory)
-        {
-        }
     }
 }

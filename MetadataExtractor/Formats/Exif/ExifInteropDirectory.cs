@@ -6,7 +6,7 @@ namespace MetadataExtractor.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ExifInteropDirectory : ExifDirectoryBase
     {
-        private static readonly Dictionary<int, string> _tagNameMap = new();
+        private static readonly Dictionary<int, string> _tagNameMap = [];
 
         static ExifInteropDirectory()
         {

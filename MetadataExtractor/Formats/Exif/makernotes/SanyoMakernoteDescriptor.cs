@@ -6,13 +6,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="SonyType6MakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class SanyoMakernoteDescriptor : TagDescriptor<SanyoMakernoteDirectory>
+    public sealed class SanyoMakernoteDescriptor(SanyoMakernoteDirectory directory)
+        : TagDescriptor<SanyoMakernoteDirectory>(directory)
     {
-        public SanyoMakernoteDescriptor(SanyoMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
@@ -35,7 +31,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 SanyoMakernoteDirectory.TagSceneSelect => GetSceneSelectDescription(),
                 SanyoMakernoteDirectory.TagSequenceShotInterval => GetSequenceShotIntervalDescription(),
                 SanyoMakernoteDirectory.TagFlashMode => GetFlashModeDescription(),
-                _ => base.GetDescription(tagType),
+                _ => base.GetDescription(tagType)
             };
         }
 
@@ -70,7 +66,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 0x205 => "Super Fine/High",
                 0x206 => "Super Fine/Very High",
                 0x207 => "Super Fine/Super High",
-                _ => "Unknown (" + value + ")",
+                _ => $"Unknown ({value})"
             };
         }
 
@@ -99,26 +95,22 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         private string? GetColorAdjustmentModeDescription()
         {
-            return GetIndexedDescription(SanyoMakernoteDirectory.TagColorAdjustmentMode,
-                "Off", "On");
+            return GetIndexedDescription(SanyoMakernoteDirectory.TagColorAdjustmentMode, ["Off", "On"]);
         }
 
         private string? GetQuickShotDescription()
         {
-            return GetIndexedDescription(SanyoMakernoteDirectory.TagQuickShot,
-                "Off", "On");
+            return GetIndexedDescription(SanyoMakernoteDirectory.TagQuickShot, ["Off", "On"]);
         }
 
         private string? GetSelfTimerDescription()
         {
-            return GetIndexedDescription(SanyoMakernoteDirectory.TagSelfTimer,
-                "Off", "On");
+            return GetIndexedDescription(SanyoMakernoteDirectory.TagSelfTimer, ["Off", "On"]);
         }
 
         private string? GetVoiceMemoDescription()
         {
-            return GetIndexedDescription(SanyoMakernoteDirectory.TagVoiceMemo,
-                "Off", "On");
+            return GetIndexedDescription(SanyoMakernoteDirectory.TagVoiceMemo, ["Off", "On"]);
         }
 
         private string? GetRecordShutterDescription()
@@ -129,32 +121,27 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         private string? GetFlickerReduceDescription()
         {
-            return GetIndexedDescription(SanyoMakernoteDirectory.TagFlickerReduce,
-                "Off", "On");
+            return GetIndexedDescription(SanyoMakernoteDirectory.TagFlickerReduce, ["Off", "On"]);
         }
 
         private string? GetOptimalZoomOnDescription()
         {
-            return GetIndexedDescription(SanyoMakernoteDirectory.TagOpticalZoomOn,
-                "Off", "On");
+            return GetIndexedDescription(SanyoMakernoteDirectory.TagOpticalZoomOn, ["Off", "On"]);
         }
 
         private string? GetDigitalZoomOnDescription()
         {
-            return GetIndexedDescription(SanyoMakernoteDirectory.TagDigitalZoomOn,
-                "Off", "On");
+            return GetIndexedDescription(SanyoMakernoteDirectory.TagDigitalZoomOn, ["Off", "On"]);
         }
 
         private string? GetLightSourceSpecialDescription()
         {
-            return GetIndexedDescription(SanyoMakernoteDirectory.TagLightSourceSpecial,
-                "Off", "On");
+            return GetIndexedDescription(SanyoMakernoteDirectory.TagLightSourceSpecial, ["Off", "On"]);
         }
 
         private string? GetResavedDescription()
         {
-            return GetIndexedDescription(SanyoMakernoteDirectory.TagResaved,
-                "No", "Yes");
+            return GetIndexedDescription(SanyoMakernoteDirectory.TagResaved, ["No", "Yes"]);
         }
 
         private string? GetSceneSelectDescription()

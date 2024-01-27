@@ -7,13 +7,9 @@ namespace MetadataExtractor.Formats.Exif
     /// </summary>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PanasonicRawWbInfoDescriptor : TagDescriptor<PanasonicRawWbInfoDirectory>
+    public class PanasonicRawWbInfoDescriptor(PanasonicRawWbInfoDirectory directory)
+        : TagDescriptor<PanasonicRawWbInfoDirectory>(directory)
     {
-        public PanasonicRawWbInfoDescriptor(PanasonicRawWbInfoDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)

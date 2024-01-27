@@ -8,13 +8,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="ReconyxHyperFire2MakernoteDirectory"/>.
     /// </summary>
     /// <remarks>Reconyx uses a fixed makernote block. Tag values are the byte index of the tag within the makernote.</remarks>
-    public sealed class ReconyxHyperFire2MakernoteDescriptor : TagDescriptor<ReconyxHyperFire2MakernoteDirectory>
+    public sealed class ReconyxHyperFire2MakernoteDescriptor(ReconyxHyperFire2MakernoteDirectory directory)
+        : TagDescriptor<ReconyxHyperFire2MakernoteDirectory>(directory)
     {
-        public ReconyxHyperFire2MakernoteDescriptor(ReconyxHyperFire2MakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)
@@ -37,7 +33,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                         "M" => "Motion Detection",
                         "P" => "Point and Shoot",
                         "T" => "Time Lapse",
-                        _ => "Unknown trigger mode",
+                        _ => "Unknown trigger mode"
                     };
                 case ReconyxHyperFire2MakernoteDirectory.TagSequence:
                     var sequence = Directory.GetInt32Array(tagType);

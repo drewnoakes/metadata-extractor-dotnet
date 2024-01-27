@@ -19,15 +19,10 @@ namespace MetadataExtractor.Formats.Avi
     /// https://www.loc.gov/preservation/digital/formats/fdd/fdd000025.shtml
     /// </remarks>
     /// <author>Payton Garland</author>
-    public sealed class AviRiffHandler : IRiffHandler
+    public sealed class AviRiffHandler(List<Directory> directories) : IRiffHandler
     {
-        private readonly List<Directory> _directories;
+        private readonly List<Directory> _directories = directories;
         private AviDirectory? _directory;
-
-        public AviRiffHandler(List<Directory> directories)
-        {
-            _directories = directories;
-        }
 
         public bool ShouldAcceptRiffIdentifier(ReadOnlySpan<byte> identifier) => identifier.SequenceEqual("AVI "u8);
 

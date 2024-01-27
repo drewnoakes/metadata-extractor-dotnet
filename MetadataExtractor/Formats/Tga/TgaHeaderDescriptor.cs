@@ -3,13 +3,9 @@
 namespace MetadataExtractor.Formats.Tga
 {
     /// <author>Dmitry Shechtman</author>
-    public sealed class TgaHeaderDescriptor : TagDescriptor<TgaHeaderDirectory>
+    public sealed class TgaHeaderDescriptor(TgaHeaderDirectory directory)
+        : TagDescriptor<TgaHeaderDirectory>(directory)
     {
-        public TgaHeaderDescriptor(TgaHeaderDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
@@ -39,7 +35,7 @@ namespace MetadataExtractor.Formats.Tga
                 9 => "RLE mapped color",
                 10 => "RLE true color",
                 11 => "RLE grayscale",
-                _ => null,
+                _ => null
             };
         }
 
