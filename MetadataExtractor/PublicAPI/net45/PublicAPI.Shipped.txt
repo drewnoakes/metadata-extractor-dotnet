@@ -3959,6 +3959,7 @@ MetadataExtractor.ITagDescriptor.GetDescription(int tagType) -> string?
 MetadataExtractor.KeyValuePair
 MetadataExtractor.KeyValuePair.Deconstruct(out string! key, out MetadataExtractor.StringValue value) -> void
 MetadataExtractor.KeyValuePair.Key.get -> string!
+MetadataExtractor.KeyValuePair.KeyValuePair() -> void
 MetadataExtractor.KeyValuePair.KeyValuePair(string! key, MetadataExtractor.StringValue value) -> void
 MetadataExtractor.KeyValuePair.Value.get -> MetadataExtractor.StringValue
 MetadataExtractor.MetadataException
