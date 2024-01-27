@@ -11,7 +11,7 @@ namespace MetadataExtractor.Util
         /// <remarks>Has children and may have an associated value.</remarks>
         private sealed class ByteTrieNode
         {
-            public readonly IDictionary<byte, ByteTrieNode> Children = new Dictionary<byte, ByteTrieNode>();
+            public readonly Dictionary<byte, ByteTrieNode> Children = [];
 
             public T Value { get; private set; } = default!;
             public bool HasValue { get; private set; }
