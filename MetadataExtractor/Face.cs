@@ -13,29 +13,19 @@ namespace MetadataExtractor
     /// Currently this is only used by <see cref="PanasonicMakernoteDirectory"/>.
     /// </remarks>
     /// <author>Philipp Sandhaus, Drew Noakes</author>
-    public sealed class Face
+    public sealed class Face(int x, int y, int width, int height, string? name = null, Age? age = null)
     {
-        public Face(int x, int y, int width, int height, string? name = null, Age? age = null)
-        {
-            X = x;
-            Y = y;
-            Width = width;
-            Height = height;
-            Name = name;
-            Age = age;
-        }
+        public int X { get; } = x;
 
-        public int X { get; }
+        public int Y { get; } = y;
 
-        public int Y { get; }
+        public int Width { get; } = width;
 
-        public int Width { get; }
+        public int Height { get; } = height;
 
-        public int Height { get; }
+        public string? Name { get; } = name;
 
-        public string? Name { get; }
-
-        public Age? Age { get; }
+        public Age? Age { get; } = age;
 
         #region Equality and hashing
 

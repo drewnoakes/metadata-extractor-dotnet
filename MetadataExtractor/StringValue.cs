@@ -13,22 +13,16 @@ namespace MetadataExtractor
     /// The introduction of this type allows full transparency and control over the use of string data extracted
     /// by the library during the read phase.
     /// </remarks>
-    public readonly struct StringValue : IConvertible
+    public readonly struct StringValue(byte[] bytes, Encoding? encoding = null) : IConvertible
     {
         /// <summary>
         /// The encoding used when decoding a <see cref="StringValue"/> that does not specify its encoding.
         /// </summary>
         public static readonly Encoding DefaultEncoding = Encoding.UTF8;
 
-        public StringValue(byte[] bytes, Encoding? encoding = null)
-        {
-            Bytes = bytes;
-            Encoding = encoding;
-        }
+        public byte[] Bytes { get; } = bytes;
 
-        public byte[] Bytes { get; }
-
-        public Encoding? Encoding { get; }
+        public Encoding? Encoding { get; } = encoding;
 
         #region IConvertible
 

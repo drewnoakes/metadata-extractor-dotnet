@@ -7,8 +7,20 @@ namespace MetadataExtractor
     /// Used by certain Panasonic cameras which have face recognition features.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class Age
+    public sealed class Age(int years, int months, int days, int hours, int minutes, int seconds)
     {
+        public int Years { get; } = years;
+
+        public int Months { get; } = months;
+
+        public int Days { get; } = days;
+
+        public int Hours { get; } = hours;
+
+        public int Minutes { get; } = minutes;
+
+        public int Seconds { get; } = seconds;
+
         /// <summary>
         /// Parses an age object from the string format used by Panasonic cameras:
         /// <c>0031:07:15 00:00:00</c>
@@ -36,23 +48,6 @@ namespace MetadataExtractor
 
             return null;
         }
-
-        public Age(int years, int months, int days, int hours, int minutes, int seconds)
-        {
-            Years = years;
-            Months = months;
-            Days = days;
-            Hours = hours;
-            Minutes = minutes;
-            Seconds = seconds;
-        }
-
-        public int Years { get; }
-        public int Months { get; }
-        public int Days { get; }
-        public int Hours { get; }
-        public int Minutes { get; }
-        public int Seconds { get; }
 
         public override string ToString()
         {

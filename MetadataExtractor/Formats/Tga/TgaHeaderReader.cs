@@ -6,20 +6,15 @@ namespace MetadataExtractor.Formats.Tga
     /// <author>Dmitry Shechtman</author>
     internal sealed class TgaHeaderReader : TgaDirectoryReader<TgaHeaderDirectory>
     {
-        private readonly struct ColormapInfo
+        private readonly struct ColormapInfo(byte type, int origin, int length, int depth)
         {
-            public byte Type { get; }
-            public int Origin { get; }
-            public int Length { get; }
-            public int Depth { get; }
+            public byte Type { get; } = type;
 
-            public ColormapInfo(byte type, int origin, int length, int depth)
-            {
-                Type = type;
-                Origin = origin;
-                Length = length;
-                Depth = depth;
-            }
+            public int Origin { get; } = origin;
+
+            public int Length { get; } = length;
+
+            public int Depth { get; } = depth;
         }
 
         public const int HeaderSize = 18;

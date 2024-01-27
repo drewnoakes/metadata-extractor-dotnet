@@ -2,18 +2,13 @@
 
 namespace MetadataExtractor.Formats.Tga
 {
-    internal readonly struct TgaTagInfo
+    internal readonly struct TgaTagInfo(short id, int offset, int size)
     {
-        public short Id { get; }
-        public int Offset { get; }
-        public int Size { get; }
+        public short Id { get; } = id;
 
-        public TgaTagInfo(short id, int offset, int size)
-        {
-            Id = id;
-            Offset = offset;
-            Size = size;
-        }
+        public int Offset { get; } = offset;
+
+        public int Size { get; } = size;
     }
 
     internal sealed class TgaTagReader : TgaReader<TgaTagInfo[]>

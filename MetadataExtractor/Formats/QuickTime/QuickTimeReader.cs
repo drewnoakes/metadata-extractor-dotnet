@@ -5,27 +5,27 @@ namespace MetadataExtractor.Formats.QuickTime
     /// <summary>
     /// Models data provided to callbacks invoked when reading QuickTime atoms via <see cref="QuickTimeReader.ProcessAtoms"/>.
     /// </summary>
-    public sealed class AtomCallbackArgs
+    public sealed class AtomCallbackArgs(uint type, long size, Stream stream, long startPosition, SequentialStreamReader reader)
     {
         /// <summary>
         /// Gets the 32-bit unsigned integer that identifies the atom's type.
         /// </summary>
-        public uint Type { get; }
+        public uint Type { get; } = type;
 
         /// <summary>
         /// The length of the atom data, in bytes. If the atom extends to the end of the file, this value is zero.
         /// </summary>
-        public long Size { get; }
+        public long Size { get; } = size;
 
         /// <summary>
         /// Gets the stream from which atoms are being read.
         /// </summary>
-        public Stream Stream { get; }
+        public Stream Stream { get; } = stream;
 
         /// <summary>
         /// Gets the position within <see cref="Stream"/> at which this atom's data started.
         /// </summary>
-        public long StartPosition { get; }
+        public long StartPosition { get; } = startPosition;
 
         /// <summary>
         /// Gets a sequential reader from which this atom's contents may be read.
@@ -33,21 +33,12 @@ namespace MetadataExtractor.Formats.QuickTime
         /// <remarks>
         /// It is backed by <see cref="Stream"/>, so manipulating the stream's position will influence this reader.
         /// </remarks>
-        public SequentialStreamReader Reader { get; }
+        public SequentialStreamReader Reader { get; } = reader;
 
         /// <summary>
         /// Gets and sets whether the callback wishes processing to terminate.
         /// </summary>
         public bool Cancel { get; set; }
-
-        public AtomCallbackArgs(uint type, long size, Stream stream, long startPosition, SequentialStreamReader reader)
-        {
-            Type = type;
-            Size = size;
-            Stream = stream;
-            StartPosition = startPosition;
-            Reader = reader;
-        }
 
         /// <summary>
         /// Gets the string representation of this atom's type.
