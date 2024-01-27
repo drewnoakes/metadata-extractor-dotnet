@@ -260,7 +260,7 @@ namespace MetadataExtractor.Formats.Bmp
                     directory.Set(BmpHeaderDirectory.TagColourPlanes, reader.GetUInt16());
                     directory.Set(BmpHeaderDirectory.TagBitsPerPixel, reader.GetUInt16());
                 }
-                else if (headerSize == 16 || headerSize == 64)
+                else if (headerSize is 16 or 64)
                 {
                     // OS22XBITMAPHEADER
                     directory.Set(BmpHeaderDirectory.TagImageWidth, reader.GetInt32());
@@ -286,9 +286,7 @@ namespace MetadataExtractor.Formats.Bmp
                         reader.Skip(4); // Skip Identifier
                     }
                 }
-                else if (
-                  headerSize == 40 || headerSize == 52 || headerSize == 56 ||
-                  headerSize == 108 || headerSize == 124)
+                else if (headerSize is 40 or 52 or 56 or 108 or 124)
                 {
                     // BITMAPINFOHEADER V1-5
                     directory.Set(BmpHeaderDirectory.TagImageWidth, reader.GetInt32());
@@ -333,7 +331,7 @@ namespace MetadataExtractor.Formats.Bmp
                         return;
                     }
                     directory.Set(BmpHeaderDirectory.TagIntent, reader.GetInt32());
-                    if (csType == (long)BmpHeaderDirectory.ColorSpaceType.ProfileEmbedded || csType == (long)BmpHeaderDirectory.ColorSpaceType.ProfileLinked)
+                    if (csType is (long)BmpHeaderDirectory.ColorSpaceType.ProfileEmbedded or (long)BmpHeaderDirectory.ColorSpaceType.ProfileLinked)
                     {
                         long profileOffset = reader.GetUInt32();
                         int profileSize = reader.GetInt32();

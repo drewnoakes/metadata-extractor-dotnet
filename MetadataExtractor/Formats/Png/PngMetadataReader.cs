@@ -373,7 +373,7 @@ namespace MetadataExtractor.Formats.Png
                         yield return ReadTextDirectory(keyword, textBytes, chunkType);
                     }
                 }
-                else if (keyword == "Raw profile type exif" || keyword == "Raw profile type APP1")
+                else if (keyword is "Raw profile type exif" or "Raw profile type APP1")
                 {
                     if (TryProcessRawProfile(out _))
                     {
@@ -389,7 +389,7 @@ namespace MetadataExtractor.Formats.Png
                         yield return ReadTextDirectory(keyword, textBytes, chunkType);
                     }
                 }
-                else if (keyword == "Raw profile type icc" || keyword == "Raw profile type icm")
+                else if (keyword is "Raw profile type icc" or "Raw profile type icm")
                 {
                     if (TryProcessRawProfile(out _))
                     {

@@ -118,7 +118,7 @@ namespace MetadataExtractor.Formats.Eps
                 while (true)
                 {
                     char c = (char)reader.GetByte();
-                    if (c == '\r' || c == '\n')
+                    if (c is '\r' or '\n')
                         break;
                     line.Append(c);
                 }

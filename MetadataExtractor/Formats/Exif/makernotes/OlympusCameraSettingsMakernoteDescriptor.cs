@@ -800,7 +800,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var sb = new StringBuilder();
             for (var i = 0; i < values.Length; i++)
             {
-                if (i == 0 || i == 4 || i == 8 || i == 12 || i == 16 || i == 20 || i == 24)
+                if (i is 0 or 4 or 8 or 12 or 16 or 20 or 24)
                     sb.Append(_toneLevelType[values[i]] + "; ");
                 else
                     sb.Append(values[i] + "; ");

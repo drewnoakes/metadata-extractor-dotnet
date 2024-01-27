@@ -66,7 +66,7 @@ namespace MetadataExtractor.Formats.Riff
                 if (chunkSize < 0 || chunkSize + reader.Position > maxPosition)
                     throw new RiffProcessingException("Invalid RIFF chunk size");
 
-                if (chunkFourCc == "LIST" || chunkFourCc == "RIFF")
+                if (chunkFourCc is "LIST" or "RIFF")
                 {
                     if (chunkSize < 4)
                         break;
