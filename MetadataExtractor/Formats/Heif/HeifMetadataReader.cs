@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iso14496;
 using MetadataExtractor.Formats.Iso14496.Boxes;
-using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.Formats.Xmp;
 
