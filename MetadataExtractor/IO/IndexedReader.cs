@@ -277,7 +277,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public float GetFloat32(int index)
         {
-#if NET45 || NETSTANDARD1_3
+#if NET462 || NETSTANDARD1_3
             return BitConverter.ToSingle(BitConverter.GetBytes(GetInt32(index)), 0);
 #else
             Span<byte> bytes = stackalloc byte[4];
@@ -296,7 +296,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public double GetDouble64(int index)
         {
-#if NET45 || NETSTANDARD1_3
+#if NET462 || NETSTANDARD1_3
             return BitConverter.Int64BitsToDouble(GetInt64(index));
 #else
             Span<byte> bytes = stackalloc byte[8];
@@ -315,7 +315,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public string GetString(int index, int bytesRequested, Encoding encoding)
         {
-#if NET45 || NETSTANDARD1_3
+#if NET462 || NETSTANDARD1_3
             var bytes = GetBytes(index, bytesRequested);
 
             return encoding.GetString(bytes, 0, bytes.Length);
