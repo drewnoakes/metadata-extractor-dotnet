@@ -219,6 +219,8 @@ dotnet_diagnostic.CA1724.severity = suggestion                    # Type name co
 
 dotnet_diagnostic.CA1303.severity = none                          # Literal string should be localised
 
+dotnet_diagnostic.RS0016.severity = error                         # Symbol must be part of public API
+
 # working around bug
 dotnet_diagnostic.RS0041.severity = none                          # Public members should not use oblivious types
 
