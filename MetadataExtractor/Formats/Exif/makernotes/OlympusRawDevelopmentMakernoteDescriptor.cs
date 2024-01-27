@@ -75,18 +75,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusRawDevelopmentMakernoteDirectory.TagRawDevEditStatus, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Original";
-                case 1:
-                    return "Edited (Landscape)";
-                case 6:
-                case 8:
-                    return "Edited (Portrait)";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Original",
+                1 => "Edited (Landscape)",
+                6 or 8 => "Edited (Portrait)",
+                _ => $"Unknown ({value})",
+            };
         }
 
         public string? GetRawDevSettingsDescription()

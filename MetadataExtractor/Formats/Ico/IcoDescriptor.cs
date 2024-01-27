@@ -12,33 +12,14 @@ namespace MetadataExtractor.Formats.Ico
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case IcoDirectory.TagImageType:
-                {
-                    return GetImageTypeDescription();
-                }
-
-                case IcoDirectory.TagImageWidth:
-                {
-                    return GetImageWidthDescription();
-                }
-
-                case IcoDirectory.TagImageHeight:
-                {
-                    return GetImageHeightDescription();
-                }
-
-                case IcoDirectory.TagColourPaletteSize:
-                {
-                    return GetColourPaletteSizeDescription();
-                }
-
-                default:
-                {
-                    return base.GetDescription(tagType);
-                }
-            }
+                IcoDirectory.TagImageType => GetImageTypeDescription(),
+                IcoDirectory.TagImageWidth => GetImageWidthDescription(),
+                IcoDirectory.TagImageHeight => GetImageHeightDescription(),
+                IcoDirectory.TagColourPaletteSize => GetColourPaletteSizeDescription(),
+                _ => base.GetDescription(tagType)
+            };
         }
 
         public string? GetImageTypeDescription()
