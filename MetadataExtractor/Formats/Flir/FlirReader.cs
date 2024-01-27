@@ -33,7 +33,7 @@ namespace MetadataExtractor.Formats.Flir
             }
 
             if (length == 0)
-                return Enumerable.Empty<Directory>();
+                return [];
 
             var buffer = new byte[length];
             using var merged = new MemoryStream(buffer);

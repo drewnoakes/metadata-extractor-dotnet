@@ -33,7 +33,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     length: segmentBytes.Length - preambleLength - 1);
             }
 
-            return Enumerable.Empty<Directory>();
+            return [];
         }
 
         public IReadOnlyList<Directory> Extract(SequentialReader reader, int length)
