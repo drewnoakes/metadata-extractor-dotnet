@@ -33,9 +33,11 @@ namespace MetadataExtractor.IO
 
         public override long Length => _buffer.Length - _baseOffset;
 
-        protected override byte GetByteInternal(int index)
+        public override void GetBytes(int index, Span<byte> bytes)
         {
-            return _buffer[index + _baseOffset];
+            ValidateIndex(index, bytes.Length);
+
+            _buffer.AsSpan().Slice(index + _baseOffset, bytes.Length).CopyTo(bytes);
         }
 
         protected override void ValidateIndex(int index, int bytesRequested)
@@ -44,21 +46,12 @@ namespace MetadataExtractor.IO
                 throw new BufferBoundsException(ToUnshiftedOffset(index), bytesRequested, _buffer.Length);
         }
 
-        protected override bool IsValidIndex(int index, int bytesRequested)
+        private bool IsValidIndex(int index, int bytesRequested)
         {
             return
                 bytesRequested >= 0 &&
                 index >= 0 &&
                 index + (long)bytesRequested - 1L < Length;
-        }
-
-        public override byte[] GetBytes(int index, int count)
-        {
-            ValidateIndex(index, count);
-
-            var bytes = new byte[count];
-            Array.Copy(_buffer, index + _baseOffset, bytes, 0, count);
-            return bytes;
         }
     }
 }

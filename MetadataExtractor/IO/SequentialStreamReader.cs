@@ -65,7 +65,7 @@ namespace MetadataExtractor.IO
 #if NETSTANDARD2_1
                 var bytesRead = _stream.Read(target);
 #else
-                var len = bytes.Length - totalBytesRead;
+                var len = Math.Min(bytes.Length - totalBytesRead, _buffer.Length);
 
                 var bytesRead = _stream.Read(_buffer, 0, len);
 

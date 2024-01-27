@@ -41,35 +41,41 @@ namespace MetadataExtractor.IO
 
         public override long Length { get; }
 
-        protected override byte GetByteInternal(int index)
+#if !NETSTANDARD2_1
+        private readonly byte[] _buffer = new byte[2048];
+#endif
+
+        public override void GetBytes(int index, Span<byte> bytes)
         {
-            ValidateIndex(index, 1);
+            int count = bytes.Length;
 
-            if (index + _baseOffset != _stream.Position)
-                Seek(index);
-
-            var b = _stream.ReadByte();
-
-            if (b < 0)
-                throw new BufferBoundsException("Unexpected end of file encountered.");
-
-            return unchecked((byte)b);
-        }
-
-        public override byte[] GetBytes(int index, int count)
-        {
             ValidateIndex(index, count);
 
             if (index + _baseOffset != _stream.Position)
                 Seek(index);
 
-            var bytes = new byte[count];
-            var bytesRead = _stream.Read(bytes, 0, count);
+            int totalBytesRead = 0;
 
-            if (bytesRead != count)
-                throw new BufferBoundsException("Unexpected end of file encountered.");
+            while (totalBytesRead != bytes.Length)
+            {
+                var target = bytes.Slice(totalBytesRead);
+#if NETSTANDARD2_1
+                var bytesRead = _stream.Read(target);
+#else
+                var len = Math.Min(bytes.Length - totalBytesRead, _buffer.Length);
 
-            return bytes;
+                var bytesRead = _stream.Read(_buffer, 0, len);
+
+                _buffer.AsSpan(0, len).CopyTo(target);
+#endif
+                if (bytesRead == 0)
+                    throw new IOException("End of data reached.");
+
+                totalBytesRead += bytesRead;
+
+                Debug.Assert(totalBytesRead <= bytes.Length);
+            }
+
         }
 
         private void Seek(int index)
@@ -81,7 +87,7 @@ namespace MetadataExtractor.IO
             _stream.Seek(streamIndex, SeekOrigin.Begin);
         }
 
-        protected override bool IsValidIndex(int index, int bytesRequested)
+        private bool IsValidIndex(int index, int bytesRequested)
         {
             return
                 bytesRequested >= 0 &&
