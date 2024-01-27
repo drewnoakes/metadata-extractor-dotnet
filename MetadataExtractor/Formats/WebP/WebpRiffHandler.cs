@@ -30,7 +30,7 @@ namespace MetadataExtractor.Formats.WebP
             _directories = directories;
         }
 
-        public bool ShouldAcceptRiffIdentifier(string identifier) => identifier == "WEBP";
+        public bool ShouldAcceptRiffIdentifier(ReadOnlySpan<byte> identifier) => identifier.SequenceEqual("WEBP"u8);
 
         public bool ShouldAcceptChunk(string fourCc) => fourCc == "VP8X" ||
                                                         fourCc == "VP8L" ||

@@ -29,7 +29,7 @@ namespace MetadataExtractor.Formats.Avi
             _directories = directories;
         }
 
-        public bool ShouldAcceptRiffIdentifier(string identifier) => identifier == "AVI ";
+        public bool ShouldAcceptRiffIdentifier(ReadOnlySpan<byte> identifier) => identifier.SequenceEqual("AVI "u8);
 
         public bool ShouldAcceptChunk(string fourCc) => fourCc switch
         {

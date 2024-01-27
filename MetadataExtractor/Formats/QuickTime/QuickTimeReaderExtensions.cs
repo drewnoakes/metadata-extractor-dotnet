@@ -51,7 +51,7 @@ namespace MetadataExtractor.Formats.QuickTime
             {
                 var val = reader.GetS32BitFixedPoint();
                 // the right column is fixed 2.30 instead of 16.16
-                if (i == 2 || i == 5 || i == 8)
+                if (i is 2 or 5 or 8)
                 {
                     val /= 0x4000;
                 }

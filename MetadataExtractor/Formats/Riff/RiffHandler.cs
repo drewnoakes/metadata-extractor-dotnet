@@ -28,7 +28,7 @@ namespace MetadataExtractor.Formats.Riff
 
         public bool ShouldAcceptChunk(string fourCc) => _handlers.ContainsKey(fourCc);
 
-        public abstract bool ShouldAcceptRiffIdentifier(string identifier);
+        public abstract bool ShouldAcceptRiffIdentifier(ReadOnlySpan<byte> identifier);
 
         public abstract bool ShouldAcceptList(string fourCc);
 

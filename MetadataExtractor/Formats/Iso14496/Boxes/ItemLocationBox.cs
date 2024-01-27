@@ -18,7 +18,7 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
             OffsetSize = bitReader.GetByte(4);
             LengthSize = bitReader.GetByte(4);
             BaseOffsetSize = bitReader.GetByte(4);
-            if (Version == 1 || Version == 2)
+            if (Version is 1 or 2)
             {
                 IndexSize = bitReader.GetByte(4);
             }
@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
         private uint ReadItemNumber(SequentialReader sr) => Version < 2 ? sr.GetUInt16() : sr.GetUInt32();
 
         private ConstructionMethod ReadConstructionMethod(SequentialReader sr) =>
-            (ConstructionMethod)((Version == 1 || Version == 2) ? (sr.GetUInt16() & 0x0F) : 0);
+            (ConstructionMethod)((Version is 1 or 2) ? (sr.GetUInt16() & 0x0F) : 0);
 
         private static ulong ReadSizedPointer(SequentialReader sr, byte pointerSize) =>
             pointerSize switch
@@ -80,7 +80,7 @@ namespace MetadataExtractor.Formats.Iso14496.Boxes
                 ReadSizedPointer(sr, LengthSize));
 
         private ulong ReadItemIndex(SequentialReader sr) =>
-            (Version == 1 || Version == 2) ? ReadSizedPointer(sr, IndexSize) : 0;
+            (Version is 1 or 2) ? ReadSizedPointer(sr, IndexSize) : 0;
     }
 
     internal enum ConstructionMethod

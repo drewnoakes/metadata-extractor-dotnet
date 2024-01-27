@@ -118,7 +118,7 @@ namespace MetadataExtractor.Formats.Eps
                 while (true)
                 {
                     char c = (char)reader.GetByte();
-                    if (c == '\r' || c == '\n')
+                    if (c is '\r' or '\n')
                         break;
                     line.Append(c);
                 }
@@ -159,10 +159,8 @@ namespace MetadataExtractor.Formats.Eps
         /// <param name="value">String that holds value of current comment</param>
         private void AddToDirectory(EpsDirectory directory, string name, string value)
         {
-            if (!EpsDirectory.TagIntegerMap.ContainsKey(name))
+            if (!EpsDirectory.TagIntegerMap.TryGetValue(name, out int tag))
                 return;
-
-            var tag = EpsDirectory.TagIntegerMap[name];
 
             switch (tag)
             {

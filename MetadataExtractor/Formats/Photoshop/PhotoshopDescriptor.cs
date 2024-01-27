@@ -71,40 +71,20 @@ namespace MetadataExtractor.Formats.Photoshop
                     : q <= 8
                         ? q + 4
                         : q;
-
-                string quality;
-                switch (q)
+                string quality = q switch
                 {
-                    case 0xFFFD:
-                    case 0xFFFE:
-                    case 0xFFFF:
-                    case 0:
-                        quality = "Low";
-                        break;
-                    case 1:
-                    case 2:
-                    case 3:
-                        quality = "Medium";
-                        break;
-                    case 4:
-                    case 5:
-                        quality = "High";
-                        break;
-                    case 6:
-                    case 7:
-                    case 8:
-                        quality = "Maximum";
-                        break;
-                    default:
-                        quality = "Unknown";
-                        break;
-                }
+                    0xFFFD or 0xFFFE or 0xFFFF or 0 => "Low",
+                    1 or 2 or 3 => "Medium",
+                    4 or 5 => "High",
+                    6 or 7 or 8 => "Maximum",
+                    _ => "Unknown"
+                };
                 var format = f switch
                 {
                     0x0000 => "Standard",
                     0x0001 => "Optimised",
                     0x0101 => "Progressive",
-                    _ => $"Unknown (0x{f:X4})",
+                    _ => $"Unknown (0x{f:X4})"
                 };
                 var scans = s is >= 1 and <= 3
                     ? (s + 2).ToString()

@@ -19,7 +19,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// later models, the IFD was given the standard prefix to indicate the camera models (most other manufacturers also
     /// provide this prefix to aid in software decoding).
     /// </remarks>
-    /// <author>Drew Noakes https://drewnoakes.com</author>    public class NikonType2MakernoteDirectory : Directory
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class NikonType2MakernoteDirectory : Directory
     {
         /// <summary>
         /// Values observed

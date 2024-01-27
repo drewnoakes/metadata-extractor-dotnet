@@ -25,24 +25,15 @@ namespace MetadataExtractor.Formats.Gif
             if (!Directory.TryGetInt32(GifControlDirectory.TagDisposalMethod, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Not Specified";
-                case 1:
-                    return "Don't Dispose";
-                case 2:
-                    return "Restore to Background Color";
-                case 3:
-                    return "Restore to Previous";
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                    return "To Be Defined";
-                default:
-                    return $"Invalid value ({value})";
-            }
+                0 => "Not Specified",
+                1 => "Don't Dispose",
+                2 => "Restore to Background Color",
+                3 => "Restore to Previous",
+                4 or 5 or 6 or 7 => "To Be Defined",
+                _ => $"Invalid value ({value})"
+            };
         }
     }
 }

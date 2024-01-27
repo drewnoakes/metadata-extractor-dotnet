@@ -5,7 +5,9 @@ namespace MetadataExtractor.Formats.Tga
     internal readonly struct TgaFooter(int extOffset, int devOffset, byte[] signature)
     {
         public int ExtOffset { get; } = extOffset;
+
         public int DevOffset { get; } = devOffset;
+
         public byte[] Signature { get; } = signature;
     }
 

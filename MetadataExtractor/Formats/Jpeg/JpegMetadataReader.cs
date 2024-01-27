@@ -2,13 +2,13 @@
 
 using MetadataExtractor.Formats.Adobe;
 using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.Formats.Flir;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Jfif;
 using MetadataExtractor.Formats.Jfxx;
 using MetadataExtractor.Formats.Photoshop;
-using MetadataExtractor.Formats.FileSystem;
-using MetadataExtractor.Formats.Flir;
 using MetadataExtractor.Formats.Xmp;
 
 namespace MetadataExtractor.Formats.Jpeg

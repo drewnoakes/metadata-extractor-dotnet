@@ -16,8 +16,8 @@ using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.Formats.Png;
 using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.Formats.Raf;
-using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Tga;
+using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Wav;
 using MetadataExtractor.Formats.WebP;
 

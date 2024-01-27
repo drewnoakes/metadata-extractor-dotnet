@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iso14496;
 using MetadataExtractor.Formats.Iso14496.Boxes;
-using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.Formats.Xmp;
 
@@ -35,7 +35,7 @@ namespace MetadataExtractor.Formats.Heif
 
             uint primaryItem = boxes.Descendant<PrimaryItemBox>()?.PrimaryItem ?? uint.MaxValue;
             var itemRefs = (boxes.Descendant<ItemReferenceBox>()?.Boxes ?? new SingleItemTypeReferenceBox[0])
-                .Where(i => i.Type == BoxTypes.ThmbTag || i.Type == BoxTypes.CdscTag || i.Type == BoxTypes.MimeTag).ToList();
+                .Where(i => i.Type is BoxTypes.ThmbTag or BoxTypes.CdscTag or BoxTypes.MimeTag).ToList();
 
             ParseImageProperties();
 
@@ -111,7 +111,7 @@ namespace MetadataExtractor.Formats.Heif
                             (from associationBox in associations.Entries.Where(i => secondary.Contains(i.ItemId))
                              from propIndex in associationBox.Properties
                              let i = props.ElementAt(propIndex.Index - 1)
-                             where i is DecoderConfigurationBox || i is ColorInformationBox
+                             where i is DecoderConfigurationBox or ColorInformationBox
                              select i)
                             .Distinct());
 

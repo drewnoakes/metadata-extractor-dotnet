@@ -482,34 +482,21 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(OlympusMakernoteDirectory.TagWbMode) is not short[] values)
                 return null;
 
-            switch ($"{values[0]} {values[1]}".Trim())
+            return ((int)values[0], (int)values[1]) switch
             {
-                case "1":
-                case "1 0":
-                    return "Auto";
-                case "1 2":
-                    return "Auto (2)";
-                case "1 4":
-                    return "Auto (4)";
-                case "2 2":
-                    return "3000 Kelvin";
-                case "2 3":
-                    return "3700 Kelvin";
-                case "2 4":
-                    return "4000 Kelvin";
-                case "2 5":
-                    return "4500 Kelvin";
-                case "2 6":
-                    return "5500 Kelvin";
-                case "2 7":
-                    return "6500 Kelvin";
-                case "2 8":
-                    return "7500 Kelvin";
-                case "3 0":
-                    return "One-touch";
-                default:
-                    return $"Unknown ({values[0]} {values[1]})";
-            }
+                (1, 0) => "Auto",
+                (1, 2) => "Auto (2)",
+                (1, 4) => "Auto (4)",
+                (2, 2) => "3000 Kelvin",
+                (2, 3) => "3700 Kelvin",
+                (2, 4) => "4000 Kelvin",
+                (2, 5) => "4500 Kelvin",
+                (2, 6) => "5500 Kelvin",
+                (2, 7) => "6500 Kelvin",
+                (2, 8) => "7500 Kelvin",
+                (3, 0) => "One-touch",
+                _ => $"Unknown ({values[0]} {values[1]})",
+            };
         }
 
         public string? GetRedBalanceDescription()

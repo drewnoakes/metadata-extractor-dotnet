@@ -12,15 +12,16 @@ using MetadataExtractor.Formats.Xmp;
 
 namespace MetadataExtractor.PowerShell
 {
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
     public readonly struct JpegSegment(JpegSegmentType type, int length, int padding, long offset, string? preamble)
     {
         public JpegSegmentType Type { get; } = type;
+
         public int Length { get; } = length;
+
         public int Padding { get; } = padding;
+
         public long Offset { get; } = offset;
+
         public string? Preamble { get; } = preamble;
     }
 

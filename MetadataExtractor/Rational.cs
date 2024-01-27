@@ -27,7 +27,7 @@ namespace MetadataExtractor
         /// <summary>Gets the numerator.</summary>
         public long Numerator { get; }
 
-        /// <summary>Initialises a new instance with the <paramref name="numerator"/> and <paramref name="denominator"/>.</summary>
+        /// <summary>Initializes a new instance with the <paramref name="numerator"/> and <paramref name="denominator"/>.</summary>
         public Rational(long numerator, long denominator)
         {
             Numerator = numerator;

@@ -13,7 +13,7 @@ namespace MetadataExtractor.Formats.Riff
         /// <remarks>Returning <c>false</c> causes processing to stop after reading only the first twelve bytes of data.</remarks>
         /// <param name="identifier">The four character code identifying the type of RIFF data</param>
         /// <returns>true if processing should continue, otherwise false</returns>
-        bool ShouldAcceptRiffIdentifier(string identifier);
+        bool ShouldAcceptRiffIdentifier(ReadOnlySpan<byte> identifier);
 
         /// <summary>Gets whether this handler is interested in the specific chunk type.</summary>
         /// <remarks>

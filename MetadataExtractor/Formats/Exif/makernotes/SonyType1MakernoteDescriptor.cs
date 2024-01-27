@@ -165,47 +165,26 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagColorMode, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Standard";
-                case 1:
-                    return "Vivid";
-                case 2:
-                    return "Portrait";
-                case 3:
-                    return "Landscape";
-                case 4:
-                    return "Sunset";
-                case 5:
-                    return "Night Portrait";
-                case 6:
-                    return "Black & White";
-                case 7:
-                    return "Adobe RGB";
-                case 12:
-                case 100:
-                    return "Neutral";
-                case 13:
-                case 101:
-                    return "Clear";
-                case 14:
-                case 102:
-                    return "Deep";
-                case 15:
-                case 103:
-                    return "Light";
-                case 16:
-                    return "Autumn";
-                case 17:
-                    return "Sepia";
-                case 104:
-                    return "Night View";
-                case 105:
-                    return "Autumn Leaves";
-                default:
-                    return $"Unknown ({value})";
-            }
+                0 => "Standard",
+                1 => "Vivid",
+                2 => "Portrait",
+                3 => "Landscape",
+                4 => "Sunset",
+                5 => "Night Portrait",
+                6 => "Black & White",
+                7 => "Adobe RGB",
+                12 or 100 => "Neutral",
+                13 or 101 => "Clear",
+                14 or 102 => "Deep",
+                15 or 103 => "Light",
+                16 => "Autumn",
+                17 => "Sepia",
+                104 => "Night View",
+                105 => "Autumn Leaves",
+                _ => $"Unknown ({value})"
+            };
         }
 
         public string? GetMacroDescription()

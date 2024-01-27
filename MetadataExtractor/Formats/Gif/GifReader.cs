@@ -131,8 +131,10 @@ namespace MetadataExtractor.Formats.Gif
 
             var headerDirectory = new GifHeaderDirectory();
 
-            var signature = reader.GetString(3, Encoding.UTF8);
-            if (signature != "GIF")
+            Span<byte> signature = stackalloc byte[3];
+            reader.GetBytes(signature);
+
+            if (!signature.SequenceEqual("GIF"u8))
             {
                 headerDirectory.AddError("Invalid GIF file signature");
                 return headerDirectory;
