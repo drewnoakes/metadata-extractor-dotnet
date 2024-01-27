@@ -18,9 +18,9 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PhotoshopReader : JpegSegmentWithPreambleMetadataReader
     {
-        public const string JpegSegmentPreamble = "Photoshop 3.0";
+        public static ReadOnlySpan<byte> JpegSegmentPreamble => "Photoshop 3.0"u8;
 
-        protected override ReadOnlySpan<byte> PreambleBytes => "Photoshop 3.0"u8;
+        protected override ReadOnlySpan<byte> PreambleBytes => JpegSegmentPreamble;
 
         public override ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.AppD];
 

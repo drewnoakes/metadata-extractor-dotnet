@@ -2,7 +2,6 @@
 
 using System.Management.Automation;
 using JetBrains.Annotations;
-using MetadataExtractor.Formats.Adobe;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Jfif;
@@ -16,22 +15,13 @@ namespace MetadataExtractor.PowerShell
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
-    public readonly struct JpegSegment
+    public readonly struct JpegSegment(JpegSegmentType type, int length, int padding, long offset, string? preamble)
     {
-        public JpegSegmentType Type { get; }
-        public int Length { get; }
-        public int Padding { get; }
-        public long Offset { get; }
-        public string? Preamble { get; }
-
-        public JpegSegment(JpegSegmentType type, int length, int padding, long offset, string? preamble)
-        {
-            Type = type;
-            Length = length;
-            Padding = padding;
-            Offset = offset;
-            Preamble = preamble;
-        }
+        public JpegSegmentType Type { get; } = type;
+        public int Length { get; } = length;
+        public int Padding { get; } = padding;
+        public long Offset { get; } = offset;
+        public string? Preamble { get; } = preamble;
     }
 
     [Cmdlet(VerbsCommon.Show, "JpegStructure")]
@@ -40,15 +30,15 @@ namespace MetadataExtractor.PowerShell
     {
         private static readonly ByteTrie<string?> _appSegmentByPreambleBytes = new ByteTrie<string?>(null)
         {
-            { "Adobe",          Encoding.UTF8.GetBytes(AdobeJpegReader.JpegSegmentPreamble) },
-            { "Ducky",          Encoding.UTF8.GetBytes(DuckyReader.JpegSegmentPreamble) },
-            { "Exif",           Encoding.UTF8.GetBytes(ExifReader.JpegSegmentPreamble) },
-            { "ICC",            Encoding.UTF8.GetBytes(IccReader.JpegSegmentPreamble) },
-            { "JFIF",           Encoding.UTF8.GetBytes(JfifReader.JpegSegmentPreamble) },
-            { "JFXX",           Encoding.UTF8.GetBytes(JfxxReader.JpegSegmentPreamble) },
-            { "Photoshop",      Encoding.UTF8.GetBytes(PhotoshopReader.JpegSegmentPreamble) },
-            { "XMP",            Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreamble) },
-            { "XMP (Extended)", Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreambleExtension) }
+            { "Adobe",          "Adobe"u8 },
+            { "Ducky",          DuckyReader.JpegSegmentPreamble },
+            { "Exif",           ExifReader.JpegSegmentPreamble },
+            { "ICC",            IccReader.JpegSegmentPreamble },
+            { "JFIF",           JfifReader.JpegSegmentPreamble },
+            { "JFXX",           JfxxReader.JpegSegmentPreamble },
+            { "Photoshop",      PhotoshopReader.JpegSegmentPreamble },
+            { "XMP",            XmpReader.JpegSegmentPreamble },
+            { "XMP (Extended)", XmpReader.JpegSegmentPreambleExtension }
         };
 
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "Path to the file to process")]

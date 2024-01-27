@@ -2331,8 +2331,8 @@ const MetadataExtractor.Formats.Xmp.Schema.ExifSpecificProperties = "http://ns.a
 const MetadataExtractor.Formats.Xmp.Schema.ExifTiffProperties = "http://ns.adobe.com/tiff/1.0/" -> string!
 const MetadataExtractor.Formats.Xmp.Schema.XmpProperties = "http://ns.adobe.com/xap/1.0/" -> string!
 const MetadataExtractor.Formats.Xmp.XmpDirectory.TagXmpValueCount = 65535 -> int
-const MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreamble = "http://ns.adobe.com/xap/1.0/\0" -> string!
-const MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreambleExtension = "http://ns.adobe.com/xmp/extension/\0" -> string!
+static MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Xmp.XmpReader.JpegSegmentPreambleExtension.get -> System.ReadOnlySpan<byte>
 MetadataExtractor.Age
 MetadataExtractor.Age.Age(int years, int months, int days, int hours, int minutes, int seconds) -> void
 MetadataExtractor.Age.Days.get -> int
@@ -4034,6 +4034,7 @@ MetadataExtractor.TagDescriptor<T>.TagDescriptor(T! directory) -> void
 MetadataExtractor.Util.ByteConvert
 MetadataExtractor.Util.ByteTrie<T>
 MetadataExtractor.Util.ByteTrie<T>.Add(T value, params byte[]![]! parts) -> void
+MetadataExtractor.Util.ByteTrie<T>.Add(T value, System.ReadOnlySpan<byte> part) -> void
 MetadataExtractor.Util.ByteTrie<T>.ByteTrie(T defaultValue) -> void
 MetadataExtractor.Util.ByteTrie<T>.Find(System.ReadOnlySpan<byte> bytes) -> T
 MetadataExtractor.Util.ByteTrie<T>.MaxDepth.get -> int
@@ -4417,14 +4418,14 @@ static readonly MetadataExtractor.Formats.Exif.Makernotes.OlympusMakernoteDirect
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFireMakernoteDirectory.MakernoteVersion -> ushort
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernoteId -> uint
 static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxUltraFireMakernoteDirectory.MakernotePublicId -> uint
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcValues -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcValues -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcValues -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcLengths -> byte[]!
-static readonly MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcValues -> byte[]!
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceAcValues.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalChrominanceDcValues.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcValues.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcLengths.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcValues.get -> System.ReadOnlySpan<byte>
 static readonly MetadataExtractor.Formats.Png.PngChunkType.bKGD -> MetadataExtractor.Formats.Png.PngChunkType!
 static readonly MetadataExtractor.Formats.Png.PngChunkType.cHRM -> MetadataExtractor.Formats.Png.PngChunkType!
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType!

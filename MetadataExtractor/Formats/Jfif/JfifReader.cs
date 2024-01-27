@@ -15,9 +15,9 @@ namespace MetadataExtractor.Formats.Jfif
     /// <author>Yuri Binev, Drew Noakes, Markus Meyer</author>
     public sealed class JfifReader : JpegSegmentWithPreambleMetadataReader
     {
-        public const string JpegSegmentPreamble = "JFIF";
+        public static ReadOnlySpan<byte> JpegSegmentPreamble => "JFIF"u8;
 
-        protected override ReadOnlySpan<byte> PreambleBytes => "JFIF"u8;
+        protected override ReadOnlySpan<byte> PreambleBytes => JpegSegmentPreamble;
 
         public override ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App0];
 

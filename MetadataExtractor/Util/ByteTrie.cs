@@ -30,7 +30,7 @@ namespace MetadataExtractor.Util
         public int MaxDepth { get; private set; }
 
         /// <summary>
-        /// Initialises a new instance of <see cref="ByteTrie{T}"/> with specified default value.
+        /// Initializes a new instance of <see cref="ByteTrie{T}"/> with specified default value.
         /// </summary>
         /// <param name="defaultValue">
         /// The default value to use in <see cref="ByteTrie{T}.Find(ReadOnlySpan{byte})"/> when no path matches.
@@ -79,7 +79,7 @@ namespace MetadataExtractor.Util
         }
 
         /// <summary>Store the given value at the specified path.</summary>
-        internal void Add(T value, ReadOnlySpan<byte> part)
+        public void Add(T value, ReadOnlySpan<byte> part)
         {
             var depth = 0;
             var node = _root;

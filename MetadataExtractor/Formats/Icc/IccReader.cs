@@ -17,8 +17,7 @@ namespace MetadataExtractor.Formats.Icc
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IccReader : IJpegSegmentMetadataReader
     {
-        public const string JpegSegmentPreamble = "ICC_PROFILE"; // TODO what are the extra three bytes here? are they always the same?
-        private static ReadOnlySpan<byte> JpegSegmentPreambleBytes => "ICC_PROFILE"u8;
+        public static ReadOnlySpan<byte> JpegSegmentPreamble => "ICC_PROFILE"u8; // TODO what are the extra three bytes here? are they always the same?
 
         // NOTE the header is 14 bytes, while "ICC_PROFILE" is 11
         private const int JpegSegmentPreambleLength = 14;
@@ -30,7 +29,7 @@ namespace MetadataExtractor.Formats.Icc
             // ICC data can be spread across multiple JPEG segments.
 
             // Skip any segments that do not contain the required preamble
-            var iccSegments = segments.Where(segment => segment.Span.StartsWith(JpegSegmentPreambleBytes)).ToList();
+            var iccSegments = segments.Where(segment => segment.Span.StartsWith(JpegSegmentPreamble)).ToList();
 
             if (iccSegments.Count == 0)
                 return Enumerable.Empty<Directory>();
