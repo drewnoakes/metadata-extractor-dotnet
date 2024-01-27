@@ -20,10 +20,10 @@ namespace MetadataExtractor
         private readonly Dictionary<int, string>? _tagNameMap;
 
         /// <summary>Map of values hashed by type identifiers.</summary>
-        private readonly Dictionary<int, object> _tagMap = new();
+        private readonly Dictionary<int, object> _tagMap = [];
 
         /// <summary>Holds tags in the order in which they were stored.</summary>
-        private readonly List<Tag> _definedTagList = new();
+        private readonly List<Tag> _definedTagList = [];
 
         private readonly List<string> _errorList = new(capacity: 4);
 

@@ -59,7 +59,7 @@ public sealed class BplistReader
             }
         }
 
-        List<object> objects = new();
+        List<object> objects = [];
 
         for (int i = 0; i < offsets.Length; i++)
         {
@@ -127,7 +127,7 @@ public sealed class BplistReader
                 keyRefs[j] = reader.GetByte();
             }
 
-            Dictionary<byte, byte> map = new();
+            Dictionary<byte, byte> map = [];
 
             for (int j = 0; j < count; j++)
             {
