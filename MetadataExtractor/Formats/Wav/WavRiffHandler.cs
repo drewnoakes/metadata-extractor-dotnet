@@ -28,7 +28,7 @@ namespace MetadataExtractor.Formats.Wav
         {
         }
 
-        public override bool ShouldAcceptRiffIdentifier(string identifier) => identifier == "WAVE";
+        public override bool ShouldAcceptRiffIdentifier(ReadOnlySpan<byte> identifier) => identifier.SequenceEqual("WAVE"u8);
 
         public override bool ShouldAcceptList(string fourCc) => false;
     }

@@ -28,14 +28,16 @@ namespace MetadataExtractor.Formats.Riff
 
                 // PROCESS FILE HEADER
 
-                var fileFourCc = reader.GetString(4, Encoding.ASCII);
-                if (fileFourCc != "RIFF")
-                    throw new RiffProcessingException("Invalid RIFF header: " + fileFourCc);
+                Span<byte> fileFourCc = stackalloc byte[4];
+                reader.GetBytes(fileFourCc);
+                if (!fileFourCc.SequenceEqual("RIFF"u8))
+                    throw new RiffProcessingException("Invalid RIFF header: " + Encoding.ASCII.GetString(fileFourCc.ToArray()));
 
                 // The total size of the chunks that follow plus 4 bytes for the 'WEBP' or 'AVI ' FourCC
                 int fileSize = reader.GetInt32();
                 int sizeLeft = fileSize;
-                string identifier = reader.GetString(4, Encoding.ASCII);
+                Span<byte> identifier = stackalloc byte[4];
+                reader.GetBytes(identifier);
                 sizeLeft -= 4;
 
                 if (!handler.ShouldAcceptRiffIdentifier(identifier))
