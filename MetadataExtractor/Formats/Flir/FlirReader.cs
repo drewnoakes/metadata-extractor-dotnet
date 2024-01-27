@@ -14,7 +14,7 @@ namespace MetadataExtractor.Formats.Flir
 
         private ReadOnlySpan<byte> PreambleBytes => "FLIR\0"u8;
 
-        public ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App1];
+        public IReadOnlyCollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App1];
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {

@@ -7,14 +7,14 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Darrell Silver http://www.darrellsilver.com</author>
     public sealed class JpegReader : IJpegSegmentMetadataReader
     {
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new HashSet<JpegSegmentType>
-        {
+        IReadOnlyCollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } =
+        [
             // NOTE that some SOFn values do not exist
             JpegSegmentType.Sof0, JpegSegmentType.Sof1, JpegSegmentType.Sof2, JpegSegmentType.Sof3,
             JpegSegmentType.Sof5, JpegSegmentType.Sof6, JpegSegmentType.Sof7, JpegSegmentType.Sof9,
             JpegSegmentType.Sof10, JpegSegmentType.Sof11, JpegSegmentType.Sof13, JpegSegmentType.Sof14,
             JpegSegmentType.Sof15
-        };
+        ];
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {

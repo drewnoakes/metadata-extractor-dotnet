@@ -19,7 +19,7 @@ namespace MetadataExtractor.Formats.Jfif
 
         protected override ReadOnlySpan<byte> PreambleBytes => JpegSegmentPreamble;
 
-        public override ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App0];
+        public override IReadOnlyCollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App0];
 
         protected override IEnumerable<Directory> Extract(byte[] segmentBytes, int preambleLength)
         {

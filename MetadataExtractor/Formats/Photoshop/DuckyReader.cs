@@ -10,7 +10,7 @@ namespace MetadataExtractor.Formats.Photoshop
     {
         public static ReadOnlySpan<byte> JpegSegmentPreamble => "Ducky"u8;
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.AppC];
+        IReadOnlyCollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.AppC];
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {

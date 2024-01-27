@@ -22,7 +22,7 @@ namespace MetadataExtractor.Formats.Xmp
         public static ReadOnlySpan<byte> JpegSegmentPreamble => "http://ns.adobe.com/xap/1.0/\0"u8;
         public static ReadOnlySpan<byte> JpegSegmentPreambleExtension => "http://ns.adobe.com/xmp/extension/\0"u8;
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.App1];
+        IReadOnlyCollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.App1];
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {

@@ -8,7 +8,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public sealed class JpegDhtReader : IJpegSegmentMetadataReader
     {
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = new[] { JpegSegmentType.Dht };
+        IReadOnlyCollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.Dht];
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {

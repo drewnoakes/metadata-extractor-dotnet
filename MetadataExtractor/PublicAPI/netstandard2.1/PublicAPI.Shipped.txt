@@ -2,7 +2,7 @@
 abstract MetadataExtractor.Directory.Name.get -> string!
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.Extract(byte[]! segmentBytes, int preambleLength) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.PreambleBytes.get -> System.ReadOnlySpan<byte>
-abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.SegmentTypes.get -> System.Collections.Generic.IReadOnlyCollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 abstract MetadataExtractor.Formats.Riff.RiffChunkHandler<T>.MinSize.get -> int
 abstract MetadataExtractor.Formats.Riff.RiffChunkHandler<T>.Populate(T! directory, byte[]! payload) -> void
 abstract MetadataExtractor.Formats.Riff.RiffHandler.ShouldAcceptList(string! fourCc) -> bool
@@ -3240,7 +3240,7 @@ MetadataExtractor.Formats.Flir.FlirReader.ExtractRawThermalImage.get -> bool
 MetadataExtractor.Formats.Flir.FlirReader.ExtractRawThermalImage.set -> void
 MetadataExtractor.Formats.Flir.FlirReader.FlirReader() -> void
 MetadataExtractor.Formats.Flir.FlirReader.ReadJpegSegments(System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.JpegSegment!>! segments) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
-MetadataExtractor.Formats.Flir.FlirReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+MetadataExtractor.Formats.Flir.FlirReader.SegmentTypes.get -> System.Collections.Generic.IReadOnlyCollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor
 MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GeoTiffDescriptor(MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory! directory) -> void
 MetadataExtractor.Formats.GeoTiff.GeoTiffDescriptor.GetChartFormatDescription() -> string?
@@ -3415,7 +3415,7 @@ MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.IsOptimized() -> bool
 MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.IsTypical() -> bool
 MetadataExtractor.Formats.Jpeg.IJpegSegmentMetadataReader
 MetadataExtractor.Formats.Jpeg.IJpegSegmentMetadataReader.ReadJpegSegments(System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.JpegSegment!>! segments) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
-MetadataExtractor.Formats.Jpeg.IJpegSegmentMetadataReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+MetadataExtractor.Formats.Jpeg.IJpegSegmentMetadataReader.SegmentTypes.get -> System.Collections.Generic.IReadOnlyCollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 MetadataExtractor.Formats.Jpeg.JpegCommentDescriptor
 MetadataExtractor.Formats.Jpeg.JpegCommentDescriptor.GetJpegCommentDescription() -> string?
 MetadataExtractor.Formats.Jpeg.JpegCommentDescriptor.JpegCommentDescriptor(MetadataExtractor.Formats.Jpeg.JpegCommentDirectory! directory) -> void
@@ -4092,7 +4092,7 @@ override MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetDescription(int
 override MetadataExtractor.Formats.Exif.ExifIfd0Directory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.ExifImageDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.ExifInteropDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Exif.ExifReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+override MetadataExtractor.Formats.Exif.ExifReader.SegmentTypes.get -> System.Collections.Generic.IReadOnlyCollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 override MetadataExtractor.Formats.Exif.ExifSubIfdDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.ExifThumbnailDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.ExifThumbnailDirectory.Name.get -> string!
@@ -4205,10 +4205,10 @@ override MetadataExtractor.Formats.Iptc.IptcDescriptor.GetDescription(int tagTyp
 override MetadataExtractor.Formats.Iptc.IptcDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Jfif.JfifDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Jfif.JfifDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Jfif.JfifReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+override MetadataExtractor.Formats.Jfif.JfifReader.SegmentTypes.get -> System.Collections.Generic.IReadOnlyCollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 override MetadataExtractor.Formats.Jfxx.JfxxDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Jfxx.JfxxDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Jfxx.JfxxReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+override MetadataExtractor.Formats.Jfxx.JfxxReader.SegmentTypes.get -> System.Collections.Generic.IReadOnlyCollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 override MetadataExtractor.Formats.Jpeg.HuffmanTablesDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Jpeg.JpegCommentDirectory.Name.get -> string!
@@ -4226,7 +4226,7 @@ override MetadataExtractor.Formats.Pcx.PcxDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Photoshop.DuckyDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Photoshop.PhotoshopDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Photoshop.PhotoshopDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Photoshop.PhotoshopReader.SegmentTypes.get -> System.Collections.Generic.ICollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
+override MetadataExtractor.Formats.Photoshop.PhotoshopReader.SegmentTypes.get -> System.Collections.Generic.IReadOnlyCollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 override MetadataExtractor.Formats.Photoshop.PhotoshopTiffHandler.CustomProcessTag(in MetadataExtractor.Formats.Tiff.TiffReaderContext context, int tagId, int valueOffset, int byteCount) -> bool
 override MetadataExtractor.Formats.Photoshop.PsdHeaderDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Photoshop.PsdHeaderDirectory.Name.get -> string!
