@@ -10,7 +10,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <summary>
         /// Gets the set of JPEG segment types that this reader is interested in.
         /// </summary>
-        ICollection<JpegSegmentType> SegmentTypes { get; }
+        IReadOnlyCollection<JpegSegmentType> SegmentTypes { get; }
 
         /// <summary>
         /// Extracts metadata from all JPEG segments matching <see cref="SegmentTypes"/>.

@@ -22,7 +22,7 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble "Exif\0\0".</summary>
         protected override ReadOnlySpan<byte> PreambleBytes => JpegSegmentPreamble;
 
-        public override ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App1];
+        public override IReadOnlyCollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App1];
 
         protected override IEnumerable<Directory> Extract(byte[] segmentBytes, int preambleLength)
         {

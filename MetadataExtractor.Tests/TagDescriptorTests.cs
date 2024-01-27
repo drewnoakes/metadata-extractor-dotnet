@@ -27,7 +27,7 @@ namespace MetadataExtractor.Tests
         public void ConvertBytesToVersionString()
         {
             Assert.Null(TagDescriptor<MockDirectory>.ConvertBytesToVersionString(null, 1));
-            Assert.Null(TagDescriptor<MockDirectory>.ConvertBytesToVersionString(Array.Empty<int>(), 1));
+            Assert.Null(TagDescriptor<MockDirectory>.ConvertBytesToVersionString([], 1));
 
             Assert.Equal("1.00", TagDescriptor<MockDirectory>.ConvertBytesToVersionString([0, 1, 0, 0], 2));
             Assert.Equal(".100", TagDescriptor<MockDirectory>.ConvertBytesToVersionString([0, 1, 0, 0], 1));

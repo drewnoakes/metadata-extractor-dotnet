@@ -17,8 +17,6 @@ namespace MetadataExtractor.Formats.Exif
 
         public override string? GetDescription(int tagType)
         {
-            // TODO order case blocks and corresponding methods in the same order as the TAG_* values are defined
-
 #pragma warning disable format
 
             return tagType switch

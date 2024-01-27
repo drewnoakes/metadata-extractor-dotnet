@@ -31,7 +31,7 @@ namespace MetadataExtractor.Formats.Iptc
 
         internal const byte IptcMarkerByte = 0x1c;
 
-        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.AppD];
+        IReadOnlyCollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.AppD];
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {

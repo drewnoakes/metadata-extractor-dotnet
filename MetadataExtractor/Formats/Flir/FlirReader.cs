@@ -14,7 +14,7 @@ namespace MetadataExtractor.Formats.Flir
 
         private ReadOnlySpan<byte> PreambleBytes => "FLIR\0"u8;
 
-        public ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App1];
+        public IReadOnlyCollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.App1];
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
@@ -33,7 +33,7 @@ namespace MetadataExtractor.Formats.Flir
             }
 
             if (length == 0)
-                return Enumerable.Empty<Directory>();
+                return [];
 
             var buffer = new byte[length];
             using var merged = new MemoryStream(buffer);

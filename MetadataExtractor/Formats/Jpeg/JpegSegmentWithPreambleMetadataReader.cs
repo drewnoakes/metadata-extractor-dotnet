@@ -6,7 +6,7 @@ namespace MetadataExtractor.Formats.Jpeg
     {
         protected abstract ReadOnlySpan<byte> PreambleBytes { get; }
 
-        public abstract ICollection<JpegSegmentType> SegmentTypes { get; }
+        public abstract IReadOnlyCollection<JpegSegmentType> SegmentTypes { get; }
 
         public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {

@@ -22,7 +22,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
         protected override ReadOnlySpan<byte> PreambleBytes => JpegSegmentPreamble;
 
-        public override ICollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.AppD];
+        public override IReadOnlyCollection<JpegSegmentType> SegmentTypes { get; } = [JpegSegmentType.AppD];
 
         protected override IEnumerable<Directory> Extract(byte[] segmentBytes, int preambleLength)
         {
@@ -33,7 +33,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     length: segmentBytes.Length - preambleLength - 1);
             }
 
-            return Enumerable.Empty<Directory>();
+            return [];
         }
 
         public IReadOnlyList<Directory> Extract(SequentialReader reader, int length)
