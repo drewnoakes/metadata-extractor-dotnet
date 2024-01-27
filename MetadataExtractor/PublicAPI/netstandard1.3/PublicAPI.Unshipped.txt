@@ -39,6 +39,8 @@ const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.Tag
 const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.TagPictureControl2 = 189 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.TagRetouchInfo = 187 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.TagToningEffect = 179 -> int
+const MetadataExtractor.Formats.Flir.FlirReader.JpegSegmentPreamble = "FLIR\0" -> string!
+const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGdalProjLinearUnitsInterpCorrect = 3059 -> int
 MetadataExtractor.Formats.Apple.BplistReader
 MetadataExtractor.Formats.Apple.BplistReader.BplistReader() -> void
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults
