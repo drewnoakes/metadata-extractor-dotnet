@@ -159,10 +159,8 @@ namespace MetadataExtractor.Formats.Eps
         /// <param name="value">String that holds value of current comment</param>
         private void AddToDirectory(EpsDirectory directory, string name, string value)
         {
-            if (!EpsDirectory.TagIntegerMap.ContainsKey(name))
+            if (!EpsDirectory.TagIntegerMap.TryGetValue(name, out int tag))
                 return;
-
-            var tag = EpsDirectory.TagIntegerMap[name];
 
             switch (tag)
             {
