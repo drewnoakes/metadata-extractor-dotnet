@@ -91,7 +91,7 @@ namespace MetadataExtractor.Formats.Iptc
             {
                 try
                 {
-                    var s = encoding.GetString(bytes, 0, bytes.Length);
+                    var s = encoding.GetString(bytes);
                     if (s.IndexOf((char)65533) != -1)
                         continue;
                     return encoding;

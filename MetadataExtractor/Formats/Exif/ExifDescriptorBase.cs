@@ -173,7 +173,7 @@ namespace MetadataExtractor.Formats.Exif
             try
             {
                 // Decode the Unicode string and trim the Unicode zero "\0" from the end.
-                return Encoding.Unicode.GetString(bytes, 0, bytes.Length).TrimEnd('\0');
+                return Encoding.Unicode.GetString(bytes).TrimEnd('\0');
             }
             catch
             {

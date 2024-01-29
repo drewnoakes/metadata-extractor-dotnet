@@ -150,7 +150,7 @@ namespace MetadataExtractor.Formats.Iptc
                     if (charset is null)
                     {
                         // Unable to determine the charset, so fall through and treat tag as a regular string
-                        charset = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                        charset = Encoding.UTF8.GetString(bytes);
                     }
                     directory.Set(tagIdentifier, charset);
                     return;

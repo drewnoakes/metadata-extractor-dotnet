@@ -296,7 +296,7 @@ namespace MetadataExtractor.Formats.QuickTime
                         a.Reader.Skip(4L);
                         var partId = a.Reader.GetUInt32();
                         var featureCode = a.Reader.GetUInt32();
-                        var featureValue = string.Join(" ", a.Reader.GetBytes(4).Select(v => v.ToString("X2")).ToArray());
+                        var featureValue = string.Join(" ", a.Reader.GetBytes(4).Select(v => v.ToString("X2")));
                         Debug.WriteLine($"PartId={partId} FeatureCode={featureCode} FeatureValue={featureValue}");
                         break;
                     }

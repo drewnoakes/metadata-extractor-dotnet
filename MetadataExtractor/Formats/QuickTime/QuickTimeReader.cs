@@ -50,7 +50,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 var bytes = BitConverter.GetBytes(Type);
                 Array.Reverse(bytes);
 #if NETSTANDARD1_3
-                return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                return Encoding.UTF8.GetString(bytes);
 #else
                 return Encoding.ASCII.GetString(bytes);
 #endif

@@ -73,9 +73,7 @@ namespace MetadataExtractor.Formats.Png
         {
             return Directory.GetObject(PngDirectory.TagTextualData) is not IList<KeyValuePair> pairs
                 ? null
-                : string.Join(
-                    "\n",
-                    pairs.Select(kv => $"{kv.Key}: {kv.Value}"));
+                : string.Join("\n", pairs.Select(kv => $"{kv.Key}: {kv.Value}"));
         }
 
         public string? GetBackgroundColorDescription()

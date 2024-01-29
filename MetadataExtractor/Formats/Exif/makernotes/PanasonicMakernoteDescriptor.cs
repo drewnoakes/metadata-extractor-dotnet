@@ -255,7 +255,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (bytes is null)
                 return null;
 
-            return string.Join(".", bytes.Select(b => b.ToString()).ToArray());
+            return string.Join(".", bytes);
         }
 
         public string? GetIntelligentDRangeDescription()
