@@ -4326,7 +4326,7 @@ static MetadataExtractor.Formats.Eps.EpsMetadataReader.ReadMetadata(string! file
 static MetadataExtractor.Formats.Eps.EpsMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Exif.ExifDirectoryBase.AddExifTagNames(System.Collections.Generic.Dictionary<int, string!>! map) -> void
 static MetadataExtractor.Formats.Exif.ExifReader.JpegSegmentPreambleLength.get -> int
-static MetadataExtractor.Formats.Exif.ExifReader.StartsWithJpegExifPreamble(byte[]! bytes) -> bool
+static MetadataExtractor.Formats.Exif.ExifReader.StartsWithJpegExifPreamble(System.ReadOnlySpan<byte> bytes) -> bool
 static MetadataExtractor.Formats.Gif.GifMetadataReader.ReadMetadata(string! filePath) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Gif.GifMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Heif.HeifMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
