@@ -26,7 +26,7 @@ namespace MetadataExtractor.Formats.Iso14496
                 (((typeString[0] & 0xFF) << 24) |
                  ((typeString[1] & 0xFF) << 16) |
                  ((typeString[2] & 0xFF) << 8) |
-                 ( typeString[3] & 0xFF));
+                 (typeString[3] & 0xFF));
         }
     }
 }

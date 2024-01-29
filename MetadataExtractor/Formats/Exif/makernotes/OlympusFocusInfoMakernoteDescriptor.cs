@@ -109,7 +109,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values.Length == 0)
                 return null;
 
-            var join = $"{values[0]}" + (values.Length > 1 ? $"{ values[1]}" : "");
+            var join = $"{values[0]}" + (values.Length > 1 ? $"{values[1]}" : "");
 
             return join switch
             {
