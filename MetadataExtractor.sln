@@ -100,6 +100,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki (Images)", "Wiki (Imag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetadataExtractor.Samples", "MetadataExtractor.Samples\MetadataExtractor.Samples.csproj", "{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{2980D6CD-F063-461C-A8F6-AB90D505FA8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{D75F7643-9F42-4A6B-A3FF-92443537CE9D}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\CI.yml = .github\workflows\CI.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +174,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2980D6CD-F063-461C-A8F6-AB90D505FA8C} = {8CF154EA-6A2C-4BF4-B263-78758F834192}
+		{D75F7643-9F42-4A6B-A3FF-92443537CE9D} = {2980D6CD-F063-461C-A8F6-AB90D505FA8C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15F8CDD5-5EFF-4277-8559-5AA83D1353C8}
