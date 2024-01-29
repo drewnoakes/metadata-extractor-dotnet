@@ -2,13 +2,9 @@
 
 namespace MetadataExtractor.Formats.QuickTime
 {
-    public sealed class QuickTimeMetadataHeaderDescriptor : TagDescriptor<QuickTimeMetadataHeaderDirectory>
+    public sealed class QuickTimeMetadataHeaderDescriptor(QuickTimeMetadataHeaderDirectory directory)
+        : TagDescriptor<QuickTimeMetadataHeaderDirectory>(directory)
     {
-        public QuickTimeMetadataHeaderDescriptor(QuickTimeMetadataHeaderDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

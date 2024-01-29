@@ -3,13 +3,9 @@
 namespace MetadataExtractor.Formats.Netpbm
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class NetpbmHeaderDescriptor : TagDescriptor<NetpbmHeaderDirectory>
+    public sealed class NetpbmHeaderDescriptor(NetpbmHeaderDirectory directory)
+        : TagDescriptor<NetpbmHeaderDirectory>(directory)
     {
-        public NetpbmHeaderDescriptor(NetpbmHeaderDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

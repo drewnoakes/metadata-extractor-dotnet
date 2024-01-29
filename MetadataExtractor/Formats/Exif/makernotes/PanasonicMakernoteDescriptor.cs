@@ -14,13 +14,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Philipp Sandhaus</author>
-    public sealed class PanasonicMakernoteDescriptor : TagDescriptor<PanasonicMakernoteDirectory>
+    public sealed class PanasonicMakernoteDescriptor(PanasonicMakernoteDirectory directory)
+        : TagDescriptor<PanasonicMakernoteDirectory>(directory)
     {
-        public PanasonicMakernoteDescriptor(PanasonicMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

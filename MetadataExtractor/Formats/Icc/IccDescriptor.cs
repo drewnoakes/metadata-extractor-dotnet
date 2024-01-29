@@ -4,13 +4,9 @@ namespace MetadataExtractor.Formats.Icc
 {
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IccDescriptor : TagDescriptor<IccDirectory>
+    public class IccDescriptor(IccDirectory directory)
+        : TagDescriptor<IccDirectory>(directory)
     {
-        public IccDescriptor(IccDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)

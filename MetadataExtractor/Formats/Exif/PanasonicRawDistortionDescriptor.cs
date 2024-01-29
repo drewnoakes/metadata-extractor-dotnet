@@ -7,13 +7,9 @@ namespace MetadataExtractor.Formats.Exif
     /// </summary>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PanasonicRawDistortionDescriptor : TagDescriptor<PanasonicRawDistortionDirectory>
+    public class PanasonicRawDistortionDescriptor(PanasonicRawDistortionDirectory directory)
+        : TagDescriptor<PanasonicRawDistortionDirectory>(directory)
     {
-        public PanasonicRawDistortionDescriptor(PanasonicRawDistortionDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

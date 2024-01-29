@@ -18,13 +18,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </c></pre>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class NikonType1MakernoteDescriptor : TagDescriptor<NikonType1MakernoteDirectory>
+    public sealed class NikonType1MakernoteDescriptor(NikonType1MakernoteDirectory directory)
+        : TagDescriptor<NikonType1MakernoteDirectory>(directory)
     {
-        public NikonType1MakernoteDescriptor(NikonType1MakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

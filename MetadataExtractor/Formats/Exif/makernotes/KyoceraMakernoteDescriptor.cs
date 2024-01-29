@@ -14,13 +14,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// it from the first byte of Makernote itself.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class KyoceraMakernoteDescriptor : TagDescriptor<KyoceraMakernoteDirectory>
+    public sealed class KyoceraMakernoteDescriptor(KyoceraMakernoteDirectory directory)
+        : TagDescriptor<KyoceraMakernoteDirectory>(directory)
     {
-        public KyoceraMakernoteDescriptor(KyoceraMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

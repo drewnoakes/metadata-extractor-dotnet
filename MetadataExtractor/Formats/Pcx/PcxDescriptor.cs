@@ -3,13 +3,9 @@
 namespace MetadataExtractor.Formats.Pcx
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PcxDescriptor : TagDescriptor<PcxDirectory>
+    public sealed class PcxDescriptor(PcxDirectory directory)
+        : TagDescriptor<PcxDirectory>(directory)
     {
-        public PcxDescriptor(PcxDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

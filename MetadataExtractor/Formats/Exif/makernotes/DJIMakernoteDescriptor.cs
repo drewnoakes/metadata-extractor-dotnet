@@ -7,11 +7,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </summary>
     /// <remarks>Using information from https://metacpan.org/pod/distribution/Image-ExifTool/lib/Image/ExifTool/TagNames.pod#DJI-Tags</remarks>
     /// <author>Charlie Matherne, adapted from Drew Noakes https://drewnoakes.com</author>
-    public class DjiMakernoteDescriptor : TagDescriptor<DjiMakernoteDirectory>
+    public class DjiMakernoteDescriptor(DjiMakernoteDirectory directory)
+        : TagDescriptor<DjiMakernoteDirectory>(directory)
     {
-        public DjiMakernoteDescriptor(DjiMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
     }
 }

@@ -11,13 +11,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </summary>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SamsungType2MakernoteDescriptor : TagDescriptor<SamsungType2MakernoteDirectory>
+    public class SamsungType2MakernoteDescriptor(SamsungType2MakernoteDirectory directory)
+        : TagDescriptor<SamsungType2MakernoteDirectory>(directory)
     {
-        public SamsungType2MakernoteDescriptor(SamsungType2MakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

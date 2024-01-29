@@ -4,13 +4,9 @@ using static MetadataExtractor.Formats.Flir.FlirCameraInfoDirectory;
 
 namespace MetadataExtractor.Formats.Flir
 {
-    public sealed class FlirCameraInfoDescriptor : TagDescriptor<FlirCameraInfoDirectory>
+    public sealed class FlirCameraInfoDescriptor(FlirCameraInfoDirectory directory)
+        : TagDescriptor<FlirCameraInfoDirectory>(directory)
     {
-        public FlirCameraInfoDescriptor(FlirCameraInfoDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

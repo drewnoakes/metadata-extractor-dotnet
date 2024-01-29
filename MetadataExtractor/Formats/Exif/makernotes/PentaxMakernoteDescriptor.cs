@@ -9,13 +9,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/pentax_mn.html
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PentaxMakernoteDescriptor : TagDescriptor<PentaxMakernoteDirectory>
+    public sealed class PentaxMakernoteDescriptor(PentaxMakernoteDirectory directory)
+        : TagDescriptor<PentaxMakernoteDirectory>(directory)
     {
-        public PentaxMakernoteDescriptor(PentaxMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

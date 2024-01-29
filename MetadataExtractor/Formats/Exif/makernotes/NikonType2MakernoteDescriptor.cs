@@ -7,13 +7,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Type-2 applies to the E990 and D-series cameras such as the D1, D70 and D100.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class NikonType2MakernoteDescriptor : TagDescriptor<NikonType2MakernoteDirectory>
+    public sealed class NikonType2MakernoteDescriptor(NikonType2MakernoteDirectory directory)
+        : TagDescriptor<NikonType2MakernoteDirectory>(directory)
     {
-        public NikonType2MakernoteDescriptor(NikonType2MakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

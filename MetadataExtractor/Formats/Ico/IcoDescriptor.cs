@@ -3,13 +3,9 @@
 namespace MetadataExtractor.Formats.Ico
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class IcoDescriptor : TagDescriptor<IcoDirectory>
+    public sealed class IcoDescriptor(IcoDirectory directory)
+        : TagDescriptor<IcoDirectory>(directory)
     {
-        public IcoDescriptor(IcoDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

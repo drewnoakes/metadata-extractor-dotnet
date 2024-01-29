@@ -6,13 +6,9 @@ namespace MetadataExtractor.Formats.Exif
     /// Provides human-readable string representations of tag values stored in a <see cref="ExifThumbnailDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class ExifThumbnailDescriptor : ExifDescriptorBase<ExifThumbnailDirectory>
+    public sealed class ExifThumbnailDescriptor(ExifThumbnailDirectory directory)
+        : ExifDescriptorBase<ExifThumbnailDirectory>(directory)
     {
-        public ExifThumbnailDescriptor(ExifThumbnailDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

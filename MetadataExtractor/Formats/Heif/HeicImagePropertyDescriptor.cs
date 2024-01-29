@@ -4,13 +4,9 @@ using MetadataExtractor.Formats.Iso14496;
 
 namespace MetadataExtractor.Formats.Heif
 {
-    public class HeicImagePropertyDescriptor : TagDescriptor<HeicImagePropertiesDirectory>
+    public class HeicImagePropertyDescriptor(HeicImagePropertiesDirectory directory)
+        : TagDescriptor<HeicImagePropertiesDirectory>(directory)
     {
-        public HeicImagePropertyDescriptor(HeicImagePropertiesDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)

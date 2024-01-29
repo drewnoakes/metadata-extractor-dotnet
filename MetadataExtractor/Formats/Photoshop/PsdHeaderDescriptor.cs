@@ -3,13 +3,9 @@
 namespace MetadataExtractor.Formats.Photoshop
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PsdHeaderDescriptor : TagDescriptor<PsdHeaderDirectory>
+    public sealed class PsdHeaderDescriptor(PsdHeaderDirectory directory)
+        : TagDescriptor<PsdHeaderDirectory>(directory)
     {
-        public PsdHeaderDescriptor(PsdHeaderDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

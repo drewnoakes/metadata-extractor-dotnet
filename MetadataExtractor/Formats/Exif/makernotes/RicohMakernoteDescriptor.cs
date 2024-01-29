@@ -10,11 +10,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/ricoh_mn.html
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class RicohMakernoteDescriptor : TagDescriptor<RicohMakernoteDirectory>
+    public class RicohMakernoteDescriptor(RicohMakernoteDirectory directory)
+        : TagDescriptor<RicohMakernoteDirectory>(directory)
     {
-        public RicohMakernoteDescriptor(RicohMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
     }
 }

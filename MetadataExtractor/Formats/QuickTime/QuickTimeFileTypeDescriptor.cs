@@ -2,13 +2,9 @@
 
 namespace MetadataExtractor.Formats.QuickTime
 {
-    public sealed class QuickTimeFileTypeDescriptor : TagDescriptor<QuickTimeFileTypeDirectory>
+    public sealed class QuickTimeFileTypeDescriptor(QuickTimeFileTypeDirectory directory)
+        : TagDescriptor<QuickTimeFileTypeDirectory>(directory)
     {
-        public QuickTimeFileTypeDescriptor(QuickTimeFileTypeDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

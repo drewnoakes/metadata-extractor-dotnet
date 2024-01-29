@@ -2,13 +2,9 @@
 
 namespace MetadataExtractor.Formats.GeoTiff
 {
-    public sealed class GeoTiffDescriptor : TagDescriptor<GeoTiffDirectory>
+    public sealed class GeoTiffDescriptor(GeoTiffDirectory directory)
+        : TagDescriptor<GeoTiffDirectory>(directory)
     {
-        public GeoTiffDescriptor(GeoTiffDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
 #pragma warning disable format

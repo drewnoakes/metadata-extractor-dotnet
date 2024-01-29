@@ -3,11 +3,8 @@
 namespace MetadataExtractor.Formats.FileType
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class FileTypeDescriptor : TagDescriptor<FileTypeDirectory>
+    public class FileTypeDescriptor(FileTypeDirectory directory)
+        : TagDescriptor<FileTypeDirectory>(directory)
     {
-        public FileTypeDescriptor(FileTypeDirectory directory)
-            : base(directory)
-        {
-        }
     }
 }

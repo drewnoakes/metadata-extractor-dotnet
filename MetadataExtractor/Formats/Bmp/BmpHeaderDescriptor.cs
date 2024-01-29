@@ -4,13 +4,9 @@ namespace MetadataExtractor.Formats.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public sealed class BmpHeaderDescriptor : TagDescriptor<BmpHeaderDirectory>
+    public sealed class BmpHeaderDescriptor(BmpHeaderDirectory directory)
+        : TagDescriptor<BmpHeaderDirectory>(directory)
     {
-        public BmpHeaderDescriptor(BmpHeaderDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)

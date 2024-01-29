@@ -6,13 +6,9 @@ namespace MetadataExtractor.Formats.Exif
     /// Provides human-readable string representations of tag values stored in a <see cref="GpsDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class GpsDescriptor : TagDescriptor<GpsDirectory>
+    public sealed class GpsDescriptor(GpsDirectory directory)
+        : TagDescriptor<GpsDirectory>(directory)
     {
-        public GpsDescriptor(GpsDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)

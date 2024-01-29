@@ -8,13 +8,9 @@ namespace MetadataExtractor.Formats.Jpeg
     /// Thanks to Darrell Silver (www.darrellsilver.com) for the initial version of this class.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class JpegDescriptor : TagDescriptor<JpegDirectory>
+    public sealed class JpegDescriptor(JpegDirectory directory)
+        : TagDescriptor<JpegDirectory>(directory)
     {
-        public JpegDescriptor(JpegDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
