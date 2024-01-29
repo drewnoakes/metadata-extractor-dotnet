@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Authors>Drew Noakes</Authors>
-    <Copyright>Copyright Drew Noakes 2002-2023</Copyright>
+    <Copyright>Copyright Drew Noakes 2002-2024</Copyright>
     <PackageIcon>metadata-extractor-logo-128.png</PackageIcon>
     <PackageProjectUrl>https://github.com/drewnoakes/metadata-extractor-dotnet</PackageProjectUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
