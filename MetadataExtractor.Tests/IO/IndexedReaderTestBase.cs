@@ -188,7 +188,9 @@ namespace MetadataExtractor.Tests.IO
 
             var reader = CreateReader(0x7f, 0xc0, 0x00, 0x00);
 
-            Assert.True(float.IsNaN(reader.GetFloat32(0)));
+            float f = reader.GetFloat32(0);
+
+            Assert.True(float.IsNaN(f), $"Expected NaN, got {f}.");
         }
 
         [Fact]
@@ -199,7 +201,9 @@ namespace MetadataExtractor.Tests.IO
 
             var reader = CreateReader(0xff, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01);
 
-            Assert.True(double.IsNaN(reader.GetDouble64(0)));
+            double d = reader.GetDouble64(0);
+
+            Assert.True(double.IsNaN(d), $"Expected NaN, got {d}.");
         }
 
         [Fact]

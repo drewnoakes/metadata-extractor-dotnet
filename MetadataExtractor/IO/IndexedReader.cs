@@ -1,7 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-// TODO always read bytes in order which may assist memory read patterns
+using System.Buffers.Binary;
 
 namespace MetadataExtractor.IO
 {
@@ -17,13 +17,8 @@ namespace MetadataExtractor.IO
     /// <see cref="IsMotorolaByteOrder"/>.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public abstract class IndexedReader
+    public abstract class IndexedReader(bool isMotorolaByteOrder)
     {
-        protected IndexedReader(bool isMotorolaByteOrder)
-        {
-            IsMotorolaByteOrder = isMotorolaByteOrder;
-        }
-
         /// <summary>Get the byte order of this reader.</summary>
         /// <remarks>
         /// <list type="bullet">
@@ -31,20 +26,13 @@ namespace MetadataExtractor.IO
         ///   <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
         /// </list>
         /// </remarks>
-        public bool IsMotorolaByteOrder { get; }
+        public bool IsMotorolaByteOrder { get; } = isMotorolaByteOrder;
 
         public abstract IndexedReader WithByteOrder(bool isMotorolaByteOrder);
 
         public abstract IndexedReader WithShiftedBaseOffset(int shift);
 
         public abstract int ToUnshiftedOffset(int localOffset);
-
-        /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
-        /// <remarks>Implementations should assume <paramref name="index"/> has already been validated.</remarks>
-        /// <param name="index">The index from which to read the byte</param>
-        /// <returns>The read byte value</returns>
-        /// <exception cref="IOException">if the byte is unable to be read</exception>
-        protected abstract byte GetByteInternal(int index);
 
         /// <summary>Returns the required number of bytes from the specified index from the underlying source.</summary>
         /// <param name="index">The index from which the bytes begins in the underlying source</param>
@@ -53,7 +41,23 @@ namespace MetadataExtractor.IO
         /// <exception cref="ArgumentException"><c>index</c> or <c>count</c> are negative</exception>
         /// <exception cref="BufferBoundsException">if the requested bytes extend beyond the end of the underlying data source</exception>
         /// <exception cref="IOException">if the byte is unable to be read</exception>
-        public abstract byte[] GetBytes(int index, int count);
+        public byte[] GetBytes(int index, int count)
+        {
+            ValidateIndex(index, count);
+
+            var bytes = new byte[count];
+
+            GetBytes(index, bytes.AsSpan());
+
+            return bytes;
+        }
+
+        /// <summary>
+        /// Copies bytes from the underlying source into <paramref name="bytes"/>.
+        /// </summary>
+        /// <param name="index">The index from which the bytes begins in the underlying source</param>
+        /// <param name="bytes">A span of bytes to copy to. The length of this span determines how many bytes will be copied.</param>
+        public abstract void GetBytes(int index, Span<byte> bytes);
 
         /// <summary>
         /// Ensures that the buffered bytes extend to cover the specified index. If not, an attempt is made
@@ -66,9 +70,6 @@ namespace MetadataExtractor.IO
         /// <param name="bytesRequested">the number of bytes which are required</param>
         /// <exception cref="IOException">if the stream ends before the required number of bytes are acquired</exception>
         protected abstract void ValidateIndex(int index, int bytesRequested);
-
-        /// <exception cref="IOException"/>
-        protected abstract bool IsValidIndex(int index, int bytesRequested);
 
         /// <summary>Returns the length of the data source in bytes.</summary>
         /// <remarks>
@@ -91,9 +92,12 @@ namespace MetadataExtractor.IO
         {
             var byteIndex = index / 8;
             var bitIndex = index % 8;
-            ValidateIndex(byteIndex, 1);
-            var b = GetByteInternal(byteIndex);
-            return ((b >> bitIndex) & 1) == 1;
+
+            Span<byte> bytes = stackalloc byte[1];
+
+            GetBytes(byteIndex, bytes);
+
+            return ((bytes[0] >> bitIndex) & 1) == 1;
         }
 
         /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
@@ -107,8 +111,11 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">if the byte is unable to be read</exception>
         public byte GetByte(int index)
         {
-            ValidateIndex(index, 1);
-            return GetByteInternal(index);
+            Span<byte> bytes = stackalloc byte[1];
+
+            GetBytes(index, bytes);
+
+            return bytes[0];
         }
 
         /// <summary>Returns a signed 8-bit int calculated from one byte of data at the specified index.</summary>
@@ -117,8 +124,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public sbyte GetSByte(int index)
         {
-            ValidateIndex(index, 1);
-            return unchecked((sbyte)GetByteInternal(index));
+            return unchecked((sbyte)GetByte(index));
         }
 
 #pragma warning disable format
@@ -129,18 +135,13 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public ushort GetUInt16(int index)
         {
-            ValidateIndex(index, 2);
-            if (IsMotorolaByteOrder)
-            {
-                // Motorola - MSB first
-                return (ushort)
-                    (GetByteInternal(index    ) << 8 |
-                     GetByteInternal(index + 1));
-            }
-            // Intel ordering - LSB first
-            return (ushort)
-                (GetByteInternal(index + 1) << 8 |
-                 GetByteInternal(index    ));
+            Span<byte> bytes = stackalloc byte[2];
+
+            GetBytes(index, bytes);
+
+            return IsMotorolaByteOrder
+                ? BinaryPrimitives.ReadUInt16BigEndian(bytes)
+                : BinaryPrimitives.ReadUInt16LittleEndian(bytes);
         }
 
         /// <summary>Returns a signed 16-bit int calculated from two bytes of data at the specified index (MSB, LSB).</summary>
@@ -149,18 +150,13 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public short GetInt16(int index)
         {
-            ValidateIndex(index, 2);
-            if (IsMotorolaByteOrder)
-            {
-                // Motorola - MSB first
-                return (short)
-                    (GetByteInternal(index    ) << 8 |
-                     GetByteInternal(index + 1));
-            }
-            // Intel ordering - LSB first
-            return (short)
-                (GetByteInternal(index + 1) << 8 |
-                 GetByteInternal(index));
+            Span<byte> bytes = stackalloc byte[2];
+
+            GetBytes(index, bytes);
+
+            return IsMotorolaByteOrder
+                ? BinaryPrimitives.ReadInt16BigEndian(bytes)
+                : BinaryPrimitives.ReadInt16LittleEndian(bytes);
         }
 
         /// <summary>Get a 24-bit unsigned integer from the buffer, returning it as an int.</summary>
@@ -169,20 +165,24 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public int GetInt24(int index)
         {
-            ValidateIndex(index, 3);
+            Span<byte> bytes = stackalloc byte[3];
+
+            GetBytes(index, bytes);
+
             if (IsMotorolaByteOrder)
             {
-                // Motorola - MSB first (big endian)
                 return
-                    GetByteInternal(index    ) << 16 |
-                    GetByteInternal(index + 1)  << 8 |
-                    GetByteInternal(index + 2);
+                    bytes[0] << 16 |
+                    bytes[1] << 8 |
+                    bytes[2];
             }
-            // Intel ordering - LSB first (little endian)
-            return
-                GetByteInternal(index + 2) << 16 |
-                GetByteInternal(index + 1) <<  8 |
-                GetByteInternal(index    );
+            else
+            {
+                return
+                    bytes[2] << 16 |
+                    bytes[1] << 8 |
+                    bytes[0];
+            }
         }
 
         /// <summary>Get a 32-bit unsigned integer from the buffer, returning it as a long.</summary>
@@ -191,22 +191,13 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public uint GetUInt32(int index)
         {
-            ValidateIndex(index, 4);
-            if (IsMotorolaByteOrder)
-            {
-                // Motorola - MSB first (big endian)
-                return (uint)
-                    (GetByteInternal(index    ) << 24 |
-                     GetByteInternal(index + 1) << 16 |
-                     GetByteInternal(index + 2) <<  8 |
-                     GetByteInternal(index + 3));
-            }
-            // Intel ordering - LSB first (little endian)
-            return (uint)
-                (GetByteInternal(index + 3) << 24 |
-                 GetByteInternal(index + 2) << 16 |
-                 GetByteInternal(index + 1) <<  8 |
-                 GetByteInternal(index    ));
+            Span<byte> bytes = stackalloc byte[4];
+
+            GetBytes(index, bytes);
+
+            return IsMotorolaByteOrder
+                ? BinaryPrimitives.ReadUInt32BigEndian(bytes)
+                : BinaryPrimitives.ReadUInt32LittleEndian(bytes);
         }
 
         /// <summary>Returns a signed 32-bit integer from four bytes of data at the specified index the buffer.</summary>
@@ -215,22 +206,13 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public int GetInt32(int index)
         {
-            ValidateIndex(index, 4);
-            if (IsMotorolaByteOrder)
-            {
-                // Motorola - MSB first (big endian)
-                return
-                    GetByteInternal(index    ) << 24 |
-                    GetByteInternal(index + 1) << 16 |
-                    GetByteInternal(index + 2) <<  8 |
-                    GetByteInternal(index + 3);
-            }
-            // Intel ordering - LSB first (little endian)
-            return
-                GetByteInternal(index + 3) << 24 |
-                GetByteInternal(index + 2) << 16 |
-                GetByteInternal(index + 1) <<  8 |
-                GetByteInternal(index    );
+            Span<byte> bytes = stackalloc byte[4];
+
+            GetBytes(index, bytes);
+
+            return IsMotorolaByteOrder
+                ? BinaryPrimitives.ReadInt32BigEndian(bytes)
+                : BinaryPrimitives.ReadInt32LittleEndian(bytes);
         }
 
         /// <summary>Get a signed 64-bit integer from the buffer.</summary>
@@ -239,30 +221,13 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public long GetInt64(int index)
         {
-            ValidateIndex(index, 8);
-            if (IsMotorolaByteOrder)
-            {
-                // Motorola - MSB first
-                return
-                    (long)GetByteInternal(index    ) << 56 |
-                    (long)GetByteInternal(index + 1) << 48 |
-                    (long)GetByteInternal(index + 2) << 40 |
-                    (long)GetByteInternal(index + 3) << 32 |
-                    (long)GetByteInternal(index + 4) << 24 |
-                    (long)GetByteInternal(index + 5) << 16 |
-                    (long)GetByteInternal(index + 6) <<  8 |
-                          GetByteInternal(index + 7);
-            }
-            // Intel ordering - LSB first
-            return
-                (long)GetByteInternal(index + 7) << 56 |
-                (long)GetByteInternal(index + 6) << 48 |
-                (long)GetByteInternal(index + 5) << 40 |
-                (long)GetByteInternal(index + 4) << 32 |
-                (long)GetByteInternal(index + 3) << 24 |
-                (long)GetByteInternal(index + 2) << 16 |
-                (long)GetByteInternal(index + 1) <<  8 |
-                      GetByteInternal(index    );
+            Span<byte> bytes = stackalloc byte[8];
+
+            GetBytes(index, bytes);
+
+            return IsMotorolaByteOrder
+                ? BinaryPrimitives.ReadInt64BigEndian(bytes)
+                : BinaryPrimitives.ReadInt64LittleEndian(bytes);
         }
 
         /// <summary>Get an unsigned 64-bit integer from the buffer.</summary>
@@ -271,30 +236,13 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public ulong GetUInt64(int index)
         {
-            ValidateIndex(index, 8);
-            if (IsMotorolaByteOrder)
-            {
-                // Motorola - MSB first
-                return
-                    (ulong)GetByteInternal(index    ) << 56 |
-                    (ulong)GetByteInternal(index + 1) << 48 |
-                    (ulong)GetByteInternal(index + 2) << 40 |
-                    (ulong)GetByteInternal(index + 3) << 32 |
-                    (ulong)GetByteInternal(index + 4) << 24 |
-                    (ulong)GetByteInternal(index + 5) << 16 |
-                    (ulong)GetByteInternal(index + 6) <<  8 |
-                          GetByteInternal(index + 7);
-            }
-            // Intel ordering - LSB first
-            return
-                (ulong)GetByteInternal(index + 7) << 56 |
-                (ulong)GetByteInternal(index + 6) << 48 |
-                (ulong)GetByteInternal(index + 5) << 40 |
-                (ulong)GetByteInternal(index + 4) << 32 |
-                (ulong)GetByteInternal(index + 3) << 24 |
-                (ulong)GetByteInternal(index + 2) << 16 |
-                (ulong)GetByteInternal(index + 1) <<  8 |
-                      GetByteInternal(index    );
+            Span<byte> bytes = stackalloc byte[8];
+
+            GetBytes(index, bytes);
+
+            return IsMotorolaByteOrder
+                ? BinaryPrimitives.ReadUInt64BigEndian(bytes)
+                : BinaryPrimitives.ReadUInt64LittleEndian(bytes);
         }
 
 #pragma warning restore format
@@ -307,33 +255,77 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public float GetS15Fixed16(int index)
         {
-            ValidateIndex(index, 4);
+            Span<byte> bytes = stackalloc byte[4];
+
+            GetBytes(index, bytes);
+
             if (IsMotorolaByteOrder)
             {
-                float res = GetByteInternal(index) << 8 | GetByteInternal(index + 1);
-                var d = GetByteInternal(index + 2) << 8 | GetByteInternal(index + 3);
+                float res = bytes[0] << 8 | bytes[1];
+                var d = bytes[2] << 8 | bytes[3];
                 return (float)(res + d / 65536.0);
             }
             else
             {
                 // this particular branch is untested
-                var d = GetByteInternal(index + 1) << 8 | GetByteInternal(index);
-                float res = GetByteInternal(index + 3) << 8 | GetByteInternal(index + 2);
+                var d = bytes[1] << 8 | bytes[0];
+                float res = bytes[3] << 8 | bytes[2];
                 return (float)(res + d / 65536.0);
             }
         }
 
         /// <exception cref="IOException"/>
-        public float GetFloat32(int index) => BitConverter.ToSingle(BitConverter.GetBytes(GetInt32(index)), 0);
+        public float GetFloat32(int index)
+        {
+#if NET462 || NETSTANDARD1_3
+            return BitConverter.ToSingle(BitConverter.GetBytes(GetInt32(index)), 0);
+#else
+            Span<byte> bytes = stackalloc byte[4];
+
+            GetBytes(index, bytes);
+
+            if (IsMotorolaByteOrder)
+            {
+                bytes.Reverse();
+            }
+
+            return BitConverter.ToSingle(bytes);
+#endif
+        }
 
         /// <exception cref="IOException"/>
-        public double GetDouble64(int index) => BitConverter.Int64BitsToDouble(GetInt64(index));
+        public double GetDouble64(int index)
+        {
+#if NET462 || NETSTANDARD1_3
+            return BitConverter.Int64BitsToDouble(GetInt64(index));
+#else
+            Span<byte> bytes = stackalloc byte[8];
+
+            GetBytes(index, bytes);
+
+            if (IsMotorolaByteOrder)
+            {
+                bytes.Reverse();
+            }
+
+            return BitConverter.ToDouble(bytes);
+#endif
+        }
 
         /// <exception cref="IOException"/>
         public string GetString(int index, int bytesRequested, Encoding encoding)
         {
+#if NET462 || NETSTANDARD1_3
             var bytes = GetBytes(index, bytesRequested);
+
             return encoding.GetString(bytes, 0, bytes.Length);
+#else
+            Span<byte> bytes = bytesRequested < 256 ? stackalloc byte[bytesRequested] : new byte[bytesRequested];
+
+            GetBytes(index, bytes);
+
+            return encoding.GetString(bytes);
+#endif
         }
 
         /// <summary>

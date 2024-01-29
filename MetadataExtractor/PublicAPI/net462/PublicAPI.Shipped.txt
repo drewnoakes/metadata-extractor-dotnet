@@ -12,8 +12,6 @@ abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.HasFollowerIfd() ->
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.ProcessTiffMarker(ushort marker) -> MetadataExtractor.Formats.Tiff.TiffStandard
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.TryCustomProcessFormat(int tagId, MetadataExtractor.Formats.Tiff.TiffDataFormatCode formatCode, ulong componentCount, out ulong byteCount) -> bool
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.TryEnterSubIfd(int tagType) -> bool
-abstract MetadataExtractor.IO.IndexedReader.GetBytes(int index, int count) -> byte[]!
-abstract MetadataExtractor.IO.IndexedReader.IsValidIndex(int index, int bytesRequested) -> bool
 abstract MetadataExtractor.IO.IndexedReader.Length.get -> long
 abstract MetadataExtractor.IO.IndexedReader.ToUnshiftedOffset(int localOffset) -> int
 abstract MetadataExtractor.IO.IndexedReader.ValidateIndex(int index, int bytesRequested) -> void
@@ -4258,20 +4256,15 @@ override MetadataExtractor.Formats.Xmp.XmpDirectory.Name.get -> string!
 override MetadataExtractor.GeoLocation.Equals(object? obj) -> bool
 override MetadataExtractor.GeoLocation.GetHashCode() -> int
 override MetadataExtractor.GeoLocation.ToString() -> string!
-override MetadataExtractor.IO.ByteArrayReader.GetBytes(int index, int count) -> byte[]!
-override MetadataExtractor.IO.ByteArrayReader.IsValidIndex(int index, int bytesRequested) -> bool
 override MetadataExtractor.IO.ByteArrayReader.Length.get -> long
 override MetadataExtractor.IO.ByteArrayReader.ToUnshiftedOffset(int localOffset) -> int
 override MetadataExtractor.IO.ByteArrayReader.ValidateIndex(int index, int bytesRequested) -> void
 override MetadataExtractor.IO.ByteArrayReader.WithByteOrder(bool isMotorolaByteOrder) -> MetadataExtractor.IO.IndexedReader!
 override MetadataExtractor.IO.ByteArrayReader.WithShiftedBaseOffset(int shift) -> MetadataExtractor.IO.IndexedReader!
-override MetadataExtractor.IO.IndexedCapturingReader.GetBytes(int index, int count) -> byte[]!
 override MetadataExtractor.IO.IndexedCapturingReader.Length.get -> long
 override MetadataExtractor.IO.IndexedCapturingReader.ToUnshiftedOffset(int localOffset) -> int
 override MetadataExtractor.IO.IndexedCapturingReader.WithByteOrder(bool isMotorolaByteOrder) -> MetadataExtractor.IO.IndexedReader!
 override MetadataExtractor.IO.IndexedCapturingReader.WithShiftedBaseOffset(int shift) -> MetadataExtractor.IO.IndexedReader!
-override MetadataExtractor.IO.IndexedSeekingReader.GetBytes(int index, int count) -> byte[]!
-override MetadataExtractor.IO.IndexedSeekingReader.IsValidIndex(int index, int bytesRequested) -> bool
 override MetadataExtractor.IO.IndexedSeekingReader.Length.get -> long
 override MetadataExtractor.IO.IndexedSeekingReader.ToUnshiftedOffset(int localOffset) -> int
 override MetadataExtractor.IO.IndexedSeekingReader.ValidateIndex(int index, int bytesRequested) -> void
