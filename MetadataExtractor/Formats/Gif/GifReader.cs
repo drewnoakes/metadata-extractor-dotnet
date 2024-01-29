@@ -190,35 +190,14 @@ namespace MetadataExtractor.Formats.Gif
             var blockSizeBytes = reader.GetByte();
             var blockStartPos = reader.Position;
 
-            Directory? directory;
-            switch (extensionLabel)
+            Directory? directory = extensionLabel switch
             {
-                case 0x01:
-                {
-                    directory = ReadPlainTextBlock(reader, blockSizeBytes);
-                    break;
-                }
-                case 0xf9:
-                {
-                    directory = ReadControlBlock(reader);
-                    break;
-                }
-                case 0xfe:
-                {
-                    directory = ReadCommentBlock(reader, blockSizeBytes);
-                    break;
-                }
-                case 0xff:
-                {
-                    directory = ReadApplicationExtensionBlock(reader, blockSizeBytes);
-                    break;
-                }
-                default:
-                {
-                    directory = new ErrorDirectory($"Unsupported GIF extension block with type 0x{extensionLabel:X2}.");
-                    break;
-                }
-            }
+                0x01 => ReadPlainTextBlock(reader, blockSizeBytes),
+                0xf9 => ReadControlBlock(reader),
+                0xfe => ReadCommentBlock(reader, blockSizeBytes),
+                0xff => ReadApplicationExtensionBlock(reader, blockSizeBytes),
+                _ => new ErrorDirectory($"Unsupported GIF extension block with type 0x{extensionLabel:X2}.")
+            };
 
             var skipCount = blockStartPos + blockSizeBytes - reader.Position;
             if (skipCount > 0)
