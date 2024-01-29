@@ -445,7 +445,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 foreach (Subpath path in paths)
                 {
-                    str.Append($"\n- {path.Type} with { paths.Count}").Append(paths.Count == 1 ? " knot:" : " knots:");
+                    str.Append($"\n- {path.Type} with {paths.Count}").Append(paths.Count == 1 ? " knot:" : " knots:");
 
                     foreach (Knot knot in path.Knots)
                     {
