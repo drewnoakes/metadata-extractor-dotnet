@@ -220,14 +220,15 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public string GetString(int bytesRequested, Encoding encoding)
         {
-#if NETSTANDARD2_1
-            Span<byte> bytes = bytesRequested > 2048 ? new byte[bytesRequested] : stackalloc byte[bytesRequested];
+            // This check is important on .NET Framework
+            if (bytesRequested is 0)
+                return "";
+
+            Span<byte> bytes = bytesRequested < 256 ? stackalloc byte[bytesRequested] : new byte[bytesRequested];
+
             GetBytes(bytes);
+
             return encoding.GetString(bytes);
-#else
-            var bytes = GetBytes(bytesRequested);
-            return encoding.GetString(bytes, 0, bytes.Length);
-#endif
         }
 
         public StringValue GetStringValue(int bytesRequested, Encoding? encoding = null)

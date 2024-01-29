@@ -16,6 +16,8 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <AllowUnsafeBlocks Condition=" '$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'netstandard1.3' ">true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
