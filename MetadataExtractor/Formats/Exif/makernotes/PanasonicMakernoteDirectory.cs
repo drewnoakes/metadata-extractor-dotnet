@@ -599,7 +599,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         /// <summary>Attempts to convert the underlying string value (as stored in the directory) into an Age object.</summary>
         /// <param name="tag">The tag identifier.</param>
-        /// <returns>The parsed Age object, or null if the tag was empty of the value unable to be parsed.</returns>
+        /// <returns>The parsed Age object, or <see langword="null"/> if the tag was empty of the value unable to be parsed.</returns>
         public Age? GetAge(int tag)
         {
             var ageString = this.GetString(tag);

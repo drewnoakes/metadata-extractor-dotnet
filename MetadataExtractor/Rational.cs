@@ -104,7 +104,7 @@ namespace MetadataExtractor
         /// <remarks>May incur truncation.</remarks>
         public decimal ToDecimal() => Denominator == 0 ? 0M : Numerator / (decimal)Denominator;
 
-        /// <summary>Returns <c>true</c> if the value is non-zero, otherwise <c>false</c>.</summary>
+        /// <summary>Returns <see langword="true"/> if the value is non-zero, otherwise <see langword="false"/>.</summary>
         public bool ToBoolean() => Numerator != 0 && Denominator != 0;
 
         #region IConvertible

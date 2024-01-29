@@ -47,7 +47,7 @@ namespace MetadataExtractor
         /// <summary>Attempts to find the name of the specified tag.</summary>
         /// <param name="tagType">The tag to look up.</param>
         /// <param name="tagName">The found name, if any.</param>
-        /// <returns><c>true</c> if the tag is known and <paramref name="tagName"/> was set, otherwise <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if the tag is known and <paramref name="tagName"/> was set, otherwise <see langword="false"/>.</returns>
         protected virtual bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             if (_tagNameMap is null)
@@ -90,7 +90,7 @@ namespace MetadataExtractor
 
         /// <summary>Gets a value indicating whether this directory has one or more errors.</summary>
         /// <remarks>Error messages are accessible via <see cref="Errors"/>.</remarks>
-        /// <returns><c>true</c> if the directory contains errors, otherwise <c>false</c></returns>
+        /// <returns><see langword="true"/> if the directory contains errors, otherwise <see langword="false"/></returns>
         public bool HasError => _errorList.Count > 0;
 
         /// <summary>Used to iterate over any error messages contained in this directory.</summary>

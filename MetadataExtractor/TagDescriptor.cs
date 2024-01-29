@@ -59,7 +59,7 @@ namespace MetadataExtractor
         /// </remarks>
         /// <param name="components">the four version values</param>
         /// <param name="majorDigits">the number of components to be</param>
-        /// <returns>the version as a string of form "2.10" or null if the argument cannot be converted</returns>
+        /// <returns>the version as a string of form "2.10" or <see langword="null"/> if the argument cannot be converted</returns>
         [Pure]
         public static string? ConvertBytesToVersionString(int[]? components, int majorDigits)
         {

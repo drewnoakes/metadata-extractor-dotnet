@@ -280,25 +280,6 @@ namespace MetadataExtractor.Formats.Eps
             return bytes.ToArray();
         }
 
-        /**
-         * EPS files can contain hexadecimal-encoded ASCII blocks, each prefixed with <c>"% "</c>.
-         * This method reads such a block and returns a byte[] of the decoded contents.
-         * Reading stops at the first invalid line, which is discarded (it's a terminator anyway).
-         * <p/>
-         * For example:
-         * <pre><code>
-         * %BeginPhotoshop: 9564
-         * % 3842494D040400000000005D1C015A00031B25471C0200000200041C02780004
-         * % 6E756C6C1C027A00046E756C6C1C025000046E756C6C1C023700083230313630
-         * % 3331311C023C000B3131343335362B303030301C023E00083230313630333131
-         * % 48000000010000003842494D03FD0000000000080101000000000000
-         * %EndPhotoshop
-         * </code></pre>
-         * When calling this method, the reader must be positioned at the start of the first line containing
-         * hex data, not at the introductory line.
-         *
-         * @return The decoded bytes, or <code>null</code> if decoding failed.
-         */
         /// <remarks>
         /// EPS files can contain hexadecimal-encoded ASCII blocks, each prefixed with "% ".
         /// This method reads such a block and returns a byte[] of the decoded contents.
@@ -316,7 +297,7 @@ namespace MetadataExtractor.Formats.Eps
         /// When calling this method, the reader must be positioned at the start of the first line containing
         /// hex data, not at the introductory line.
         /// </remarks>
-        /// <returns>The decoded bytes, or null if decoding failed.</returns>
+        /// <returns>The decoded bytes, or <see langword="null"/> if decoding failed.</returns>
         private static byte[]? DecodeHexCommentBlock(SequentialReader reader)
         {
             var bytes = new MemoryStream();

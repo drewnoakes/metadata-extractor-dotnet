@@ -34,8 +34,8 @@ namespace MetadataExtractor
 
         /// <summary>Get whether this tag has a name.</summary>
         /// <remarks>
-        /// If <c>true</c>, it may be accessed via <see cref="Name"/>.
-        /// If <c>false</c>, <see cref="Name"/> will return a string resembling <c>"Unknown tag (0x1234)"</c>.
+        /// If <see langword="true"/>, it may be accessed via <see cref="Name"/>.
+        /// If <see langword="false"/>, <see cref="Name"/> will return a string resembling <c>"Unknown tag (0x1234)"</c>.
         /// </remarks>
         public bool HasName => _directory.HasTagName(Type);
 

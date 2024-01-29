@@ -3,7 +3,7 @@
 namespace MetadataExtractor
 {
     /// <summary>
-    /// Models a key/value pair, where both are non-null <see cref="string"/> objects.
+    /// Models a key/value pair, where both are non-<see langword="null"/> <see cref="string"/> objects.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public readonly struct KeyValuePair(string key, StringValue value)

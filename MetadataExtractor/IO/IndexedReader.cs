@@ -22,8 +22,8 @@ namespace MetadataExtractor.IO
         /// <summary>Get the byte order of this reader.</summary>
         /// <remarks>
         /// <list type="bullet">
-        ///   <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
-        ///   <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
+        ///   <item><see langword="true"/> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
+        ///   <item><see langword="false"/> for Intel (or little) endianness, with LSB before MSB.</item>
         /// </list>
         /// </remarks>
         public bool IsMotorolaByteOrder { get; } = isMotorolaByteOrder;
@@ -35,6 +35,7 @@ namespace MetadataExtractor.IO
         public abstract int ToUnshiftedOffset(int localOffset);
 
         /// <summary>Returns the required number of bytes from the specified index from the underlying source.</summary>
+        /// <remarks>Byte ordering is not governed by <see cref="IsMotorolaByteOrder"/>.</remarks>
         /// <param name="index">The index from which the bytes begins in the underlying source</param>
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>
@@ -55,6 +56,9 @@ namespace MetadataExtractor.IO
         /// <summary>
         /// Copies bytes from the underlying source into <paramref name="bytes"/>.
         /// </summary>
+        /// <remarks>
+        /// Byte ordering is not governed by <see cref="IsMotorolaByteOrder"/>.
+        /// </remarks>
         /// <param name="index">The index from which the bytes begins in the underlying source</param>
         /// <param name="bytes">A span of bytes to copy to. The length of this span determines how many bytes will be copied.</param>
         public abstract void GetBytes(int index, Span<byte> bytes);

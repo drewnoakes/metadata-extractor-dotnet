@@ -671,7 +671,7 @@ namespace MetadataExtractor
         /// otherwise it will be <see cref="DateTimeKind.Unspecified"/>.
         /// </para>
         /// </remarks>
-        /// <returns><c>true</c> if a DateTime was returned, otherwise <c>false</c>.</returns>
+        /// <returns><see langword="true"/> if a DateTime was returned, otherwise <see langword="false"/>.</returns>
         [Pure]
         public static bool TryGetDateTime(this Directory directory, int tagType /*, TimeZoneInfo? timeZone = null*/, out DateTime dateTime)
         {

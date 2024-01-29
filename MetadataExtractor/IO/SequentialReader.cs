@@ -17,26 +17,34 @@ namespace MetadataExtractor.IO
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class SequentialReader(bool isMotorolaByteOrder)
     {
-        /// <summary>Get and set the byte order of this reader. <c>true</c> by default.</summary>
+        /// <summary>Get and set the byte order of this reader. <see langword="true"/> by default.</summary>
         /// <remarks>
         /// <list type="bullet">
-        ///   <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
-        ///   <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
+        ///   <item><see langword="true"/> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
+        ///   <item><see langword="false"/> for Intel (or little) endianness, with LSB before MSB.</item>
         /// </list>
         /// </remarks>
-        /// <value><c>true</c> for Motorola/big endian, <c>false</c> for Intel/little endian</value>
+        /// <value><see langword="true"/> for Motorola/big endian, <see langword="false"/> for Intel/little endian</value>
         public bool IsMotorolaByteOrder { get; } = isMotorolaByteOrder;
 
+        /// <summary>
+        /// Gets the current position in the sequence.
+        /// </summary>
         public abstract long Position { get; }
 
         public abstract SequentialReader WithByteOrder(bool isMotorolaByteOrder);
 
         /// <summary>Returns the required number of bytes from the sequence.</summary>
+        /// <remarks>Byte ordering is not governed by <see cref="IsMotorolaByteOrder"/>.</remarks>
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>
         /// <exception cref="IOException"/>
         public abstract byte[] GetBytes(int count);
 
+        /// <summary>
+        /// Populates the specified byte span with the next bytes from the sequence.
+        /// </summary>
+        /// <param name="bytes">The span of bytes to populate.</param>
         public abstract void GetBytes(Span<byte> bytes);
 
         /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>

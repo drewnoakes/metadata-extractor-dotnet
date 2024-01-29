@@ -69,76 +69,76 @@ namespace MetadataExtractor.Formats.Bmp
         /// </summary>
         public enum BitmapType : int
         {
-            /** "BM" - Windows or OS/2 bitmap */
+            /// <summary>"BM" - Windows or OS/2 bitmap</summary>
             Bitmap = 0x4D42,
 
-            /** "BA" - OS/2 Bitmap array (multiple bitmaps) */
+            /// <summary>"BA" - OS/2 Bitmap array (multiple bitmaps)</summary>
             OS2BitmapArray = 0x4142,
 
-            /** "IC" - OS/2 Icon */
+            /// <summary>"IC" - OS/2 Icon</summary>
             OS2Icon = 0x4349,
 
-            /** "CI" - OS/2 Color icon */
+            /// <summary>"CI" - OS/2 Color icon</summary>
             OS2ColorIcon = 0x4943,
 
-            /** "CP" - OS/2 Color pointer */
+            /// <summary>"CP" - OS/2 Color pointer</summary>
             OS2ColorPointer = 0x5043,
 
-            /** "PT" - OS/2 Pointer */
+            /// <summary>"PT" - OS/2 Pointer</summary>
             OS2Pointer = 0x5450
         }
 
         public enum Compression : int
         {
-            /** 0 = None */
+            /// <summary>0 = None</summary>
             Rgb = 0,
 
-            /** 1 = RLE 8-bit/pixel */
+            /// <summary>1 = RLE 8-bit/pixel</summary>
             Rle8 = 1,
 
-            /** 2 = RLE 4-bit/pixel */
+            /// <summary>2 = RLE 4-bit/pixel</summary>
             Rle4 = 2,
 
-            /** 3 = Bit fields (not OS22XBITMAPHEADER (size 64)) */
+            /// <summary>3 = Bit fields (not OS22XBITMAPHEADER (size 64))</summary>
             BitFields = 3,
 
-            /** 3 = Huffman 1D (if OS22XBITMAPHEADER (size 64)) */
+            /// <summary>3 = Huffman 1D (if OS22XBITMAPHEADER (size 64))</summary>
             Huffman1D = 3,
 
-            /** 4 = JPEG (not OS22XBITMAPHEADER (size 64)) */
+            /// <summary>4 = JPEG (not OS22XBITMAPHEADER (size 64))</summary>
             Jpeg = 4,
 
-            /** 4 = RLE 24-bit/pixel (if OS22XBITMAPHEADER (size 64)) */
+            /// <summary>4 = RLE 24-bit/pixel (if OS22XBITMAPHEADER (size 64))</summary>
             Rle24 = 4,
 
-            /** 5 = PNG */
+            /// <summary>5 = PNG</summary>
             Png = 5,
 
-            /** 6 = RGBA bit fields */
+            /// <summary>6 = RGBA bit fields</summary>
             AlphaBitFields = 6,
 
-            /** 11 = CMYK */
+            /// <summary>11 = CMYK</summary>
             Cmyk = 11,
 
-            /** 12 = CMYK RLE-8 */
+            /// <summary>12 = CMYK RLE-8</summary>
             CmykRle8 = 12,
 
-            /** 13 = CMYK RLE-4 */
+            /// <summary>13 = CMYK RLE-4</summary>
             CmykRle4 = 13
         }
 
         public enum RenderingHalftoningAlgorithm : int
         {
-            /** No halftoning algorithm */
+            /// <summary>No halftoning algorithm</summary>
             None = 0,
 
-            /** Error Diffusion Halftoning */
+            /// <summary>Error Diffusion Halftoning</summary>
             ErrorDiffusion = 1,
 
-            /** Processing Algorithm for Noncoded Document Acquisition */
+            /// <summary>Processing Algorithm for Noncoded Document Acquisition</summary>
             Panda = 2,
 
-            /** Super-circle Halftoning */
+            /// <summary>Super-circle Halftoning</summary>
             SuperCircle = 3
         }
 
@@ -149,34 +149,34 @@ namespace MetadataExtractor.Formats.Bmp
 
         public enum ColorSpaceType : long
         {
-            /** 0 = Calibrated RGB */
+            /// <summary>0 = Calibrated RGB</summary>
             LcsCalibratedRgb = 0L,
 
-            /** "sRGB" = sRGB Color Space */
+            /// <summary>"sRGB" = sRGB Color Space</summary>
             LcsSRgb = 0x73524742L,
 
-            /** "Win " = System Default Color Space, sRGB */
+            /// <summary>"Win " = System Default Color Space, sRGB</summary>
             LcsWindowsColorSpace = 0x57696E20L,
 
-            /** "LINK" = Linked Profile */
+            /// <summary>"LINK" = Linked Profile</summary>
             ProfileLinked = 0x4C494E4BL,
 
-            /** "MBED" = Embedded Profile */
+            /// <summary>"MBED" = Embedded Profile</summary>
             ProfileEmbedded = 0x4D424544L
         }
 
         public enum RenderingIntent : long
         {
-            /** Graphic, Saturation */
+            /// <summary>Graphic, Saturation</summary>
             LcsGmBusiness = 1,
 
-            /** Proof, Relative Colorimetric */
+            /// <summary>Proof, Relative Colorimetric</summary>
             LcsGmGraphics = 2,
 
-            /** Picture, Perceptual */
+            /// <summary>Picture, Perceptual</summary>
             LcsGmImages = 4,
 
-            /** Match, Absolute Colorimetric */
+            /// <summary>Match, Absolute Colorimetric</summary>
             LcsGmAbsColorimetric = 8
         }
     }

@@ -43,7 +43,7 @@ namespace MetadataExtractor.Formats.Iptc
         /// The two other checks are less reliable.
         /// </remarks>
         /// <param name="bytes">some text as bytes</param>
-        /// <returns>the name of the encoding or null if none could be guessed</returns>
+        /// <returns>the name of the encoding or <see langword="null"/> if none could be guessed</returns>
         internal static Encoding? GuessEncoding(byte[] bytes)
         {
             // First, give ASCII a shot
