@@ -318,7 +318,9 @@ namespace MetadataExtractor.Formats.QuickTime
                         ReadOnlySpan<byte> xmp = [0xbe, 0x7a, 0xcf, 0xcb, 0x97, 0xa9, 0x42, 0xe8, 0x9c, 0x71, 0x99, 0x94, 0x91, 0xe3, 0xaf, 0xac];
                         if (a.BytesLeft >= xmp.Length)
                         {
-                            var uuid = a.Reader.GetBytes(xmp.Length);
+                            Span<byte> uuid = stackalloc byte[16]; // xmp length is 16
+
+                            a.Reader.GetBytes(uuid);
                             if (xmp.SequenceEqual(uuid))
                             {
                                 var xmpBytes = a.Reader.GetNullTerminatedBytes((int)a.BytesLeft);
