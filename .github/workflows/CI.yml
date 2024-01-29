@@ -21,10 +21,14 @@ jobs:
         dotnet-version: 8.0.x
     - name: Restore
       run: dotnet restore MetadataExtractor.sln
-    - name: Build 
+    - name: Build (Release)
       run: dotnet build MetadataExtractor.sln --configuration Release
-    - name: Test net8.0
+    - name: Build (Debug)
+      run: dotnet build MetadataExtractor.sln --configuration Debug
+    - name: Test net8.0 (Release)
       run: dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj
+    - name: Test net8.0 (Debug)
+      run: dotnet test --verbosity normal --configuration Debug --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj
 
   windows:
     runs-on: windows-latest
@@ -38,7 +42,7 @@ jobs:
         dotnet-version: 8.0.x
     - name: Restore
       run: dotnet restore MetadataExtractor.sln
-    - name: Build 
+    - name: Build
       run: dotnet build MetadataExtractor.sln --configuration Release
     - name: Test net8.0
       run: dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests\MetadataExtractor.Tests.csproj
