@@ -30,6 +30,6 @@ namespace MetadataExtractor.Formats.Wav
 
         public override bool ShouldAcceptRiffIdentifier(ReadOnlySpan<byte> identifier) => identifier.SequenceEqual("WAVE"u8);
 
-        public override bool ShouldAcceptList(string fourCc) => false;
+        public override bool ShouldAcceptList(ReadOnlySpan<byte> fourCc) => false;
     }
 }

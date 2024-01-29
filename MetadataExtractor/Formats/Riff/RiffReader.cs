@@ -70,7 +70,7 @@ namespace MetadataExtractor.Formats.Riff
                 {
                     if (chunkSize < 4)
                         break;
-                    string listName = reader.GetString(4, Encoding.ASCII);
+                    ReadOnlySpan<byte> listName = reader.GetBytes(4);
                     if (handler.ShouldAcceptList(listName))
                         ProcessChunks(reader, reader.Position + chunkSize - 4, handler);
                     else
