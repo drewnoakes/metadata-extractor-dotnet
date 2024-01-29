@@ -3,13 +3,9 @@
 namespace MetadataExtractor.Formats.Adobe
 {
     /// <summary>Provides human-readable string versions of the tags stored in an AdobeJpegDirectory.</summary>
-    public class AdobeJpegDescriptor : TagDescriptor<AdobeJpegDirectory>
+    public class AdobeJpegDescriptor(AdobeJpegDirectory directory)
+        : TagDescriptor<AdobeJpegDirectory>(directory)
     {
-        public AdobeJpegDescriptor(AdobeJpegDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

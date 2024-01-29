@@ -12,13 +12,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// </remarks>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class OlympusImageProcessingMakernoteDescriptor : TagDescriptor<OlympusImageProcessingMakernoteDirectory>
+    public sealed class OlympusImageProcessingMakernoteDescriptor(OlympusImageProcessingMakernoteDirectory directory)
+        : TagDescriptor<OlympusImageProcessingMakernoteDirectory>(directory)
     {
-        public OlympusImageProcessingMakernoteDescriptor(OlympusImageProcessingMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

@@ -6,13 +6,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="KodakMakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class KodakMakernoteDescriptor : TagDescriptor<KodakMakernoteDirectory>
+    public sealed class KodakMakernoteDescriptor(KodakMakernoteDirectory directory)
+        : TagDescriptor<KodakMakernoteDirectory>(directory)
     {
-        public KodakMakernoteDescriptor(KodakMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

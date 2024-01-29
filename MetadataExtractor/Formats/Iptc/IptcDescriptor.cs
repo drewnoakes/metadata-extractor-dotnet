@@ -11,13 +11,9 @@ namespace MetadataExtractor.Formats.Iptc
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Akihiko Kusanagi https://github.com/nagix</author>
-    public sealed class IptcDescriptor : TagDescriptor<IptcDirectory>
+    public sealed class IptcDescriptor(IptcDirectory directory)
+        : TagDescriptor<IptcDirectory>(directory)
     {
-        public IptcDescriptor(IptcDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

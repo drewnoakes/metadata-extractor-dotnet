@@ -11,13 +11,8 @@ namespace MetadataExtractor.Formats.Jfif
     /// </list>
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes</author>
-    public sealed class JfifDescriptor : TagDescriptor<JfifDirectory>
+    public sealed class JfifDescriptor(JfifDirectory directory) : TagDescriptor<JfifDirectory>(directory)
     {
-        public JfifDescriptor(JfifDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

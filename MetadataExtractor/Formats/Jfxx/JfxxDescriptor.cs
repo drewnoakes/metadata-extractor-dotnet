@@ -11,13 +11,9 @@ namespace MetadataExtractor.Formats.Jfxx
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes</author>
-    public sealed class JfxxDescriptor : TagDescriptor<JfxxDirectory>
+    public sealed class JfxxDescriptor(JfxxDirectory directory)
+        : TagDescriptor<JfxxDirectory>(directory)
     {
-        public JfxxDescriptor(JfxxDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

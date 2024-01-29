@@ -6,11 +6,8 @@ namespace MetadataExtractor.Formats.Exif
     /// Provides human-readable string representations of tag values stored in a <see cref="ExifImageDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class ExifImageDescriptor : ExifDescriptorBase<ExifImageDirectory>
+    public sealed class ExifImageDescriptor(ExifImageDirectory directory)
+        : ExifDescriptorBase<ExifImageDirectory>(directory)
     {
-        public ExifImageDescriptor(ExifImageDirectory directory)
-            : base(directory)
-        {
-        }
     }
 }

@@ -3,13 +3,9 @@
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PngDescriptor : TagDescriptor<PngDirectory>
+    public sealed class PngDescriptor(PngDirectory directory)
+        : TagDescriptor<PngDirectory>(directory)
     {
-        public PngDescriptor(PngDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

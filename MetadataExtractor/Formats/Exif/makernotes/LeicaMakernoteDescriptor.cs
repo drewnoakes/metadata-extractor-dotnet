@@ -8,13 +8,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Tag reference from: http://gvsoft.homedns.org/exif/makernote-leica-type1.html
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class LeicaMakernoteDescriptor : TagDescriptor<LeicaMakernoteDirectory>
+    public class LeicaMakernoteDescriptor(LeicaMakernoteDirectory directory)
+        : TagDescriptor<LeicaMakernoteDirectory>(directory)
     {
-        public LeicaMakernoteDescriptor(LeicaMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)

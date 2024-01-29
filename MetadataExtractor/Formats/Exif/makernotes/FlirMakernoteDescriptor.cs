@@ -2,11 +2,8 @@
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
-    public class FlirMakernoteDescriptor : TagDescriptor<FlirMakernoteDirectory>
+    public class FlirMakernoteDescriptor(FlirMakernoteDirectory directory)
+        : TagDescriptor<FlirMakernoteDirectory>(directory)
     {
-        public FlirMakernoteDescriptor(FlirMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
     }
 }

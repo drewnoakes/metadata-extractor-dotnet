@@ -4,13 +4,9 @@ using static MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Direc
 
 namespace MetadataExtractor.Formats.Exif.Makernotes;
 
-public sealed class NikonPictureControl1Descriptor : TagDescriptor<NikonPictureControl1Directory>
+public sealed class NikonPictureControl1Descriptor(NikonPictureControl1Directory directory)
+    : TagDescriptor<NikonPictureControl1Directory>(directory)
 {
-    public NikonPictureControl1Descriptor(NikonPictureControl1Directory directory)
-        : base(directory)
-    {
-    }
-
     public override string? GetDescription(int tagType)
     {
         return tagType switch

@@ -6,11 +6,8 @@ namespace MetadataExtractor.Formats.Exif
     /// Provides human-readable string representations of tag values stored in a <see cref="ExifInteropDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifInteropDescriptor : ExifDescriptorBase<ExifInteropDirectory>
+    public class ExifInteropDescriptor(ExifInteropDirectory directory)
+        : ExifDescriptorBase<ExifInteropDirectory>(directory)
     {
-        public ExifInteropDescriptor(ExifInteropDirectory directory)
-            : base(directory)
-        {
-        }
     }
 }

@@ -7,13 +7,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="CanonMakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class CanonMakernoteDescriptor : TagDescriptor<CanonMakernoteDirectory>
+    public sealed class CanonMakernoteDescriptor(CanonMakernoteDirectory directory)
+        : TagDescriptor<CanonMakernoteDirectory>(directory)
     {
-        public CanonMakernoteDescriptor(CanonMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

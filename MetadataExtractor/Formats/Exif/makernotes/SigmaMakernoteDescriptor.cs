@@ -6,13 +6,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="SigmaMakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SigmaMakernoteDescriptor : TagDescriptor<SigmaMakernoteDirectory>
+    public class SigmaMakernoteDescriptor(SigmaMakernoteDirectory directory)
+        : TagDescriptor<SigmaMakernoteDirectory>(directory)
     {
-        public SigmaMakernoteDescriptor(SigmaMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

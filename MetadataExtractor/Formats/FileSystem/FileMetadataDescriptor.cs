@@ -3,13 +3,9 @@
 namespace MetadataExtractor.Formats.FileSystem
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class FileMetadataDescriptor : TagDescriptor<FileMetadataDirectory>
+    public class FileMetadataDescriptor(FileMetadataDirectory directory)
+        : TagDescriptor<FileMetadataDirectory>(directory)
     {
-        public FileMetadataDescriptor(FileMetadataDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

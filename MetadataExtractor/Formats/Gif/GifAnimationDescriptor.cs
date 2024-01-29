@@ -4,13 +4,9 @@ namespace MetadataExtractor.Formats.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public class GifAnimationDescriptor : TagDescriptor<GifAnimationDirectory>
+    public class GifAnimationDescriptor(GifAnimationDirectory directory)
+        : TagDescriptor<GifAnimationDirectory>(directory)
     {
-        public GifAnimationDescriptor(GifAnimationDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

@@ -7,13 +7,9 @@ namespace MetadataExtractor.Formats.Exif
     /// </summary>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PrintIMDescriptor : TagDescriptor<PrintIMDirectory>
+    public class PrintIMDescriptor(PrintIMDirectory directory)
+        : TagDescriptor<PrintIMDirectory>(directory)
     {
-        public PrintIMDescriptor(PrintIMDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             switch (tagType)

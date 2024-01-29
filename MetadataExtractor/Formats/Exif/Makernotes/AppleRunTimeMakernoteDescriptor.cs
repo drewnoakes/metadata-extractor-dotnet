@@ -2,12 +2,9 @@
 
 namespace MetadataExtractor.Formats.Exif.Makernotes;
 
-public sealed class AppleRunTimeMakernoteDescriptor : TagDescriptor<AppleRunTimeMakernoteDirectory>
+public sealed class AppleRunTimeMakernoteDescriptor(AppleRunTimeMakernoteDirectory directory)
+    : TagDescriptor<AppleRunTimeMakernoteDirectory>(directory)
 {
-    public AppleRunTimeMakernoteDescriptor(AppleRunTimeMakernoteDirectory directory) : base(directory)
-    {
-    }
-
     public override string? GetDescription(int tagType)
     {
         return tagType switch

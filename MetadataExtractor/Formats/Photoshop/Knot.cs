@@ -11,14 +11,9 @@ namespace MetadataExtractor.Formats.Photoshop
     /// </summary>
     /// <author>Payton Garland</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public class Knot
+    public class Knot(string type)
     {
         private readonly double[] _points = new double[6];
-
-        public Knot(string type)
-        {
-            Type = type;
-        }
 
         /// <summary>
         /// Add/Get an individual coordinate value (x or y) to/from
@@ -36,6 +31,6 @@ namespace MetadataExtractor.Formats.Photoshop
         /// <summary>
         /// Get the type of knot (linked or unlinked)
         /// </summary>
-        public string Type { get; }
+        public string Type { get; } = type;
     }
 }

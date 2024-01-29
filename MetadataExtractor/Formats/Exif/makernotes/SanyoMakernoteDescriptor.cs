@@ -6,13 +6,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="SonyType6MakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class SanyoMakernoteDescriptor : TagDescriptor<SanyoMakernoteDirectory>
+    public sealed class SanyoMakernoteDescriptor(SanyoMakernoteDirectory directory) : TagDescriptor<SanyoMakernoteDirectory>(directory)
     {
-        public SanyoMakernoteDescriptor(SanyoMakernoteDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch

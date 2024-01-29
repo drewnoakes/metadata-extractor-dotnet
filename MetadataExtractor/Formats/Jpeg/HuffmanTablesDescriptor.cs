@@ -12,13 +12,9 @@ namespace MetadataExtractor.Formats.Jpeg
     /// </remarks>
     /// <author>Nadahar</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public sealed class HuffmanTablesDescriptor : TagDescriptor<HuffmanTablesDirectory>
+    public sealed class HuffmanTablesDescriptor(HuffmanTablesDirectory directory)
+        : TagDescriptor<HuffmanTablesDirectory>(directory)
     {
-        public HuffmanTablesDescriptor(HuffmanTablesDirectory directory)
-            : base(directory)
-        {
-        }
-
         public override string? GetDescription(int tagType)
         {
             return tagType switch
