@@ -18,13 +18,13 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Restore
       run: dotnet restore MetadataExtractor.sln
     - name: Build 
       run: dotnet build MetadataExtractor.sln --configuration Release
-    - name: Test net7.0
-      run: dotnet test --verbosity normal --configuration Release --no-build -f net7.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj
+    - name: Test net8.0
+      run: dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj
 
   windows:
     runs-on: windows-latest
@@ -35,12 +35,12 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Restore
       run: dotnet restore MetadataExtractor.sln
     - name: Build 
       run: dotnet build MetadataExtractor.sln --configuration Release
-    - name: Test net7.0
-      run: dotnet test --verbosity normal --configuration Release --no-build -f net7.0 MetadataExtractor.Tests\MetadataExtractor.Tests.csproj
+    - name: Test net8.0
+      run: dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests\MetadataExtractor.Tests.csproj
     - name: Test net462
       run: dotnet test --verbosity normal --configuration Release --no-build -f net462 MetadataExtractor.Tests\MetadataExtractor.Tests.csproj
