@@ -31,8 +31,8 @@ namespace MetadataExtractor.Tools.FileProcessor
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 #endif
-            return ProcessRecursively(args);
-//            return ProcessFileList(args);
+            //return ProcessRecursively(args);
+            return ProcessFileList(args);
         }
 
         /// <summary>An application entry point.</summary>
@@ -125,7 +125,7 @@ namespace MetadataExtractor.Tools.FileProcessor
 
                             // truncate the description if it's too long
                             if (description is { Length: > 1024 })
-                                description = description[..1024] + "...";
+                                description = description.Substring(0, 1024) + "...";
                         }
                         catch (Exception e)
                         {
