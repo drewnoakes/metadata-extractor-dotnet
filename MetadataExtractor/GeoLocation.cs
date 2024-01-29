@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 
 namespace MetadataExtractor
@@ -40,7 +39,6 @@ namespace MetadataExtractor
         /// of format:
         /// <c>-1° 23' 4.56"</c>
         /// </summary>
-        [Pure]
         public static string DecimalToDegreesMinutesSecondsString(double value)
         {
             var dms = DecimalToDegreesMinutesSeconds(value);
@@ -51,7 +49,6 @@ namespace MetadataExtractor
         /// Converts a decimal degree angle into its corresponding DMS (degrees-minutes-seconds) component values, as
         /// a double array.
         /// </summary>
-        [Pure]
         public static double[] DecimalToDegreesMinutesSeconds(double value)
         {
             var d = (int)value;
@@ -65,7 +62,6 @@ namespace MetadataExtractor
         /// <see cref="GpsDirectory"/>, into a single value in degrees,
         /// as a double.
         /// </summary>
-        [Pure]
         public static double? DegreesMinutesSecondsToDecimal(Rational degs, Rational mins, Rational secs, bool isNegative)
         {
             var value = Math.Abs(degs.ToDouble()) + mins.ToDouble() / 60.0d + secs.ToDouble() / 3600.0d;
@@ -108,7 +104,6 @@ namespace MetadataExtractor
         /// a string representation of this location, of format:
         /// <c>-1° 23' 4.56", 54° 32' 1.92"</c>
         /// </returns>
-        [Pure]
         public string ToDmsString() => DecimalToDegreesMinutesSecondsString(Latitude) + ", " + DecimalToDegreesMinutesSecondsString(Longitude);
 
         #endregion

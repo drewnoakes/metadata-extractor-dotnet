@@ -1,7 +1,5 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -142,13 +140,10 @@ namespace MetadataExtractor.Formats.Png
 
         public bool AreMultipleAllowed { get; }
 
-        [Pure]
         private static bool IsLowerCase(byte b) => (b & (1 << 5)) != 0;
 
-        [Pure]
         private static bool IsUpperCase(byte b) => (b & (1 << 5)) == 0;
 
-        [Pure]
         private static bool IsValidByte(byte b) => b is >= 65 and <= 90 or >= 97 and <= 122;
 
         public string Identifier => Encoding.UTF8.GetString(_bytes, 0, _bytes.Length);

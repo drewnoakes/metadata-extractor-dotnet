@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Management.Automation;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Jfif;
@@ -26,7 +25,6 @@ namespace MetadataExtractor.PowerShell
     }
 
     [Cmdlet(VerbsCommon.Show, "JpegStructure")]
-    [UsedImplicitly]
     public sealed class ShowJpegStructure : PSCmdlet
     {
         private static readonly ByteTrie<string?> _appSegmentByPreambleBytes = new ByteTrie<string?>(null)
