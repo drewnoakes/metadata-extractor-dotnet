@@ -320,7 +320,7 @@ namespace MetadataExtractor.IO
             }
 
             if (length == 0)
-                return Empty.ByteArray;
+                return [];
             if (length == maxLengthBytes)
                 return buffer;
             var bytes = new byte[length];

@@ -14,7 +14,7 @@ namespace MetadataExtractor.Formats.Wav
                 TagFormat => GetFormatDescription(),
                 TagSamplesPerSec => Directory.GetUInt32(tag).ToString("0 bps"),
                 TagBytesPerSec => Directory.GetUInt32(tag).ToString("0 bps"),
-                TagSubformat => BitConverter.ToString(Directory.GetByteArray(tag) ?? Empty.ByteArray).Replace("-", ""),
+                TagSubformat => BitConverter.ToString(Directory.GetByteArray(tag) ?? []).Replace("-", ""),
                 _ => base.GetDescription(tag),
             };
         }

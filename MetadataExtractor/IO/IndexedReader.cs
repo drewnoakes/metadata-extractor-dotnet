@@ -388,7 +388,7 @@ namespace MetadataExtractor.IO
                 length++;
 
             if (length == 0)
-                return Empty.ByteArray;
+                return [];
             if (length == maxLengthBytes)
                 return buffer;
 
