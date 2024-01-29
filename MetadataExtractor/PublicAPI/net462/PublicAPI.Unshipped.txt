@@ -1,5 +1,4 @@
 ﻿#nullable enable
-abstract MetadataExtractor.Formats.Riff.RiffHandler.ShouldAcceptRiffIdentifier(System.ReadOnlySpan<byte> identifier) -> bool
 abstract MetadataExtractor.IO.IndexedReader.GetByteInternal(int index) -> byte
 abstract MetadataExtractor.IO.SequentialReader.GetBytes(System.Span<byte> bytes) -> void
 const MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.TagEpoch = 2 -> int
@@ -47,7 +46,6 @@ MetadataExtractor.Formats.Apple.BplistReader.BplistReader() -> void
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.Get(byte key) -> object!
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.GetTopObject() -> System.Collections.Generic.Dictionary<byte, byte>?
-MetadataExtractor.Formats.Avi.AviRiffHandler.ShouldAcceptRiffIdentifier(System.ReadOnlySpan<byte> identifier) -> bool
 MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor
 MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.AppleRunTimeMakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory! directory) -> void
 MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.GetFlagsDescription() -> string?
@@ -69,17 +67,13 @@ MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.GetToni
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.NikonPictureControl2Descriptor(MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory! directory) -> void
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory.NikonPictureControl2Directory() -> void
-MetadataExtractor.Formats.Riff.IRiffHandler.ShouldAcceptRiffIdentifier(System.ReadOnlySpan<byte> identifier) -> bool
-MetadataExtractor.Formats.WebP.WebPRiffHandler.ShouldAcceptRiffIdentifier(System.ReadOnlySpan<byte> identifier) -> bool
 MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
-MetadataExtractor.KeyValuePair.KeyValuePair() -> void
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Descriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Directory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory.Name.get -> string!
-override MetadataExtractor.Formats.Wav.WavRiffHandler.ShouldAcceptRiffIdentifier(System.ReadOnlySpan<byte> identifier) -> bool
 override MetadataExtractor.IO.ByteArrayReader.GetByteInternal(int index) -> byte
 override MetadataExtractor.IO.IndexedSeekingReader.GetByteInternal(int index) -> byte
 override MetadataExtractor.IO.SequentialByteArrayReader.GetBytes(System.Span<byte> bytes) -> void

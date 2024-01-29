@@ -1768,7 +1768,6 @@ const MetadataExtractor.Formats.Flir.FlirRawDataDirectory.TagRawThermalImage = 1
 const MetadataExtractor.Formats.Flir.FlirRawDataDirectory.TagRawThermalImageHeight = 4 -> int
 const MetadataExtractor.Formats.Flir.FlirRawDataDirectory.TagRawThermalImageType = 34 -> int
 const MetadataExtractor.Formats.Flir.FlirRawDataDirectory.TagRawThermalImageWidth = 2 -> int
-static MetadataExtractor.Formats.Flir.FlirReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartContourInterval = 47017 -> int
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartCorrDate = 47005 -> int
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagChartCountryOrigin = 47006 -> int
