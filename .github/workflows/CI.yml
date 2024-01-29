@@ -1,0 +1,50 @@
+name: CI
+
+on:
+
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  ununtu:
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: true
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore
+      run: dotnet restore MetadataExtractor.sln
+    - name: Build (Release)
+      run: dotnet build MetadataExtractor.sln --configuration Release
+    - name: Build (Debug)
+      run: dotnet build MetadataExtractor.sln --configuration Debug
+    - name: Test net8.0 (Release)
+      run: dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj
+    - name: Test net8.0 (Debug)
+      run: dotnet test --verbosity normal --configuration Debug --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj
+
+  windows:
+    runs-on: windows-latest
+    env:
+      DOTNET_NOLOGO: true
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore
+      run: dotnet restore MetadataExtractor.sln
+    - name: Build
+      run: dotnet build MetadataExtractor.sln --configuration Release
+    - name: Test net8.0
+      run: dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests\MetadataExtractor.Tests.csproj
+    - name: Test net462
+      run: dotnet test --verbosity normal --configuration Release --no-build -f net462 MetadataExtractor.Tests\MetadataExtractor.Tests.csproj
