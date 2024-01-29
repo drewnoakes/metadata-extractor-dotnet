@@ -1,6 +1,5 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
@@ -703,7 +702,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// lib\Image\ExifTool\Canon.pm
         /// </remarks>
         /// <param name="val">value to convert</param>
-        [Pure]
         private static double DecodeCanonEv(int val)
         {
             var sign = 1;

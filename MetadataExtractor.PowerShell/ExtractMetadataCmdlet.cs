@@ -1,13 +1,11 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Management.Automation;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Xmp;
 
 namespace MetadataExtractor.PowerShell
 {
     [Cmdlet("Extract", "Metadata")]
-    [UsedImplicitly]
     public sealed class ExtractMetadata : PSCmdlet
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "Path to the file to process")]
