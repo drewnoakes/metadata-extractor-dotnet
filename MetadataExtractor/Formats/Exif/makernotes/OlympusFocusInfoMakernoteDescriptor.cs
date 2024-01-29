@@ -77,13 +77,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(OlympusFocusInfoMakernoteDirectory.TagExternalFlash) is not ushort[] values || values.Length < 2)
                 return null;
 
-            var join = $"{values[0]} {values[1]}";
-
-            return join switch
+            return (values[0], values[1]) switch
             {
-                "0 0" => "Off",
-                "1 0" => "On",
-                _ => "Unknown (" + join + ")",
+                (0, 0) => "Off",
+                (1, 0) => "On",
+                _ => $"Unknown ({values[0]} {values[1]})"
             };
         }
 
