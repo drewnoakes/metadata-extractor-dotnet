@@ -4,7 +4,7 @@ using System.Buffers.Binary;
 
 namespace MetadataExtractor.Util
 {
-    public static class ByteConvert
+    internal static class ByteConvert
     {
         public static uint FromBigEndianToNative(uint bigEndian)
         {
