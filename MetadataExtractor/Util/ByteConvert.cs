@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor.Util
 {
-    public static class ByteConvert
+    internal static class ByteConvert
     {
         [Pure]
         public static uint FromBigEndianToNative(uint bigEndian)

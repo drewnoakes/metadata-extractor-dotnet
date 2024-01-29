@@ -4022,7 +4022,6 @@ MetadataExtractor.TagDescriptor<T>.GetStringFrom7BitBytes(int tagType) -> string
 MetadataExtractor.TagDescriptor<T>.GetStringFromUtf8Bytes(int tag) -> string?
 MetadataExtractor.TagDescriptor<T>.GetVersionBytesDescription(int tagType, int majorDigits) -> string?
 MetadataExtractor.TagDescriptor<T>.TagDescriptor(T! directory) -> void
-MetadataExtractor.Util.ByteConvert
 MetadataExtractor.Util.ByteTrie<T>
 MetadataExtractor.Util.ByteTrie<T>.Add(T value, params byte[]![]! parts) -> void
 MetadataExtractor.Util.ByteTrie<T>.Add(T value, System.ReadOnlySpan<byte> part) -> void
@@ -4389,9 +4388,6 @@ static MetadataExtractor.Rational.operator ==(MetadataExtractor.Rational a, Meta
 static MetadataExtractor.TagDescriptor<T>.ConvertBytesToVersionString(int[]? components, int majorDigits) -> string?
 static MetadataExtractor.TagDescriptor<T>.GetFocalLengthDescription(double mm) -> string!
 static MetadataExtractor.TagDescriptor<T>.GetFStopDescription(double fStop) -> string!
-static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(short bigEndian) -> short
-static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(uint bigEndian) -> uint
-static MetadataExtractor.Util.ByteConvert.FromBigEndianToNative(ushort bigEndian) -> ushort
 static MetadataExtractor.Util.FileTypeDetector.DetectFileType(System.IO.Stream! stream) -> MetadataExtractor.Util.FileType
 static MetadataExtractor.Util.FileTypeExtensions.GetAllExtensions(this MetadataExtractor.Util.FileType fileType) -> System.Collections.Generic.IEnumerable<string!>?
 static MetadataExtractor.Util.FileTypeExtensions.GetCommonExtension(this MetadataExtractor.Util.FileType fileType) -> string?
