@@ -13,7 +13,7 @@ namespace MetadataExtractor.Formats.QuickTime
 
             reader.GetBytes(bytes);
 
-            return new string([(char)bytes[0], (char)bytes[1], (char)bytes[2], (char)bytes[3]]);
+            return Encoding.ASCII.GetString(bytes);
         }
 
         public static decimal Get16BitFixedPoint(this SequentialReader reader)
