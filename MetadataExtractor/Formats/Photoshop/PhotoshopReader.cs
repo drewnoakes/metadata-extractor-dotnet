@@ -53,12 +53,15 @@ namespace MetadataExtractor.Formats.Photoshop
             // http://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577409_pgfId-1037504
             var pos = 0;
             int clippingPathCount = 0;
+
+            Span<byte> signature = stackalloc byte[4];
+
             while (pos < length)
             {
                 try
                 {
                     // 4 bytes for the signature ("8BIM", "PHUT", etc.)
-                    var signature = reader.GetString(4, Encoding.UTF8);
+                    reader.GetBytes(signature);
                     pos += 4;
 
                     // 2 bytes for the resource identifier (tag type).
@@ -106,7 +109,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     }
 
                     // Skip any unsupported IRBs
-                    if (signature != "8BIM")
+                    if (!signature.SequenceEqual("8BIM"u8))
                         continue;
 
                     switch (tagType)
