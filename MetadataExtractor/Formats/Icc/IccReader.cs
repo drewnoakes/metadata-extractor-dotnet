@@ -162,7 +162,7 @@ namespace MetadataExtractor.Formats.Icc
                 unchecked((byte)d)
             };
 
-            return Encoding.UTF8.GetString(b, 0, b.Length);
+            return Encoding.UTF8.GetString(b);
         }
     }
 }

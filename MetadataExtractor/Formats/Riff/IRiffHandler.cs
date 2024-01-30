@@ -33,7 +33,7 @@ namespace MetadataExtractor.Formats.Riff
         /// </remarks>
         /// <param name="fourCc">the four character code of this chunk</param>
         /// <returns><see langword="true"/> if <see cref="ProcessChunk(string, byte[])"/> should be called, otherwise <see langword="false"/>.</returns>
-        bool ShouldAcceptList(string fourCc);
+        bool ShouldAcceptList(ReadOnlySpan<byte> fourCc);
 
         /// <summary>Perform whatever processing is necessary for the type of chunk with its payload.</summary>
         /// <remarks>This is only called if a previous call to <see cref="ShouldAcceptChunk(string)"/> with the same <c>fourCC</c> returned <see langword="true"/>.</remarks>

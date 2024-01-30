@@ -651,15 +651,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagGradation) is not short[] values || values.Length < 3)
                 return null;
 
-            var join = $"{values[0]} {values[1]} {values[2]}";
-            var ret = join switch
+            var ret = (values[0], values[1], values[3]) switch
             {
-                "0 0 0" => "n/a",
-                "-1 -1 1" => "Low Key",
-                "0 -1 1" => "Normal",
-                "1 -1 1" => "High Key",
-                _ => "Unknown (" + join + ")",
+                (0, 0, 0) => "n/a",
+                (-1, -1, 1) => "Low Key",
+                (0, -1, 1) => "Normal",
+                (1, -1, 1) => "High Key",
+                _ => $"Unknown ({values[0]} {values[1]} {values[2]})"
             };
+
             if (values.Length > 3)
             {
                 if (values[3] == 0)

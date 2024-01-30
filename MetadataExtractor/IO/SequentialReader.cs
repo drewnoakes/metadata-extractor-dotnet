@@ -255,7 +255,7 @@ namespace MetadataExtractor.IO
         {
             var bytes = GetNullTerminatedBytes(maxLengthBytes, moveToMaxLength);
 
-            return (encoding ?? Encoding.UTF8).GetString(bytes, 0, bytes.Length);
+            return (encoding ?? Encoding.UTF8).GetString(bytes);
         }
 
         /// <summary>
@@ -320,7 +320,7 @@ namespace MetadataExtractor.IO
             }
 
             if (length == 0)
-                return Empty.ByteArray;
+                return [];
             if (length == maxLengthBytes)
                 return buffer;
             var bytes = new byte[length];

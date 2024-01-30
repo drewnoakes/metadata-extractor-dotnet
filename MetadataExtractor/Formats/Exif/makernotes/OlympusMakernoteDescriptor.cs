@@ -471,7 +471,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(OlympusMakernoteDirectory.TagColourMatrix) is not short[] values)
                 return null;
 
-            return string.Join(" ", values.Select(b => b.ToString()).ToArray());
+            return string.Join(" ", values);
         }
 
         public string? GetWbModeDescription()
@@ -574,7 +574,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (bytes is null)
                 return null;
 
-            return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+            return Encoding.UTF8.GetString(bytes);
         }
 
         public string? GetOneTouchWbDescription()

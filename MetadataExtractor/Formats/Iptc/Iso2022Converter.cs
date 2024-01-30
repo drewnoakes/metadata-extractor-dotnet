@@ -1,5 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Buffers;
+
 namespace MetadataExtractor.Formats.Iptc
 {
     public static class Iso2022Converter
@@ -89,16 +91,23 @@ namespace MetadataExtractor.Formats.Iptc
 
             foreach (var encoding in encodings)
             {
+                char[] charBuffer = ArrayPool<char>.Shared.Rent(encoding.GetMaxCharCount(bytes.Length));
+
                 try
                 {
-                    var s = encoding.GetString(bytes, 0, bytes.Length);
-                    if (s.IndexOf((char)65533) != -1)
+                    int charCount = encoding.GetChars(bytes, 0, bytes.Length, charBuffer, 0);
+
+                    if (charBuffer.AsSpan(0, charCount).IndexOf((char)65533) != -1)
                         continue;
                     return encoding;
                 }
                 catch
                 {
                     // fall through...
+                }
+                finally
+                {
+                    ArrayPool<char>.Shared.Return(charBuffer);
                 }
             }
 

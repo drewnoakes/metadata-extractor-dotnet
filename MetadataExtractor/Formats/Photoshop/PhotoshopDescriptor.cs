@@ -283,7 +283,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
             return bytes is null
                 ? null
-                : Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                : Encoding.UTF8.GetString(bytes);
         }
 
         private string? GetBinaryDataString(int tagType)

@@ -146,7 +146,7 @@ namespace MetadataExtractor.Formats.Png
 
         private static bool IsValidByte(byte b) => b is >= 65 and <= 90 or >= 97 and <= 122;
 
-        public string Identifier => Encoding.UTF8.GetString(_bytes, 0, _bytes.Length);
+        public string Identifier => Encoding.UTF8.GetString(_bytes);
 
         public override string ToString() => Identifier;
 

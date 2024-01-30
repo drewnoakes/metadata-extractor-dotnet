@@ -929,7 +929,7 @@ namespace MetadataExtractor
         {
             var bytes = directory.GetByteArray(tagType);
             return bytes is null ? null
-                : encoding.GetString(bytes, 0, bytes.Length);
+                : encoding.GetString(bytes);
         }
 
         public static StringValue GetStringValue(this Directory directory, int tagType)

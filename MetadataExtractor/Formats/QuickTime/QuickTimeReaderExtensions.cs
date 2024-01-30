@@ -9,12 +9,11 @@ namespace MetadataExtractor.Formats.QuickTime
     {
         public static string Get4ccString(this SequentialReader reader)
         {
-            var sb = new StringBuilder(4);
-            sb.Append((char)reader.GetByte());
-            sb.Append((char)reader.GetByte());
-            sb.Append((char)reader.GetByte());
-            sb.Append((char)reader.GetByte());
-            return sb.ToString();
+            Span<byte> bytes = stackalloc byte[4];
+
+            reader.GetBytes(bytes);
+
+            return Encoding.ASCII.GetString(bytes);
         }
 
         public static decimal Get16BitFixedPoint(this SequentialReader reader)

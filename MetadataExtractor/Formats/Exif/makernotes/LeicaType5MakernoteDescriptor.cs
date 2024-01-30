@@ -30,15 +30,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(LeicaType5MakernoteDirectory.TagExposureMode) is not byte[] values || values.Length < 4)
                 return null;
 
-            var join = $"{values[0]} {values[1]} {values[2]} {values[3]}";
-            var ret = join switch
+            var ret = (values[0], values[1], values[2], values[3]) switch
             {
-                "0 0 0 0" => "Program AE",
-                "1 0 0 0" => "Aperture-priority AE",
-                "1 1 0 0" => "Aperture-priority AE (1)",
-                "2 0 0 0" => "Shutter speed priority AE",  // guess
-                "3 0 0 0" => "Manual",
-                _ => "Unknown (" + join + ")",
+                (0, 0, 0, 0) => "Program AE",
+                (1, 0, 0, 0) => "Aperture-priority AE",
+                (1, 1, 0, 0) => "Aperture-priority AE (1)",
+                (2, 0, 0, 0) => "Shutter speed priority AE",  // guess
+                (3, 0, 0, 0) => "Manual",
+                _ => $"Unknown ({values[0]} {values[1]} {values[2]} {values[3]})"
             };
             return ret;
         }

@@ -66,7 +66,7 @@ namespace MetadataExtractor.Formats.Heif
                     {
                         dir.Set(
                             QuickTimeFileTypeDirectory.TagCompatibleBrands,
-                            string.Join(", ", ftype.CompatibleBrandStrings.ToArray()));
+                            string.Join(", ", ftype.CompatibleBrandStrings));
                     }
 
                     directories.Add(dir);

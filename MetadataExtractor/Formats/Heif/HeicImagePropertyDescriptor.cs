@@ -15,7 +15,7 @@ namespace MetadataExtractor.Formats.Heif
                     return Directory.GetString(tagType) + " degrees";
                 case HeicImagePropertiesDirectory.TagPixelDepths:
                     var o = Directory.GetObject(HeicImagePropertiesDirectory.TagPixelDepths);
-                    return o is null ? null : string.Join(" ", ((byte[])o).Select(i => i.ToString()).ToArray());
+                    return o is byte[] bytes ? string.Join(" ", bytes) : null;
                 case HeicImagePropertiesDirectory.TagColorFormat:
                     return TypeStringConverter.ToTypeString(Directory.GetUInt32(HeicImagePropertiesDirectory.TagColorFormat));
                 case HeicImagePropertiesDirectory.TagColorPrimaries:

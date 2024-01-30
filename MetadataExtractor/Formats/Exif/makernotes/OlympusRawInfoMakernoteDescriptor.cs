@@ -32,7 +32,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagColorMatrix2) is not short[] values)
                 return null;
 
-            return string.Join(" ", values.Select(b => b.ToString()).ToArray());
+            return string.Join(" ", values);
         }
 
         public string? GetYCbCrCoefficientsDescription()
@@ -46,7 +46,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 ret[i] = new Rational(values[2 * i], values[2 * i + 1]);
             }
 
-            return string.Join(" ", ret.Select(r => r.ToDecimal().ToString()).ToArray());
+            return string.Join(" ", ret.Select(r => r.ToDecimal()));
         }
 
         public string? GetOlympusLightSourceDescription()

@@ -221,8 +221,7 @@ namespace MetadataExtractor
 
             try
             {
-                return Encoding.UTF8
-                    .GetString(values, 0, values.Length)
+                return Encoding.UTF8.GetString(values)
                     .Trim('\0', ' ', '\r', '\n', '\t');
             }
             catch

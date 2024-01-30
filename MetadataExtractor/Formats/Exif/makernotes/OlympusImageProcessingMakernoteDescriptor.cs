@@ -130,24 +130,23 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagAspectRatio) is not byte[] values || values.Length < 2)
                 return null;
 
-            var join = $"{values[0]} {values[1]}";
-            var ret = join switch
+            var ret = (values[0], values[1]) switch
             {
-                "1 1" => "4:3",
-                "1 4" => "1:1",
-                "2 1" => "3:2 (RAW)",
-                "2 2" => "3:2",
-                "3 1" => "16:9 (RAW)",
-                "3 3" => "16:9",
-                "4 1" => "1:1 (RAW)",
-                "4 4" => "6:6",
-                "5 5" => "5:4",
-                "6 6" => "7:6",
-                "7 7" => "6:5",
-                "8 8" => "7:5",
-                "9 1" => "3:4 (RAW)",
-                "9 9" => "3:4",
-                _ => "Unknown (" + join + ")",
+                (1, 1) => "4:3",
+                (1, 4) => "1:1",
+                (2, 1) => "3:2 (RAW)",
+                (2, 2) => "3:2",
+                (3, 1) => "16:9 (RAW)",
+                (3, 3) => "16:9",
+                (4, 1) => "1:1 (RAW)",
+                (4, 4) => "6:6",
+                (5, 5) => "5:4",
+                (6, 6) => "7:6",
+                (7, 7) => "6:5",
+                (8, 8) => "7:5",
+                (9, 1) => "3:4 (RAW)",
+                (9, 9) => "3:4",
+                _ => $"Unknown ({values[0]} {values[1]})"
             };
             return ret;
         }
@@ -157,14 +156,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagKeystoneCompensation) is not byte[] values || values.Length < 2)
                 return null;
 
-            var join = $"{values[0]} {values[1]}";
-            var ret = join switch
+            return (values[0], values[1]) switch
             {
-                "0 0" => "Off",
-                "0 1" => "On",
-                _ => "Unknown (" + join + ")",
+                (0, 0) => "Off",
+                (0, 1) => "On",
+                _ => $"Unknown ({values[0]} {values[1]})"
             };
-            return ret;
         }
 
         public string? GetKeystoneDirectionDescription()

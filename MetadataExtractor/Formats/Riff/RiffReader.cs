@@ -31,7 +31,7 @@ namespace MetadataExtractor.Formats.Riff
                 Span<byte> fileFourCc = stackalloc byte[4];
                 reader.GetBytes(fileFourCc);
                 if (!fileFourCc.SequenceEqual("RIFF"u8))
-                    throw new RiffProcessingException("Invalid RIFF header: " + Encoding.ASCII.GetString(fileFourCc.ToArray()));
+                    throw new RiffProcessingException("Invalid RIFF header: " + Encoding.ASCII.GetString(fileFourCc));
 
                 // The total size of the chunks that follow plus 4 bytes for the 'WEBP' or 'AVI ' FourCC
                 int fileSize = reader.GetInt32();
@@ -57,6 +57,8 @@ namespace MetadataExtractor.Formats.Riff
         {
             // Processing chunks. Each chunk is 8 bytes header (4 bytes CC code + 4 bytes length of chunk) + data of the chunk
 
+            Span<byte> listName = stackalloc byte[4];
+
             while (reader.Position < maxPosition - 8)
             {
                 string chunkFourCc = reader.GetString(4, Encoding.ASCII);
@@ -70,7 +72,7 @@ namespace MetadataExtractor.Formats.Riff
                 {
                     if (chunkSize < 4)
                         break;
-                    string listName = reader.GetString(4, Encoding.ASCII);
+                    listName = reader.GetBytes(4);
                     if (handler.ShouldAcceptList(listName))
                         ProcessChunks(reader, reader.Position + chunkSize - 4, handler);
                     else

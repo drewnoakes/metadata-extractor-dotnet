@@ -15,7 +15,7 @@ namespace MetadataExtractor.Formats.Exif
     {
         public static ReadOnlySpan<byte> JpegSegmentPreamble => "Exif\x0\x0"u8;
 
-        public static bool StartsWithJpegExifPreamble(byte[] bytes) => bytes.AsSpan().StartsWith(JpegSegmentPreamble);
+        public static bool StartsWithJpegExifPreamble(ReadOnlySpan<byte> bytes) => bytes.StartsWith(JpegSegmentPreamble);
 
         public static int JpegSegmentPreambleLength => JpegSegmentPreamble.Length;
 

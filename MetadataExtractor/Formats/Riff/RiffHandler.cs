@@ -30,7 +30,7 @@ namespace MetadataExtractor.Formats.Riff
 
         public abstract bool ShouldAcceptRiffIdentifier(ReadOnlySpan<byte> identifier);
 
-        public abstract bool ShouldAcceptList(string fourCc);
+        public abstract bool ShouldAcceptList(ReadOnlySpan<byte> fourCc);
 
         public void AddError(string errorMessage)
         {

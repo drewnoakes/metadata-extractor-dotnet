@@ -5,7 +5,7 @@ abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.Pr
 abstract MetadataExtractor.Formats.Jpeg.JpegSegmentWithPreambleMetadataReader.SegmentTypes.get -> System.Collections.Generic.IReadOnlyCollection<MetadataExtractor.Formats.Jpeg.JpegSegmentType>!
 abstract MetadataExtractor.Formats.Riff.RiffChunkHandler<T>.MinSize.get -> int
 abstract MetadataExtractor.Formats.Riff.RiffChunkHandler<T>.Populate(T! directory, byte[]! payload) -> void
-abstract MetadataExtractor.Formats.Riff.RiffHandler.ShouldAcceptList(string! fourCc) -> bool
+abstract MetadataExtractor.Formats.Riff.RiffHandler.ShouldAcceptList(System.ReadOnlySpan<byte> fourCc) -> bool
 abstract MetadataExtractor.Formats.Riff.RiffHandler.ShouldAcceptRiffIdentifier(System.ReadOnlySpan<byte> identifier) -> bool
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.CustomProcessTag(in MetadataExtractor.Formats.Tiff.TiffReaderContext context, int tagId, int valueOffset, int byteCount) -> bool
 abstract MetadataExtractor.Formats.Tiff.DirectoryTiffHandler.HasFollowerIfd() -> bool
@@ -2387,7 +2387,7 @@ MetadataExtractor.Formats.Avi.AviRiffHandler.AddError(string! errorMessage) -> v
 MetadataExtractor.Formats.Avi.AviRiffHandler.AviRiffHandler(System.Collections.Generic.List<MetadataExtractor.Directory!>! directories) -> void
 MetadataExtractor.Formats.Avi.AviRiffHandler.ProcessChunk(string! fourCc, byte[]! payload) -> void
 MetadataExtractor.Formats.Avi.AviRiffHandler.ShouldAcceptChunk(string! fourCc) -> bool
-MetadataExtractor.Formats.Avi.AviRiffHandler.ShouldAcceptList(string! fourCc) -> bool
+MetadataExtractor.Formats.Avi.AviRiffHandler.ShouldAcceptList(System.ReadOnlySpan<byte> fourCc) -> bool
 MetadataExtractor.Formats.Avi.AviRiffHandler.ShouldAcceptRiffIdentifier(System.ReadOnlySpan<byte> identifier) -> bool
 MetadataExtractor.Formats.Bmp.BmpHeaderDescriptor
 MetadataExtractor.Formats.Bmp.BmpHeaderDescriptor.BmpHeaderDescriptor(MetadataExtractor.Formats.Bmp.BmpHeaderDirectory! directory) -> void
@@ -3697,7 +3697,7 @@ MetadataExtractor.Formats.Riff.IRiffHandler
 MetadataExtractor.Formats.Riff.IRiffHandler.AddError(string! errorMessage) -> void
 MetadataExtractor.Formats.Riff.IRiffHandler.ProcessChunk(string! fourCc, byte[]! payload) -> void
 MetadataExtractor.Formats.Riff.IRiffHandler.ShouldAcceptChunk(string! fourCc) -> bool
-MetadataExtractor.Formats.Riff.IRiffHandler.ShouldAcceptList(string! fourCc) -> bool
+MetadataExtractor.Formats.Riff.IRiffHandler.ShouldAcceptList(System.ReadOnlySpan<byte> fourCc) -> bool
 MetadataExtractor.Formats.Riff.IRiffHandler.ShouldAcceptRiffIdentifier(System.ReadOnlySpan<byte> identifier) -> bool
 MetadataExtractor.Formats.Riff.RiffChunkHandler<T>
 MetadataExtractor.Formats.Riff.RiffChunkHandler<T>.ProcessChunk(string! fourCc, byte[]! payload) -> void
@@ -3860,7 +3860,7 @@ MetadataExtractor.Formats.WebP.WebPRiffHandler
 MetadataExtractor.Formats.WebP.WebPRiffHandler.AddError(string! errorMessage) -> void
 MetadataExtractor.Formats.WebP.WebPRiffHandler.ProcessChunk(string! fourCc, byte[]! payload) -> void
 MetadataExtractor.Formats.WebP.WebPRiffHandler.ShouldAcceptChunk(string! fourCc) -> bool
-MetadataExtractor.Formats.WebP.WebPRiffHandler.ShouldAcceptList(string! fourCc) -> bool
+MetadataExtractor.Formats.WebP.WebPRiffHandler.ShouldAcceptList(System.ReadOnlySpan<byte> fourCc) -> bool
 MetadataExtractor.Formats.WebP.WebPRiffHandler.ShouldAcceptRiffIdentifier(System.ReadOnlySpan<byte> identifier) -> bool
 MetadataExtractor.Formats.WebP.WebPRiffHandler.WebPRiffHandler(System.Collections.Generic.List<MetadataExtractor.Directory!>! directories) -> void
 MetadataExtractor.Formats.Xmp.Schema
@@ -4241,7 +4241,7 @@ override MetadataExtractor.Formats.Tiff.TiffDataFormat.ToString() -> string!
 override MetadataExtractor.Formats.Wav.WavFactDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Wav.WavFormatDescriptor.GetDescription(int tag) -> string?
 override MetadataExtractor.Formats.Wav.WavFormatDirectory.Name.get -> string!
-override MetadataExtractor.Formats.Wav.WavRiffHandler.ShouldAcceptList(string! fourCc) -> bool
+override MetadataExtractor.Formats.Wav.WavRiffHandler.ShouldAcceptList(System.ReadOnlySpan<byte> fourCc) -> bool
 override MetadataExtractor.Formats.Wav.WavRiffHandler.ShouldAcceptRiffIdentifier(System.ReadOnlySpan<byte> identifier) -> bool
 override MetadataExtractor.Formats.WebP.WebPDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Xmp.XmpDirectory.Name.get -> string!
@@ -4326,7 +4326,7 @@ static MetadataExtractor.Formats.Eps.EpsMetadataReader.ReadMetadata(string! file
 static MetadataExtractor.Formats.Eps.EpsMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Exif.ExifDirectoryBase.AddExifTagNames(System.Collections.Generic.Dictionary<int, string!>! map) -> void
 static MetadataExtractor.Formats.Exif.ExifReader.JpegSegmentPreambleLength.get -> int
-static MetadataExtractor.Formats.Exif.ExifReader.StartsWithJpegExifPreamble(byte[]! bytes) -> bool
+static MetadataExtractor.Formats.Exif.ExifReader.StartsWithJpegExifPreamble(System.ReadOnlySpan<byte> bytes) -> bool
 static MetadataExtractor.Formats.Gif.GifMetadataReader.ReadMetadata(string! filePath) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Gif.GifMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Heif.HeifMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
