@@ -30,7 +30,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 OlympusFocusInfoMakernoteDirectory.TagMacroLed => GetMacroLedDescription(),
                 OlympusFocusInfoMakernoteDirectory.TagSensorTemperature => GetSensorTemperatureDescription(),
                 OlympusFocusInfoMakernoteDirectory.TagImageStabilization => GetImageStabilizationDescription(),
-                _ => base.GetDescription(tagType),
+                _ => base.GetDescription(tagType)
             };
         }
 
@@ -107,15 +107,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values.Length == 0)
                 return null;
 
-            var join = $"{values[0]}" + (values.Length > 1 ? $"{values[1]}" : "");
-
-            return join switch
+            return (values[0], values.Length > 1 ? values[1] : -1) switch
             {
-                "0" => "Off",
-                "1" => "On",
-                "0 0" => "Off",
-                "1 0" => "On",
-                _ => "Unknown (" + join + ")",
+                (0, -1) => "Off",
+                (1, -1) => "On",
+                (0, 0) => "Off",
+                (1, 0) => "On",
+                _ => $"Unknown ({string.Join(" ", values)})"
             };
         }
 
