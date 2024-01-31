@@ -651,7 +651,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagGradation) is not short[] values || values.Length < 3)
                 return null;
 
-            var ret = (values[0], values[1], values[3]) switch
+            var ret = (values[0], values[1], values[2]) switch
             {
                 (0, 0, 0) => "n/a",
                 (-1, -1, 1) => "Low Key",
