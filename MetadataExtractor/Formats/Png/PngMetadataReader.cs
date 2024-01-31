@@ -295,7 +295,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.tIME)
             {
-                var reader = new SequentialByteArrayReader(bytes);
+                var reader = new BufferReader(bytes, isBigEndian: true);
                 var year = reader.GetUInt16();
                 var month = reader.GetByte();
                 int day = reader.GetByte();
@@ -316,7 +316,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.pHYs)
             {
-                var reader = new SequentialByteArrayReader(bytes);
+                var reader = new BufferReader(bytes, isBigEndian: true);
                 var pixelsPerUnitX = reader.GetInt32();
                 var pixelsPerUnitY = reader.GetInt32();
                 var unitSpecifier = reader.GetSByte();
