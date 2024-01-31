@@ -448,9 +448,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 base.Set(tagType, value);
         }
 
-        private void ProcessCameraSettings(byte[] bytes)
+        private void ProcessCameraSettings(ReadOnlySpan<byte> bytes)
         {
-            var reader = new SequentialByteArrayReader(bytes);
+            var reader = new BufferReader(bytes, isBigEndian: true);
             var count = bytes.Length / 4;
 
             for (var i = 0; i < count; i++)
