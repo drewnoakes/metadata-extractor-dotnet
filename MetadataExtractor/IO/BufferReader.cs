@@ -14,14 +14,14 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public byte GetByte()
     {
-        Debug.Assert(_position >= _bytes.Length, "attempted to read past end of data");
+        Debug.Assert(_position < _bytes.Length, "attempted to read past end of data");
 
         return _bytes[_position++];
     }
 
     public void GetBytes(scoped Span<byte> bytes)
     {
-        Debug.Assert(_position + bytes.Length > _bytes.Length, "attempted to read past end of data");
+        Debug.Assert(_position + bytes.Length <= _bytes.Length, "attempted to read past end of data");
 
         _bytes.Slice(_position, bytes.Length).CopyTo(bytes);
         _position += bytes.Length;
@@ -29,7 +29,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public byte[] GetBytes(int count)
     {
-        Debug.Assert(_position + count > _bytes.Length, "attempted to read past end of data");
+        Debug.Assert(_position + count <= _bytes.Length, "attempted to read past end of data");
 
         var bytes = new byte[count];
 
@@ -42,15 +42,15 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public void Advance(int n)
     {
-        Debug.Assert(n < 0, "n must be zero or greater");
-        Debug.Assert(_position + n > _bytes.Length, "attempted to advance past end of data");
+        Debug.Assert(n >= 0, "n must be zero or greater");
+        Debug.Assert(_position + n <= _bytes.Length, "attempted to advance past end of data");
 
         _position += n;
     }
 
     public bool TryAdvance(int n)
     {
-        Debug.Assert(n < 0, "n must be zero or greater");
+        Debug.Assert(n >= 0, "n must be zero or greater");
 
         _position += n;
 
