@@ -153,8 +153,9 @@ namespace MetadataExtractor.Formats.Flir
                     directory.Set(TagRawValueMedian, reader2.GetUInt16(TagRawValueMedian));
                     directory.Set(TagRawValueRange, reader2.GetUInt16(TagRawValueRange));
 
-                    var dateTimeBytes = reader2.GetBytes(TagDateTimeOriginal, 10);
-                    var dateTimeReader = new SequentialByteArrayReader(dateTimeBytes, isMotorolaByteOrder: false);
+                    Span<byte> dateTimeBytes = stackalloc byte[10];
+                    reader2.GetBytes(TagDateTimeOriginal, dateTimeBytes);
+                    var dateTimeReader = new BufferReader(dateTimeBytes, isBigEndian: false);
                     var tm = dateTimeReader.GetUInt32();
                     var ss = dateTimeReader.GetUInt32() & 0xffff;
                     var tz = dateTimeReader.GetInt16();
