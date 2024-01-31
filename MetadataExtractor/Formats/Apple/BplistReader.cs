@@ -43,7 +43,7 @@ public sealed class BplistReader
 
         Trailer trailer = ReadTrailer();
 
-        SequentialByteArrayReader reader = new(bplist, baseIndex: checked((int)(trailer.OffsetTableOffset + trailer.TopObject)));
+        var reader = new BufferReader(bplist.AsSpan(checked((int)(trailer.OffsetTableOffset + trailer.TopObject))), isBigEndian: true);
 
         int[] offsets = new int[(int)trailer.NumObjects];
 
@@ -63,7 +63,7 @@ public sealed class BplistReader
 
         for (int i = 0; i < offsets.Length; i++)
         {
-            reader = new SequentialByteArrayReader(bplist, offsets[i]);
+            reader = new BufferReader(bplist.AsSpan(offsets[i]), isBigEndian: true);
 
             byte b = reader.GetByte();
 
@@ -73,13 +73,13 @@ public sealed class BplistReader
             object obj = objectFormat switch
             {
                 // dict
-                0x0D => HandleDict(marker),
+                0x0D => HandleDict(ref reader, marker),
                 // string (ASCII)
                 0x05 => reader.GetString(bytesRequested: marker & 0x0F, Encoding.ASCII),
                 // data
-                0x04 => HandleData(marker),
+                0x04 => HandleData(ref reader, marker),
                 // int
-                0x01 => HandleInt(marker),
+                0x01 => HandleInt(ref reader, marker),
                 // unknown
                 _ => throw new NotSupportedException($"Unsupported object format {objectFormat:X2}.")
             };
@@ -91,7 +91,7 @@ public sealed class BplistReader
 
         Trailer ReadTrailer()
         {
-            SequentialByteArrayReader reader = new(bplist, bplist.Length - Trailer.SizeBytes);
+            var reader = new BufferReader(bplist.AsSpan(bplist.Length - Trailer.SizeBytes), isBigEndian: true);
 
             // Skip 5-byte unused values, 1-byte sort version.
             reader.Skip(6);
@@ -106,7 +106,7 @@ public sealed class BplistReader
             };
         }
 
-        object HandleInt(byte marker)
+        static object HandleInt(ref BufferReader reader, byte marker)
         {
             return marker switch
             {
@@ -118,7 +118,7 @@ public sealed class BplistReader
             };
         }
 
-        Dictionary<byte, byte> HandleDict(byte count)
+        static Dictionary<byte, byte> HandleDict(ref BufferReader reader, byte count)
         {
             var keyRefs = new byte[count];
 
@@ -137,7 +137,7 @@ public sealed class BplistReader
             return map;
         }
 
-        object HandleData(byte marker)
+        object HandleData(ref BufferReader reader, byte marker)
         {
             int byteCount = marker;
 
