@@ -38,26 +38,21 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
         return bytes;
     }
 
-    public int Available
+    public readonly int Available => _bytes.Length - _position;
+
+    public void Skip(int n)
     {
-        get => _bytes.Length - _position;
+        Debug.Assert(n < 0, "n must be zero or greater");
+        Debug.Assert(_position + n > _bytes.Length, "attempted to advance past end of data");
+
+        _position += n;
     }
 
-    public void Skip(long n)
+    public bool TrySkip(int n)
     {
-        Debug.Assert(n < 0, "n must be zero or greater.");
+        Debug.Assert(n < 0, "n must be zero or greater");
 
-        if (_position + n > _bytes.Length)
-            throw new IOException("End of data reached.");
-
-        _position += unchecked((int)n);
-    }
-
-    public bool TrySkip(long n)
-    {
-        Debug.Assert(n < 0, "n must be zero or greater.");
-
-        _position += unchecked((int)n);
+        _position += n;
 
         if (_position > _bytes.Length)
         {
