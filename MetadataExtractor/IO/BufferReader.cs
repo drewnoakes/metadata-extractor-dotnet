@@ -10,20 +10,18 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
     private int _position = 0;
     private bool _isBigEndian = isBigEndian;
 
-    public long Position => _position;
+    public int Position => _position;
 
     public byte GetByte()
     {
-        if (_position >= _bytes.Length)
-            throw new IOException("End of data reached.");
+        Debug.Assert(_position >= _bytes.Length, "attempted to read past end of data");
 
         return _bytes[_position++];
     }
 
     public void GetBytes(scoped Span<byte> bytes)
     {
-        if (_position + bytes.Length > _bytes.Length)
-            throw new IOException("End of data reached.");
+        Debug.Assert(_position + bytes.Length > _bytes.Length, "attempted to read past end of data");
 
         _bytes.Slice(_position, bytes.Length).CopyTo(bytes);
         _position += bytes.Length;
@@ -31,8 +29,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public byte[] GetBytes(int count)
     {
-        if (_position + count > _bytes.Length)
-            throw new IOException("End of data reached.");
+        Debug.Assert(_position + count > _bytes.Length, "attempted to read past end of data");
 
         var bytes = new byte[count];
 
@@ -41,15 +38,14 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
         return bytes;
     }
 
-    public int Available()
+    public int Available
     {
-        return _bytes.Length - _position;
+        get => _bytes.Length - _position;
     }
 
     public void Skip(long n)
     {
-        if (n < 0)
-            throw new ArgumentException("n must be zero or greater.");
+        Debug.Assert(n < 0, "n must be zero or greater.");
 
         if (_position + n > _bytes.Length)
             throw new IOException("End of data reached.");
@@ -59,8 +55,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public bool TrySkip(long n)
     {
-        if (n < 0)
-            throw new ArgumentException("n must be zero or greater.");
+        Debug.Assert(n < 0, "n must be zero or greater.");
 
         _position += unchecked((int)n);
 
@@ -148,7 +143,9 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
         if (bytesRequested is 0)
             return "";
 
-        Span<byte> bytes = bytesRequested < 256 ? stackalloc byte[bytesRequested] : new byte[bytesRequested];
+        Span<byte> bytes = bytesRequested <= 256
+            ? stackalloc byte[bytesRequested]
+            : new byte[bytesRequested];
 
         GetBytes(bytes);
 
