@@ -40,7 +40,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public readonly int Available => _bytes.Length - _position;
 
-    public void Skip(int n)
+    public void Advance(int n)
     {
         Debug.Assert(n < 0, "n must be zero or greater");
         Debug.Assert(_position + n > _bytes.Length, "attempted to advance past end of data");
@@ -48,7 +48,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
         _position += n;
     }
 
-    public bool TrySkip(int n)
+    public bool TryAdvance(int n)
     {
         Debug.Assert(n < 0, "n must be zero or greater");
 
