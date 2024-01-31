@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Buffers;
+
 namespace MetadataExtractor.Formats.Tga
 {
     /// <summary>Reads TGA image file extension area.</summary>
@@ -55,12 +57,7 @@ namespace MetadataExtractor.Formats.Tga
 
             string GetString(int length)
             {
-                var buffer = new byte[length];
-                reader.GetBytes(buffer, 0, length);
-                int i = 0;
-                while (i < buffer.Length && buffer[i] != '\0')
-                    ++i;
-                return Encoding.ASCII.GetString(buffer, 0, i).TrimEnd();
+                return reader.GetNullTerminatedString(length, Encoding.ASCII, moveToMaxLength: true).TrimEnd();
             }
 
             bool TryGetDateTime(out DateTime dateTime)

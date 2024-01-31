@@ -1,5 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Buffers;
 using MetadataExtractor.Formats.Mpeg;
 using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.Formats.Riff;
@@ -78,31 +79,39 @@ namespace MetadataExtractor.Util
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", nameof(stream));
 
-            var bytes = new byte[_bytesNeeded];
-            var bytesRead = stream.Read(bytes, 0, bytes.Length);
+            var bytes = ArrayPool<byte>.Shared.Rent(_bytesNeeded);
 
-            if (bytesRead == 0)
-                return FileType.Unknown;
-
-            stream.Seek(-bytesRead, SeekOrigin.Current);
-
-            var fileType = _root.Find(bytes);
-
-            if (fileType == FileType.Unknown)
+            try
             {
-                foreach (var fixedChecker in _fixedCheckers)
-                {
-                    if (bytesRead >= fixedChecker.ByteCount)
-                    {
-                        fileType = fixedChecker.CheckType(bytes);
+                var bytesRead = stream.Read(bytes, 0, bytes.Length);
 
-                        if (fileType != FileType.Unknown)
-                            return fileType;
+                if (bytesRead == 0)
+                    return FileType.Unknown;
+
+                stream.Seek(-bytesRead, SeekOrigin.Current);
+
+                var fileType = _root.Find(bytes);
+
+                if (fileType == FileType.Unknown)
+                {
+                    foreach (var fixedChecker in _fixedCheckers)
+                    {
+                        if (bytesRead >= fixedChecker.ByteCount)
+                        {
+                            fileType = fixedChecker.CheckType(bytes);
+
+                            if (fileType != FileType.Unknown)
+                                return fileType;
+                        }
                     }
                 }
-            }
 
-            return fileType;
+                return fileType;
+            }
+            finally
+            {
+                ArrayPool<byte>.Shared.Return(bytes);
+            }
         }
     }
 }

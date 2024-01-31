@@ -1,5 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Buffers;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Xmp;
 
@@ -332,17 +333,21 @@ namespace MetadataExtractor.Formats.Gif
         private static byte[] GatherBytes(SequentialReader reader)
         {
             var bytes = new MemoryStream();
-            var buffer = new byte[257];
+            var buffer = ArrayPool<byte>.Shared.Rent(257);
 
             while (true)
             {
-                var b = reader.GetByte();
-                if (b == 0)
-                    return bytes.ToArray();
-                buffer[0] = b;
-                reader.GetBytes(buffer, 1, b);
-                bytes.Write(buffer, 0, b + 1);
+                var len = reader.GetByte();
+                if (len == 0)
+                    break;
+                buffer[0] = len;
+                reader.GetBytes(buffer, offset: 1, count: len);
+                bytes.Write(buffer, 0, len + 1);
             }
+
+            ArrayPool<byte>.Shared.Return(buffer);
+
+            return bytes.ToArray();
         }
 
         private static byte[] GatherBytes(SequentialReader reader, int firstLength)
