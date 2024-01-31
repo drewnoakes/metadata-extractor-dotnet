@@ -33,7 +33,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
         var bytes = new byte[count];
 
-        _bytes.Slice(0, count).CopyTo(bytes);
+        _bytes.Slice(_position, count).CopyTo(bytes);
         _position += count;
         return bytes;
     }
