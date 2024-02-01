@@ -367,10 +367,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             sb.Append(values[0] switch
             {
-                0 => sb.Append("Off"),
-                3 => sb.Append("TTL"),
-                4 => sb.Append("Auto"),
-                5 => sb.Append("Manual"),
+                0 => "Off",
+                3 => "TTL",
+                4 => "Auto",
+                5 => "Manual",
                 _ => $"Unknown ({values[0]})"
             });
 
