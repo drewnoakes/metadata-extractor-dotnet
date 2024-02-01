@@ -21,7 +21,8 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public void GetBytes(scoped Span<byte> bytes)
     {
-        Debug.Assert(_position + bytes.Length <= _bytes.Length, "attempted to read past end of data");
+        if (_position + bytes.Length > _bytes.Length)
+            throw new IOException("End of data reached.");
 
         _bytes.Slice(_position, bytes.Length).CopyTo(bytes);
         _position += bytes.Length;
@@ -29,7 +30,8 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public byte[] GetBytes(int count)
     {
-        Debug.Assert(_position + count <= _bytes.Length, "attempted to read past end of data");
+        if (_position + count > _bytes.Length)
+            throw new IOException("End of data reached.");
 
         var bytes = new byte[count];
 
@@ -43,7 +45,9 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
     public void Advance(int n)
     {
         Debug.Assert(n >= 0, "n must be zero or greater");
-        Debug.Assert(_position + n <= _bytes.Length, "attempted to advance past end of data");
+
+        if (_position + n > _bytes.Length)
+            throw new IOException("End of data reached.");
 
         _position += n;
     }
