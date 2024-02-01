@@ -29,35 +29,45 @@ namespace MetadataExtractor.Formats.Jpeg
             // The value of TagCompressionType is determined by the segment type found
             directory.Set(JpegDirectory.TagCompressionType, (int)segment.Type - (int)JpegSegmentType.Sof0);
 
+            const int JpegHeaderSize = 1 + 2 + 2 + 1;
+
+            if (segment.Span.Length < JpegHeaderSize)
+            {
+                directory.AddError("Insufficient bytes for JPEG segment header.");
+
+                return directory;
+            }
+
             var reader = new BufferReader(segment.Span, isBigEndian: true);
 
-            try
+            directory.Set(JpegDirectory.TagDataPrecision, reader.GetByte());
+            directory.Set(JpegDirectory.TagImageHeight, reader.GetUInt16());
+            directory.Set(JpegDirectory.TagImageWidth, reader.GetUInt16());
+
+            var componentCount = reader.GetByte();
+
+            directory.Set(JpegDirectory.TagNumberOfComponents, componentCount);
+
+            const int JpegComponentSize = 1 + 1 + 1;
+
+            if (reader.Available < componentCount * JpegComponentSize)
             {
-                directory.Set(JpegDirectory.TagDataPrecision, reader.GetByte());
-                directory.Set(JpegDirectory.TagImageHeight, reader.GetUInt16());
-                directory.Set(JpegDirectory.TagImageWidth, reader.GetUInt16());
-
-                var componentCount = reader.GetByte();
-
-                directory.Set(JpegDirectory.TagNumberOfComponents, componentCount);
-
-                // For each component, there are three bytes of data:
-                // 1 - Component ID: 1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q
-                // 2 - Sampling factors: bit 0-3 vertical, 4-7 horizontal
-                // 3 - Quantization table number
-
-                for (var i = 0; i < componentCount; i++)
-                {
-                    var componentId = reader.GetByte();
-                    var samplingFactorByte = reader.GetByte();
-                    var quantizationTableNumber = reader.GetByte();
-                    var component = new JpegComponent(componentId, samplingFactorByte, quantizationTableNumber);
-                    directory.Set(JpegDirectory.TagComponentData1 + i, component);
-                }
+                directory.AddError("Insufficient bytes for JPEG the requested number of JPEG components.");
+                return directory;
             }
-            catch (IOException ex)
+
+            // For each component, there are three bytes of data:
+            // 1 - Component ID: 1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q
+            // 2 - Sampling factors: bit 0-3 vertical, 4-7 horizontal
+            // 3 - Quantization table number
+
+            for (var i = 0; i < componentCount; i++)
             {
-                directory.AddError(ex.Message);
+                var componentId = reader.GetByte();
+                var samplingFactorByte = reader.GetByte();
+                var quantizationTableNumber = reader.GetByte();
+                var component = new JpegComponent(componentId, samplingFactorByte, quantizationTableNumber);
+                directory.Set(JpegDirectory.TagComponentData1 + i, component);
             }
 
             return directory;
