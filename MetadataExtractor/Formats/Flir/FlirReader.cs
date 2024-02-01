@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Buffers;
 using MetadataExtractor.Formats.Jpeg;
 using static MetadataExtractor.Formats.Flir.FlirCameraInfoDirectory;
 
@@ -35,26 +36,35 @@ namespace MetadataExtractor.Formats.Flir
             if (length == 0)
                 return [];
 
-            var buffer = new byte[length];
-            using var merged = new MemoryStream(buffer);
+            byte[] buffer = ArrayPool<byte>.Shared.Rent(length);
 
-            foreach (var segment in segments)
+            try
             {
-                // Skip segments not starting with the required preamble
-                if (segment.Span.StartsWith(preamble))
-                {
-                    merged.Write(segment.Bytes, preambleLength, segment.Bytes.Length - preambleLength);
-                }
-            }
+                using var merged = new MemoryStream(buffer);
 
-            return Extract(new ByteArrayReader(buffer));
+                foreach (var segment in segments)
+                {
+                    // Skip segments not starting with the required preamble
+                    if (segment.Span.StartsWith(preamble))
+                    {
+                        merged.Write(segment.Bytes, preambleLength, segment.Bytes.Length - preambleLength);
+                    }
+                }
+
+                return Extract(new ByteArrayReader(buffer));
+            }
+            finally
+            {
+                ArrayPool<byte>.Shared.Return(buffer);
+            }
         }
 
         public IEnumerable<Directory> Extract(IndexedReader reader)
         {
-            var header = reader.GetUInt32(0);
+            Span<byte> header = stackalloc byte[4];
+            reader.GetBytes(0, header);
 
-            if (header != 0x46464600)
+            if (!header.SequenceEqual("FFF\0"u8))
             {
                 var flirHeaderDirectory = new FlirHeaderDirectory();
                 flirHeaderDirectory.AddError("Unexpected FFF header bytes.");
