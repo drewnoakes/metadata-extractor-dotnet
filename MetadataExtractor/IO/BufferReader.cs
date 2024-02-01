@@ -69,14 +69,13 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public sbyte GetSByte()
     {
-        return unchecked((sbyte)GetByte());
+        return unchecked((sbyte)_bytes[_position++]);
     }
 
     public ushort GetUInt16()
     {
-        Span<byte> bytes = stackalloc byte[2];
-
-        GetBytes(bytes);
+        var bytes = _bytes.Slice(_position, 2);
+        _position += 2;
 
         return _isBigEndian
             ? BinaryPrimitives.ReadUInt16BigEndian(bytes)
@@ -85,9 +84,8 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public short GetInt16()
     {
-        Span<byte> bytes = stackalloc byte[2];
-
-        GetBytes(bytes);
+        var bytes = _bytes.Slice(_position, 2);
+        _position += 2;
 
         return _isBigEndian
             ? BinaryPrimitives.ReadInt16BigEndian(bytes)
@@ -96,9 +94,8 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public uint GetUInt32()
     {
-        Span<byte> bytes = stackalloc byte[4];
-
-        GetBytes(bytes);
+        var bytes = _bytes.Slice(_position, 4);
+        _position += 4;
 
         return _isBigEndian
             ? BinaryPrimitives.ReadUInt32BigEndian(bytes)
@@ -107,9 +104,8 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public int GetInt32()
     {
-        Span<byte> bytes = stackalloc byte[4];
-
-        GetBytes(bytes);
+        var bytes = _bytes.Slice(_position, 4);
+        _position += 4;
 
         return _isBigEndian
             ? BinaryPrimitives.ReadInt32BigEndian(bytes)
@@ -118,8 +114,8 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public long GetInt64()
     {
-        Span<byte> bytes = stackalloc byte[8];
-        GetBytes(bytes);
+        var bytes = _bytes.Slice(_position, 8);
+        _position += 8;
 
         return _isBigEndian
             ? BinaryPrimitives.ReadInt64BigEndian(bytes)
@@ -128,8 +124,8 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public ulong GetUInt64()
     {
-        Span<byte> bytes = stackalloc byte[8];
-        GetBytes(bytes);
+        var bytes = _bytes.Slice(_position, 8);
+        _position += 8;
 
         return _isBigEndian
             ? BinaryPrimitives.ReadUInt64BigEndian(bytes)
