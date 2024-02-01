@@ -235,45 +235,42 @@ namespace MetadataExtractor.Formats.Gif
             if (blockSizeBytes != 11)
                 return new ErrorDirectory($"Invalid GIF application extension block size. Expected 11, got {blockSizeBytes}.");
 
-            var extensionType = reader.GetString(blockSizeBytes, Encoding.UTF8);
+            Span<byte> extensionType = stackalloc byte[11];
 
-            switch (extensionType)
+            reader.GetBytes(extensionType);
+
+            if (extensionType.SequenceEqual("XMP DataXMP"u8))
             {
-                case "XMP DataXMP":
-                {
-                    // XMP data extension
-                    var xmpBytes = GatherBytes(reader);
-                    int xmpLength = xmpBytes.Length - 257; // Exclude the "magic trailer", see XMP Specification Part 3, 1.1.2 GIF
-                    // Only extract valid blocks
-                    return xmpLength > 0
-                        ? new XmpReader().Extract(xmpBytes, 0, xmpBytes.Length - 257)
-                        : null;
-                }
-                case "ICCRGBG1012":
-                {
-                    // ICC profile extension
-                    var iccBytes = GatherBytes(reader, reader.GetByte());
-                    return iccBytes.Length != 0
-                        ? new IccReader().Extract(new ByteArrayReader(iccBytes))
-                        : null;
-                }
-                case "NETSCAPE2.0":
-                {
-                    reader.Skip(2);
-                    // Netscape's animated GIF extension
-                    // Iteration count (0 means infinite)
-                    var iterationCount = reader.GetUInt16();
-                    // Skip terminator
-                    reader.Skip(1);
-                    var animationDirectory = new GifAnimationDirectory();
-                    animationDirectory.Set(GifAnimationDirectory.TagIterationCount, iterationCount);
-                    return animationDirectory;
-                }
-                default:
-                {
-                    SkipBlocks(reader);
-                    return null;
-                }
+                // XMP data extension
+                var xmpBytes = GatherXmpBytes(reader);
+                return xmpBytes is not null
+                    ? new XmpReader().Extract(xmpBytes)
+                    : null;
+            }
+            else if (extensionType.SequenceEqual("ICCRGBG1012"u8))
+            {
+                // ICC profile extension
+                var iccBytes = GatherBytes(reader, reader.GetByte());
+                return iccBytes.Length != 0
+                    ? new IccReader().Extract(new ByteArrayReader(iccBytes))
+                    : null;
+            }
+            else if (extensionType.SequenceEqual("NETSCAPE2.0"u8))
+            {
+                reader.Skip(2);
+                // Netscape's animated GIF extension
+                // Iteration count (0 means infinite)
+                var iterationCount = reader.GetUInt16();
+                // Skip terminator
+                reader.Skip(1);
+                var animationDirectory = new GifAnimationDirectory();
+                animationDirectory.Set(GifAnimationDirectory.TagIterationCount, iterationCount);
+                return animationDirectory;
+            }
+            else
+            {
+                SkipBlocks(reader);
+                return null;
             }
         }
 
@@ -330,10 +327,13 @@ namespace MetadataExtractor.Formats.Gif
 
         #region Utility methods
 
-        private static byte[] GatherBytes(SequentialReader reader)
+        private static byte[]? GatherXmpBytes(SequentialReader reader)
         {
-            var bytes = new MemoryStream();
-            var buffer = ArrayPool<byte>.Shared.Rent(257);
+            // GatherXmpBytes differs from GatherBytes in that this method includes the "length"
+            // bytes in its output.
+
+            var stream = new MemoryStream();
+            var buffer = ArrayPool<byte>.Shared.Rent(byte.MaxValue + 1);
 
             while (true)
             {
@@ -342,28 +342,43 @@ namespace MetadataExtractor.Formats.Gif
                     break;
                 buffer[0] = len;
                 reader.GetBytes(buffer, offset: 1, count: len);
-                bytes.Write(buffer, 0, len + 1);
+                stream.Write(buffer, 0, len + 1);
             }
 
             ArrayPool<byte>.Shared.Return(buffer);
 
-            return bytes.ToArray();
+            // Exclude the "magic trailer", see XMP Specification Part 3, 1.1.2 GIF
+            int xmpLength = checked((int)stream.Length) - 257;
+
+            if (xmpLength <= 0)
+            {
+                return null;
+            }
+
+            stream.SetLength(xmpLength);
+
+            return stream.ToArray();
         }
 
-        private static byte[] GatherBytes(SequentialReader reader, int firstLength)
+        private static byte[] GatherBytes(SequentialReader reader, byte firstLength)
         {
-            var buffer = new MemoryStream();
+            var stream = new MemoryStream();
+            var buffer = ArrayPool<byte>.Shared.Rent(byte.MaxValue);
 
             var length = firstLength;
 
             while (length > 0)
             {
-                buffer.Write(reader.GetBytes(length), 0, length);
+                reader.GetBytes(buffer.AsSpan().Slice(0, length));
+
+                stream.Write(buffer, 0, length);
 
                 length = reader.GetByte();
             }
 
-            return buffer.ToArray();
+            ArrayPool<byte>.Shared.Return(buffer);
+
+            return stream.ToArray();
         }
 
         private static void SkipBlocks(SequentialReader reader)
