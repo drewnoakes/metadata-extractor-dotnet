@@ -3,6 +3,7 @@ root = true
 [*]
 
 # Spell checker configuration
+spelling_languages = en-us,en-gb
 spelling_exclusion_path = spelling.dic
 
 [*.cs]
