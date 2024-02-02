@@ -43,19 +43,20 @@ public sealed class BplistReader
 
         Trailer trailer = ReadTrailer();
 
-        var reader = new BufferReader(bplist.AsSpan(checked((int)(trailer.OffsetTableOffset + trailer.TopObject))), isBigEndian: true);
+        int offset = checked((int)(trailer.OffsetTableOffset + trailer.TopObject));
+        var reader = new BufferReader(bplist.AsSpan(offset), isBigEndian: true);
 
         int[] offsets = new int[(int)trailer.NumObjects];
 
-        for (long i = 0; i < trailer.NumObjects; i++)
+        for (int i = 0; i < (int)trailer.NumObjects; i++)
         {
             if (trailer.OffsetIntSize == 1)
             {
-                offsets[(int)i] = reader.GetByte();
+                offsets[i] = reader.GetByte();
             }
             else if (trailer.OffsetIntSize == 2)
             {
-                offsets[(int)i] = reader.GetUInt16();
+                offsets[i] = reader.GetUInt16();
             }
         }
 
