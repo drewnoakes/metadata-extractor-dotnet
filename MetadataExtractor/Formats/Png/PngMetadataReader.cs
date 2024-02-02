@@ -332,17 +332,19 @@ namespace MetadataExtractor.Formats.Png
                 {
                     directory.AddError("Insufficient bytes for PNG pHYs chunk.");
                 }
+                else
+                {
+                    var reader = new BufferReader(bytes, isBigEndian: true);
 
-                var reader = new BufferReader(bytes, isBigEndian: true);
+                    var pixelsPerUnitX = reader.GetInt32();
+                    var pixelsPerUnitY = reader.GetInt32();
+                    var unitSpecifier = reader.GetSByte();
 
-                var pixelsPerUnitX = reader.GetInt32();
-                var pixelsPerUnitY = reader.GetInt32();
-                var unitSpecifier = reader.GetSByte();
-
-                directory.Set(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
-                directory.Set(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);
-                directory.Set(PngDirectory.TagUnitSpecifier, unitSpecifier);
-                yield return directory;
+                    directory.Set(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
+                    directory.Set(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);
+                    directory.Set(PngDirectory.TagUnitSpecifier, unitSpecifier);
+                    yield return directory;
+                }
             }
             else if (chunkType.Equals(PngChunkType.sBIT))
             {
