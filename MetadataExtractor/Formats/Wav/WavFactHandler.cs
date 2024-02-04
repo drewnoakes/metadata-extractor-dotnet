@@ -25,7 +25,7 @@ namespace MetadataExtractor.Formats.Wav
 
         protected override void Populate(WavFactDirectory directory, byte[] payload)
         {
-            var reader = new SequentialByteArrayReader(payload, isMotorolaByteOrder: false);
+            var reader = new BufferReader(payload, isBigEndian: false);
             directory.Set(TagSampleLength, reader.GetUInt32());
         }
     }

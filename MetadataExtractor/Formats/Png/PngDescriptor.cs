@@ -82,10 +82,10 @@ namespace MetadataExtractor.Formats.Png
             if (bytes is null)
                 return null;
 
-            var reader = new SequentialByteArrayReader(bytes);
+            var reader = new BufferReader(bytes, isBigEndian: true);
             try
             {
-                // TODO do we need to normalise these based upon the bit depth?
+                // TODO do we need to normalize these based upon the bit depth?
                 switch (bytes.Length)
                 {
                     case 1:

@@ -11,7 +11,7 @@ namespace MetadataExtractor.Formats.Png
             if (bytes.Length != 13)
                 throw new PngProcessingException("PNG header chunk must have exactly 13 data bytes");
 
-            var reader = new SequentialByteArrayReader(bytes);
+            var reader = new BufferReader(bytes, isBigEndian: true);
 
             ImageWidth = reader.GetInt32();
             ImageHeight = reader.GetInt32();

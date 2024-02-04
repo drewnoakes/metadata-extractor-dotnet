@@ -160,30 +160,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var sb = new StringBuilder();
-            switch (values[0])
+            sb.Append(values[0] switch
             {
-                case 0:
-                    sb.Append("Single AF");
-                    break;
-                case 1:
-                    sb.Append("Sequential shooting AF");
-                    break;
-                case 2:
-                    sb.Append("Continuous AF");
-                    break;
-                case 3:
-                    sb.Append("Multi AF");
-                    break;
-                case 4:
-                    sb.Append("Face detect");
-                    break;
-                case 10:
-                    sb.Append("MF");
-                    break;
-                default:
-                    sb.Append("Unknown (" + values[0] + ")");
-                    break;
-            }
+                0 => "Single AF",
+                1 => "Sequential shooting AF",
+                2 => "Continuous AF",
+                3 => "Multi AF",
+                4 => "Face detect",
+                10 => "MF",
+                _ => $"Unknown ({values[0]})"
+            });
 
             if (values.Length > 1)
             {
@@ -231,18 +217,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             var sb = new StringBuilder();
 
-            switch (values[0])
+            sb.Append(values[0] switch
             {
-                case 0:
-                    sb.Append("AF not used");
-                    break;
-                case 1:
-                    sb.Append("AF used");
-                    break;
-                default:
-                    sb.Append("Unknown (" + values[0] + ")");
-                    break;
-            }
+                0 => "AF not used",
+                1 => "AF used",
+                _ => $"Unknown ({values[0]})"
+            });
 
             if (values.Length > 1)
                 sb.Append("; " + values[1]);
@@ -385,24 +365,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             var sb = new StringBuilder();
 
-            switch (values[0])
+            sb.Append(values[0] switch
             {
-                case 0:
-                    sb.Append("Off");
-                    break;
-                case 3:
-                    sb.Append("TTL");
-                    break;
-                case 4:
-                    sb.Append("Auto");
-                    break;
-                case 5:
-                    sb.Append("Manual");
-                    break;
-                default:
-                    sb.Append("Unknown (" + values[0] + ")");
-                    break;
-            }
+                0 => "Off",
+                3 => "TTL",
+                4 => "Auto",
+                5 => "Manual",
+                _ => $"Unknown ({values[0]})"
+            });
 
             for (var i = 1; i < values.Length; i++)
                 sb.Append("; ").Append(values[i]);
@@ -692,33 +662,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var sb = new StringBuilder();
-            switch (values[0])
+            sb.Append(values[0] switch
             {
-                case 1:
-                    sb.Append("Vivid");
-                    break;
-                case 2:
-                    sb.Append("Natural");
-                    break;
-                case 3:
-                    sb.Append("Muted");
-                    break;
-                case 4:
-                    sb.Append("Portrait");
-                    break;
-                case 5:
-                    sb.Append("i-Enhance");
-                    break;
-                case 256:
-                    sb.Append("Monotone");
-                    break;
-                case 512:
-                    sb.Append("Sepia");
-                    break;
-                default:
-                    sb.Append("Unknown (").Append(values[0]).Append(')');
-                    break;
-            }
+                1 => "Vivid",
+                2 => "Natural",
+                3 => "Muted",
+                4 => "Portrait",
+                5 => "i-Enhance",
+                256 => "Monotone",
+                512 => "Sepia",
+                _ => $"Unknown ({values[0]})"
+            });
 
             if (values.Length > 1)
                 sb.Append("; ").Append(values[1]);
@@ -822,33 +776,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     sb.Append("Partial Color " + values[i] + "; ");
                 else if (i == 4)
                 {
-                    switch (values[i])
+                    sb.Append(values[i] switch
                     {
-                        case 0x0000:
-                            sb.Append("No Effect");
-                            break;
-                        case 0x8010:
-                            sb.Append("Star Light");
-                            break;
-                        case 0x8020:
-                            sb.Append("Pin Hole");
-                            break;
-                        case 0x8030:
-                            sb.Append("Frame");
-                            break;
-                        case 0x8040:
-                            sb.Append("Soft Focus");
-                            break;
-                        case 0x8050:
-                            sb.Append("White Edge");
-                            break;
-                        case 0x8060:
-                            sb.Append("B&W");
-                            break;
-                        default:
-                            sb.Append("Unknown (").Append(values[i]).Append(')');
-                            break;
-                    }
+                        0x0000 => "No Effect",
+                        0x8010 => "Star Light",
+                        0x8020 => "Pin Hole",
+                        0x8030 => "Frame",
+                        0x8040 => "Soft Focus",
+                        0x8050 => "White Edge",
+                        0x8060 => "B&W",
+                        _ => $"Unknown ({values[i]})"
+                    });
+
                     sb.Append("; ");
                 }
                 else if (i == 6)

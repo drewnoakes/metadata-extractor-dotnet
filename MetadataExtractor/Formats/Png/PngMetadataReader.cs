@@ -295,36 +295,56 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.tIME)
             {
-                var reader = new SequentialByteArrayReader(bytes);
-                var year = reader.GetUInt16();
-                var month = reader.GetByte();
-                int day = reader.GetByte();
-                int hour = reader.GetByte();
-                int minute = reader.GetByte();
-                int second = reader.GetByte();
                 var directory = new PngDirectory(PngChunkType.tIME);
-                if (DateUtil.IsValidDate(year, month, day) && DateUtil.IsValidTime(hour, minute, second))
+
+                if (bytes.Length < 2 + 1 + 1 + 1 + 1 + 1)
                 {
-                    var time = new DateTime(year, month, day, hour, minute, second, DateTimeKind.Unspecified);
-                    directory.Set(PngDirectory.TagLastModificationTime, time);
+                    directory.AddError("Insufficient bytes for PNG tIME chunk.");
                 }
                 else
                 {
-                    directory.AddError($"PNG tIME data describes an invalid date/time: year={year} month={month} day={day} hour={hour} minute={minute} second={second}");
+                    var reader = new BufferReader(bytes, isBigEndian: true);
+
+                    var year = reader.GetUInt16();
+                    var month = reader.GetByte();
+                    int day = reader.GetByte();
+                    int hour = reader.GetByte();
+                    int minute = reader.GetByte();
+                    int second = reader.GetByte();
+
+                    if (DateUtil.IsValidDate(year, month, day) && DateUtil.IsValidTime(hour, minute, second))
+                    {
+                        var time = new DateTime(year, month, day, hour, minute, second, DateTimeKind.Unspecified);
+                        directory.Set(PngDirectory.TagLastModificationTime, time);
+                    }
+                    else
+                    {
+                        directory.AddError($"PNG tIME data describes an invalid date/time: year={year} month={month} day={day} hour={hour} minute={minute} second={second}");
+                    }
+                    yield return directory;
                 }
-                yield return directory;
             }
             else if (chunkType == PngChunkType.pHYs)
             {
-                var reader = new SequentialByteArrayReader(bytes);
-                var pixelsPerUnitX = reader.GetInt32();
-                var pixelsPerUnitY = reader.GetInt32();
-                var unitSpecifier = reader.GetSByte();
                 var directory = new PngDirectory(PngChunkType.pHYs);
-                directory.Set(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
-                directory.Set(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);
-                directory.Set(PngDirectory.TagUnitSpecifier, unitSpecifier);
-                yield return directory;
+
+                if (bytes.Length < 4 + 4 + 1)
+                {
+                    directory.AddError("Insufficient bytes for PNG pHYs chunk.");
+                }
+                else
+                {
+                    var reader = new BufferReader(bytes, isBigEndian: true);
+
+                    var pixelsPerUnitX = reader.GetInt32();
+                    var pixelsPerUnitY = reader.GetInt32();
+                    var unitSpecifier = reader.GetSByte();
+
+                    directory.Set(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
+                    directory.Set(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);
+                    directory.Set(PngDirectory.TagUnitSpecifier, unitSpecifier);
+                    yield return directory;
+                }
             }
             else if (chunkType.Equals(PngChunkType.sBIT))
             {

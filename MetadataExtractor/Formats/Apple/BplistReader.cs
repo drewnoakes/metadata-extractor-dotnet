@@ -45,19 +45,20 @@ public sealed class BplistReader
 
         Trailer trailer = ReadTrailer();
 
-        SequentialByteArrayReader reader = new(bplist, baseIndex: checked((int)(trailer.OffsetTableOffset + trailer.TopObject)));
+        int offset = checked((int)(trailer.OffsetTableOffset + trailer.TopObject));
+        var reader = new BufferReader(bplist.AsSpan(offset), isBigEndian: true);
 
         int[] offsets = new int[(int)trailer.NumObjects];
 
-        for (long i = 0; i < trailer.NumObjects; i++)
+        for (int i = 0; i < (int)trailer.NumObjects; i++)
         {
             if (trailer.OffsetIntSize == 1)
             {
-                offsets[(int)i] = reader.GetByte();
+                offsets[i] = reader.GetByte();
             }
             else if (trailer.OffsetIntSize == 2)
             {
-                offsets[(int)i] = reader.GetUInt16();
+                offsets[i] = reader.GetUInt16();
             }
         }
 
@@ -65,7 +66,7 @@ public sealed class BplistReader
 
         for (int i = 0; i < offsets.Length; i++)
         {
-            reader = new SequentialByteArrayReader(bplist, offsets[i]);
+            reader = new BufferReader(bplist.AsSpan(offsets[i]), isBigEndian: true);
 
             byte b = reader.GetByte();
 
@@ -75,13 +76,13 @@ public sealed class BplistReader
             object obj = objectFormat switch
             {
                 // dict
-                0x0D => HandleDict(marker),
+                0x0D => HandleDict(ref reader, marker),
                 // string (ASCII)
                 0x05 => reader.GetString(bytesRequested: marker & 0x0F, Encoding.ASCII),
                 // data
-                0x04 => HandleData(marker),
+                0x04 => HandleData(ref reader, marker),
                 // int
-                0x01 => HandleInt(marker),
+                0x01 => HandleInt(ref reader, marker),
                 // unknown
                 _ => throw new NotSupportedException($"Unsupported object format {objectFormat:X2}.")
             };
@@ -93,10 +94,10 @@ public sealed class BplistReader
 
         Trailer ReadTrailer()
         {
-            SequentialByteArrayReader reader = new(bplist, bplist.Length - Trailer.SizeBytes);
+            var reader = new BufferReader(bplist.AsSpan(bplist.Length - Trailer.SizeBytes), isBigEndian: true);
 
             // Skip 5-byte unused values, 1-byte sort version.
-            reader.Skip(6);
+            reader.Skip(5 + 1);
 
             return new Trailer
             {
@@ -108,7 +109,7 @@ public sealed class BplistReader
             };
         }
 
-        object HandleInt(byte marker)
+        static object HandleInt(ref BufferReader reader, byte marker)
         {
             return marker switch
             {
@@ -120,7 +121,7 @@ public sealed class BplistReader
             };
         }
 
-        Dictionary<byte, byte> HandleDict(byte count)
+        static Dictionary<byte, byte> HandleDict(ref BufferReader reader, byte count)
         {
             var keyRefs = ArrayPool<byte>.Shared.Rent(count);
 
@@ -141,7 +142,7 @@ public sealed class BplistReader
             return map;
         }
 
-        object HandleData(byte marker)
+        object HandleData(ref BufferReader reader, byte marker)
         {
             int byteCount = marker;
 
