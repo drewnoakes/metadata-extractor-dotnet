@@ -68,6 +68,7 @@ MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory.NikonPictureControl2Directory() -> void
 MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
 MetadataExtractor.IO.IndexedReader.GetBytes(int index, int count) -> byte[]!
+MetadataExtractor.Util.FileType.Avif = 28 -> MetadataExtractor.Util.FileType
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Descriptor.GetDescription(int tagType) -> string?

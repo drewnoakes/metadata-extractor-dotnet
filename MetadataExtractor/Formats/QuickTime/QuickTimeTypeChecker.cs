@@ -54,6 +54,9 @@ namespace MetadataExtractor.Formats.QuickTime
             { Util.FileType.Heif, "hevc"u8 },
             { Util.FileType.Heif, "hevx"u8 },
 
+            // AVIF
+            { Util.FileType.Avif, "avif"u8 },
+
             // CRX
             { Util.FileType.Crx, "crx "u8 }
         };
