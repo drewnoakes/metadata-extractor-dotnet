@@ -7,29 +7,32 @@ namespace MetadataExtractor.Formats.QuickTime
     /// </summary>
     public static class QuickTimeReaderExtensions
     {
-#if NETSTANDARD2_1
-        public static string Get4ccString(this SequentialReader reader)
+#if NET462 || NETSTANDARD1_3
+        public static unsafe string Get4ccString(this SequentialReader reader)
 #else
-        public unsafe static string Get4ccString(this SequentialReader reader)
+        public static string Get4ccString(this SequentialReader reader)
 #endif
         {
+            // https://en.wikipedia.org/wiki/FourCC
+
             Span<byte> bytes = stackalloc byte[4];
             Span<char> chars = stackalloc char[4];
 
             reader.GetBytes(bytes);
 
+            // NOTE we cannot just use Encoding.ASCII here, as that can replace certain non-printable characters with '?'
             chars[0] = (char)bytes[0];
             chars[1] = (char)bytes[1];
             chars[2] = (char)bytes[2];
             chars[3] = (char)bytes[3];
 
-#if NETSTANDARD2_1
-            return new string(chars);
-#else
-            fixed (char* c = chars)
+#if NET462 || NETSTANDARD1_3
+            fixed (char* pChars = chars)
             {
-                return new string(c, 0, 4);
+                return new string(pChars, startIndex: 0, length: 4);
             }
+#else
+            return new string(chars);
 #endif
         }
 

@@ -1,6 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using System.Buffers;
 using System.Buffers.Binary;
 
 namespace MetadataExtractor.IO
@@ -321,13 +322,31 @@ namespace MetadataExtractor.IO
         {
             // This check is important on .NET Framework
             if (bytesRequested is 0)
+            {
                 return "";
+            }
+            else if (bytesRequested < 256)
+            {
+                Span<byte> bytes = stackalloc byte[bytesRequested];
 
-            Span<byte> bytes = bytesRequested < 256 ? stackalloc byte[bytesRequested] : new byte[bytesRequested];
+                GetBytes(index, bytes);
 
-            GetBytes(index, bytes);
+                return encoding.GetString(bytes);
+            }
+            else
+            {
+                byte[] bytes = ArrayPool<byte>.Shared.Rent(bytesRequested);
 
-            return encoding.GetString(bytes);
+                Span<byte> span = bytes.AsSpan().Slice(0, bytesRequested);
+
+                GetBytes(index, span);
+
+                var s = encoding.GetString(span);
+
+                ArrayPool<byte>.Shared.Return(bytes);
+
+                return s;
+            }
         }
 
         /// <summary>

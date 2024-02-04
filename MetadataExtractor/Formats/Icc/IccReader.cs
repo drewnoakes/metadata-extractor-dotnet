@@ -1,5 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Buffers;
 using MetadataExtractor.Formats.Jpeg;
 
 namespace MetadataExtractor.Formats.Icc
@@ -37,14 +38,14 @@ namespace MetadataExtractor.Formats.Icc
             byte[] buffer;
             if (iccSegments.Count == 1)
             {
-                buffer = new byte[iccSegments[0].Bytes.Length - JpegSegmentPreambleLength];
+                buffer = ArrayPool<byte>.Shared.Rent(iccSegments[0].Bytes.Length - JpegSegmentPreambleLength);
                 Array.Copy(iccSegments[0].Bytes, JpegSegmentPreambleLength, buffer, 0, iccSegments[0].Bytes.Length - JpegSegmentPreambleLength);
             }
             else
             {
                 // Concatenate all buffers
                 var totalLength = iccSegments.Sum(s => s.Bytes.Length - JpegSegmentPreambleLength);
-                buffer = new byte[totalLength];
+                buffer = ArrayPool<byte>.Shared.Rent(totalLength);
                 for (int i = 0, pos = 0; i < iccSegments.Count; i++)
                 {
                     var segment = iccSegments[i];
@@ -53,7 +54,11 @@ namespace MetadataExtractor.Formats.Icc
                 }
             }
 
-            return new Directory[] { Extract(new ByteArrayReader(buffer)) };
+            Directory directory = Extract(new ByteArrayReader(buffer));
+
+            ArrayPool<byte>.Shared.Return(buffer);
+
+            return [directory];
         }
 
         public IccDirectory Extract(IndexedReader reader)

@@ -72,6 +72,7 @@ namespace MetadataExtractor
             {
                 FileType.Arw       => TiffMetadataReader.ReadMetadata(stream),
                 FileType.Avi       => AviMetadataReader.ReadMetadata(stream),
+                FileType.Avif      => HeifMetadataReader.ReadMetadata(stream),
                 FileType.Bmp       => BmpMetadataReader.ReadMetadata(stream),
                 FileType.Crx       => QuickTimeMetadataReader.ReadMetadata(stream),
                 FileType.Cr2       => TiffMetadataReader.ReadMetadata(stream),
