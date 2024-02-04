@@ -7,8 +7,9 @@ namespace MetadataExtractor.IO;
 internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 {
     private readonly ReadOnlySpan<byte> _bytes = bytes;
+    private readonly bool _isBigEndian = isBigEndian;
+
     private int _position = 0;
-    private bool _isBigEndian = isBigEndian;
 
     public readonly int Available => _bytes.Length - _position;
 
