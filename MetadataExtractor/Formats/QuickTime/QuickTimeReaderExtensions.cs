@@ -7,13 +7,30 @@ namespace MetadataExtractor.Formats.QuickTime
     /// </summary>
     public static class QuickTimeReaderExtensions
     {
+#if NETSTANDARD2_1
         public static string Get4ccString(this SequentialReader reader)
+#else
+        public unsafe static string Get4ccString(this SequentialReader reader)
+#endif
         {
             Span<byte> bytes = stackalloc byte[4];
+            Span<char> chars = stackalloc char[4];
 
             reader.GetBytes(bytes);
 
-            return Encoding.ASCII.GetString(bytes);
+            chars[0] = (char)bytes[0];
+            chars[1] = (char)bytes[1];
+            chars[2] = (char)bytes[2];
+            chars[3] = (char)bytes[3];
+
+#if NETSTANDARD2_1
+            return new string(chars);
+#else
+            fixed (char* c = chars)
+            {
+                return new string(c, 0, 4);
+            }
+#endif
         }
 
         public static decimal Get16BitFixedPoint(this SequentialReader reader)
