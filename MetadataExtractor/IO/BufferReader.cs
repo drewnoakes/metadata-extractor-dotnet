@@ -13,7 +13,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public readonly int Available => _bytes.Length - _position;
 
-    public int Position => _position;
+    public readonly int Position => _position;
 
     public byte GetByte()
     {
