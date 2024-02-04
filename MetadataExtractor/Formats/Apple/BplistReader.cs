@@ -95,7 +95,7 @@ public sealed class BplistReader
             var reader = new BufferReader(bplist.AsSpan(bplist.Length - Trailer.SizeBytes), isBigEndian: true);
 
             // Skip 5-byte unused values, 1-byte sort version.
-            reader.Advance(6);
+            reader.Skip(5 + 1);
 
             return new Trailer
             {

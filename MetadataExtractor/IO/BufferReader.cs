@@ -25,48 +25,41 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public void GetBytes(scoped Span<byte> bytes)
     {
-        if (_position + bytes.Length > _bytes.Length)
-            throw new IOException("End of data reached.");
-
-        _bytes.Slice(_position, bytes.Length).CopyTo(bytes);
-        _position += bytes.Length;
+        var buffer = Advance(bytes.Length);
+        buffer.CopyTo(bytes);
     }
 
     public byte[] GetBytes(int count)
     {
-        if (_position + count > _bytes.Length)
-            throw new IOException("End of data reached.");
-
+        var buffer = Advance(count);
         var bytes = new byte[count];
 
-        _bytes.Slice(_position, count).CopyTo(bytes);
-        _position += count;
+        buffer.CopyTo(bytes);
         return bytes;
     }
 
-    public void Advance(int n)
+    private ReadOnlySpan<byte> Advance(int count)
     {
-        Debug.Assert(n >= 0, "n must be zero or greater");
+        Debug.Assert(count >= 0, "count must be zero or greater");
 
-        if (_position + n > _bytes.Length)
+        if (_position + count > _bytes.Length)
             throw new IOException("End of data reached.");
 
-        _position += n;
+        var span = _bytes.Slice(_position, count);
+
+        _position += count;
+
+        return span;
     }
 
-    public bool TryAdvance(int n)
+    public void Skip(int count)
     {
-        Debug.Assert(n >= 0, "n must be zero or greater");
+        Debug.Assert(count >= 0, "count must be zero or greater");
 
-        _position += n;
+        if (_position + count > _bytes.Length)
+            throw new IOException("End of data reached.");
 
-        if (_position > _bytes.Length)
-        {
-            _position = _bytes.Length;
-            return false;
-        }
-
-        return true;
+        _position += count;
     }
 
     public sbyte GetSByte()
@@ -76,8 +69,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public ushort GetUInt16()
     {
-        var bytes = _bytes.Slice(_position, 2);
-        Advance(2);
+        var bytes = Advance(2);
 
         return _isBigEndian
             ? BinaryPrimitives.ReadUInt16BigEndian(bytes)
@@ -86,8 +78,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public short GetInt16()
     {
-        var bytes = _bytes.Slice(_position, 2);
-        Advance(2);
+        var bytes = Advance(2);
 
         return _isBigEndian
             ? BinaryPrimitives.ReadInt16BigEndian(bytes)
@@ -96,8 +87,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public uint GetUInt32()
     {
-        var bytes = _bytes.Slice(_position, 4);
-        Advance(4);
+        var bytes = Advance(4);
 
         return _isBigEndian
             ? BinaryPrimitives.ReadUInt32BigEndian(bytes)
@@ -106,8 +96,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public int GetInt32()
     {
-        var bytes = _bytes.Slice(_position, 4);
-        Advance(4);
+        var bytes = Advance(4);
 
         return _isBigEndian
             ? BinaryPrimitives.ReadInt32BigEndian(bytes)
@@ -116,8 +105,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public long GetInt64()
     {
-        var bytes = _bytes.Slice(_position, 8);
-        Advance(8);
+        var bytes = Advance(8);
 
         return _isBigEndian
             ? BinaryPrimitives.ReadInt64BigEndian(bytes)
