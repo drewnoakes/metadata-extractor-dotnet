@@ -114,8 +114,7 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 
     public ulong GetUInt64()
     {
-        var bytes = _bytes.Slice(_position, 8);
-        Advance(8);
+        var bytes = Advance(8);
 
         return _isBigEndian
             ? BinaryPrimitives.ReadUInt64BigEndian(bytes)
