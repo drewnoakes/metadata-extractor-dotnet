@@ -9,16 +9,21 @@ namespace MetadataExtractor.Formats.Riff
 
         public Util.FileType CheckType(byte[] bytes)
         {
-            if (!bytes.AsSpan(0, 4).SequenceEqual("RIFF"u8))
+            if (!bytes.AsSpan().StartsWith("RIFF"u8))
                 return Util.FileType.Unknown;
-            var fourCC = Encoding.UTF8.GetString(bytes, index: 8, count: 4);
-            return fourCC switch
-            {
-                "WAVE" => Util.FileType.Wav,
-                "AVI " => Util.FileType.Avi,
-                "WEBP" => Util.FileType.WebP,
-                _ => Util.FileType.Riff,
-            };
+
+            var fourCC = bytes.AsSpan(start: 8, length: 4);
+
+            if (fourCC.SequenceEqual("WAVE"u8))
+                return Util.FileType.Wav;
+
+            if (fourCC.SequenceEqual("AVI "u8))
+                return Util.FileType.Avi;
+
+            if (fourCC.SequenceEqual("WEBP"u8))
+                return Util.FileType.WebP;
+
+            return Util.FileType.Riff;
         }
     }
 }

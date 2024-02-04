@@ -30,9 +30,8 @@ namespace MetadataExtractor.Formats.Mpeg
 
         public Util.FileType CheckType(byte[] bytes)
         {
-
             // MP3-File with "ID3" at start
-            if (bytes[0] == 0x49 && bytes[1] == 0x44 && bytes[2] == 0x33)
+            if (bytes.AsSpan(0, 3).SequenceEqual("ID3"u8))
                 return Util.FileType.Mp3;
 
             // MPEG audio requires the first 11 bits to be set
