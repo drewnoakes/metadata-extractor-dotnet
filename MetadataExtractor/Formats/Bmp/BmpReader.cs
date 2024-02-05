@@ -337,7 +337,7 @@ namespace MetadataExtractor.Formats.Bmp
                         int profileSize = reader.GetInt32();
                         if (reader.Position > headerOffset + profileOffset)
                         {
-                            directory.AddError("Invalid profile data offset 0x" + (headerOffset + profileOffset).ToString("X8"));
+                            directory.AddError($"Invalid profile data offset 0x{headerOffset + profileOffset:X8}");
                             return;
                         }
                         reader.Skip(headerOffset + profileOffset - reader.Position);
