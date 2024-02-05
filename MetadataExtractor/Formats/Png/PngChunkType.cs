@@ -3,7 +3,7 @@
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PngChunkType
+    public readonly struct PngChunkType : IEquatable<PngChunkType>
     {
         private static readonly HashSet<string> _identifiersAllowingMultiples
             = new(StringComparer.Ordinal) { "IDAT", "sPLT", "iTXt", "tEXt", "zTXt" };
@@ -152,15 +152,14 @@ namespace MetadataExtractor.Formats.Png
 
         #region Equality and Hashing
 
-        private bool Equals(PngChunkType other) => _bytes.SequenceEqual(other._bytes);
+        public bool Equals(PngChunkType other)
+        {
+            return _bytes is not null && _bytes.SequenceEqual(other._bytes);
+        }
 
         public override bool Equals(object? obj)
         {
-            if (obj is null)
-                return false;
-            if (ReferenceEquals(this, obj))
-                return true;
-            return obj is PngChunkType t && Equals(t);
+            return obj is PngChunkType other && Equals(other);
         }
 
         public override int GetHashCode()

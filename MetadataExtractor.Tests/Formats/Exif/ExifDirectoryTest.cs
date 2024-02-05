@@ -43,10 +43,9 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void GeoLocation()
         {
             var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Data/withExifAndIptc.jpg.app1.0", JpegSegmentType.App1);
-            var geoLocation = gpsDirectory.GetGeoLocation();
-            Assert.NotNull(geoLocation);
-            Assert.Equal(54.989666666666665, geoLocation!.Latitude);
-            Assert.Equal(-1.9141666666666666, geoLocation!.Longitude);
+            Assert.True(gpsDirectory.TryGetGeoLocation(out GeoLocation geoLocation));
+            Assert.Equal(54.989666666666665, geoLocation.Latitude);
+            Assert.Equal(-1.9141666666666666, geoLocation.Longitude);
         }
 
         [Fact]

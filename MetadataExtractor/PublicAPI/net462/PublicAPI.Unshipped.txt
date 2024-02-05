@@ -69,11 +69,14 @@ const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.Tag
 const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.TagToningEffect = 179 -> int
 const MetadataExtractor.Formats.Flir.FlirReader.JpegSegmentPreamble = "FLIR\0" -> string!
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGdalProjLinearUnitsInterpCorrect = 3059 -> int
+MetadataExtractor.Age.Equals(MetadataExtractor.Age? other) -> bool
+MetadataExtractor.Face.Equals(MetadataExtractor.Face? other) -> bool
 MetadataExtractor.Formats.Apple.BplistReader
 MetadataExtractor.Formats.Apple.BplistReader.BplistReader() -> void
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.Get(byte key) -> object!
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.GetTopObject() -> System.Collections.Generic.Dictionary<byte, byte>?
+MetadataExtractor.Formats.Exif.GpsDirectory.TryGetGeoLocation(out MetadataExtractor.GeoLocation geoLocation) -> bool
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAEStableDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAFStableDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetFrontFacingCameraDescription() -> string?
@@ -99,6 +102,15 @@ MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.GetToni
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.NikonPictureControl2Descriptor(MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory! directory) -> void
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory.NikonPictureControl2Directory() -> void
+MetadataExtractor.Formats.Png.PngChunk.ChunkType.get -> MetadataExtractor.Formats.Png.PngChunkType
+MetadataExtractor.Formats.Png.PngChunk.PngChunk(MetadataExtractor.Formats.Png.PngChunkType chunkType, byte[]! bytes) -> void
+MetadataExtractor.Formats.Png.PngChunkReader.Extract(MetadataExtractor.IO.SequentialReader! reader, System.Collections.Generic.ICollection<MetadataExtractor.Formats.Png.PngChunkType>? desiredChunkTypes) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Png.PngChunk!>!
+MetadataExtractor.Formats.Png.PngChunkType.Equals(MetadataExtractor.Formats.Png.PngChunkType other) -> bool
+MetadataExtractor.Formats.Png.PngChunkType.PngChunkType() -> void
+MetadataExtractor.Formats.Png.PngDirectory.GetPngChunkType() -> MetadataExtractor.Formats.Png.PngChunkType
+MetadataExtractor.Formats.Png.PngDirectory.PngDirectory(MetadataExtractor.Formats.Png.PngChunkType pngChunkType) -> void
+MetadataExtractor.GeoLocation.Equals(MetadataExtractor.GeoLocation other) -> bool
+MetadataExtractor.GeoLocation.GeoLocation() -> void
 MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
 MetadataExtractor.IO.IndexedReader.GetBytes(int index, int count) -> byte[]!
 MetadataExtractor.Util.FileType.Avif = 28 -> MetadataExtractor.Util.FileType
@@ -116,3 +128,24 @@ override MetadataExtractor.IO.SequentialStreamReader.GetBytes(System.Span<byte> 
 static MetadataExtractor.Formats.Apple.BplistReader.IsValid(byte[]! bplist) -> bool
 static MetadataExtractor.Formats.Apple.BplistReader.Parse(byte[]! bplist) -> MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults!
 static MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Parse(byte[]! bytes) -> MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory!
+static MetadataExtractor.Formats.Png.PngChunkType.operator !=(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool
+static MetadataExtractor.Formats.Png.PngChunkType.operator ==(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool
+static readonly MetadataExtractor.Formats.Png.PngChunkType.bKGD -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.cHRM -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.gAMA -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.hIST -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.iCCP -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.IDAT -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.IEND -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.IHDR -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.iTXt -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.pHYs -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.PLTE -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.sBIT -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.sPLT -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.sRGB -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.tEXt -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.tIME -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.tRNS -> MetadataExtractor.Formats.Png.PngChunkType
+static readonly MetadataExtractor.Formats.Png.PngChunkType.zTXt -> MetadataExtractor.Formats.Png.PngChunkType

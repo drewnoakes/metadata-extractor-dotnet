@@ -153,21 +153,23 @@ namespace MetadataExtractor.Formats.Exif
         /// Parses various tags in an attempt to obtain a single object representing the latitude and longitude
         /// at which this image was captured.
         /// </summary>
-        /// <returns>The geographical location of this image, if possible, otherwise <see langword="null" />.</returns>
-        public GeoLocation? GetGeoLocation()
+        /// <returns>The geographical location of this image.</returns>
+        public bool TryGetGeoLocation(out GeoLocation geoLocation)
         {
             var latitudes = this.GetRationalArray(TagLatitude);
             var longitudes = this.GetRationalArray(TagLongitude);
             var latitudeRef = this.GetString(TagLatitudeRef);
             var longitudeRef = this.GetString(TagLongitudeRef);
 
+            geoLocation = default;
+
             // Make sure we have the required values
             if (latitudes is null || latitudes.Length != 3)
-                return null;
+                return false;
             if (longitudes is null || longitudes.Length != 3)
-                return null;
+                return false;
             if (latitudeRef is null || longitudeRef is null)
-                return null;
+                return false;
 
 #pragma warning disable format
             var lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0],  latitudes[1],  latitudes[2],  latitudeRef.Equals("S", StringComparison.OrdinalIgnoreCase));
@@ -176,9 +178,10 @@ namespace MetadataExtractor.Formats.Exif
 
             // This can return null, in cases where the conversion was not possible
             if (lat == null || lon == null)
-                return null;
+                return false;
 
-            return new GeoLocation((double)lat, (double)lon);
+            geoLocation = new GeoLocation((double)lat, (double)lon);
+            return true;
         }
 
         /// <summary>

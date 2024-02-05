@@ -13,7 +13,7 @@ namespace MetadataExtractor
     /// Currently this is only used by <see cref="PanasonicMakernoteDirectory"/>.
     /// </remarks>
     /// <author>Philipp Sandhaus, Drew Noakes</author>
-    public sealed class Face(int x, int y, int width, int height, string? name = null, Age? age = null)
+    public sealed class Face(int x, int y, int width, int height, string? name = null, Age? age = null) : IEquatable<Face>
     {
         public int X { get; } = x;
 
@@ -29,17 +29,15 @@ namespace MetadataExtractor
 
         #region Equality and hashing
 
-        private bool Equals(Face other)
+        public bool Equals(Face? other)
         {
-            return X == other.X && Y == other.Y && Width == other.Width && Height == other.Height && string.Equals(Name, other.Name) && Equals(Age, other.Age);
+            if (ReferenceEquals(this, other))
+                return true;
+            return other is not null && X == other.X && Y == other.Y && Width == other.Width && Height == other.Height && string.Equals(Name, other.Name) && Equals(Age, other.Age);
         }
 
         public override bool Equals(object? obj)
         {
-            if (obj is null)
-                return false;
-            if (ReferenceEquals(this, obj))
-                return true;
             return obj is Face face && Equals(face);
         }
 

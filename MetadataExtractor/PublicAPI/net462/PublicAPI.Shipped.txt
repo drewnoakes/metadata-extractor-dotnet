@@ -2582,7 +2582,6 @@ MetadataExtractor.Formats.Exif.GpsDescriptor.GetGpsStatusDescription() -> string
 MetadataExtractor.Formats.Exif.GpsDescriptor.GetGpsTimeStampDescription() -> string?
 MetadataExtractor.Formats.Exif.GpsDescriptor.GpsDescriptor(MetadataExtractor.Formats.Exif.GpsDirectory! directory) -> void
 MetadataExtractor.Formats.Exif.GpsDirectory
-MetadataExtractor.Formats.Exif.GpsDirectory.GetGeoLocation() -> MetadataExtractor.GeoLocation?
 MetadataExtractor.Formats.Exif.GpsDirectory.GpsDirectory() -> void
 MetadataExtractor.Formats.Exif.GpsDirectory.TryGetGpsDate(out System.DateTime date) -> bool
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor
@@ -3613,10 +3612,7 @@ MetadataExtractor.Formats.Png.PngChromaticitiesDirectory
 MetadataExtractor.Formats.Png.PngChromaticitiesDirectory.PngChromaticitiesDirectory() -> void
 MetadataExtractor.Formats.Png.PngChunk
 MetadataExtractor.Formats.Png.PngChunk.Bytes.get -> byte[]!
-MetadataExtractor.Formats.Png.PngChunk.ChunkType.get -> MetadataExtractor.Formats.Png.PngChunkType!
-MetadataExtractor.Formats.Png.PngChunk.PngChunk(MetadataExtractor.Formats.Png.PngChunkType! chunkType, byte[]! bytes) -> void
 MetadataExtractor.Formats.Png.PngChunkReader
-MetadataExtractor.Formats.Png.PngChunkReader.Extract(MetadataExtractor.IO.SequentialReader! reader, System.Collections.Generic.ICollection<MetadataExtractor.Formats.Png.PngChunkType!>? desiredChunkTypes) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Png.PngChunk!>!
 MetadataExtractor.Formats.Png.PngChunkReader.PngChunkReader() -> void
 MetadataExtractor.Formats.Png.PngChunkType
 MetadataExtractor.Formats.Png.PngChunkType.AreMultipleAllowed.get -> bool
@@ -3644,8 +3640,6 @@ MetadataExtractor.Formats.Png.PngDescriptor.GetTextualDataDescription() -> strin
 MetadataExtractor.Formats.Png.PngDescriptor.GetUnitSpecifierDescription() -> string?
 MetadataExtractor.Formats.Png.PngDescriptor.PngDescriptor(MetadataExtractor.Formats.Png.PngDirectory! directory) -> void
 MetadataExtractor.Formats.Png.PngDirectory
-MetadataExtractor.Formats.Png.PngDirectory.GetPngChunkType() -> MetadataExtractor.Formats.Png.PngChunkType!
-MetadataExtractor.Formats.Png.PngDirectory.PngDirectory(MetadataExtractor.Formats.Png.PngChunkType! pngChunkType) -> void
 MetadataExtractor.Formats.Png.PngHeader
 MetadataExtractor.Formats.Png.PngHeader.BitsPerSample.get -> byte
 MetadataExtractor.Formats.Png.PngHeader.ColorType.get -> MetadataExtractor.Formats.Png.PngColorType!
@@ -4357,8 +4351,6 @@ static MetadataExtractor.Formats.Pcx.PcxMetadataReader.ReadMetadata(string! file
 static MetadataExtractor.Formats.Pcx.PcxMetadataReader.ReadMetadata(System.IO.Stream! stream) -> MetadataExtractor.Formats.Pcx.PcxDirectory!
 static MetadataExtractor.Formats.Photoshop.PsdMetadataReader.ReadMetadata(string! filePath) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Photoshop.PsdMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
-static MetadataExtractor.Formats.Png.PngChunkType.operator !=(MetadataExtractor.Formats.Png.PngChunkType! left, MetadataExtractor.Formats.Png.PngChunkType! right) -> bool
-static MetadataExtractor.Formats.Png.PngChunkType.operator ==(MetadataExtractor.Formats.Png.PngChunkType! left, MetadataExtractor.Formats.Png.PngChunkType! right) -> bool
 static MetadataExtractor.Formats.Png.PngColorType.FromNumericValue(int numericValue) -> MetadataExtractor.Formats.Png.PngColorType!
 static MetadataExtractor.Formats.Png.PngMetadataReader.ReadMetadata(string! filePath) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Png.PngMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
@@ -4412,25 +4404,6 @@ static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcL
 static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceAcValues.get -> System.ReadOnlySpan<byte>
 static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcLengths.get -> System.ReadOnlySpan<byte>
 static MetadataExtractor.Formats.Jpeg.HuffmanTablesDirectory.TypicalLuminanceDcValues.get -> System.ReadOnlySpan<byte>
-static readonly MetadataExtractor.Formats.Png.PngChunkType.bKGD -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.cHRM -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.gAMA -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.hIST -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.iCCP -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.IDAT -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.IEND -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.IHDR -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.iTXt -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.pHYs -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.PLTE -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.sBIT -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.sPLT -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.sRGB -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.tEXt -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.tIME -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.tRNS -> MetadataExtractor.Formats.Png.PngChunkType!
-static readonly MetadataExtractor.Formats.Png.PngChunkType.zTXt -> MetadataExtractor.Formats.Png.PngChunkType!
 static readonly MetadataExtractor.Formats.Png.PngColorType.Greyscale -> MetadataExtractor.Formats.Png.PngColorType!
 static readonly MetadataExtractor.Formats.Png.PngColorType.GreyscaleWithAlpha -> MetadataExtractor.Formats.Png.PngColorType!
 static readonly MetadataExtractor.Formats.Png.PngColorType.IndexedColor -> MetadataExtractor.Formats.Png.PngColorType!

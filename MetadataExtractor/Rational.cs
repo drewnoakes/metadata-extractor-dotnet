@@ -233,8 +233,6 @@ namespace MetadataExtractor
 
         public override bool Equals(object? obj)
         {
-            if (obj is null)
-                return false;
             return obj is Rational rational && Equals(rational);
         }
 

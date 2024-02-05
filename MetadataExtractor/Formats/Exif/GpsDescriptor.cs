@@ -73,14 +73,22 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetGpsLatitudeDescription()
         {
-            var location = Directory.GetGeoLocation();
-            return location is null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.Latitude);
+            if (Directory.TryGetGeoLocation(out GeoLocation geoLocation))
+            {
+                return GeoLocation.DecimalToDegreesMinutesSecondsString(geoLocation.Latitude);
+            }
+
+            return null;
         }
 
         public string? GetGpsLongitudeDescription()
         {
-            var location = Directory.GetGeoLocation();
-            return location is null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.Longitude);
+            if (Directory.TryGetGeoLocation(out GeoLocation geoLocation))
+            {
+                return GeoLocation.DecimalToDegreesMinutesSecondsString(geoLocation.Longitude);
+            }
+
+            return null;
         }
 
         public string? GetGpsTimeStampDescription()
@@ -264,8 +272,9 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetDegreesMinutesSecondsDescription()
         {
-            var location = Directory.GetGeoLocation();
-            return location?.ToDmsString();
+            if (Directory.TryGetGeoLocation(out GeoLocation geoLocation))
+                return geoLocation.ToDmsString();
+            return null;
         }
     }
 }
