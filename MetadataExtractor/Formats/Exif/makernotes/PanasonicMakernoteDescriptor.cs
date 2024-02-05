@@ -167,29 +167,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values is null)
                 return null;
 
-            IndexedReader reader = new ByteArrayReader(values);
-
-            try
-            {
-                int val1 = reader.GetUInt16(0);
-                int val2 = reader.GetUInt16(2);
-                if (val1 == -1 && val2 == 1)
-                    return "Slim Low";
-                if (val1 == -3 && val2 == 2)
-                    return "Slim High";
-                if (val1 == 0 && val2 == 0)
-                    return "Off";
-                if (val1 == 1 && val2 == 1)
-                    return "Stretch Low";
-                if (val1 == 3 && val2 == 2)
-                    return "Stretch High";
-
-                return "Unknown (" + val1 + " " + val2 + ")";
-            }
-            catch (IOException)
+            if (values.Length < 2 + 2)
             {
                 return null;
             }
+
+            var reader = new BufferReader(values, isBigEndian: true);
+
+            int val1 = reader.GetUInt16(0);
+            int val2 = reader.GetUInt16(2);
+
+            return (val1, val2) switch
+            {
+                (-1, 1) => "Slim Low",
+                (-3, 2) => "Slim High",
+                (0, 0) => "Off",
+                (1, 1) => "Stretch Low",
+                (3, 2) => "Stretch High",
+                _ => $"Unknown ({val1} {val2})"
+            };
         }
 
         public string? GetIntelligentExposureDescription()

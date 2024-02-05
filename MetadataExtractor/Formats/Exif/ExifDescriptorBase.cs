@@ -575,7 +575,7 @@ namespace MetadataExtractor.Formats.Exif
                 return ret;
             }
 
-            IndexedReader reader = new ByteArrayReader(values);
+            var reader = new BufferReader(values, isBigEndian: true);
 
             // first two values should be read as 16-bits (2 bytes)
             var item0 = reader.GetInt16(0);
@@ -588,7 +588,7 @@ namespace MetadataExtractor.Formats.Exif
             if (end > values.Length) // sanity check in case of byte order problems; calculated 'end' should be <= length of the values
             {
                 // try swapping byte order (I have seen this order different than in EXIF)
-                reader = reader.WithByteOrder(!reader.IsMotorolaByteOrder);
+                reader = new BufferReader(values, isBigEndian: !reader.IsBigEndian);
                 item0 = reader.GetInt16(0);
                 item1 = reader.GetInt16(2);
 
