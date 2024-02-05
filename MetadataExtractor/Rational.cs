@@ -238,7 +238,17 @@ namespace MetadataExtractor
             return obj is Rational rational && Equals(rational);
         }
 
-        public override int GetHashCode() => unchecked(Denominator.GetHashCode() * 397) ^ Numerator.GetHashCode();
+        public override int GetHashCode()
+        {
+#if NET8_0_OR_GREATER
+            HashCode hash = new();
+            hash.Add(Denominator);
+            hash.Add(Numerator);
+            return hash.ToHashCode();
+#else
+            return unchecked(Denominator.GetHashCode() * 397) ^ Numerator.GetHashCode();
+#endif
+        }
 
         #endregion
 

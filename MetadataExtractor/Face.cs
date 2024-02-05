@@ -45,6 +45,16 @@ namespace MetadataExtractor
 
         public override int GetHashCode()
         {
+#if NET8_0_OR_GREATER
+            HashCode hash = new();
+            hash.Add(X);
+            hash.Add(Y);
+            hash.Add(Width);
+            hash.Add(Height);
+            hash.Add(Name);
+            hash.Add(Age);
+            return hash.ToHashCode();
+#else
             unchecked
             {
                 var hashCode = X;
@@ -55,6 +65,7 @@ namespace MetadataExtractor
                 hashCode = (hashCode * 397) ^ (Age?.GetHashCode() ?? 0);
                 return hashCode;
             }
+#endif
         }
 
         #endregion

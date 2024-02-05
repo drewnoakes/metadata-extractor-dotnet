@@ -163,7 +163,16 @@ namespace MetadataExtractor.Formats.Png
             return obj is PngChunkType t && Equals(t);
         }
 
-        public override int GetHashCode() => _bytes[0] << 24 | _bytes[1] << 16 << _bytes[2] << 8 | _bytes[3];
+        public override int GetHashCode()
+        {
+#if NET8_0_OR_GREATER
+            HashCode hash = new();
+            hash.AddBytes(_bytes);
+            return hash.GetHashCode();
+#else
+            return _bytes[0] << 24 | _bytes[1] << 16 << _bytes[2] << 8 | _bytes[3];
+#endif
+        }
 
         public static bool operator ==(PngChunkType left, PngChunkType right) => Equals(left, right);
         public static bool operator !=(PngChunkType left, PngChunkType right) => !Equals(left, right);

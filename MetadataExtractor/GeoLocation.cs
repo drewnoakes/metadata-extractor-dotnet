@@ -88,7 +88,17 @@ namespace MetadataExtractor
             return obj is GeoLocation location && Equals(location);
         }
 
-        public override int GetHashCode() => unchecked((Latitude.GetHashCode() * 397) ^ Longitude.GetHashCode());
+        public override int GetHashCode()
+        {
+#if NET8_0_OR_GREATER
+            HashCode hash = new();
+            hash.Add(Latitude);
+            hash.Add(Longitude);
+            return hash.ToHashCode();
+#else
+            return unchecked((Latitude.GetHashCode() * 397) ^ Longitude.GetHashCode());
+#endif
+        }
 
         #endregion
 

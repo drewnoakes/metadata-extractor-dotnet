@@ -95,6 +95,16 @@ namespace MetadataExtractor
 
         public override int GetHashCode()
         {
+#if NET8_0_OR_GREATER
+            HashCode hash = new();
+            hash.Add(Years);
+            hash.Add(Months);
+            hash.Add(Days);
+            hash.Add(Hours);
+            hash.Add(Minutes);
+            hash.Add(Seconds);
+            return hash.ToHashCode();
+#else
             unchecked
             {
                 var hashCode = Years;
@@ -105,6 +115,7 @@ namespace MetadataExtractor
                 hashCode = (hashCode * 397) ^ Seconds;
                 return hashCode;
             }
+#endif
         }
 
         #endregion
