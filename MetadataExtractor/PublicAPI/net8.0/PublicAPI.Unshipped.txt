@@ -1,6 +1,34 @@
 ﻿#nullable enable
 abstract MetadataExtractor.IO.IndexedReader.GetBytes(int index, System.Span<byte> bytes) -> void
 abstract MetadataExtractor.IO.SequentialReader.GetBytes(System.Span<byte> bytes) -> void
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAEAverage = 6 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAEMatrix = 2 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAEStable = 4 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAETarget = 5 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAFConfidence = 61 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAFMeasuredDepth = 56 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAFStable = 7 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagColorCorrectionMatrix = 62 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagFocusDistanceRange = 12 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagFocusPosition = 47 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagFrontFacingCamera = 69 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagGreenGhostMitigationStatus = 63 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagHdrGain = 48 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagHdrHeadroom = 33 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagImageCaptureRequestID = 32 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagImageCaptureType = 20 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagImageProcessingFlags = 25 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagLuminanceNoiseAmplitude = 29 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagMakernoteVersion = 1 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagOisMode = 15 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagPhotoIdentifier = 43 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagQualityHint = 26 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagSceneFlags = 37 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagSemanticStyle = 64 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagSemanticStylePreset = 66 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagSemanticStyleRenderingVer = 65 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagSignalToNoiseRatio = 39 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagSignalToNoiseRatioType = 38 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.TagEpoch = 2 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.TagFlags = 1 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.TagScale = 3 -> int
@@ -45,6 +73,10 @@ MetadataExtractor.Formats.Apple.BplistReader.BplistReader() -> void
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.Get(byte key) -> object!
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.GetTopObject() -> System.Collections.Generic.Dictionary<byte, byte>?
+MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAEStableDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAFStableDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetFrontFacingCameraDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetImageCaptureTypeDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor
 MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.AppleRunTimeMakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory! directory) -> void
 MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.GetFlagsDescription() -> string?
