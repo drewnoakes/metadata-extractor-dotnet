@@ -70,43 +70,29 @@ namespace MetadataExtractor.Formats.WebP
                     if (payload.Length != 10)
                         break;
 
-                    string? error = null;
-                    var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
-                    var isAnimation = false;
-                    var hasAlpha = false;
-                    var widthMinusOne = -1;
-                    var heightMinusOne = -1;
-                    try
-                    {
-                        // Flags
-                        // bit 0: has fragments
-                        // bit 1: is animation
-                        // bit 2: has XMP
-                        // bit 3: has Exif
-                        // bit 4: has alpha
-                        // big 5: has ICC
-                        isAnimation = reader.GetBit(1);
-                        hasAlpha = reader.GetBit(4);
+                    var reader = new BufferReader(payload, isBigEndian: false);
 
-                        // Image size
-                        widthMinusOne = reader.GetInt24(4);
-                        heightMinusOne = reader.GetInt24(7);
-                    }
-                    catch (IOException e)
-                    {
-                        error = "Exception reading WebpRiff chunk 'VP8X' : " + e.Message;
-                    }
+                    // Flags
+                    // bit 0: has fragments
+                    // bit 1: is animation
+                    // bit 2: has XMP
+                    // bit 3: has Exif
+                    // bit 4: has alpha
+                    // big 5: has ICC
+                    bool isAnimation = reader.GetBit(1);
+                    bool hasAlpha = reader.GetBit(4);
+
+                    // Image size
+                    int widthMinusOne = reader.GetInt24(4);
+                    int heightMinusOne = reader.GetInt24(7);
 
                     var directory = new WebPDirectory();
-                    if (error is null)
-                    {
-                        directory.Set(WebPDirectory.TagImageWidth, widthMinusOne + 1);
-                        directory.Set(WebPDirectory.TagImageHeight, heightMinusOne + 1);
-                        directory.Set(WebPDirectory.TagHasAlpha, hasAlpha);
-                        directory.Set(WebPDirectory.TagIsAnimation, isAnimation);
-                    }
-                    else
-                        directory.AddError(error);
+
+                    directory.Set(WebPDirectory.TagImageWidth, widthMinusOne + 1);
+                    directory.Set(WebPDirectory.TagImageHeight, heightMinusOne + 1);
+                    directory.Set(WebPDirectory.TagHasAlpha, hasAlpha);
+                    directory.Set(WebPDirectory.TagIsAnimation, isAnimation);
+
                     _directories.Add(directory);
                     break;
                 }
