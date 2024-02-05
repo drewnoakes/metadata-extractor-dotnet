@@ -307,7 +307,7 @@ namespace MetadataExtractor
 #if !NETSTANDARD1_3
         private sealed class RationalConverter : TypeConverter
         {
-            public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+            public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
             {
                 if (sourceType == typeof(string) ||
                     sourceType == typeof(Rational) ||
@@ -318,11 +318,8 @@ namespace MetadataExtractor
                 return base.CanConvertFrom(context, sourceType);
             }
 
-            public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+            public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
             {
-                if (value is null)
-                    return base.ConvertFrom(context, culture, null);
-
                 var type = value.GetType();
 
                 if (type == typeof(string))
@@ -349,7 +346,7 @@ namespace MetadataExtractor
                 return new Rational(Convert.ToInt64(value), 1);
             }
 
-            public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => false;
+            public override bool CanConvertTo(ITypeDescriptorContext? context, [NotNullWhen(true)] Type? destinationType) => false;
         }
 #endif
 

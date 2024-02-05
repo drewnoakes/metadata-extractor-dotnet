@@ -394,6 +394,9 @@ namespace MetadataExtractor.Formats.Exif
             base.EndingIfd(context);
         }
 
+#if NET7_0_OR_GREATER
+        [UnconditionalSuppressMessage("Aot", "IL3050:RequiresDynamicCode", Justification = "Array.CreateInstance is only called with known element types")]
+#endif
         private void ProcessGeoTiff(ushort[] geoKeys, ExifIfd0Directory sourceDirectory)
         {
             if (geoKeys.Length < 4)
@@ -448,7 +451,8 @@ namespace MetadataExtractor.Formats.Exif
                     {
                         if (valueOffset + valueCount <= sourceArray.Length)
                         {
-                            var array = Array.CreateInstance(sourceArray.GetType().GetElementType(), valueCount);
+                            Type? elementType = sourceArray.GetType().GetElementType();
+                            var array = Array.CreateInstance(elementType!, valueCount);
                             Array.Copy(sourceArray, valueOffset, array, 0, valueCount);
                             geoTiffDirectory.Set(keyId, array);
                         }

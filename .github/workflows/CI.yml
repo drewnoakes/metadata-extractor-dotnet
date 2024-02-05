@@ -29,6 +29,8 @@ jobs:
       run: dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj
     - name: Test net8.0 (Debug)
       run: dotnet test --verbosity normal --configuration Debug --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj
+    - name: Publish NativeAOT
+      run: dotnet publish --verbosity normal --configuration Release -f net8.0 MetadataExtractor.Tools.FileProcessor/MetadataExtractor.Tools.FileProcessor.csproj
 
   windows:
     runs-on: windows-latest
@@ -48,3 +50,5 @@ jobs:
       run: dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests\MetadataExtractor.Tests.csproj
     - name: Test net462
       run: dotnet test --verbosity normal --configuration Release --no-build -f net462 MetadataExtractor.Tests\MetadataExtractor.Tests.csproj
+    - name: Publish NativeAOT
+      run: dotnet publish --verbosity normal --configuration Release -f net8.0 -r win-x64 MetadataExtractor.Tools.FileProcessor/MetadataExtractor.Tools.FileProcessor.csproj
