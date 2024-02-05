@@ -139,7 +139,57 @@ internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
         return encoding.GetString(bytes);
     }
 
+    public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding? encoding = null, bool moveToMaxLength = false)
+    {
+        var bytes = GetNullTerminatedBytes(maxLengthBytes, moveToMaxLength);
+
+        return new StringValue(bytes, encoding);
+    }
+
+    public byte[] GetNullTerminatedBytes(int maxLengthBytes, bool moveToMaxLength = false)
+    {
+        // The number of non-null bytes
+        int length;
+
+        byte[] buffer;
+
+        if (moveToMaxLength)
+        {
+            buffer = GetBytes(maxLengthBytes);
+            length = Array.IndexOf(buffer, (byte)'\0') switch
+            {
+                -1 => maxLengthBytes,
+                int i => i
+            };
+        }
+        else
+        {
+            buffer = new byte[maxLengthBytes];
+            length = 0;
+
+            while (length < buffer.Length && (buffer[length] = GetByte()) != 0)
+                length++;
+        }
+
+        if (length == 0)
+            return [];
+        if (length == maxLengthBytes)
+            return buffer;
+        var bytes = new byte[length];
+        if (length > 0)
+            Array.Copy(buffer, bytes, length);
+        return bytes;
+    }
+
     // Indexed Methods -
+
+    public bool GetBit(int index)
+    {
+        var byteIndex = index / 8;
+        var bitIndex = index % 8;
+
+        return ((GetByte(byteIndex) >> bitIndex) & 1) == 1;
+    }
 
     public void GetBytes(int index, scoped Span<byte> bytes)
     {
