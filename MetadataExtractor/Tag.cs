@@ -22,9 +22,6 @@ namespace MetadataExtractor
         /// <value>the tag type as an int</value>
         public int Type { get; }
 
-        [Obsolete("Use Type instead.")]
-        public int TagType => Type;
-
         /// <summary>
         /// Get a description of the tag's value, considering enumerated values
         /// and units.
@@ -39,16 +36,10 @@ namespace MetadataExtractor
         /// </remarks>
         public bool HasName => _directory.HasTagName(Type);
 
-        [Obsolete("Use HasName instead.")]
-        public bool HasTagName => HasName;
-
         /// <summary>
         /// Get the name of the tag, such as <c>Aperture</c>, or <c>InteropVersion</c>.
         /// </summary>
         public string Name => _directory.GetTagName(Type);
-
-        [Obsolete("Use Name instead")]
-        public string TagName => Name;
 
         /// <summary>
         /// Get the name of the <see cref="Directory"/> in which the tag exists, such as <c>Exif</c>, <c>GPS</c> or <c>Interoperability</c>.
