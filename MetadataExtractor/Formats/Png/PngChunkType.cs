@@ -167,7 +167,7 @@ namespace MetadataExtractor.Formats.Png
 #if NET8_0_OR_GREATER
             HashCode hash = new();
             hash.AddBytes(_bytes);
-            return hash.GetHashCode();
+            return hash.ToHashCode();
 #else
             return _bytes[0] << 24 | _bytes[1] << 16 << _bytes[2] << 8 | _bytes[3];
 #endif
