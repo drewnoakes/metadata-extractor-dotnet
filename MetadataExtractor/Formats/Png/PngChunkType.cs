@@ -5,8 +5,8 @@ namespace MetadataExtractor.Formats.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkType
     {
-        private static readonly ICollection<string> _identifiersAllowingMultiples
-            = new HashSet<string> { "IDAT", "sPLT", "iTXt", "tEXt", "zTXt" };
+        private static readonly HashSet<string> _identifiersAllowingMultiples
+            = new(StringComparer.Ordinal) { "IDAT", "sPLT", "iTXt", "tEXt", "zTXt" };
 
 #pragma warning disable IDE1006 // Naming Styles
 
