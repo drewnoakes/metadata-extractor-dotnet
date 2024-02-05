@@ -143,11 +143,14 @@ Camera-specific "makernote" data is decoded for cameras manufactured by:
 
 This library targets:
 
+- .NET 8.0 (`net8.0`)
 - .NET Framework 4.6.2 (`net462`)
 - .NET Standard 1.3 (`netstandard1.3`)
 - .NET Standard 2.1 (`netstandard2.1`)
 
 All target frameworks are provided via the [one NuGet package](https://www.nuget.org/packages/MetadataExtractor).
+
+`net8.0` implements .NET 8, including support for NativeAOT.
 
 `netstandard1.3` implements version 1.3 of the [.NET Standard](https://docs.microsoft.com/en-us/dotnet/articles/standard/library) which covers .NET Core, Mono, Xamarin platforms, UWP, and future platforms. 
 

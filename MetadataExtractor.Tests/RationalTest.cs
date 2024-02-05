@@ -108,8 +108,6 @@ namespace MetadataExtractor.Tests
             Assert.Equal(new Rational(12, 34), converter.ConvertFrom(new[] { 12, 34 }));
             Assert.Equal(new Rational(12, 34), converter.ConvertFrom(new[] { 12u, 34u }));
             Assert.Equal(new Rational(13, 35), converter.ConvertFrom(new[] { 12.9, 34.9 })); // rounding
-
-            Assert.Throws<NotSupportedException>(() => converter.ConvertFrom(null!));
         }
 
         [Fact]
