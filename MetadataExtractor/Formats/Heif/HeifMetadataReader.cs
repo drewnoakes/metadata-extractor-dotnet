@@ -34,8 +34,9 @@ namespace MetadataExtractor.Formats.Heif
             ParseQuickTimeTest();
 
             uint primaryItem = boxes.Descendant<PrimaryItemBox>()?.PrimaryItem ?? uint.MaxValue;
-            var itemRefs = (boxes.Descendant<ItemReferenceBox>()?.Boxes ?? new SingleItemTypeReferenceBox[0])
-                .Where(i => i.Type is BoxTypes.ThmbTag or BoxTypes.CdscTag or BoxTypes.MimeTag).ToList();
+            var itemRefs = (boxes.Descendant<ItemReferenceBox>()?.Boxes ?? Array.Empty<SingleItemTypeReferenceBox>())
+                .Where(i => i.Type is BoxTypes.ThmbTag or BoxTypes.CdscTag or BoxTypes.MimeTag)
+                .ToList();
 
             ParseImageProperties();
 

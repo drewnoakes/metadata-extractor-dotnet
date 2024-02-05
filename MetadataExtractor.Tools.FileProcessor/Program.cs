@@ -14,8 +14,6 @@ using MetadataExtractor.Formats.Xmp;
 
 namespace MetadataExtractor.Tools.FileProcessor
 {
-    // TODO port UnknownTagHandler
-
     internal static class Program
     {
         private static int Main(string[] args)
@@ -191,11 +189,11 @@ namespace MetadataExtractor.Tools.FileProcessor
                     // If "--markdown" is specified, write a summary table in markdown format
                     fileHandler = new MarkdownTableOutputHandler();
                 }
-//                else if (arg == "--unknown")
-//                {
-//                    // If "--unknown" is specified, write CSV tallying unknown tag counts
-//                    fileHandler = new UnknownTagHandler();
-//                }
+                else if (arg == "--unknown")
+                {
+                    // If "--unknown" is specified, write CSV tallying unknown tag counts
+                    fileHandler = new UnknownTagHandler();
+                }
                 else if (arg == "--log-file")
                 {
                     if (i == args.Length - 1)
@@ -224,8 +222,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                 return 1;
             }
 
-            if (fileHandler is null)
-                fileHandler = new BasicFileHandler();
+            fileHandler ??= new BasicFileHandler();
 
             var stopwatch = Stopwatch.StartNew();
 

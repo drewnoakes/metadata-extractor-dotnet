@@ -63,6 +63,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki", "Wiki", "{DD8398AB-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{1806EC0F-839C-45A4-9778-11A89CFD5C14}"
 	ProjectSection(SolutionItems) = preProject
+		wiki\docs\5116.DCT_Filter.pdf = wiki\docs\5116.DCT_Filter.pdf
 		wiki\docs\Adobe Photoshop File Format Specification.html = wiki\docs\Adobe Photoshop File Format Specification.html
 		wiki\docs\CIFFspecV1R03.pdf = wiki\docs\CIFFspecV1R03.pdf
 		wiki\docs\CIFFspecV1R04.pdf = wiki\docs\CIFFspecV1R04.pdf
@@ -78,6 +79,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{1806EC0F
 		wiki\docs\IPTC-IIMV3.PDF = wiki\docs\IPTC-IIMV3.PDF
 		wiki\docs\IPTC-IIMV4.1.pdf = wiki\docs\IPTC-IIMV4.1.pdf
 		wiki\docs\IPTC-IIMV4.2.pdf = wiki\docs\IPTC-IIMV4.2.pdf
+		wiki\docs\JFIF-1.02.pdf = wiki\docs\JFIF-1.02.pdf
 		wiki\docs\JPEG-itu-t81.pdf = wiki\docs\JPEG-itu-t81.pdf
 		wiki\docs\PCX File Format.html = wiki\docs\PCX File Format.html
 		wiki\docs\PCX File Format.txt = wiki\docs\PCX File Format.txt

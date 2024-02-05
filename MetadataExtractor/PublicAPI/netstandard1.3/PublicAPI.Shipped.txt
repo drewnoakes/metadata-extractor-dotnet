@@ -3995,11 +3995,8 @@ MetadataExtractor.Tag
 MetadataExtractor.Tag.Description.get -> string?
 MetadataExtractor.Tag.DirectoryName.get -> string!
 MetadataExtractor.Tag.HasName.get -> bool
-MetadataExtractor.Tag.HasTagName.get -> bool
 MetadataExtractor.Tag.Name.get -> string!
 MetadataExtractor.Tag.Tag(int type, MetadataExtractor.Directory! directory) -> void
-MetadataExtractor.Tag.TagName.get -> string!
-MetadataExtractor.Tag.TagType.get -> int
 MetadataExtractor.Tag.Type.get -> int
 MetadataExtractor.TagDescriptor<T>
 MetadataExtractor.TagDescriptor<T>.Directory.get -> T!
