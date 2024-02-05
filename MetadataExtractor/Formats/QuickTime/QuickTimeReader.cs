@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using MetadataExtractor.Formats.Iso14496;
+
 namespace MetadataExtractor.Formats.QuickTime
 {
     /// <summary>
@@ -43,19 +45,7 @@ namespace MetadataExtractor.Formats.QuickTime
         /// <summary>
         /// Gets the string representation of this atom's type.
         /// </summary>
-        public string TypeString
-        {
-            get
-            {
-                var bytes = BitConverter.GetBytes(Type);
-                Array.Reverse(bytes);
-#if NETSTANDARD1_3
-                return Encoding.UTF8.GetString(bytes);
-#else
-                return Encoding.ASCII.GetString(bytes);
-#endif
-            }
-        }
+        public string TypeString => TypeStringConverter.ToTypeString(Type);
 
         /// <summary>
         /// Computes the number of bytes remaining in the atom, given the <see cref="Stream"/> position.
