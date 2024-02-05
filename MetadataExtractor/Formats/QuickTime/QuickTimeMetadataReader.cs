@@ -263,8 +263,9 @@ namespace MetadataExtractor.Formats.QuickTime
                     case "uuid":
                     {
                         ReadOnlySpan<byte> cr3 = [0x85, 0xc0, 0xb6, 0x87, 0x82, 0x0f, 0x11, 0xe0, 0x81, 0x11, 0xf4, 0xce, 0x46, 0x2b, 0x6a, 0x48];
-                        var uuid = a.Reader.GetBytes(cr3.Length);
-                        if (cr3.SequenceEqual(uuid))
+                        Span<byte> actual = stackalloc byte[cr3.Length];
+                        a.Reader.GetBytes(actual);
+                        if (cr3.SequenceEqual(actual))
                         {
                             QuickTimeReader.ProcessAtoms(stream, UuidHandler, a.BytesLeft);
                         }
