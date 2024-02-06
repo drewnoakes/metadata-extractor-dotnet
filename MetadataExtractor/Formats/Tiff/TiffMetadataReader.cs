@@ -41,7 +41,9 @@ namespace MetadataExtractor.Formats.Tiff
             var directories = new List<Directory>();
 
             var handler = new ExifTiffHandler(directories, exifStartOffset: 0);
-            TiffReader.ProcessTiff(new IndexedCapturingReader(stream), handler);
+
+            using var reader = new IndexedCapturingReader(stream);
+            TiffReader.ProcessTiff(reader, handler);
 
             return directories;
         }
