@@ -7,7 +7,7 @@ namespace MetadataExtractor.IO;
 
 internal ref partial struct BufferReader
 {
-    public bool GetBit(int index)
+    public readonly bool GetBit(int index)
     {
         var byteIndex = index / 8;
         var bitIndex = index % 8;
@@ -15,21 +15,21 @@ internal ref partial struct BufferReader
         return ((GetByte(byteIndex) >> bitIndex) & 1) == 1;
     }
 
-    public void GetBytes(int index, scoped Span<byte> bytes)
+    public readonly void GetBytes(int index, scoped Span<byte> bytes)
     {
         ValidateIndex(index, bytes.Length);
 
         _bytes.Slice(index, bytes.Length).CopyTo(bytes);
     }
 
-    public byte GetByte(int index)
+    public readonly byte GetByte(int index)
     {
         ValidateIndex(index, 1);
 
         return _bytes[index];
     }
 
-    public short GetInt16(int index)
+    public readonly short GetInt16(int index)
     {
         ValidateIndex(index, 2);
 
@@ -40,7 +40,7 @@ internal ref partial struct BufferReader
             : BinaryPrimitives.ReadInt16LittleEndian(bytes);
     }
 
-    public ushort GetUInt16(int index)
+    public readonly ushort GetUInt16(int index)
     {
         ValidateIndex(index, 2);
 
@@ -51,7 +51,7 @@ internal ref partial struct BufferReader
             : BinaryPrimitives.ReadUInt16LittleEndian(bytes);
     }
 
-    public int GetInt24(int index)
+    public readonly int GetInt24(int index)
     {
         Span<byte> bytes = stackalloc byte[3];
 
@@ -73,7 +73,7 @@ internal ref partial struct BufferReader
         }
     }
 
-    public int GetInt32(int index)
+    public readonly int GetInt32(int index)
     {
         ValidateIndex(index, 4);
 
@@ -84,7 +84,7 @@ internal ref partial struct BufferReader
             : BinaryPrimitives.ReadInt32LittleEndian(bytes);
     }
 
-    public uint GetUInt32(int index)
+    public readonly uint GetUInt32(int index)
     {
         ValidateIndex(index, 4);
 
@@ -95,7 +95,7 @@ internal ref partial struct BufferReader
             : BinaryPrimitives.ReadUInt32LittleEndian(bytes);
     }
 
-    public float GetS15Fixed16(int index)
+    public readonly float GetS15Fixed16(int index)
     {
         ValidateIndex(index, 4);
 
@@ -116,7 +116,7 @@ internal ref partial struct BufferReader
         }
     }
 
-    public long GetInt64(int index)
+    public readonly long GetInt64(int index)
     {
         ValidateIndex(index, 8);
 
@@ -128,7 +128,7 @@ internal ref partial struct BufferReader
     }
 
     /// <exception cref="IOException"/>
-    public float GetFloat32(int index)
+    public readonly float GetFloat32(int index)
     {
 #if NET462 || NETSTANDARD1_3
         return BitConverter.ToSingle(BitConverter.GetBytes(GetInt32(index)), 0);
@@ -152,7 +152,7 @@ internal ref partial struct BufferReader
 #endif
     }
 
-    public double GetDouble64(int index)
+    public readonly double GetDouble64(int index)
     {
 #if NET462 || NETSTANDARD1_3
         return BitConverter.Int64BitsToDouble(GetInt64(index));
@@ -176,7 +176,7 @@ internal ref partial struct BufferReader
 #endif
     }
 
-    public string GetString(int index, int bytesRequested, Encoding encoding)
+    public readonly string GetString(int index, int bytesRequested, Encoding encoding)
     {
         // This check is important on .NET Framework
         if (bytesRequested is 0)
