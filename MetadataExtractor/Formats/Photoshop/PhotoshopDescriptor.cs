@@ -259,7 +259,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
             var reader = new BufferReader(bytes, isBigEndian: true);
 
-            return reader.GetInt32(0).ToString();
+            return reader.GetInt32().ToString();
         }
 
         private string? GetSimpleString(int tagType)
