@@ -14,23 +14,15 @@ namespace MetadataExtractor.Formats.Wav
     /// http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html
     /// </remarks>
     /// <author>Dmitry Shechtman</author>
-    public sealed class WavFormatHandler : RiffChunkHandler<WavFormatDirectory>
+    public sealed class WavFormatHandler(List<Directory> directories)
+        : RiffChunkHandler<WavFormatDirectory>(directories)
     {
-        public WavFormatHandler(List<Directory> directories)
-            : base(directories)
-        {
-        }
-
         protected override int MinSize => 16;
 
         protected override void Populate(WavFormatDirectory directory, byte[] payload)
         {
-            var reader = new SequentialByteArrayReader(payload, isMotorolaByteOrder: false);
-            Populate(directory, reader, payload.Length);
-        }
+            var reader = new BufferReader(payload, isBigEndian: false);
 
-        public static void Populate(WavFormatDirectory directory, SequentialReader reader, int chunkSize)
-        {
             directory.Set(TagFormat, reader.GetUInt16());
             directory.Set(TagChannels, reader.GetUInt16());
             directory.Set(TagSamplesPerSec, reader.GetUInt32());
@@ -38,32 +30,31 @@ namespace MetadataExtractor.Formats.Wav
             directory.Set(TagBlockAlign, reader.GetUInt16());
             directory.Set(TagBitsPerSample, reader.GetUInt16());
 
-            if (chunkSize > 16)
+            if (payload.Length > 16)
             {
                 var exSize = reader.GetUInt16();
                 if (exSize > 0)
                 {
-                    if (exSize > chunkSize - 16)
+                    if (exSize > payload.Length - 16)
+                    {
                         directory.AddError("Invalid chunk 'fmt ' extension size");
-                    else
-                        PopulateEx(directory, reader, exSize);
+                        return;
+                    }
+
+                    if (exSize < 2)
+                        return;
+
+                    directory.Set(TagValidBitsPerSample, reader.GetUInt16());
+
+                    if (exSize < 6)
+                        return;
+                    directory.Set(TagChannelMask, reader.GetUInt32());
+
+                    if (exSize < 22)
+                        return;
+                    directory.Set(TagSubformat, reader.GetBytes(16));
                 }
             }
-        }
-
-        private static void PopulateEx(WavFormatDirectory directory, SequentialReader reader, int exSize)
-        {
-            if (exSize < 2)
-                return;
-            directory.Set(TagValidBitsPerSample, reader.GetUInt16());
-
-            if (exSize < 6)
-                return;
-            directory.Set(TagChannelMask, reader.GetUInt32());
-
-            if (exSize < 22)
-                return;
-            directory.Set(TagSubformat, reader.GetBytes(16));
         }
     }
 }

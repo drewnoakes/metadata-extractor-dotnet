@@ -4357,7 +4357,6 @@ static MetadataExtractor.Formats.Tiff.TiffMetadataReader.ReadMetadata(string! fi
 static MetadataExtractor.Formats.Tiff.TiffMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Tiff.TiffReader.ProcessIfd(MetadataExtractor.Formats.Tiff.ITiffHandler! handler, MetadataExtractor.Formats.Tiff.TiffReaderContext context, int ifdOffset) -> void
 static MetadataExtractor.Formats.Tiff.TiffReader.ProcessTiff(MetadataExtractor.IO.IndexedReader! reader, MetadataExtractor.Formats.Tiff.ITiffHandler! handler) -> void
-static MetadataExtractor.Formats.Wav.WavFormatHandler.Populate(MetadataExtractor.Formats.Wav.WavFormatDirectory! directory, MetadataExtractor.IO.SequentialReader! reader, int chunkSize) -> void
 static MetadataExtractor.Formats.Wav.WavMetadataReader.ReadMetadata(string! filePath) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Wav.WavMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.WebP.WebPMetadataReader.ReadMetadata(string! filePath) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
