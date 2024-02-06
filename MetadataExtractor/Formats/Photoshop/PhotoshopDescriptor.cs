@@ -119,7 +119,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 return null;
 
             var reader = new BufferReader(bytes, isBigEndian: true);
-            var style = reader.GetInt32(0);
+            var style = reader.GetInt16(0);
             var locX = reader.GetFloat32(2);
             var locY = reader.GetFloat32(6);
             var scale = reader.GetFloat32(10);
