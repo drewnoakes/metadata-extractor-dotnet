@@ -120,7 +120,7 @@ namespace MetadataExtractor.Formats.Photoshop
                             directories.Add(iptcDirectory);
                             break;
                         case PhotoshopDirectory.TagIccProfileBytes:
-                            var iccDirectory = new IccReader().Extract(new ByteArrayReader(tagBytes));
+                            var iccDirectory = new IccReader().Extract(tagBytes);
                             iccDirectory.Parent = directory;
                             directories.Add(iccDirectory);
                             break;

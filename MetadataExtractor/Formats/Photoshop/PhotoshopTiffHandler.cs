@@ -40,7 +40,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     Directories.AddRange(new PhotoshopReader().Extract(new SequentialByteArrayReader(context.Reader.GetBytes(valueOffset, byteCount)), byteCount));
                     return true;
                 case TagIccProfiles:
-                    Directories.Add(new IccReader().Extract(new ByteArrayReader(context.Reader.GetBytes(valueOffset, byteCount))));
+                    Directories.Add(new IccReader().Extract(context.Reader.GetBytes(valueOffset, byteCount)));
                     return true;
             }
 

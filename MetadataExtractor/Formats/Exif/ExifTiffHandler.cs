@@ -181,7 +181,7 @@ namespace MetadataExtractor.Formats.Exif
             if (tagId == ExifDirectoryBase.TagInterColorProfile)
             {
                 var iccBytes = context.Reader.GetBytes(valueOffset, byteCount);
-                var iccDirectory = new IccReader().Extract(new ByteArrayReader(iccBytes));
+                var iccDirectory = new IccReader().Extract(iccBytes);
                 iccDirectory.Parent = CurrentDirectory;
                 Directories.Add(iccDirectory);
                 return true;

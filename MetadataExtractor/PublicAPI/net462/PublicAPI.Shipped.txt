@@ -3291,7 +3291,7 @@ MetadataExtractor.Formats.Icc.IccDescriptor.IccDescriptor(MetadataExtractor.Form
 MetadataExtractor.Formats.Icc.IccDirectory
 MetadataExtractor.Formats.Icc.IccDirectory.IccDirectory() -> void
 MetadataExtractor.Formats.Icc.IccReader
-MetadataExtractor.Formats.Icc.IccReader.Extract(MetadataExtractor.IO.IndexedReader! reader) -> MetadataExtractor.Formats.Icc.IccDirectory!
+MetadataExtractor.Formats.Icc.IccReader.Extract(System.ReadOnlySpan<byte> bytes) -> MetadataExtractor.Formats.Icc.IccDirectory!
 MetadataExtractor.Formats.Icc.IccReader.IccReader() -> void
 MetadataExtractor.Formats.Icc.IccReader.ReadJpegSegments(System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Jpeg.JpegSegment!>! segments) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Directory!>!
 MetadataExtractor.Formats.Ico.IcoDescriptor

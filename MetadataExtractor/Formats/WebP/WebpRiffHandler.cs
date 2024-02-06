@@ -57,7 +57,7 @@ namespace MetadataExtractor.Formats.WebP
                 }
                 case "ICCP":
                 {
-                    _directories.Add(new IccReader().Extract(new ByteArrayReader(payload)));
+                    _directories.Add(new IccReader().Extract(payload));
                     break;
                 }
                 case "XMP ":

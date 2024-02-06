@@ -167,15 +167,15 @@ namespace MetadataExtractor.Formats.Png
 
                     IccDirectory? iccDirectory = null;
                     Exception? ex = null;
-                    try
+
+                    if (TryDeflate(compressedProfile, 0, out var iccData, out var errorMessage))
                     {
-                        using var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress);
-                        iccDirectory = new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
+                        iccDirectory = new IccReader().Extract(iccData);
                         iccDirectory.Parent = directory;
                     }
-                    catch (Exception e)
+                    else
                     {
-                        ex = e;
+                        directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.iCCP)} chunk: {errorMessage}");
                     }
 
                     if (iccDirectory is not null)
@@ -412,7 +412,7 @@ namespace MetadataExtractor.Formats.Png
                 {
                     if (TryProcessRawProfile(out _))
                     {
-                        yield return new IccReader().Extract(new ByteArrayReader(textBytes));
+                        yield return new IccReader().Extract(textBytes);
                     }
                     else
                     {

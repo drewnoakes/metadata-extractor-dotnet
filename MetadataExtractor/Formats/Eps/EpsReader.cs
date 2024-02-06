@@ -244,7 +244,7 @@ namespace MetadataExtractor.Formats.Eps
             var buffer = DecodeHexCommentBlock(reader);
 
             if (buffer is not null)
-                directories.Add(new IccReader().Extract(new ByteArrayReader(buffer)));
+                directories.Add(new IccReader().Extract(buffer));
         }
 
         /// <summary>

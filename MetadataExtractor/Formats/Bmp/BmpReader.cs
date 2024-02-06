@@ -347,8 +347,12 @@ namespace MetadataExtractor.Formats.Bmp
                         }
                         else
                         {
-                            var iccReader = new ByteArrayReader(reader.GetBytes(profileSize));
-                            var iccDirectory = new IccReader().Extract(iccReader);
+                            var iccBytes = profileSize <= 256
+                                ? stackalloc byte[profileSize]
+                                : new byte[profileSize];
+                            reader.GetBytes(iccBytes);
+
+                            var iccDirectory = new IccReader().Extract(iccBytes);
                             iccDirectory.Parent = directory;
                             directories.Add(iccDirectory);
                         }

@@ -18,7 +18,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
 
             // When in an APP2 segment, ICC data starts after a 14-byte preamble
             var icc = TestHelper.SkipBytes(app2Bytes, 14);
-            var directory = new IccReader().Extract(new ByteArrayReader(icc));
+            var directory = new IccReader().Extract(icc);
             Assert.NotNull(directory);
             Assert.True(directory.HasError);
         }

@@ -252,7 +252,7 @@ namespace MetadataExtractor.Formats.Gif
                 // ICC profile extension
                 var iccBytes = GatherBytes(reader, reader.GetByte());
                 return iccBytes.Length != 0
-                    ? new IccReader().Extract(new ByteArrayReader(iccBytes))
+                    ? new IccReader().Extract(iccBytes)
                     : null;
             }
             else if (extensionType.SequenceEqual("NETSCAPE2.0"u8))

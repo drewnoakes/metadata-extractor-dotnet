@@ -209,7 +209,7 @@ namespace MetadataExtractor.Formats.Heif
                         }
                         else
                         {
-                            var iccDirectory = new IccReader().Extract(new ByteArrayReader(colr.IccProfile));
+                            var iccDirectory = new IccReader().Extract(colr.IccProfile);
                             iccDirectory.Parent = dir;
                             directories.Add(iccDirectory);
                         }

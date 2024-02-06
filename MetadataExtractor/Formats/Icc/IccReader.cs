@@ -54,15 +54,17 @@ namespace MetadataExtractor.Formats.Icc
                 }
             }
 
-            Directory directory = Extract(new ByteArrayReader(buffer));
+            Directory directory = Extract(buffer);
 
             ArrayPool<byte>.Shared.Return(buffer);
 
             return [directory];
         }
 
-        public IccDirectory Extract(IndexedReader reader)
+        public IccDirectory Extract(ReadOnlySpan<byte> bytes)
         {
+            var reader = new BufferReader(bytes, isBigEndian: true);
+
             // TODO review whether the 'tagPtr' values below really do require IndexedReader or whether SequentialReader may be used instead
             var directory = new IccDirectory();
 
@@ -72,16 +74,16 @@ namespace MetadataExtractor.Formats.Icc
                 directory.Set(IccDirectory.TagProfileByteCount, profileByteCount);
 
                 // For these tags, the int value of the tag is in fact its offset within the buffer.
-                Set4ByteString(directory, IccDirectory.TagCmmType, reader);
-                SetInt32(directory, IccDirectory.TagProfileVersion, reader);
-                Set4ByteString(directory, IccDirectory.TagProfileClass, reader);
-                Set4ByteString(directory, IccDirectory.TagColorSpace, reader);
-                Set4ByteString(directory, IccDirectory.TagProfileConnectionSpace, reader);
-                SetDate(directory, IccDirectory.TagProfileDateTime, reader);
-                Set4ByteString(directory, IccDirectory.TagSignature, reader);
-                Set4ByteString(directory, IccDirectory.TagPlatform, reader);
-                SetInt32(directory, IccDirectory.TagCmmFlags, reader);
-                Set4ByteString(directory, IccDirectory.TagDeviceMake, reader);
+                Set4ByteString(directory, IccDirectory.TagCmmType, ref reader);
+                SetInt32(directory, IccDirectory.TagProfileVersion, ref reader);
+                Set4ByteString(directory, IccDirectory.TagProfileClass, ref reader);
+                Set4ByteString(directory, IccDirectory.TagColorSpace, ref reader);
+                Set4ByteString(directory, IccDirectory.TagProfileConnectionSpace, ref reader);
+                SetDate(directory, IccDirectory.TagProfileDateTime, ref reader);
+                Set4ByteString(directory, IccDirectory.TagSignature, ref reader);
+                Set4ByteString(directory, IccDirectory.TagPlatform, ref reader);
+                SetInt32(directory, IccDirectory.TagCmmFlags, ref reader);
+                Set4ByteString(directory, IccDirectory.TagDeviceMake, ref reader);
 
                 var model = reader.GetInt32(IccDirectory.TagDeviceModel);
                 if (model != 0)
@@ -91,8 +93,8 @@ namespace MetadataExtractor.Formats.Icc
                         : GetStringFromUInt32(unchecked((uint)model)));
                 }
 
-                SetInt32(directory, IccDirectory.TagRenderingIntent, reader);
-                SetInt64(directory, IccDirectory.TagDeviceAttr, reader);
+                SetInt32(directory, IccDirectory.TagRenderingIntent, ref reader);
+                SetInt64(directory, IccDirectory.TagDeviceAttr, ref reader);
 
                 var xyz = new[] { reader.GetS15Fixed16(IccDirectory.TagXyzValues), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 4), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 8) };
                 directory.Set(IccDirectory.TagXyzValues, xyz);
@@ -107,7 +109,9 @@ namespace MetadataExtractor.Formats.Icc
                     var tagType = reader.GetInt32(pos);
                     var tagPtr = reader.GetInt32(pos + 4);
                     var tagLen = reader.GetInt32(pos + 8);
-                    var b = reader.GetBytes(tagPtr, tagLen);
+                    byte[] b = new byte[tagLen];
+
+                    reader.GetBytes(tagPtr, b);
                     directory.Set(tagType, b);
                 }
             }
@@ -119,28 +123,28 @@ namespace MetadataExtractor.Formats.Icc
             return directory;
         }
 
-        private static void Set4ByteString(Directory directory, int tagType, IndexedReader reader)
+        private static void Set4ByteString(Directory directory, int tagType, ref BufferReader reader)
         {
             var i = reader.GetUInt32(tagType);
             if (i != 0)
                 directory.Set(tagType, GetStringFromUInt32(i));
         }
 
-        private static void SetInt32(Directory directory, int tagType, IndexedReader reader)
+        private static void SetInt32(Directory directory, int tagType, ref BufferReader reader)
         {
             var i = reader.GetInt32(tagType);
             if (i != 0)
                 directory.Set(tagType, i);
         }
 
-        private static void SetInt64(Directory directory, int tagType, IndexedReader reader)
+        private static void SetInt64(Directory directory, int tagType, ref BufferReader reader)
         {
             var l = reader.GetInt64(tagType);
             if (l != 0)
                 directory.Set(tagType, l);
         }
 
-        private static void SetDate(IccDirectory directory, int tagType, IndexedReader reader)
+        private static void SetDate(IccDirectory directory, int tagType, ref BufferReader reader)
         {
             var year = reader.GetUInt16(tagType);
             var month = reader.GetUInt16(tagType + 2);
