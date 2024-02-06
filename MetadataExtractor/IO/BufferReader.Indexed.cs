@@ -195,7 +195,7 @@ internal ref partial struct BufferReader
         {
             byte[] bytes = ArrayPool<byte>.Shared.Rent(bytesRequested);
 
-            Span<byte> span = bytes.AsSpan().Slice(0, bytesRequested);
+            Span<byte> span = bytes.AsSpan(0, bytesRequested);
 
             GetBytes(index, span);
 

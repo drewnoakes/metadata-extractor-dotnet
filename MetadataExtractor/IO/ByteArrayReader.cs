@@ -37,7 +37,7 @@ namespace MetadataExtractor.IO
         {
             ValidateIndex(index, bytes.Length);
 
-            _buffer.AsSpan().Slice(index + _baseOffset, bytes.Length).CopyTo(bytes);
+            _buffer.AsSpan(index + _baseOffset, bytes.Length).CopyTo(bytes);
         }
 
         protected override void ValidateIndex(int index, int bytesRequested)
