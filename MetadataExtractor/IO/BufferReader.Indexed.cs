@@ -137,12 +137,18 @@ internal ref partial struct BufferReader
 
         GetBytes(index, bytes);
 
+#if NET8_0_OR_GREATER
+        return _isBigEndian
+           ? BinaryPrimitives.ReadSingleBigEndian(bytes)
+           : BinaryPrimitives.ReadSingleLittleEndian(bytes);
+#else
         if (_isBigEndian)
         {
             bytes.Reverse();
         }
 
         return BitConverter.ToSingle(bytes);
+#endif
 #endif
     }
 
@@ -155,12 +161,18 @@ internal ref partial struct BufferReader
 
         GetBytes(index, bytes);
 
+#if NET8_0_OR_GREATER
+        return _isBigEndian
+           ? BinaryPrimitives.ReadDoubleBigEndian(bytes)
+           : BinaryPrimitives.ReadDoubleLittleEndian(bytes);
+#else
         if (_isBigEndian)
         {
             bytes.Reverse();
         }
 
         return BitConverter.ToDouble(bytes);
+#endif
 #endif
     }
 
