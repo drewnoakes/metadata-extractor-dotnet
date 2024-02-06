@@ -54,7 +54,7 @@ public sealed class NikonPictureControl2Directory : Directory
 
     public override string Name => "Nikon PictureControl 2";
 
-    internal static NikonPictureControl2Directory FromBytes(byte[] bytes)
+    internal static NikonPictureControl2Directory FromBytes(ReadOnlySpan<byte> bytes)
     {
         const int ExpectedLength = 68;
 
@@ -63,9 +63,9 @@ public sealed class NikonPictureControl2Directory : Directory
             throw new ArgumentException($"Must have {ExpectedLength} bytes.");
         }
 
-        SequentialByteArrayReader reader = new(bytes);
+        var reader = new BufferReader(bytes, isBigEndian: true);
 
-        NikonPictureControl2Directory directory = new();
+        var directory = new NikonPictureControl2Directory();
 
         directory.Set(TagPictureControlVersion, reader.GetNullTerminatedStringValue(4, moveToMaxLength: true));
         directory.Set(TagPictureControlName, reader.GetNullTerminatedStringValue(20, moveToMaxLength: true));
