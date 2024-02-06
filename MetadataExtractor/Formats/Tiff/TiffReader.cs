@@ -1,5 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Runtime.InteropServices;
+
 namespace MetadataExtractor.Formats.Tiff
 {
     /// <summary>
@@ -384,8 +386,8 @@ namespace MetadataExtractor.Formats.Tiff
                     else
                     {
                         var array = new sbyte[componentCount];
-                        for (var i = 0; i < componentCount; i++)
-                            array[i] = reader.GetSByte(tagValueOffset + i);
+                        var bytes = MemoryMarshal.Cast<sbyte, byte>(array);
+                        reader.GetBytes(tagValueOffset, bytes);
                         handler.SetInt8SArray(tagId, array);
                     }
                     break;
@@ -399,8 +401,7 @@ namespace MetadataExtractor.Formats.Tiff
                     else
                     {
                         var array = new byte[componentCount];
-                        for (var i = 0; i < componentCount; i++)
-                            array[i] = reader.GetByte(tagValueOffset + i);
+                        reader.GetBytes(tagValueOffset, array);
                         handler.SetInt8UArray(tagId, array);
                     }
                     break;
