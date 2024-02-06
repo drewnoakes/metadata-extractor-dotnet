@@ -84,7 +84,6 @@ namespace MetadataExtractor.Formats.Png
         /// For more guidance: http://www.w3.org/TR/PNG-Decoders.html#D.Text-chunk-processing
         /// </summary>
         private static readonly Encoding _latin1Encoding = Encoding.GetEncoding("ISO-8859-1");
-        private static readonly Encoding _utf8Encoding = Encoding.UTF8;
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="IOException"/>
@@ -148,7 +147,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.iCCP)
             {
-                var reader = new SequentialByteArrayReader(bytes);
+                var reader = new BufferReader(bytes, isBigEndian: true);
                 var profileName = reader.GetNullTerminatedStringValue(maxLengthBytes: 79);
                 var directory = new PngDirectory(PngChunkType.iCCP);
                 directory.Set(PngDirectory.TagIccProfileName, profileName);
@@ -198,7 +197,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.tEXt)
             {
-                var reader = new SequentialByteArrayReader(bytes);
+                var reader = new BufferReader(bytes, isBigEndian: true);
                 var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
                 var bytesLeft = bytes.Length - keyword.Length - 1;
                 var value = reader.GetNullTerminatedStringValue(bytesLeft, _latin1Encoding);
@@ -210,7 +209,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.zTXt)
             {
-                var reader = new SequentialByteArrayReader(bytes);
+                var reader = new BufferReader(bytes, isBigEndian: true);
                 var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
                 var compressionMethod = reader.GetSByte();
 
@@ -242,9 +241,9 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.iTXt)
             {
-                var reader = new SequentialByteArrayReader(bytes);
+                var reader = new BufferReader(bytes, isBigEndian: true);
                 var keywordStringValue = reader.GetNullTerminatedStringValue(maxLengthBytes: 79);
-                var keyword = keywordStringValue.ToString(_utf8Encoding);
+                var keyword = keywordStringValue.ToString(Encoding.UTF8);
                 var compressionFlag = reader.GetSByte();
                 var compressionMethod = reader.GetSByte();
 
@@ -454,7 +453,7 @@ namespace MetadataExtractor.Formats.Png
 
                     if (pngChunkType == PngChunkType.iTXt)
                     {
-                        encoding = _utf8Encoding;
+                        encoding = Encoding.UTF8;
                     }
 
                     var textPairs = new[] { new KeyValuePair(keyword, new StringValue(textBytes, encoding)) };

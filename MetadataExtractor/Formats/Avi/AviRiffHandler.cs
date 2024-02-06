@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.Avi
             {
                 case "strh":
                 {
-                    var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
+                    var reader = new BufferReader(payload, isBigEndian: false);
 
                     var directory = GetOrCreateAviDirectory();
                     try
@@ -101,8 +101,13 @@ namespace MetadataExtractor.Formats.Avi
                 {
                     var directory = GetOrCreateAviDirectory();
 
-                    var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
-                    try
+                    var reader = new BufferReader(payload, isBigEndian: false);
+
+                    if (payload.Length < 40)
+                    {
+                        directory.AddError("Insufficient bytes for AviRiff chunk 'avih'");
+                    }
+                    else
                     {
                         //int dwMicroSecPerFrame = reader.GetInt32(0);
                         //int dwMaxBytesPerSec = reader.GetInt32(4);
@@ -120,21 +125,20 @@ namespace MetadataExtractor.Formats.Avi
                         directory.Set(AviDirectory.TagHeight, dwHeight);
                         directory.Set(AviDirectory.TagStreams, dwStreams);
                     }
-                    catch (IOException e)
-                    {
-                        directory.AddError("Exception reading AviRiff chunk 'avih' : " + e.Message);
-                    }
 
                     break;
                 }
                 case "IDIT":
                 {
-                    var reader = new ByteArrayReader(payload);
-                    var str = reader.GetString(0, payload.Length, Encoding.ASCII);
-                    if (str.Length == 26 && str.EndsWith("\n\0", StringComparison.Ordinal))
+                    string str;
+                    if (payload.Length is 26 && payload.AsSpan().EndsWith("\n\0"u8))
                     {
                         // ?0A 00? "New Line" + padded to nearest WORD boundary
-                        str = str.Substring(0, 24);
+                        str = Encoding.ASCII.GetString(payload.AsSpan(0, 24));
+                    }
+                    else
+                    {
+                        str = Encoding.ASCII.GetString(payload);
                     }
                     GetOrCreateAviDirectory().Set(AviDirectory.TagDateTimeOriginal, str);
                     break;

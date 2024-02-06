@@ -1,138 +1,40 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Buffers.Binary;
-
 namespace MetadataExtractor.IO;
 
-internal ref struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
+/// <summary>
+/// Stack-based reader for decoding values from byte spans.
+/// Supports sequential and indexed access.
+/// Supports little-endian and big-endian values.
+/// </summary>
+/// <param name="bytes">The byte buffer to decode from.</param>
+/// <param name="isBigEndian">The byte ordering to use for multi-byte values.</param>
+internal ref partial struct BufferReader(ReadOnlySpan<byte> bytes, bool isBigEndian)
 {
     private readonly ReadOnlySpan<byte> _bytes = bytes;
     private readonly bool _isBigEndian = isBigEndian;
 
     private int _position = 0;
 
+    /// <summary>
+    /// Gets the number of bytes remaining in the buffer from the current
+    /// <see cref="Position"/> until the end of the buffer.
+    /// </summary>
+    /// <remarks>
+    /// This value only makes sense when performing sequential access.
+    /// </remarks>
     public readonly int Available => _bytes.Length - _position;
 
+    /// <summary>
+    /// Gets the current position in the buffer. The next value will be read from this position.
+    /// </summary>
+    /// <remarks>
+    /// Only applies to sequential access. Indexed access does not update this value.
+    /// </remarks>
     public readonly int Position => _position;
 
-    public byte GetByte()
-    {
-        if (_position >= _bytes.Length)
-            throw new IOException("End of data reached.");
-
-        return _bytes[_position++];
-    }
-
-    public void GetBytes(scoped Span<byte> bytes)
-    {
-        var buffer = Advance(bytes.Length);
-        buffer.CopyTo(bytes);
-    }
-
-    public byte[] GetBytes(int count)
-    {
-        var buffer = Advance(count);
-        var bytes = new byte[count];
-
-        buffer.CopyTo(bytes);
-        return bytes;
-    }
-
-    private ReadOnlySpan<byte> Advance(int count)
-    {
-        Debug.Assert(count >= 0, "count must be zero or greater");
-
-        if (_position + count > _bytes.Length)
-            throw new IOException("End of data reached.");
-
-        var span = _bytes.Slice(_position, count);
-
-        _position += count;
-
-        return span;
-    }
-
-    public void Skip(int count)
-    {
-        Debug.Assert(count >= 0, "count must be zero or greater");
-
-        if (_position + count > _bytes.Length)
-            throw new IOException("End of data reached.");
-
-        _position += count;
-    }
-
-    public sbyte GetSByte()
-    {
-        return unchecked((sbyte)_bytes[_position++]);
-    }
-
-    public ushort GetUInt16()
-    {
-        var bytes = Advance(2);
-
-        return _isBigEndian
-            ? BinaryPrimitives.ReadUInt16BigEndian(bytes)
-            : BinaryPrimitives.ReadUInt16LittleEndian(bytes);
-    }
-
-    public short GetInt16()
-    {
-        var bytes = Advance(2);
-
-        return _isBigEndian
-            ? BinaryPrimitives.ReadInt16BigEndian(bytes)
-            : BinaryPrimitives.ReadInt16LittleEndian(bytes);
-    }
-
-    public uint GetUInt32()
-    {
-        var bytes = Advance(4);
-
-        return _isBigEndian
-            ? BinaryPrimitives.ReadUInt32BigEndian(bytes)
-            : BinaryPrimitives.ReadUInt32LittleEndian(bytes);
-    }
-
-    public int GetInt32()
-    {
-        var bytes = Advance(4);
-
-        return _isBigEndian
-            ? BinaryPrimitives.ReadInt32BigEndian(bytes)
-            : BinaryPrimitives.ReadInt32LittleEndian(bytes);
-    }
-
-    public long GetInt64()
-    {
-        var bytes = Advance(8);
-
-        return _isBigEndian
-            ? BinaryPrimitives.ReadInt64BigEndian(bytes)
-            : BinaryPrimitives.ReadInt64LittleEndian(bytes);
-    }
-
-    public ulong GetUInt64()
-    {
-        var bytes = Advance(8);
-
-        return _isBigEndian
-            ? BinaryPrimitives.ReadUInt64BigEndian(bytes)
-            : BinaryPrimitives.ReadUInt64LittleEndian(bytes);
-    }
-
-    public string GetString(int bytesRequested, Encoding encoding)
-    {
-        // This check is important on .NET Framework
-        if (bytesRequested is 0)
-            return "";
-
-        Span<byte> bytes = bytesRequested <= 256
-            ? stackalloc byte[bytesRequested]
-            : new byte[bytesRequested];
-
-        GetBytes(bytes);
-
-        return encoding.GetString(bytes);
-    }
+    /// <summary>
+    /// Gets the byte ordering this reader uses for multi-byte values.
+    /// </summary>
+    public readonly bool IsBigEndian => _isBigEndian;
 }

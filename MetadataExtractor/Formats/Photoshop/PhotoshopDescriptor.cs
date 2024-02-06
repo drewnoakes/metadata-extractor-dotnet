@@ -49,97 +49,88 @@ namespace MetadataExtractor.Formats.Photoshop
 
         public string? GetJpegQualityString()
         {
-            try
-            {
-                var b = Directory.GetByteArray(PhotoshopDirectory.TagJpegQuality);
 
-                if (b is null)
-                    return Directory.GetString(PhotoshopDirectory.TagJpegQuality);
+            var b = Directory.GetByteArray(PhotoshopDirectory.TagJpegQuality);
 
-                var reader = new ByteArrayReader(b);
+            if (b is null)
+                return Directory.GetString(PhotoshopDirectory.TagJpegQuality);
 
-                int q = reader.GetUInt16(0);
-                int f = reader.GetUInt16(2);
-                int s = reader.GetUInt16(4);
-
-                var q1 = q is >= 0xFFFD and <= 0xFFFF
-                    ? q - 0xFFFC
-                    : q <= 8
-                        ? q + 4
-                        : q;
-                string quality = q switch
-                {
-                    0xFFFD or 0xFFFE or 0xFFFF or 0 => "Low",
-                    1 or 2 or 3 => "Medium",
-                    4 or 5 => "High",
-                    6 or 7 or 8 => "Maximum",
-                    _ => "Unknown"
-                };
-                var format = f switch
-                {
-                    0x0000 => "Standard",
-                    0x0001 => "Optimised",
-                    0x0101 => "Progressive",
-                    _ => $"Unknown (0x{f:X4})"
-                };
-                var scans = s is >= 1 and <= 3
-                    ? (s + 2).ToString()
-                    : $"Unknown (0x{s:X4})";
-
-                return $"{q1} ({quality}), {format} format, {scans} scans";
-            }
-            catch
+            if (b.Length < 2 + 2 + 2)
             {
                 return null;
             }
+
+            var reader = new BufferReader(b, isBigEndian: true);
+
+            int q = reader.GetUInt16(0);
+            int f = reader.GetUInt16(2);
+            int s = reader.GetUInt16(4);
+
+            var q1 = q is >= 0xFFFD and <= 0xFFFF
+                ? q - 0xFFFC
+                : q <= 8
+                    ? q + 4
+                    : q;
+            string quality = q switch
+            {
+                0xFFFD or 0xFFFE or 0xFFFF or 0 => "Low",
+                1 or 2 or 3 => "Medium",
+                4 or 5 => "High",
+                6 or 7 or 8 => "Maximum",
+                _ => "Unknown"
+            };
+            var format = f switch
+            {
+                0x0000 => "Standard",
+                0x0001 => "Optimised",
+                0x0101 => "Progressive",
+                _ => $"Unknown (0x{f:X4})"
+            };
+            var scans = s is >= 1 and <= 3
+                ? (s + 2).ToString()
+                : $"Unknown (0x{s:X4})";
+
+            return $"{q1} ({quality}), {format} format, {scans} scans";
         }
 
         public string? GetPixelAspectRatioString()
         {
-            try
-            {
-                var bytes = Directory.GetByteArray(PhotoshopDirectory.TagPixelAspectRatio);
+            var bytes = Directory.GetByteArray(PhotoshopDirectory.TagPixelAspectRatio);
 
-                if (bytes is null)
-                    return null;
-
-                var reader = new ByteArrayReader(bytes);
-                var d = reader.GetDouble64(4);
-                return d.ToString("0.0##");
-            }
-            catch
-            {
+            if (bytes is null)
                 return null;
-            }
+
+            if (bytes.Length < 4 + 8)
+                return null;
+
+            var reader = new BufferReader(bytes, isBigEndian: true);
+            var d = reader.GetDouble64(4);
+            return d.ToString("0.0##");
         }
 
         public string? GetPrintScaleDescription()
         {
-            try
-            {
-                var bytes = Directory.GetByteArray(PhotoshopDirectory.TagPrintScale);
+            var bytes = Directory.GetByteArray(PhotoshopDirectory.TagPrintScale);
 
-                if (bytes is null)
-                    return null;
-
-                var reader = new ByteArrayReader(bytes);
-                var style = reader.GetInt32(0);
-                var locX = reader.GetFloat32(2);
-                var locY = reader.GetFloat32(6);
-                var scale = reader.GetFloat32(10);
-
-                return style switch
-                {
-                    0 => $"Centered, Scale {scale:0.0##}",
-                    1 => "Size to fit",
-                    2 => $"User defined, X:{locX} Y:{locY}, Scale:{scale:0.0##}",
-                    _ => $"Unknown {style:X4}, X:{locX} Y:{locY}, Scale:{scale:0.0##}",
-                };
-            }
-            catch
-            {
+            if (bytes is null)
                 return null;
-            }
+
+            if (bytes.Length < 14)
+                return null;
+
+            var reader = new BufferReader(bytes, isBigEndian: true);
+            var style = reader.GetInt16(0);
+            var locX = reader.GetFloat32(2);
+            var locY = reader.GetFloat32(6);
+            var scale = reader.GetFloat32(10);
+
+            return style switch
+            {
+                0 => $"Centered, Scale {scale:0.0##}",
+                1 => "Size to fit",
+                2 => $"User defined, X:{locX} Y:{locY}, Scale:{scale:0.0##}",
+                _ => $"Unknown {style:X4}, X:{locX} Y:{locY}, Scale:{scale:0.0##}"
+            };
         }
 
         public string? GetResolutionInfoDescription()
@@ -151,7 +142,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 if (bytes is null)
                     return null;
 
-                var reader = new ByteArrayReader(bytes);
+                var reader = new BufferReader(bytes, isBigEndian: true);
 
                 var resX = reader.GetS15Fixed16(0);
                 var resY = reader.GetS15Fixed16(8);
@@ -174,7 +165,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 if (bytes is null)
                     return null;
 
-                var reader = new ByteArrayReader(bytes);
+                var reader = new BufferReader(bytes, isBigEndian: true);
 
                 var pos = 0;
                 var ver = reader.GetInt32(0);
@@ -207,7 +198,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 if (bytes is null)
                     return null;
 
-                var reader = new ByteArrayReader(bytes);
+                var reader = new BufferReader(bytes, isBigEndian: true);
 
                 var nameLength = reader.GetInt32(20);
                 var name = reader.GetString(24, nameLength * 2, Encoding.BigEndianUnicode);
@@ -223,29 +214,27 @@ namespace MetadataExtractor.Formats.Photoshop
 
         public string? GetThumbnailDescription(int tagType)
         {
-            try
-            {
-                var v = Directory.GetByteArray(tagType);
+            var v = Directory.GetByteArray(tagType);
 
-                if (v is null)
-                    return null;
+            if (v is null)
+                return null;
 
-                var reader = new ByteArrayReader(v);
-                var format = reader.GetInt32(0);
-                var width = reader.GetInt32(4);
-                var height = reader.GetInt32(8);
-                // skip WidthBytes
-                var totalSize = reader.GetInt32(16);
-                var compSize = reader.GetInt32(20);
-                var bpp = reader.GetInt32(24);
-                // skip Number of planes
-
-                return $"{(format == 1 ? "JpegRGB" : "RawRGB")}, {width}x{height}, Decomp {totalSize} bytes, {bpp} bpp, {compSize} bytes";
-            }
-            catch
+            if (v.Length < 28)
             {
                 return null;
             }
+
+            var reader = new BufferReader(v, isBigEndian: true);
+            var format = reader.GetInt32(0);
+            var width = reader.GetInt32(4);
+            var height = reader.GetInt32(8);
+            // skip WidthBytes
+            var totalSize = reader.GetInt32(16);
+            var compSize = reader.GetInt32(20);
+            var bpp = reader.GetInt32(24);
+            // skip Number of planes
+
+            return $"{(format == 1 ? "JpegRGB" : "RawRGB")}, {width}x{height}, Decomp {totalSize} bytes, {bpp} bpp, {compSize} bytes";
         }
 
         private string? GetBooleanString(int tag)
@@ -265,16 +254,12 @@ namespace MetadataExtractor.Formats.Photoshop
             if (bytes is null)
                 return null;
 
-            var reader = new ByteArrayReader(bytes);
-
-            try
-            {
-                return $"{reader.GetInt32(0)}";
-            }
-            catch
-            {
+            if (bytes.Length < 4)
                 return null;
-            }
+
+            var reader = new BufferReader(bytes, isBigEndian: true);
+
+            return reader.GetInt32().ToString();
         }
 
         private string? GetSimpleString(int tagType)
@@ -319,8 +304,8 @@ namespace MetadataExtractor.Formats.Photoshop
                 var bytes = Directory.GetByteArray(tagType);
                 if (bytes is null)
                     return null;
-                var reader = new ByteArrayReader(bytes);
-                int length = (int)(reader.Length - reader.GetByte((int)reader.Length - 1) - 1) / 26;
+                var reader = new BufferReader(bytes, isBigEndian: true);
+                int length = (bytes.Length - reader.GetByte(bytes.Length - 1) - 1) / 26;
 
                 string? fillRecord = null;
 
@@ -431,8 +416,8 @@ namespace MetadataExtractor.Formats.Photoshop
                     paths.Add(oSubpath);
 
                 // Extract name (previously appended to end of byte array)
-                int nameLength = reader.GetByte((int)reader.Length - 1);
-                var name = reader.GetString((int)reader.Length - nameLength - 1, nameLength, Encoding.ASCII);
+                int nameLength = reader.GetByte(bytes.Length - 1);
+                var name = reader.GetString(bytes.Length - nameLength - 1, nameLength, Encoding.ASCII);
 
                 // Build description
                 var str = new StringBuilder();

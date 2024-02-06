@@ -48,7 +48,7 @@ namespace MetadataExtractor.Formats.Icc
                 if (bytes is null)
                     return Directory.GetString(tagType);
 
-                var reader = new ByteArrayReader(bytes);
+                var reader = new BufferReader(bytes, isBigEndian: true);
 
                 var iccTagType = (IccTagType)reader.GetInt32(0);
 
@@ -71,6 +71,10 @@ namespace MetadataExtractor.Formats.Icc
                     case IccTagType.Desc:
                     {
                         var stringLength = reader.GetInt32(8);
+
+                        if (stringLength < 0 || stringLength > bytes.Length)
+                            return null;
+
                         return Encoding.UTF8.GetString(bytes, 12, stringLength - 1);
                     }
 
