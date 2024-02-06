@@ -18,7 +18,7 @@ public sealed class BplistReader
     /// <summary>
     /// Gets whether <paramref name="bplist"/> starts with the expected header bytes.
     /// </summary>
-    public static bool IsValid(byte[] bplist)
+    public static bool IsValid(ReadOnlySpan<byte> bplist)
     {
         if (bplist.Length < BplistHeader.Length)
         {
@@ -36,17 +36,17 @@ public sealed class BplistReader
         return true;
     }
 
-    public static PropertyListResults Parse(byte[] bplist)
+    public static PropertyListResults Parse(ReadOnlySpan<byte> bplist)
     {
         if (!IsValid(bplist))
         {
             throw new ArgumentException("Input is not a bplist.", nameof(bplist));
         }
 
-        Trailer trailer = ReadTrailer();
+        Trailer trailer = ReadTrailer(bplist);
 
         int offset = checked((int)(trailer.OffsetTableOffset + trailer.TopObject));
-        var reader = new BufferReader(bplist.AsSpan(offset), isBigEndian: true);
+        var reader = new BufferReader(bplist.Slice(offset), isBigEndian: true);
 
         int[] offsets = new int[(int)trailer.NumObjects];
 
@@ -66,7 +66,7 @@ public sealed class BplistReader
 
         for (int i = 0; i < offsets.Length; i++)
         {
-            reader = new BufferReader(bplist.AsSpan(offsets[i]), isBigEndian: true);
+            reader = new BufferReader(bplist.Slice(offsets[i]), isBigEndian: true);
 
             byte b = reader.GetByte();
 
@@ -92,9 +92,9 @@ public sealed class BplistReader
 
         return new PropertyListResults(objects, trailer);
 
-        Trailer ReadTrailer()
+        static Trailer ReadTrailer(ReadOnlySpan<byte> bplist)
         {
-            var reader = new BufferReader(bplist.AsSpan(bplist.Length - Trailer.SizeBytes), isBigEndian: true);
+            var reader = new BufferReader(bplist.Slice(bplist.Length - Trailer.SizeBytes), isBigEndian: true);
 
             // Skip 5-byte unused values, 1-byte sort version.
             reader.Skip(5 + 1);

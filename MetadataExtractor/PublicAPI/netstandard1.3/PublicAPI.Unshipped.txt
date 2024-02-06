@@ -125,8 +125,8 @@ override MetadataExtractor.IO.IndexedCapturingReader.GetBytes(int index, System.
 override MetadataExtractor.IO.IndexedSeekingReader.GetBytes(int index, System.Span<byte> bytes) -> void
 override MetadataExtractor.IO.SequentialByteArrayReader.GetBytes(System.Span<byte> bytes) -> void
 override MetadataExtractor.IO.SequentialStreamReader.GetBytes(System.Span<byte> bytes) -> void
-static MetadataExtractor.Formats.Apple.BplistReader.IsValid(byte[]! bplist) -> bool
-static MetadataExtractor.Formats.Apple.BplistReader.Parse(byte[]! bplist) -> MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults!
+static MetadataExtractor.Formats.Apple.BplistReader.IsValid(System.ReadOnlySpan<byte> bplist) -> bool
+static MetadataExtractor.Formats.Apple.BplistReader.Parse(System.ReadOnlySpan<byte> bplist) -> MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults!
 static MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Parse(byte[]! bytes) -> MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory!
 static MetadataExtractor.Formats.Png.PngChunkType.operator !=(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool
 static MetadataExtractor.Formats.Png.PngChunkType.operator ==(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool
