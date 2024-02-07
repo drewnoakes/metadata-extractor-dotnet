@@ -170,7 +170,8 @@ namespace MetadataExtractor.Formats.Png
                     try
                     {
                         using var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress);
-                        iccDirectory = new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
+                        using var iccReader = new IndexedCapturingReader(inflaterStream);
+                        iccDirectory = new IccReader().Extract(iccReader);
                         iccDirectory.Parent = directory;
                     }
                     catch (Exception e)
