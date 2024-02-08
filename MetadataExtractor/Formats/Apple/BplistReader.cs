@@ -18,20 +18,7 @@ public sealed class BplistReader
     /// </summary>
     public static bool IsValid(ReadOnlySpan<byte> bplist)
     {
-        if (bplist.Length < BplistHeader.Length)
-        {
-            return false;
-        }
-
-        for (int i = 0; i < BplistHeader.Length; i++)
-        {
-            if (bplist[i] != BplistHeader[i])
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return bplist.StartsWith(BplistHeader);
     }
 
     public static PropertyListResults Parse(ReadOnlySpan<byte> bplist)
