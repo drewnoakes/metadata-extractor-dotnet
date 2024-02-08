@@ -47,7 +47,7 @@ public sealed class BplistReader
             }
         }
 
-        List<object> objects = [];
+        var objects = new List<object>(offsets.Length);
 
         for (int i = 0; i < offsets.Length; i++)
         {
