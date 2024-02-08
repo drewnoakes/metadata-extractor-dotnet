@@ -1,6 +1,5 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Buffers;
 using System.Buffers.Binary;
 
 namespace MetadataExtractor.IO;
@@ -183,7 +182,7 @@ internal ref partial struct BufferReader
         {
             return "";
         }
-        else if (bytesRequested < 256)
+        else if (bytesRequested <= 256)
         {
             Span<byte> bytes = stackalloc byte[bytesRequested];
 
@@ -193,17 +192,11 @@ internal ref partial struct BufferReader
         }
         else
         {
-            byte[] bytes = ArrayPool<byte>.Shared.Rent(bytesRequested);
+            using var buffer = new BufferScope(bytesRequested);
 
-            Span<byte> span = bytes.AsSpan().Slice(0, bytesRequested);
+            GetBytes(index, buffer.Span);
 
-            GetBytes(index, span);
-
-            var s = encoding.GetString(span);
-
-            ArrayPool<byte>.Shared.Return(bytes);
-
-            return s;
+            return encoding.GetString(buffer.Span);
         }
     }
 

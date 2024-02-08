@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Buffers;
-
 namespace MetadataExtractor.Formats.Apple;
 
 /// <summary>
@@ -123,7 +121,7 @@ public sealed class BplistReader
 
         static Dictionary<byte, byte> HandleDict(ref BufferReader reader, byte count)
         {
-            var keyRefs = ArrayPool<byte>.Shared.Rent(count);
+            Span<byte> keyRefs = stackalloc byte[count]; // count is < 256
 
             for (int j = 0; j < count; j++)
             {
@@ -136,8 +134,6 @@ public sealed class BplistReader
             {
                 map.Add(keyRefs[j], reader.GetByte());
             }
-
-            ArrayPool<byte>.Shared.Return(keyRefs);
 
             return map;
         }

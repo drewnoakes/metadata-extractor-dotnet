@@ -180,8 +180,9 @@ namespace MetadataExtractor.Formats.Exif
             // Custom processing for ICC Profile data
             if (tagId == ExifDirectoryBase.TagInterColorProfile)
             {
-                var iccBytes = context.Reader.GetBytes(valueOffset, byteCount);
-                var iccDirectory = new IccReader().Extract(iccBytes);
+                using var iccBuffer = new BufferScope(byteCount);
+                context.Reader.GetBytes(valueOffset, iccBuffer.Span);
+                var iccDirectory = new IccReader().Extract(iccBuffer.Span);
                 iccDirectory.Parent = CurrentDirectory;
                 Directories.Add(iccDirectory);
                 return true;
