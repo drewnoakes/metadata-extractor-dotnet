@@ -9,7 +9,8 @@ namespace MetadataExtractor.Formats.Photoshop
 {
     /// <author>Payton Garland</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public class PhotoshopTiffHandler : ExifTiffHandler
+    public class PhotoshopTiffHandler(List<Directory> directories)
+        : ExifTiffHandler(directories, exifStartOffset: 0)
     {
         // Photoshop-specific Tiff Tags
         // http://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577413_pgfId-1039502
@@ -20,14 +21,6 @@ namespace MetadataExtractor.Formats.Photoshop
         private const int TagPhotoshopImageResources = 0x8649;
         //private const int TagExifIfdPointer = 0x8769;
         private const int TagIccProfiles = 0x8773;
-        //private const int TagExifGps = 0x8825;
-        //private const int TagTImageSourceData = 0x935C;
-        //private const int TagTAnnotations = 0xC44F;
-
-        public PhotoshopTiffHandler(List<Directory> directories)
-            : base(directories, exifStartOffset: 0)
-        {
-        }
 
         public override bool CustomProcessTag(in TiffReaderContext context, int tagId, int valueOffset, int byteCount)
         {
@@ -40,8 +33,12 @@ namespace MetadataExtractor.Formats.Photoshop
                     Directories.AddRange(new PhotoshopReader().Extract(new SequentialByteArrayReader(context.Reader.GetBytes(valueOffset, byteCount)), byteCount));
                     return true;
                 case TagIccProfiles:
-                    Directories.Add(new IccReader().Extract(context.Reader.GetBytes(valueOffset, byteCount)));
+                {
+                    using var bufferScope = new BufferScope(byteCount);
+                    context.Reader.GetBytes(valueOffset, bufferScope.Span);
+                    Directories.Add(new IccReader().Extract(bufferScope.Span));
                     return true;
+                }
             }
 
             return base.CustomProcessTag(context, tagId, valueOffset, byteCount);
