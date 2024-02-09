@@ -111,6 +111,7 @@ MetadataExtractor.Formats.Png.PngDirectory.GetPngChunkType() -> MetadataExtracto
 MetadataExtractor.Formats.Png.PngDirectory.PngDirectory(MetadataExtractor.Formats.Png.PngChunkType pngChunkType) -> void
 MetadataExtractor.GeoLocation.Equals(MetadataExtractor.GeoLocation other) -> bool
 MetadataExtractor.GeoLocation.GeoLocation() -> void
+MetadataExtractor.IO.IndexedCapturingReader.Dispose() -> void
 MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
 MetadataExtractor.IO.IndexedReader.GetBytes(int index, int count) -> byte[]!
 MetadataExtractor.Util.FileType.Avif = 28 -> MetadataExtractor.Util.FileType

@@ -172,7 +172,8 @@ namespace MetadataExtractor.Formats.Icc
                         {
                             if (i != 0)
                                 res.Append(", ");
-                            res.Append(FormatDoubleAsString(reader.GetUInt16(12 + i * 2) / 65535.0, 7, false));
+                            double value = reader.GetUInt16(12 + i * 2) / 65535.0;
+                            res.AppendFormat("{0:0.0######}", value);
                         }
                         return res.ToString();
                     }
@@ -190,28 +191,6 @@ namespace MetadataExtractor.Formats.Icc
                 // If an error is to be reported, it should be done during the extraction process.
                 return null;
             }
-        }
-
-        private static string FormatDoubleAsString(double value, int precision, bool zeroes)
-        {
-            if (precision < 1)
-                return string.Empty + (long)Math.Round(value);
-
-            var intPart = Math.Abs((long)value);
-            long rest = (int)(long)Math.Round((Math.Abs(value) - intPart) * Math.Pow(10, precision));
-            var restKept = rest;
-            var res = string.Empty;
-            for (var i = precision; i > 0; i--)
-            {
-                var cour = unchecked((byte)Math.Abs(rest % 10));
-                rest /= 10;
-                if (res.Length > 0 || zeroes || cour != 0 || i == 1)
-                    res = cour + res;
-            }
-
-            intPart += rest;
-            var isNegative = value < 0 && (intPart != 0 || restKept != 0);
-            return (isNegative ? "-" : string.Empty) + intPart + "." + res;
         }
 
         private string? GetRenderingIntentDescription()

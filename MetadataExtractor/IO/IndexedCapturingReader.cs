@@ -1,9 +1,11 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Buffers;
+
 namespace MetadataExtractor.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class IndexedCapturingReader : IndexedReader
+    public sealed class IndexedCapturingReader : IndexedReader, IDisposable
     {
         private const int DefaultChunkLength = 2 * 1024;
 
@@ -99,7 +101,7 @@ namespace MetadataExtractor.IO
             {
                 Debug.Assert(!_isStreamFinished);
 
-                var chunk = new byte[_chunkLength];
+                var chunk = ArrayPool<byte>.Shared.Rent(_chunkLength);
                 var totalBytesRead = 0;
                 while (!_isStreamFinished && totalBytesRead != _chunkLength)
                 {
@@ -127,6 +129,14 @@ namespace MetadataExtractor.IO
             }
 
             return true;
+        }
+
+        public void Dispose()
+        {
+            foreach (var chunk in _chunks)
+            {
+                ArrayPool<byte>.Shared.Return(chunk);
+            }
         }
 
         public override int ToUnshiftedOffset(int localOffset) => localOffset;
