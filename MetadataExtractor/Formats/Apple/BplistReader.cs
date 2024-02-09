@@ -110,10 +110,7 @@ public sealed class BplistReader
         {
             Span<byte> keyRefs = stackalloc byte[count]; // count is < 256
 
-            for (int j = 0; j < count; j++)
-            {
-                keyRefs[j] = reader.GetByte();
-            }
+            reader.GetBytes(keyRefs);
 
             Dictionary<byte, byte> map = [];
 
