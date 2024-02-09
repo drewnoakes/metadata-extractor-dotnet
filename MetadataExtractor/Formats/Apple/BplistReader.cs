@@ -133,7 +133,7 @@ public sealed class BplistReader
             return map;
         }
 
-        object HandleData(ref BufferReader reader, byte marker)
+        static object HandleData(ref BufferReader reader, byte marker)
         {
             int byteCount = marker;
 
