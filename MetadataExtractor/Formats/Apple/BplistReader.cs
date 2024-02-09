@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Buffers.Binary;
+
 namespace MetadataExtractor.Formats.Apple;
 
 /// <summary>
@@ -30,20 +32,29 @@ public sealed class BplistReader
 
         Trailer trailer = ReadTrailer(bplist);
 
+        if (trailer.OffsetIntSize is not 1 or 2)
+        {
+            throw new NotSupportedException($"Unsupported bplist OffsetIntSize. Was {trailer.OffsetIntSize}.");
+        }
+
         int offset = checked((int)(trailer.OffsetTableOffset + trailer.TopObject));
         var reader = new BufferReader(bplist.Slice(offset), isBigEndian: true);
 
-        int[] offsets = new int[(int)trailer.NumObjects];
+        var offsets = new int[(int)trailer.NumObjects];
+        var offsetsBytes = reader.GetSpan(offsets.Length * trailer.OffsetIntSize);
 
-        for (int i = 0; i < (int)trailer.NumObjects; i++)
+        if (trailer.OffsetIntSize is 1)
         {
-            if (trailer.OffsetIntSize == 1)
+            for (int i = 0; i < offsets.Length; i++)
             {
-                offsets[i] = reader.GetByte();
+                offsets[i] = offsetsBytes[i];
             }
-            else if (trailer.OffsetIntSize == 2)
+        }
+        else if (trailer.OffsetIntSize is 2)
+        {
+            for (int i = 0; i < offsets.Length; i++)
             {
-                offsets[i] = reader.GetUInt16();
+                offsets[i] = BinaryPrimitives.ReadInt16BigEndian(offsetsBytes.Slice(i * 2, 2));
             }
         }
 

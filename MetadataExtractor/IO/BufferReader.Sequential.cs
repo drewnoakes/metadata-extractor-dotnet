@@ -29,6 +29,11 @@ internal ref partial struct BufferReader
         return bytes;
     }
 
+    public ReadOnlySpan<byte> GetSpan(int count)
+    {
+        return Advance(count);
+    }
+
     private ReadOnlySpan<byte> Advance(int count)
     {
         Debug.Assert(count >= 0, "count must be zero or greater");
