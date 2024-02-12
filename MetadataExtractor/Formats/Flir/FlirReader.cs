@@ -169,7 +169,9 @@ namespace MetadataExtractor.Formats.Flir
                     var tm = dateTimeReader.GetUInt32();
                     var ss = dateTimeReader.GetUInt32() & 0xffff;
                     var tz = dateTimeReader.GetInt16();
-                    directory.Set(TagDateTimeOriginal, new DateTimeOffset(DateUtil.FromUnixTime(tm - tz * 60).AddSeconds(ss / 1000d), TimeSpan.FromMinutes(tz)));
+                    directory.Set(TagDateTimeOriginal, new DateTimeOffset(
+                        dateTime: DateUtil.FromUnixTime(tm - tz * 60).AddSeconds(ss / 1000d),
+                        offset: TimeSpan.FromMinutes(tz)));
 
                     directory.Set(TagFocusStepCount, reader2.GetUInt16(TagFocusStepCount));
                     directory.Set(TagFocusDistance, reader2.GetFloat32(TagFocusDistance));
