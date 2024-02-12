@@ -489,7 +489,7 @@ namespace MetadataExtractor.Formats.Exif
                 return true;
             }
 
-            byteCount = default(int);
+            byteCount = default;
             return false;
         }
 
