@@ -24,7 +24,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// </summary>
         public bool IsBigTiff { get; }
 
-        private readonly HashSet<IfdIdentity> _visitedIfds;
+        private readonly HashSet<IfdIdentity> _visitedIfds = [];
 
         public TiffReaderContext(IndexedReader reader, bool isMotorolaByteOrder, bool isBigTiff)
             : this()
@@ -32,8 +32,6 @@ namespace MetadataExtractor.Formats.Tiff
             Reader = reader;
             IsMotorolaByteOrder = isMotorolaByteOrder;
             IsBigTiff = isBigTiff;
-
-            _visitedIfds = new();
         }
 
         /// <summary>
