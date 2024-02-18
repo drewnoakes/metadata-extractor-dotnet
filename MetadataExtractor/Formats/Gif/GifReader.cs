@@ -369,7 +369,7 @@ namespace MetadataExtractor.Formats.Gif
 
             while (length > 0)
             {
-                reader.GetBytes(buffer.AsSpan().Slice(0, length));
+                reader.GetBytes(buffer.AsSpan(0, length));
 
                 stream.Write(buffer, 0, length);
 
