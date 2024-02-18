@@ -16,15 +16,17 @@ namespace MetadataExtractor.Formats.QuickTime
             // https://en.wikipedia.org/wiki/FourCC
 
             Span<byte> bytes = stackalloc byte[4];
-            Span<char> chars = stackalloc char[4];
 
             reader.GetBytes(bytes);
 
             // NOTE we cannot just use Encoding.ASCII here, as that can replace certain non-printable characters with '?'
-            chars[0] = (char)bytes[0];
-            chars[1] = (char)bytes[1];
-            chars[2] = (char)bytes[2];
-            chars[3] = (char)bytes[3];
+            Span<char> chars =
+            [
+                (char)bytes[0],
+                (char)bytes[1],
+                (char)bytes[2],
+                (char)bytes[3]
+            ];
 
 #if NET462 || NETSTANDARD1_3
             fixed (char* pChars = chars)
