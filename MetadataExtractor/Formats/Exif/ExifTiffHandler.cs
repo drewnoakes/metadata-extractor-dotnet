@@ -615,7 +615,7 @@ namespace MetadataExtractor.Formats.Exif
                 Directories.Add(directory);
                 ProcessKodakMakernote(directory, makernoteOffset, context.Reader.WithByteOrder(isMotorolaByteOrder: headerBytes.StartsWith("KDK INFO"u8)));
             }
-            else if (cameraMake is not null && cameraMake.Equals("CANON", StringComparison.OrdinalIgnoreCase))
+            else if (cameraMake is not null && cameraMake.Equals("CANON", StringComparison.OrdinalIgnoreCase)) // Observed "Canon"
             {
                 PushDirectory(new CanonMakernoteDirectory());
                 TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset);
@@ -633,8 +633,7 @@ namespace MetadataExtractor.Formats.Exif
                     TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset);
                 }
             }
-            else if (headerBytes.StartsWith("FUJIFILM"u8) ||
-                     string.Equals("FUJIFILM", cameraMake, StringComparison.OrdinalIgnoreCase))
+            else if (headerBytes.StartsWith("FUJIFILM"u8) || string.Equals("FUJIFILM", cameraMake, StringComparison.OrdinalIgnoreCase))
             {
                 // Note that this also applies to certain Leica cameras, such as the Digilux-4.3.
                 // The 4 bytes after "FUJIFILM" in the makernote point to the start of the makernote
