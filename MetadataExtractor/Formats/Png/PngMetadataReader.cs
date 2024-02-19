@@ -156,26 +156,20 @@ namespace MetadataExtractor.Formats.Png
                 {
                     // Only compression method allowed by the spec is zero: deflate
                     // This assumes 1-byte-per-char, which it is by spec.
-                    var bytesLeft = bytes.Length - profileName.Bytes.Length - 2;
 
                     // http://george.chiramattel.com/blog/2007/09/deflatestream-block-length-does-not-match.html
                     // First two bytes are part of the zlib specification (RFC 1950), not the deflate specification (RFC 1951).
                     reader.Skip(2);
-                    bytesLeft -= 2;
 
-                    var compressedProfile = reader.GetBytes(bytesLeft);
+                    var compressedProfile = reader.GetBytes(reader.Available);
 
                     IccDirectory? iccDirectory = null;
                     Exception? ex = null;
 
-                    if (TryDeflate(compressedProfile, 0, out var iccData, out var errorMessage))
+                    if (TryDeflate(new MemoryStream(compressedProfile), out var iccData, out var errorMessage))
                     {
                         iccDirectory = new IccReader().Extract(iccData);
                         iccDirectory.Parent = directory;
-                    }
-                    else
-                    {
-                        directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.iCCP)} chunk: {errorMessage}");
                     }
 
                     if (iccDirectory is not null)
@@ -600,7 +594,15 @@ namespace MetadataExtractor.Formats.Png
             [NotNullWhen(returnValue: true)] out byte[]? textBytes,
             [NotNullWhen(returnValue: false)] out string? errorMessage)
         {
-            using var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress);
+            return TryDeflate(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), out textBytes, out errorMessage);
+        }
+
+        private static bool TryDeflate(
+           MemoryStream stream,
+           [NotNullWhen(returnValue: true)] out byte[]? textBytes,
+           [NotNullWhen(returnValue: false)] out string? errorMessage)
+        {
+            using var inflaterStream = new DeflateStream(stream, CompressionMode.Decompress);
             try
             {
                 var ms = new MemoryStream();
