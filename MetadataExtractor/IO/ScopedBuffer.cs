@@ -22,6 +22,16 @@ internal ref struct ScopedBuffer
 
     public readonly Span<byte> Span => _span;
 
+    public static implicit operator Span<byte>(ScopedBuffer bufferScope)
+    {
+        return bufferScope._span;
+    }
+
+    public static implicit operator ReadOnlySpan<byte>(ScopedBuffer bufferScope)
+    {
+        return bufferScope._span;
+    }
+
     public void Dispose()
     {
         if (_rentedBuffer is null) return;

@@ -126,13 +126,13 @@ internal ref partial struct BufferReader
         if (bytesRequested is 0)
             return "";
 
-        using ScopedBuffer bytes = bytesRequested <= 256
+        using ScopedBuffer buffer = bytesRequested <= 256
             ? new ScopedBuffer(stackalloc byte[bytesRequested])
             : new ScopedBuffer(bytesRequested);
 
-        GetBytes(bytes.Span);
+        GetBytes(buffer);
 
-        return encoding.GetString(bytes.Span);
+        return encoding.GetString(buffer);
     }
 
     public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding? encoding = null, bool moveToMaxLength = false)

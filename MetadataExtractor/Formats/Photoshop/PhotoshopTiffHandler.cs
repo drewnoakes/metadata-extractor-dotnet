@@ -35,8 +35,8 @@ namespace MetadataExtractor.Formats.Photoshop
                 case TagIccProfiles:
                 {
                     using var bufferScope = new ScopedBuffer(byteCount);
-                    context.Reader.GetBytes(valueOffset, bufferScope.Span);
-                    Directories.Add(new IccReader().Extract(bufferScope.Span));
+                    context.Reader.GetBytes(valueOffset, bufferScope);
+                    Directories.Add(new IccReader().Extract(bufferScope));
                     return true;
                 }
             }

@@ -197,9 +197,9 @@ internal ref partial struct BufferReader
         {
             using var buffer = new ScopedBuffer(bytesRequested);
 
-            GetBytes(index, buffer.Span);
+            GetBytes(index, buffer);
 
-            return encoding.GetString(buffer.Span);
+            return encoding.GetString(buffer);
         }
     }
 

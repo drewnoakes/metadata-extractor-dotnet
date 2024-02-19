@@ -357,9 +357,9 @@ namespace MetadataExtractor.Formats.Bmp
                                     ? new ScopedBuffer(stackalloc byte[profileSize])
                                     : new ScopedBuffer(profileSize);
 
-                                reader.GetBytes(iccBuffer.Span);
+                                reader.GetBytes(iccBuffer);
 
-                                var iccDirectory = new IccReader().Extract(iccBuffer.Span);
+                                var iccDirectory = new IccReader().Extract(iccBuffer);
                                 iccDirectory.Parent = directory;
                                 directories.Add(iccDirectory);
                             }
