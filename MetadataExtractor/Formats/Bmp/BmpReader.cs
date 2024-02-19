@@ -354,8 +354,8 @@ namespace MetadataExtractor.Formats.Bmp
                             else
                             {
                                 using var iccBuffer = profileSize <= 256
-                                    ? new BufferScope(stackalloc byte[profileSize])
-                                    : new BufferScope(profileSize);
+                                    ? new ScopedBuffer(stackalloc byte[profileSize])
+                                    : new ScopedBuffer(profileSize);
 
                                 reader.GetBytes(iccBuffer.Span);
 

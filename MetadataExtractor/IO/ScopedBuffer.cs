@@ -4,18 +4,18 @@ using System.Buffers;
 
 namespace MetadataExtractor.IO;
 
-internal ref struct BufferScope
+internal ref struct ScopedBuffer
 {
     private byte[]? _rentedBuffer;
     private readonly Span<byte> _span;
 
-    public BufferScope(int size)
+    public ScopedBuffer(int size)
     {
         _rentedBuffer = ArrayPool<byte>.Shared.Rent(size);
         _span = _rentedBuffer.AsSpan(0, size);
     }
 
-    public BufferScope(Span<byte> span)
+    public ScopedBuffer(Span<byte> span)
     {
         _span = span;
     }

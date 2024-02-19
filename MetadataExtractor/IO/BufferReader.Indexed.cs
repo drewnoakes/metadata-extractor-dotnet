@@ -195,7 +195,7 @@ internal ref partial struct BufferReader
         }
         else
         {
-            using var buffer = new BufferScope(bytesRequested);
+            using var buffer = new ScopedBuffer(bytesRequested);
 
             GetBytes(index, buffer.Span);
 

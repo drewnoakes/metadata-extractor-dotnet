@@ -126,9 +126,9 @@ internal ref partial struct BufferReader
         if (bytesRequested is 0)
             return "";
 
-        using BufferScope bytes = bytesRequested <= 256
-            ? new BufferScope(stackalloc byte[bytesRequested])
-            : new BufferScope(bytesRequested);
+        using ScopedBuffer bytes = bytesRequested <= 256
+            ? new ScopedBuffer(stackalloc byte[bytesRequested])
+            : new ScopedBuffer(bytesRequested);
 
         GetBytes(bytes.Span);
 
