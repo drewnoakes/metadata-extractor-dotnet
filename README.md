@@ -72,49 +72,49 @@ The library understands several formats of metadata, many of which may be presen
 * [XMP](http://en.wikipedia.org/wiki/Extensible_Metadata_Platform)
 * [JFIF / JFXX](http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format)
 * [ICC Profiles](http://en.wikipedia.org/wiki/ICC_profile)
-* [Photoshop](http://en.wikipedia.org/wiki/Photoshop) fields
-* [WebP](http://en.wikipedia.org/wiki/WebP) properties
-* [Netpbm](https://en.wikipedia.org/wiki/Netpbm_format) properties
-* [PNG](http://en.wikipedia.org/wiki/Portable_Network_Graphics) properties
-* [BMP](http://en.wikipedia.org/wiki/BMP_file_format) properties
-* [GIF](http://en.wikipedia.org/wiki/Graphics_Interchange_Format) properties
-* [ICO](https://en.wikipedia.org/wiki/ICO_(file_format)) properties
-* [PCX](http://en.wikipedia.org/wiki/PCX) properties
+* [Photoshop](https://en.wikipedia.org/wiki/Adobe_Photoshop)
 
 It supports various file types.
 
 * Images
-  * BMP
-  * EPS
-  * GIF
-  * HEIF / HEIC
-  * ICO
-  * JPEG / JFIF
-  * Netpbm
-  * PCX
-  * PNG
-  * PSD
-  * TGA
-  * TIFF / BigTIFF
-  * WebP
-  * Camera Raw
-    * ARW (Sony)
-    * CR2 (Canon)
+  * [AVIF](https://en.wikipedia.org/wiki/AVIF)
+  * [BMP](https://en.wikipedia.org/wiki/BMP_file_format)
+  * [DNG](https://en.wikipedia.org/wiki/Digital_Negative)
+  * [EPS](https://en.wikipedia.org/wiki/Encapsulated_PostScript)
+  * [GIF](http://en.wikipedia.org/wiki/Graphics_Interchange_Format)
+  * [HEIF](https://en.wikipedia.org/wiki/High_Efficiency_Image_File_Format) / [HEIC](https://en.wikipedia.org/wiki/High_Efficiency_Image_File_Format#HEIC:_HEVC_in_HEIF)
+  * [ICO](https://en.wikipedia.org/wiki/ICO_(file_format))
+  * [JPEG](https://en.wikipedia.org/wiki/JPEG) / [JFIF](https://en.wikipedia.org/wiki/JPEG_File_Interchange_Format)
+  * [Netpbm](https://en.wikipedia.org/wiki/Netpbm_format)
+  * [PCX](http://en.wikipedia.org/wiki/PCX)
+  * [PNG](http://en.wikipedia.org/wiki/Portable_Network_Graphics)
+  * [PSD]([url](https://en.wikipedia.org/wiki/Adobe_Photoshop#File_format))
+  * [TGA](https://en.wikipedia.org/wiki/Truevision_TGA)
+  * [TIFF]([url](https://en.wikipedia.org/wiki/TIFF)) / [BigTIFF]([url](https://en.wikipedia.org/wiki/TIFF#BigTIFF))
+  * [WebP](http://en.wikipedia.org/wiki/WebP)
+  * [Camera Raw](https://en.wikipedia.org/wiki/Raw_image_format)
+    * 3FR (Hasselblad)
+    * [ARW](https://en.wikipedia.org/wiki/Sony_%CE%B1) (Sony)
+    * CRW / CR2 / CRX (Canon)
+    * GPR (GoPro)
+    * KDC (Kodak)
     * NEF (Nikon)
-    * ORF (Olympus)
+    * [ORF](https://en.wikipedia.org/wiki/ORF_format) (Olympus)
+    * PEF (Pentax)
+    * RAF (Fujifilm)
     * RW2 (Panasonic)
     * RWL (Leica)
     * SRW (Samsung)
 
 * Movies
-  * AVCI
-  * AVI
-  * MOV (QuickTime)
-  * MP4
+  * [AVCI](https://en.wikipedia.org/wiki/Advanced_Video_Coding)
+  * [AVI](https://en.wikipedia.org/wiki/Audio_Video_Interleave)
+  * [MOV](https://en.wikipedia.org/wiki/QuickTime_File_Format) (QuickTime)
+  * [MP4](https://en.wikipedia.org/wiki/MP4_file_format)
 
 * Audio
-  * WAV
-  * MP3
+  * [WAV](https://en.wikipedia.org/wiki/WAV)
+  * [MP3](https://en.wikipedia.org/wiki/MP3)
 
 Camera-specific "makernote" data is decoded for cameras manufactured by:
 
@@ -135,6 +135,8 @@ Camera-specific "makernote" data is decoded for cameras manufactured by:
 * Panasonic
 * Pentax
 * Reconyx
+* Ricoh
+* Samsung
 * Sanyo
 * Sigma/Foveon
 * Sony

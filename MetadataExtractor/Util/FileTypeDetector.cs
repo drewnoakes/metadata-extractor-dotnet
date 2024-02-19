@@ -47,7 +47,8 @@ namespace MetadataExtractor.Util
             { FileType.Pcx, [0x0A, 0x05, 0x01] },
             { FileType.Eps, "%!PS"u8 },
             { FileType.Eps, [0xC5, 0xD0, 0xD3, 0xC6] },
-            { FileType.Arw, "II"u8.ToArray(), [0x2a, 0x00, 0x08, 0x00] },
+            // NOTE several file types match this, which we handle in TryDisambiguate: DNG, GPR (GoPro), KDC (Kodak), 3FR (Hasselblad)
+            //{ FileType.Arw, "II"u8.ToArray(), [0x2a, 0x00, 0x08, 0x00] },
             { FileType.Crw, "II"u8.ToArray(), [0x1a, 0x00, 0x00, 0x00], "HEAPCCDR"u8.ToArray() },
             { FileType.Cr2, "II"u8.ToArray(), [0x2a, 0x00, 0x10, 0x00, 0x00, 0x00, 0x43, 0x52] },
             // NOTE this doesn't work for NEF as it incorrectly flags many other TIFF files as being NEF
@@ -59,22 +60,77 @@ namespace MetadataExtractor.Util
             { FileType.Rw2, "II"u8.ToArray(), [0x55, 0x00] },
         };
 
-        private static readonly IEnumerable<ITypeChecker> _fixedCheckers = new ITypeChecker[]
+        private static FileType TryDisambiguate(FileType detectedFileType, string fileName)
         {
+            if (detectedFileType == FileType.Tiff)
+            {
+                var extension = GetExtension();
+
+                if (MemoryExtensions.Equals(extension, ".arw".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
+                    return FileType.Arw;
+                }
+                else if (MemoryExtensions.Equals(extension, ".dng".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
+                    return FileType.Dng;
+                }
+                else if (MemoryExtensions.Equals(extension, ".gpr".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
+                    return FileType.GoPro;
+                }
+                else if (MemoryExtensions.Equals(extension, ".kdc".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
+                    return FileType.Kdc;
+                }
+                else if (MemoryExtensions.Equals(extension, ".nef".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
+                    return FileType.Nef;
+                }
+                else if (MemoryExtensions.Equals(extension, ".3fr".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
+                    return FileType.ThreeFR;
+                }
+                else if (MemoryExtensions.Equals(extension, ".pef".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
+                    return FileType.Pef;
+                }
+                else if (MemoryExtensions.Equals(extension, ".srw".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
+                    return FileType.Srw;
+                }
+            }
+
+            return detectedFileType;
+
+            ReadOnlySpan<char> GetExtension()
+            {
+                int index = fileName.LastIndexOf('.');
+
+                if (index == -1)
+                {
+                    return [];
+                }
+
+                return fileName.AsSpan(index);
+            }
+        }
+
+        private static readonly IReadOnlyList<ITypeChecker> _checkers =
+        [
             new QuickTimeTypeChecker(),
             new RiffTypeChecker(),
             new TgaTypeChecker(),
             new MpegAudioTypeChecker()
-        };
+        ];
 
         private static readonly int _bytesNeeded = Math.Max(
-                _root.MaxDepth,
-                _fixedCheckers.Max(checker => checker.ByteCount));
+            _root.MaxDepth,
+            _checkers.Max(checker => checker.ByteCount));
 
         /// <summary>Examines the file's first bytes and estimates the file's type.</summary>
         /// <exception cref="ArgumentException">Stream does not support seeking.</exception>
         /// <exception cref="IOException">An IO error occurred, or the input stream ended unexpectedly.</exception>
-        public static FileType DetectFileType(Stream stream)
+        public static FileType DetectFileType(Stream stream, string? fileName = null)
         {
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", nameof(stream));
@@ -83,30 +139,41 @@ namespace MetadataExtractor.Util
 
             try
             {
-                var bytesRead = stream.Read(bytes, 0, bytes.Length);
+                var bytesRead = stream.Read(bytes, 0, _bytesNeeded);
 
                 if (bytesRead == 0)
+                {
+                    // Stream was empty
                     return FileType.Unknown;
+                }
 
+                // Rewind the stream to where we started. We are only peeking at the data.
                 stream.Seek(-bytesRead, SeekOrigin.Current);
 
+                // Use the prefix trie to match bytes.
                 var fileType = _root.Find(bytes);
 
-                if (fileType == FileType.Unknown)
+                if (fileType != FileType.Unknown)
                 {
-                    foreach (var fixedChecker in _fixedCheckers)
-                    {
-                        if (bytesRead >= fixedChecker.ByteCount)
-                        {
-                            fileType = fixedChecker.CheckType(bytes);
+                    // Found
+                    return fileName is null ? fileType : TryDisambiguate(fileType, fileName);
+                }
 
-                            if (fileType != FileType.Unknown)
-                                return fileType;
+                foreach (var checker in _checkers)
+                {
+                    if (bytesRead >= checker.ByteCount)
+                    {
+                        fileType = checker.CheckType(bytes);
+
+                        if (fileType != FileType.Unknown)
+                        {
+                            // Found
+                            return fileType;
                         }
                     }
                 }
 
-                return fileType;
+                return FileType.Unknown;
             }
             finally
             {

@@ -57,12 +57,13 @@ namespace MetadataExtractor
     {
         /// <summary>Reads metadata from an <see cref="Stream"/>.</summary>
         /// <param name="stream">A stream from which the file data may be read.  The stream must be positioned at the beginning of the file's data.</param>
+        /// <param name="fileName">The file name, if available. May contain path information if that's more convenient. The method will only inspect the extension of the path (i.e. <c>EndsWith</c>).</param>
         /// <returns>A list of <see cref="Directory"/> instances containing the various types of metadata found within the file's data.</returns>
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="IOException"/>
-        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata(Stream stream, string? fileName = null)
         {
-            var fileType = FileTypeDetector.DetectFileType(stream);
+            var fileType = FileTypeDetector.DetectFileType(stream, fileName);
 
             var directories = new List<Directory>();
 
@@ -76,23 +77,29 @@ namespace MetadataExtractor
                 FileType.Bmp       => BmpMetadataReader.ReadMetadata(stream),
                 FileType.Crx       => QuickTimeMetadataReader.ReadMetadata(stream),
                 FileType.Cr2       => TiffMetadataReader.ReadMetadata(stream),
+                FileType.Dng       => TiffMetadataReader.ReadMetadata(stream),
                 FileType.Eps       => EpsMetadataReader.ReadMetadata(stream),
                 FileType.Gif       => GifMetadataReader.ReadMetadata(stream),
+                FileType.GoPro     => TiffMetadataReader.ReadMetadata(stream),
                 FileType.Heif      => HeifMetadataReader.ReadMetadata(stream),
                 FileType.Ico       => IcoMetadataReader.ReadMetadata(stream),
                 FileType.Jpeg      => JpegMetadataReader.ReadMetadata(stream),
+                FileType.Kdc       => TiffMetadataReader.ReadMetadata(stream),
                 FileType.Mp3       => Mp3MetadataReader.ReadMetadata(stream),
                 FileType.Mp4       => QuickTimeMetadataReader.ReadMetadata(stream),
                 FileType.Nef       => TiffMetadataReader.ReadMetadata(stream),
                 FileType.Netpbm    => [NetpbmMetadataReader.ReadMetadata(stream)],
                 FileType.Orf       => TiffMetadataReader.ReadMetadata(stream),
+                FileType.Pef       => TiffMetadataReader.ReadMetadata(stream),
                 FileType.Pcx       => [PcxMetadataReader.ReadMetadata(stream)],
                 FileType.Png       => PngMetadataReader.ReadMetadata(stream),
                 FileType.Psd       => PsdMetadataReader.ReadMetadata(stream),
                 FileType.QuickTime => QuickTimeMetadataReader.ReadMetadata(stream),
                 FileType.Raf       => RafMetadataReader.ReadMetadata(stream),
                 FileType.Rw2       => TiffMetadataReader.ReadMetadata(stream),
+                FileType.Srw       => TiffMetadataReader.ReadMetadata(stream),
                 FileType.Tga       => TgaMetadataReader.ReadMetadata(stream),
+                FileType.ThreeFR   => TiffMetadataReader.ReadMetadata(stream),
                 FileType.Tiff      => TiffMetadataReader.ReadMetadata(stream),
                 FileType.Wav       => WavMetadataReader.ReadMetadata(stream),
                 FileType.WebP      => WebPMetadataReader.ReadMetadata(stream),
@@ -109,7 +116,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Reads metadata from a file.</summary>
-        /// <remarks>Unlike <see cref="ReadMetadata(Stream)"/>, this overload includes a <see cref="FileMetadataDirectory"/> in the output.</remarks>
+        /// <remarks>Unlike <see cref="ReadMetadata(Stream, string)"/>, this overload includes a <see cref="FileMetadataDirectory"/> in the output.</remarks>
         /// <param name="filePath">Location of a file from which data should be read.</param>
         /// <returns>A list of <see cref="Directory"/> instances containing the various types of metadata found within the file's data.</returns>
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
@@ -119,7 +126,7 @@ namespace MetadataExtractor
             var directories = new List<Directory>();
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream));
+                directories.AddRange(ReadMetadata(stream, filePath));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 

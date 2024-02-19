@@ -28,23 +28,23 @@ namespace MetadataExtractor.Formats.Tiff
     public sealed class TiffDataFormat
     {
 #pragma warning disable format
-        public static readonly TiffDataFormat Int8U     = new("BYTE",      TiffDataFormatCode.Int8U,     1);
-        public static readonly TiffDataFormat String    = new("STRING",    TiffDataFormatCode.String,    1);
-        public static readonly TiffDataFormat Int16U    = new("USHORT",    TiffDataFormatCode.Int16U,    2);
-        public static readonly TiffDataFormat Int32U    = new("ULONG",     TiffDataFormatCode.Int32U,    4);
-        public static readonly TiffDataFormat RationalU = new("URATIONAL", TiffDataFormatCode.RationalU, 8);
-        public static readonly TiffDataFormat Int8S     = new("SBYTE",     TiffDataFormatCode.Int8S,     1);
-        public static readonly TiffDataFormat Undefined = new("UNDEFINED", TiffDataFormatCode.Undefined, 1);
-        public static readonly TiffDataFormat Int16S    = new("SSHORT",    TiffDataFormatCode.Int16S,    2);
-        public static readonly TiffDataFormat Int32S    = new("SLONG",     TiffDataFormatCode.Int32S,    4);
-        public static readonly TiffDataFormat RationalS = new("SRATIONAL", TiffDataFormatCode.RationalS, 8);
-        public static readonly TiffDataFormat Single    = new("SINGLE",    TiffDataFormatCode.Single,    4);
-        public static readonly TiffDataFormat Double    = new("DOUBLE",    TiffDataFormatCode.Double,    8);
+        public static readonly TiffDataFormat Int8U     = new("BYTE",      TiffDataFormatCode.Int8U,     componentSizeBytes: 1);
+        public static readonly TiffDataFormat String    = new("STRING",    TiffDataFormatCode.String,    componentSizeBytes: 1);
+        public static readonly TiffDataFormat Int16U    = new("USHORT",    TiffDataFormatCode.Int16U,    componentSizeBytes: 2);
+        public static readonly TiffDataFormat Int32U    = new("ULONG",     TiffDataFormatCode.Int32U,    componentSizeBytes: 4);
+        public static readonly TiffDataFormat RationalU = new("URATIONAL", TiffDataFormatCode.RationalU, componentSizeBytes: 8);
+        public static readonly TiffDataFormat Int8S     = new("SBYTE",     TiffDataFormatCode.Int8S,     componentSizeBytes: 1);
+        public static readonly TiffDataFormat Undefined = new("UNDEFINED", TiffDataFormatCode.Undefined, componentSizeBytes: 1);
+        public static readonly TiffDataFormat Int16S    = new("SSHORT",    TiffDataFormatCode.Int16S,    componentSizeBytes: 2);
+        public static readonly TiffDataFormat Int32S    = new("SLONG",     TiffDataFormatCode.Int32S,    componentSizeBytes: 4);
+        public static readonly TiffDataFormat RationalS = new("SRATIONAL", TiffDataFormatCode.RationalS, componentSizeBytes: 8);
+        public static readonly TiffDataFormat Single    = new("SINGLE",    TiffDataFormatCode.Single,    componentSizeBytes: 4);
+        public static readonly TiffDataFormat Double    = new("DOUBLE",    TiffDataFormatCode.Double,    componentSizeBytes: 8);
 
         // From BigTIFF
-        public static readonly TiffDataFormat Int64U    = new("ULONG8",    TiffDataFormatCode.Int64U,    8);
-        public static readonly TiffDataFormat Int64S    = new("SLONG8",    TiffDataFormatCode.Int64S,    8);
-        public static readonly TiffDataFormat Ifd8      = new("IFD8",      TiffDataFormatCode.Ifd8,      8);
+        public static readonly TiffDataFormat Int64U    = new("ULONG8",    TiffDataFormatCode.Int64U,    componentSizeBytes: 8);
+        public static readonly TiffDataFormat Int64S    = new("SLONG8",    TiffDataFormatCode.Int64S,    componentSizeBytes: 8);
+        public static readonly TiffDataFormat Ifd8      = new("IFD8",      TiffDataFormatCode.Ifd8,      componentSizeBytes: 8);
 #pragma warning restore format
 
         public static TiffDataFormat? FromTiffFormatCode(TiffDataFormatCode tiffFormatCode, bool isBigTiff)
