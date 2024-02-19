@@ -41,7 +41,7 @@ namespace MetadataExtractor.IO
 
         public override long Length { get; }
 
-#if !NETSTANDARD2_1
+#if !NETSTANDARD2_1 && !NET8_0_OR_GREATER
         private readonly byte[] _buffer = new byte[2048];
 #endif
 
@@ -59,7 +59,7 @@ namespace MetadataExtractor.IO
             while (totalBytesRead != bytes.Length)
             {
                 var target = bytes.Slice(totalBytesRead);
-#if NETSTANDARD2_1
+#if NETSTANDARD2_1 || NET8_0_OR_GREATER
                 var bytesRead = _stream.Read(target);
 #else
                 var len = Math.Min(bytes.Length - totalBytesRead, _buffer.Length);
@@ -75,7 +75,6 @@ namespace MetadataExtractor.IO
 
                 Debug.Assert(totalBytesRead <= bytes.Length);
             }
-
         }
 
         private void Seek(int index)

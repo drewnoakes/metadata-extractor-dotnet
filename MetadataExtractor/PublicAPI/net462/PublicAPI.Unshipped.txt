@@ -115,6 +115,12 @@ MetadataExtractor.IO.IndexedCapturingReader.Dispose() -> void
 MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
 MetadataExtractor.IO.IndexedReader.GetBytes(int index, int count) -> byte[]!
 MetadataExtractor.Util.FileType.Avif = 28 -> MetadataExtractor.Util.FileType
+MetadataExtractor.Util.FileType.Dng = 29 -> MetadataExtractor.Util.FileType
+MetadataExtractor.Util.FileType.GoPro = 30 -> MetadataExtractor.Util.FileType
+MetadataExtractor.Util.FileType.Kdc = 31 -> MetadataExtractor.Util.FileType
+MetadataExtractor.Util.FileType.ThreeFR = 32 -> MetadataExtractor.Util.FileType
+MetadataExtractor.Util.FileType.Pef = 33 -> MetadataExtractor.Util.FileType
+MetadataExtractor.Util.FileType.Srw = 34 -> MetadataExtractor.Util.FileType
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Descriptor.GetDescription(int tagType) -> string?

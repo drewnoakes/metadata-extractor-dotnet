@@ -490,7 +490,7 @@ namespace MetadataExtractor.Formats.Exif
                 return true;
             }
 
-            byteCount = default(int);
+            byteCount = default;
             return false;
         }
 
@@ -501,55 +501,51 @@ namespace MetadataExtractor.Formats.Exif
 
             var cameraMake = Directories.OfType<ExifIfd0Directory>().FirstOrDefault()?.GetString(ExifDirectoryBase.TagMake);
 
-#pragma warning disable format
-            var firstTwoChars      = context.Reader.GetString(makernoteOffset, 2, Encoding.UTF8);
-            var firstThreeChars    = context.Reader.GetString(makernoteOffset, 3, Encoding.UTF8);
-            var firstFourChars     = context.Reader.GetString(makernoteOffset, 4, Encoding.UTF8);
-            var firstFiveChars     = context.Reader.GetString(makernoteOffset, 5, Encoding.UTF8);
-            var firstSixChars      = context.Reader.GetString(makernoteOffset, 6, Encoding.UTF8);
-            var firstSevenChars    = context.Reader.GetString(makernoteOffset, 7, Encoding.UTF8);
-            var firstEightChars    = context.Reader.GetString(makernoteOffset, 8, Encoding.UTF8);
-            var firstNineChars     = context.Reader.GetString(makernoteOffset, 9, Encoding.UTF8);
-            var firstTenChars      = context.Reader.GetString(makernoteOffset, 10, Encoding.UTF8);
-            var firstTwelveChars   = context.Reader.GetString(makernoteOffset, 12, Encoding.UTF8);
-            var firstFourteenChars = context.Reader.GetString(makernoteOffset, 14, Encoding.UTF8);
-#pragma warning restore format
+            int headerSize = (int)Math.Min(14, context.Reader.Length - makernoteOffset);
+            Span<byte> headerBytes = stackalloc byte[headerSize];
+            context.Reader.GetBytes(makernoteOffset, headerBytes);
 
-            if (string.Equals("OLYMP\0", firstSixChars, StringComparison.Ordinal) ||
-                string.Equals("EPSON", firstFiveChars, StringComparison.Ordinal) ||
-                string.Equals("AGFA", firstFourChars, StringComparison.Ordinal))
+            string headerString = Encoding.ASCII.GetString(headerBytes);
+
+            if (headerBytes.StartsWith("OLYMP\0"u8) ||
+                headerBytes.StartsWith("EPSON"u8) ||
+                headerBytes.StartsWith("AGFA"u8))
             {
                 // Olympus Makernote
                 // Epson and Agfa use Olympus makernote standard: http://www.ozhiker.com/electronics/pjmt/jpeg_info/
                 PushDirectory(new OlympusMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context, makernoteOffset + 8);
+                TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset + 8);
             }
-            else if (string.Equals("OLYMPUS\0II", firstTenChars, StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("OLYMPUS\0II"u8))
             {
                 // Olympus Makernote (alternate)
                 // Note that data is relative to the beginning of the makernote
                 // http://exiv2.org/makernote.html
                 PushDirectory(new OlympusMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), 12);
+                TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), ifdOffset: 12);
             }
-            else if (string.Equals("OM SYSTEM\0\0\0II", firstFourteenChars, StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("OM SYSTEM\0\0\0II"u8))
             {
                 // Olympus Makernote (OM SYSTEM)
                 // Note that data is relative to the beginning of the makernote
                 // http://exiv2.org/makernote.html
                 PushDirectory(new OlympusMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), 16);
+                TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), ifdOffset: 16);
             }
             else if (cameraMake is not null && cameraMake.StartsWith("MINOLTA", StringComparison.OrdinalIgnoreCase))
             {
                 // Cases seen with the model starting with MINOLTA in capitals seem to have a valid Olympus makernote
                 // area that commences immediately.
                 PushDirectory(new OlympusMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context, makernoteOffset);
+                TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset);
             }
+#if NETSTANDARD1_3 || NET462
             else if (cameraMake is not null && cameraMake.TrimStart().StartsWith("NIKON", StringComparison.OrdinalIgnoreCase))
+#else
+            else if (cameraMake is not null && cameraMake.AsSpan().TrimStart().StartsWith("NIKON", StringComparison.OrdinalIgnoreCase))
+#endif
             {
-                if (string.Equals("Nikon", firstFiveChars, StringComparison.Ordinal))
+                if (headerBytes.StartsWith("Nikon"u8))
                 {
                     switch (context.Reader.GetByte(makernoteOffset + 6))
                     {
@@ -564,13 +560,13 @@ namespace MetadataExtractor.Formats.Exif
                              * :0010: 00 08 00 1E 00 01 00 07-00 00 00 04 30 32 30 30 ............0200
                              */
                             PushDirectory(new NikonType1MakernoteDirectory());
-                            TiffReader.ProcessIfd(this, context, makernoteOffset + 8);
+                            TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset + 8);
                             break;
                         }
                         case 2:
                         {
                             PushDirectory(new NikonType2MakernoteDirectory());
-                            TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset + 10), 8);
+                            TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset + 10), ifdOffset: 8);
                             break;
                         }
                         default:
@@ -584,62 +580,61 @@ namespace MetadataExtractor.Formats.Exif
                 {
                     // The IFD begins with the first Makernote byte (no ASCII name).  This occurs with CoolPix 775, E990 and D1 models.
                     PushDirectory(new NikonType2MakernoteDirectory());
-                    TiffReader.ProcessIfd(this, context, makernoteOffset);
+                    TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset);
                 }
             }
-            else if (string.Equals("SONY CAM", firstEightChars, StringComparison.Ordinal) ||
-                     string.Equals("SONY DSC", firstEightChars, StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("SONY CAM"u8) ||
+                     headerBytes.StartsWith("SONY DSC"u8))
             {
                 PushDirectory(new SonyType1MakernoteDirectory());
                 TiffReader.ProcessIfd(this, context, makernoteOffset + 12);
             }
             // Do this check LAST after most other Sony checks
             else if (cameraMake is not null && cameraMake.StartsWith("SONY", StringComparison.Ordinal) &&
-                (context.Reader.GetByte(makernoteOffset) != 0x01 || context.Reader.GetByte(makernoteOffset + 1) != 0x00))
+                (headerBytes[0] != 0x01 || headerBytes[1] != 0x00))
             {
                 // The IFD begins with the first Makernote byte (no ASCII name). Used in SR2 and ARW images
                 PushDirectory(new SonyType1MakernoteDirectory());
-                TiffReader.ProcessIfd(this, context, makernoteOffset);
+                TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset);
             }
-            else if (string.Equals("SEMC MS\u0000\u0000\u0000\u0000\u0000", firstTwelveChars, StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("SEMC MS\0\0\0\0\0"u8))
             {
                 // Force Motorola byte order for this directory
                 // skip 12 byte header + 2 for "MM" + 6
                 PushDirectory(new SonyType6MakernoteDirectory());
-                TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: true), makernoteOffset + 20);
+                TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: true), ifdOffset: makernoteOffset + 20);
             }
-            else if (string.Equals("SIGMA\u0000\u0000\u0000", firstEightChars, StringComparison.Ordinal) ||
-                     string.Equals("FOVEON\u0000\u0000", firstEightChars, StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("SIGMA\0\0\0"u8) ||
+                     headerBytes.StartsWith("FOVEON\0\0"u8))
             {
                 PushDirectory(new SigmaMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context, makernoteOffset + 10);
+                TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset + 10);
             }
-            else if (string.Equals("KDK", firstThreeChars, StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("KDK"u8))
             {
                 var directory = new KodakMakernoteDirectory();
                 Directories.Add(directory);
-                ProcessKodakMakernote(directory, makernoteOffset, context.Reader.WithByteOrder(isMotorolaByteOrder: firstSevenChars == "KDK INFO"));
+                ProcessKodakMakernote(directory, makernoteOffset, context.Reader.WithByteOrder(isMotorolaByteOrder: headerBytes.StartsWith("KDK INFO"u8)));
             }
-            else if ("CANON".Equals(cameraMake, StringComparison.OrdinalIgnoreCase))
+            else if (cameraMake is not null && cameraMake.Equals("CANON", StringComparison.OrdinalIgnoreCase)) // Observed "Canon"
             {
                 PushDirectory(new CanonMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context, makernoteOffset);
+                TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset);
             }
             else if (cameraMake is not null && cameraMake.StartsWith("CASIO", StringComparison.OrdinalIgnoreCase))
             {
-                if (string.Equals("QVC\u0000\u0000\u0000", firstSixChars, StringComparison.Ordinal))
+                if (headerBytes.StartsWith("QVC\0\0\0"u8))
                 {
                     PushDirectory(new CasioType2MakernoteDirectory());
-                    TiffReader.ProcessIfd(this, context, makernoteOffset + 6);
+                    TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset + 6);
                 }
                 else
                 {
                     PushDirectory(new CasioType1MakernoteDirectory());
-                    TiffReader.ProcessIfd(this, context, makernoteOffset);
+                    TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset);
                 }
             }
-            else if (string.Equals("FUJIFILM", firstEightChars, StringComparison.Ordinal) ||
-                     string.Equals("FUJIFILM", cameraMake, StringComparison.OrdinalIgnoreCase))
+            else if (headerBytes.StartsWith("FUJIFILM"u8) || string.Equals("FUJIFILM", cameraMake, StringComparison.OrdinalIgnoreCase))
             {
                 // Note that this also applies to certain Leica cameras, such as the Digilux-4.3.
                 // The 4 bytes after "FUJIFILM" in the makernote point to the start of the makernote
@@ -649,13 +644,13 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(new FujifilmMakernoteDirectory());
                 TiffReader.ProcessIfd(this, makernoteContext, ifdStart);
             }
-            else if (string.Equals("KYOCERA", firstSevenChars, StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("KYOCERA"u8))
             {
                 // http://www.ozhiker.com/electronics/pjmt/jpeg_info/kyocera_mn.html
                 PushDirectory(new KyoceraMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context, makernoteOffset + 22);
+                TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset + 22);
             }
-            else if (string.Equals("LEICA", firstFiveChars, StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("LEICA"u8))
             {
                 // used by the X1/X2/X VARIO/T
                 // (X1 starts with "LEICA\0\x01\0", Make is "LEICA CAMERA AG")
@@ -664,40 +659,40 @@ namespace MetadataExtractor.Formats.Exif
                 // (T (Typ 701) starts with "LEICA\0\0x6", Make is "LEICA CAMERA AG")
                 // (X (Typ 113) starts with "LEICA\0\0x7", Make is "LEICA CAMERA AG")
 
-                if (string.Equals("LEICA\0\x1\0", firstEightChars, StringComparison.Ordinal) ||
-                    string.Equals("LEICA\0\x4\0", firstEightChars, StringComparison.Ordinal) ||
-                    string.Equals("LEICA\0\x5\0", firstEightChars, StringComparison.Ordinal) ||
-                    string.Equals("LEICA\0\x6\0", firstEightChars, StringComparison.Ordinal) ||
-                    string.Equals("LEICA\0\x7\0", firstEightChars, StringComparison.Ordinal))
+                if (headerBytes.StartsWith("LEICA\0\x1\0"u8) ||
+                    headerBytes.StartsWith("LEICA\0\x4\0"u8) ||
+                    headerBytes.StartsWith("LEICA\0\x5\0"u8) ||
+                    headerBytes.StartsWith("LEICA\0\x6\0"u8) ||
+                    headerBytes.StartsWith("LEICA\0\x7\0"u8))
                 {
                     PushDirectory(new LeicaType5MakernoteDirectory());
-                    TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), 8);
+                    TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), ifdOffset: 8);
                 }
                 else if (string.Equals("Leica Camera AG", cameraMake, StringComparison.Ordinal))
                 {
                     PushDirectory(new LeicaMakernoteDirectory());
-                    TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: false), makernoteOffset + 8);
+                    TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: false), ifdOffset: makernoteOffset + 8);
                 }
                 else if (string.Equals("LEICA", cameraMake, StringComparison.Ordinal))
                 {
                     // Some Leica cameras use Panasonic makernote tags
                     PushDirectory(new PanasonicMakernoteDirectory());
-                    TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: false), makernoteOffset + 8);
+                    TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: false), ifdOffset: makernoteOffset + 8);
                 }
                 else
                 {
                     return false;
                 }
             }
-            else if (string.Equals("Panasonic\u0000\u0000\u0000", firstTwelveChars, StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("Panasonic\0\0\0"u8))
             {
                 // NON-Standard TIFF IFD Data using Panasonic Tags. There is no Next-IFD pointer after the IFD
                 // Offsets are relative to the start of the TIFF header at the beginning of the EXIF segment
                 // more information here: http://www.ozhiker.com/electronics/pjmt/jpeg_info/panasonic_mn.html
                 PushDirectory(new PanasonicMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context, makernoteOffset + 12);
+                TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset + 12);
             }
-            else if (string.Equals("AOC\u0000", firstFourChars, StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("AOC\0"u8))
             {
                 // NON-Standard TIFF IFD Data using Casio Type 2 Tags
                 // IFD has no Next-IFD pointer at end of IFD, and
@@ -705,7 +700,7 @@ namespace MetadataExtractor.Formats.Exif
                 // Observed for:
                 // - Pentax ist D
                 PushDirectory(new CasioType2MakernoteDirectory());
-                TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), 6);
+                TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), ifdOffset: 6);
             }
             else if (cameraMake is not null && (cameraMake.StartsWith("PENTAX", StringComparison.OrdinalIgnoreCase) || cameraMake.StartsWith("ASAHI", StringComparison.OrdinalIgnoreCase)))
             {
@@ -716,10 +711,10 @@ namespace MetadataExtractor.Formats.Exif
                 // - PENTAX Optio 330
                 // - PENTAX Optio 430
                 PushDirectory(new PentaxMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), 0);
+                TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), ifdOffset: 0);
             }
             /*
-            else if ("KC" == firstTwoChars || "MINOL" == firstFiveChars || "MLY" == firstThreeChars || "+M+M+M+M" == firstEightChars)
+            else if (headerBytes.StartsWith("KC"u8) || headerBytes.StartsWith("MINOL"u8) || headerBytes.StartsWith("MLY"u8) || headerBytes.StartsWith("+M+M+M+M"u8))
             {
                 // This Konica data is not understood.  Header identified in accordance with information at this site:
                 // http://www.ozhiker.com/electronics/pjmt/jpeg_info/minolta_mn.html
@@ -727,15 +722,15 @@ namespace MetadataExtractor.Formats.Exif
                 exifDirectory.addError("Unsupported Konica/Minolta data ignored.");
             }
             */
-            else if (string.Equals("SANYO\x0\x1\x0", firstEightChars, StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("SANYO\x0\x1\x0"u8))
             {
                 PushDirectory(new SanyoMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), 8);
+                TiffReader.ProcessIfd(this, context.WithShiftedBaseOffset(makernoteOffset), ifdOffset: 8);
             }
             else if (cameraMake is not null && cameraMake.StartsWith("RICOH", StringComparison.OrdinalIgnoreCase))
             {
-                if (string.Equals(firstTwoChars, "Rv", StringComparison.Ordinal) ||
-                    string.Equals(firstThreeChars, "Rev", StringComparison.Ordinal))
+                if (headerBytes.StartsWith("Rv"u8) ||
+                    headerBytes.StartsWith("Rev"u8))
                 {
                     // This is a textual format, where the makernote bytes look like:
                     //   Rv0103;Rg1C;Bg18;Ll0;Ld0;Aj0000;Bn0473800;Fp2E00:������������������������������
@@ -744,23 +739,23 @@ namespace MetadataExtractor.Formats.Exif
                     // This format is currently unsupported
                     return false;
                 }
-                if (firstFiveChars.Equals("RICOH", StringComparison.OrdinalIgnoreCase))
+                if (headerString.StartsWith("RICOH", StringComparison.OrdinalIgnoreCase))
                 {
                     PushDirectory(new RicohMakernoteDirectory());
                     // Always in Motorola byte order
-                    TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: true).WithShiftedBaseOffset(makernoteOffset), 8);
+                    TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: true).WithShiftedBaseOffset(makernoteOffset), ifdOffset: 8);
                 }
-                else if (firstTenChars.Equals("PENTAX \0II", StringComparison.Ordinal))
+                else if (headerBytes.StartsWith("PENTAX \0II"u8))
                 {
                     PushDirectory(new PentaxType2MakernoteDirectory());
-                    TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: false).WithShiftedBaseOffset(makernoteOffset), 10);
+                    TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: false).WithShiftedBaseOffset(makernoteOffset), ifdOffset: 10);
                 }
             }
-            else if (string.Equals(firstTenChars, "Apple iOS\0", StringComparison.Ordinal))
+            else if (headerBytes.StartsWith("Apple iOS\0"u8))
             {
                 PushDirectory(new AppleMakernoteDirectory());
                 // Always in Motorola byte order
-                TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: true).WithShiftedBaseOffset(makernoteOffset), 14);
+                TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: true).WithShiftedBaseOffset(makernoteOffset), ifdOffset: 14);
             }
             else if (context.Reader.GetUInt16(makernoteOffset) == ReconyxHyperFireMakernoteDirectory.MakernoteVersion)
             {
@@ -768,33 +763,33 @@ namespace MetadataExtractor.Formats.Exif
                 Directories.Add(directory);
                 ProcessReconyxHyperFireMakernote(directory, context.Reader.WithShiftedBaseOffset(makernoteOffset));
             }
-            else if (string.Equals("RECONYXUF", firstNineChars, StringComparison.OrdinalIgnoreCase))
+            else if (headerString.StartsWith("RECONYXUF", StringComparison.OrdinalIgnoreCase))
             {
                 var directory = new ReconyxUltraFireMakernoteDirectory();
                 Directories.Add(directory);
                 ProcessReconyxUltraFireMakernote(directory, context.Reader.WithShiftedBaseOffset(makernoteOffset));
             }
-            else if (string.Equals("RECONYXH2", firstNineChars, StringComparison.OrdinalIgnoreCase))
+            else if (headerString.StartsWith("RECONYXH2", StringComparison.OrdinalIgnoreCase))
             {
                 var directory = new ReconyxHyperFire2MakernoteDirectory();
                 Directories.Add(directory);
                 ProcessReconyxHyperFire2Makernote(directory, context.Reader.WithShiftedBaseOffset(makernoteOffset));
             }
-            else if (string.Equals("SAMSUNG", cameraMake, StringComparison.OrdinalIgnoreCase))
+            else if (string.Equals(cameraMake, "SAMSUNG", StringComparison.OrdinalIgnoreCase))
             {
                 // Only handles Type2 notes correctly. Others aren't implemented, and it's complex to determine which ones to use
                 PushDirectory(new SamsungType2MakernoteDirectory());
-                TiffReader.ProcessIfd(this, context, makernoteOffset);
+                TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset);
             }
-            else if (string.Equals("DJI", cameraMake, StringComparison.Ordinal))
+            else if (string.Equals(cameraMake, "DJI", StringComparison.Ordinal))
             {
                 PushDirectory(new DjiMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context, makernoteOffset);
+                TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset);
             }
-            else if (string.Equals("FLIR Systems", cameraMake, StringComparison.Ordinal))
+            else if (string.Equals(cameraMake, "FLIR Systems", StringComparison.Ordinal))
             {
                 PushDirectory(new FlirMakernoteDirectory());
-                TiffReader.ProcessIfd(this, context, makernoteOffset);
+                TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset);
             }
             else
             {

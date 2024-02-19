@@ -78,7 +78,7 @@ namespace MetadataExtractor.Util
         /// <summary>Encapsulated PostScript.</summary>
         Eps = 23,
 
-        /// <summary>Truevision graphics.</summary>
+        /// <summary>Truevision graphics (Targa).</summary>
         Tga = 24,
 
         /// <summary>MPEG-1 / MPEG-2 Audio Layer III.</summary>
@@ -91,7 +91,25 @@ namespace MetadataExtractor.Util
         Mp4 = 27,
 
         /// <summary>AV1 Image File Format.</summary>
-        Avif = 28
+        Avif = 28,
+
+        /// <summary>DNG Image File Format.</summary>
+        Dng = 29,
+
+        /// <summary>GPR (GoPro) Image File Format.</summary>
+        GoPro = 30,
+
+        /// <summary>KDC (Kodak) Image File Format.</summary>
+        Kdc = 31,
+
+        /// <summary>3FR (Hasselblad) Image File Format.</summary>
+        ThreeFR = 32,
+
+        /// <summary>PEF (Pentax) Image File Format.</summary>
+        Pef = 33,
+
+        /// <summary>SRW (Samsung) Image File Format.</summary>
+        Srw = 34,
     }
 
     public static class FileTypeExtensions
@@ -126,7 +144,13 @@ namespace MetadataExtractor.Util
             "MP3",
             "HEIF",
             "MP4",
-            "AVIF"
+            "AVIF",
+            "DNG",
+            "GPR",
+            "KDC",
+            "3FR",
+            "PEF",
+            "SRW",
         ];
 
         private static readonly string[] _longNames =
@@ -160,6 +184,12 @@ namespace MetadataExtractor.Util
             "High Efficiency Image File Format",
             "MPEG-4 Part 14",
             "AV1 Image File Format",
+            "Digital Negative",
+            "GoPro Raw",
+            "Kodak Raw",
+            "Hasselblad Raw",
+            "Pentax Raw",
+            "Samsung Raw",
         ];
 
         private static readonly string?[] _mimeTypes =
@@ -177,12 +207,12 @@ namespace MetadataExtractor.Util
             "audio/vnd.wave",
             "video/vnd.avi",
             "image/webp",
-            null, // Sony RAW
-            null,
-            null,
-            null,
-            null,
-            null,
+            "image/x-sony-arw", // https://stackoverflow.com/a/47612661/24874
+            "image/x-canon-crw",
+            "image/x-canon-cr2",
+            "image/x-nikon-nef",
+            "image/x-olympus-orf",
+            "image/x-fuji-raf",
             null,
             "video/quicktime",
             "image/x-portable-graymap",
@@ -192,7 +222,13 @@ namespace MetadataExtractor.Util
             "audio/mpeg",
             "image/heic",
             "video/mp4",
-            "image/avif"
+            "image/avif",
+            "image/x-adobe-dng",
+            "image/x-gopro-gpr",
+            "image/x-kodak-kdc",
+            "image/x-hasselblad-3fr",
+            "image/x-pentax-pef",
+            "image/x-samsung-srw",
         ];
 
         private static readonly string[]?[] _extensions =
@@ -225,7 +261,13 @@ namespace MetadataExtractor.Util
             ["mp3"],
             ["heic", "heif", "avci"],
             ["mp4", "m4a", "m4p", "m4b", "m4r", "m4v"],
-            ["avif"]
+            ["avif"],
+            ["dng"],
+            ["gpr"],
+            ["kdc"],
+            ["3fr"],
+            ["pef"],
+            ["srw"],
         ];
 
         public static string GetName(this FileType fileType)

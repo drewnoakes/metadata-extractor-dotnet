@@ -165,7 +165,7 @@ namespace MetadataExtractor.IO
                 GetPosition(fromIndex, out int fromChunkIndex, out int fromInnerIndex);
                 var length = Math.Min(remaining, _chunkLength - fromInnerIndex);
                 var chunk = _chunks[fromChunkIndex];
-                chunk.AsSpan().Slice(fromInnerIndex, length).CopyTo(bytes.Slice(toIndex, length));
+                chunk.AsSpan(fromInnerIndex, length).CopyTo(bytes.Slice(toIndex, length));
                 remaining -= length;
                 fromIndex += length;
                 toIndex += length;

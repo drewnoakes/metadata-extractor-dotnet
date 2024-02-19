@@ -4365,13 +4365,13 @@ static MetadataExtractor.GeoLocation.DecimalToDegreesMinutesSeconds(double value
 static MetadataExtractor.GeoLocation.DecimalToDegreesMinutesSecondsString(double value) -> string!
 static MetadataExtractor.GeoLocation.DegreesMinutesSecondsToDecimal(MetadataExtractor.Rational degs, MetadataExtractor.Rational mins, MetadataExtractor.Rational secs, bool isNegative) -> double?
 static MetadataExtractor.ImageMetadataReader.ReadMetadata(string! filePath) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
-static MetadataExtractor.ImageMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
+static MetadataExtractor.ImageMetadataReader.ReadMetadata(System.IO.Stream! stream, string? fileName = null) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Rational.operator !=(MetadataExtractor.Rational a, MetadataExtractor.Rational b) -> bool
 static MetadataExtractor.Rational.operator ==(MetadataExtractor.Rational a, MetadataExtractor.Rational b) -> bool
 static MetadataExtractor.TagDescriptor<T>.ConvertBytesToVersionString(int[]? components, int majorDigits) -> string?
 static MetadataExtractor.TagDescriptor<T>.GetFocalLengthDescription(double mm) -> string!
 static MetadataExtractor.TagDescriptor<T>.GetFStopDescription(double fStop) -> string!
-static MetadataExtractor.Util.FileTypeDetector.DetectFileType(System.IO.Stream! stream) -> MetadataExtractor.Util.FileType
+static MetadataExtractor.Util.FileTypeDetector.DetectFileType(System.IO.Stream! stream, string? fileName = null) -> MetadataExtractor.Util.FileType
 static MetadataExtractor.Util.FileTypeExtensions.GetAllExtensions(this MetadataExtractor.Util.FileType fileType) -> System.Collections.Generic.IEnumerable<string!>?
 static MetadataExtractor.Util.FileTypeExtensions.GetCommonExtension(this MetadataExtractor.Util.FileType fileType) -> string?
 static MetadataExtractor.Util.FileTypeExtensions.GetLongName(this MetadataExtractor.Util.FileType fileType) -> string!
