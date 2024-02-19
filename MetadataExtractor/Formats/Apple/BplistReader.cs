@@ -54,7 +54,7 @@ public sealed class BplistReader
         {
             for (int i = 0; i < offsets.Length; i++)
             {
-                offsets[i] = BinaryPrimitives.ReadUInt16BigEndian(offsetsBytes.Slice(i * 2, 2));
+                offsets[i] = BinaryPrimitives.ReadInt16BigEndian(offsetsBytes.Slice(i * 2, 2));
             }
         }
 
@@ -133,7 +133,7 @@ public sealed class BplistReader
             return map;
         }
 
-        static object HandleData(ref BufferReader reader, byte marker)
+        object HandleData(ref BufferReader reader, byte marker)
         {
             int byteCount = marker;
 

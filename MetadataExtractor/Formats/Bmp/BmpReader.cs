@@ -347,15 +347,22 @@ namespace MetadataExtractor.Formats.Bmp
                         }
                         else
                         {
-                            using var iccBuffer = profileSize <= 256
-                                ? new BufferScope(stackalloc byte[profileSize])
-                                : new BufferScope(profileSize);
+                            if (profileSize <= 0)
+                            {
+                                directory.AddError($"Invalid ICC profile size. Was {profileSize}");
+                            }
+                            else
+                            {
+                                using var iccBuffer = profileSize <= 256
+                                    ? new BufferScope(stackalloc byte[profileSize])
+                                    : new BufferScope(profileSize);
 
-                            reader.GetBytes(iccBuffer.Span);
+                                reader.GetBytes(iccBuffer.Span);
 
-                            var iccDirectory = new IccReader().Extract(iccBuffer.Span);
-                            iccDirectory.Parent = directory;
-                            directories.Add(iccDirectory);
+                                var iccDirectory = new IccReader().Extract(iccBuffer.Span);
+                                iccDirectory.Parent = directory;
+                                directories.Add(iccDirectory);
+                            }
                         }
                     }
                     else
@@ -369,7 +376,7 @@ namespace MetadataExtractor.Formats.Bmp
                 }
                 else
                 {
-                    directory.AddError("Unexpected DIB header size: " + headerSize);
+                    directory.AddError($"Unexpected DIB header size: {headerSize}");
                 }
             }
             catch (IOException)
