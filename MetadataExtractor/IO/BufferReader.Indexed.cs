@@ -193,17 +193,11 @@ internal ref partial struct BufferReader
         }
         else
         {
-            byte[] bytes = ArrayPool<byte>.Shared.Rent(bytesRequested);
+            using var buffer = new ScopedBuffer(bytesRequested);
 
-            Span<byte> span = bytes.AsSpan(0, bytesRequested);
+            GetBytes(index, buffer);
 
-            GetBytes(index, span);
-
-            var s = encoding.GetString(span);
-
-            ArrayPool<byte>.Shared.Return(bytes);
-
-            return s;
+            return encoding.GetString(buffer);
         }
     }
 
