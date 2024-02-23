@@ -121,7 +121,7 @@ public sealed class BplistReader
 
         static Dictionary<byte, byte> HandleDict(ref BufferReader reader, byte count)
         {
-            Span<byte> keyRefs = stackalloc byte[count]; // <= 255
+            Span<byte> keyRefs = stackalloc byte[count]; // count is a byte (0-255)
 
             reader.GetBytes(keyRefs);
 
