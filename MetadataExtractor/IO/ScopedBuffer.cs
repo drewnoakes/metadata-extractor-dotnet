@@ -6,6 +6,8 @@ namespace MetadataExtractor.IO;
 
 internal ref struct ScopedBuffer
 {
+    public const int MaxStackBufferSize = 256;
+
     private byte[]? _rentedBuffer;
     private readonly Span<byte> _span;
 
@@ -37,7 +39,5 @@ internal ref struct ScopedBuffer
         if (_rentedBuffer is null) return;
 
         ArrayPool<byte>.Shared.Return(_rentedBuffer);
-
-        _rentedBuffer = null;
     }
 }

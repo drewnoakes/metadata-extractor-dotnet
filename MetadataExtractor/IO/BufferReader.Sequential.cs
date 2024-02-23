@@ -115,12 +115,13 @@ internal ref partial struct BufferReader
     public string GetString(int bytesRequested, Encoding encoding)
     {
         if (bytesRequested < 0)
-            throw new ArgumentOutOfRangeException(nameof(bytesRequested), "Must be 0 or greater");
+            throw new ArgumentOutOfRangeException(nameof(bytesRequested), "Must be zero or greater.");
 
+        // This check is important on .NET Framework
         if (bytesRequested is 0)
             return "";
 
-        using var buffer = bytesRequested <= 256
+        using var buffer = bytesRequested <= ScopedBuffer.MaxStackBufferSize
             ? new ScopedBuffer(stackalloc byte[bytesRequested])
             : new ScopedBuffer(bytesRequested);
 

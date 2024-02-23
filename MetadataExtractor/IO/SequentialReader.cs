@@ -221,29 +221,21 @@ namespace MetadataExtractor.IO
         public string GetString(int bytesRequested, Encoding encoding)
         {
             if (bytesRequested < 0)
-                throw new ArgumentOutOfRangeException(nameof(bytesRequested), "Must be 0 or greater");
+                throw new ArgumentOutOfRangeException(nameof(bytesRequested), "Must be zero or greater.");
 
             // This check is important on .NET Framework
             if (bytesRequested is 0)
             {
                 return "";
             }
-            else if (bytesRequested < 256)
-            {
-                Span<byte> bytes = stackalloc byte[bytesRequested];
 
-                GetBytes(bytes);
+            using var buffer = bytesRequested <= ScopedBuffer.MaxStackBufferSize
+                ? new ScopedBuffer(stackalloc byte[bytesRequested])
+                : new ScopedBuffer(bytesRequested);
 
-                return encoding.GetString(bytes);
-            }
-            else
-            {
-                using var buffer = new ScopedBuffer(bytesRequested);
+            GetBytes(buffer);
 
-                GetBytes(buffer);
-
-                return encoding.GetString(buffer);
-            }
+            return encoding.GetString(buffer);
         }
 
         public StringValue GetStringValue(int bytesRequested, Encoding? encoding = null)
