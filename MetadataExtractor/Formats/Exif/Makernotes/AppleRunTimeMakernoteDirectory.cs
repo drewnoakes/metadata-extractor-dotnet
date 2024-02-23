@@ -11,7 +11,7 @@ public sealed class AppleRunTimeMakernoteDirectory : Directory
     public const int TagScale = 3;
     public const int TagValue = 4;
 
-    private static readonly Dictionary<int, string> _tagNameMap = new();
+    private static readonly Dictionary<int, string> _tagNameMap = new(4);
 
     static AppleRunTimeMakernoteDirectory()
     {
