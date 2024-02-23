@@ -1,6 +1,5 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Buffers;
 using System.Buffers.Binary;
 
 namespace MetadataExtractor.IO;
@@ -178,33 +177,22 @@ internal ref partial struct BufferReader
 
     public readonly string GetString(int index, int bytesRequested, Encoding encoding)
     {
+        if (bytesRequested < 0)
+            throw new ArgumentOutOfRangeException(nameof(bytesRequested), "Must be zero or greater.");
+
         // This check is important on .NET Framework
         if (bytesRequested is 0)
         {
             return "";
         }
-        else if (bytesRequested < 256)
-        {
-            Span<byte> bytes = stackalloc byte[bytesRequested];
 
-            GetBytes(index, bytes);
+        using var buffer = bytesRequested <= ScopedBuffer.MaxStackBufferSize
+            ? new ScopedBuffer(stackalloc byte[bytesRequested])
+            : new ScopedBuffer(bytesRequested);
 
-            return encoding.GetString(bytes);
-        }
-        else
-        {
-            byte[] bytes = ArrayPool<byte>.Shared.Rent(bytesRequested);
+        GetBytes(index, buffer);
 
-            Span<byte> span = bytes.AsSpan(0, bytesRequested);
-
-            GetBytes(index, span);
-
-            var s = encoding.GetString(span);
-
-            ArrayPool<byte>.Shared.Return(bytes);
-
-            return s;
-        }
+        return encoding.GetString(buffer);
     }
 
     private readonly void ValidateIndex(int index, int bytesRequested)

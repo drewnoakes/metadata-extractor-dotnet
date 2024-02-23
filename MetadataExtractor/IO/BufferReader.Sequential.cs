@@ -114,17 +114,20 @@ internal ref partial struct BufferReader
 
     public string GetString(int bytesRequested, Encoding encoding)
     {
+        if (bytesRequested < 0)
+            throw new ArgumentOutOfRangeException(nameof(bytesRequested), "Must be zero or greater.");
+
         // This check is important on .NET Framework
         if (bytesRequested is 0)
             return "";
 
-        Span<byte> bytes = bytesRequested <= 256
-            ? stackalloc byte[bytesRequested]
-            : new byte[bytesRequested];
+        using var buffer = bytesRequested <= ScopedBuffer.MaxStackBufferSize
+            ? new ScopedBuffer(stackalloc byte[bytesRequested])
+            : new ScopedBuffer(bytesRequested);
 
-        GetBytes(bytes);
+        GetBytes(buffer);
 
-        return encoding.GetString(bytes);
+        return encoding.GetString(buffer);
     }
 
     public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding? encoding = null, bool moveToMaxLength = false)

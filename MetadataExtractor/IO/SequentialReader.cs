@@ -1,6 +1,5 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Buffers;
 using System.Buffers.Binary;
 
 namespace MetadataExtractor.IO
@@ -221,33 +220,22 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public string GetString(int bytesRequested, Encoding encoding)
         {
+            if (bytesRequested < 0)
+                throw new ArgumentOutOfRangeException(nameof(bytesRequested), "Must be zero or greater.");
+
             // This check is important on .NET Framework
             if (bytesRequested is 0)
             {
                 return "";
             }
-            else if (bytesRequested < 256)
-            {
-                Span<byte> bytes = stackalloc byte[bytesRequested];
 
-                GetBytes(bytes);
+            using var buffer = bytesRequested <= ScopedBuffer.MaxStackBufferSize
+                ? new ScopedBuffer(stackalloc byte[bytesRequested])
+                : new ScopedBuffer(bytesRequested);
 
-                return encoding.GetString(bytes);
-            }
-            else
-            {
-                byte[] bytes = ArrayPool<byte>.Shared.Rent(bytesRequested);
+            GetBytes(buffer);
 
-                Span<byte> span = bytes.AsSpan(0, bytesRequested);
-
-                GetBytes(span);
-
-                var s = encoding.GetString(span);
-
-                ArrayPool<byte>.Shared.Return(bytes);
-
-                return s;
-            }
+            return encoding.GetString(buffer);
         }
 
         public StringValue GetStringValue(int bytesRequested, Encoding? encoding = null)
