@@ -122,9 +122,26 @@ namespace MetadataExtractor.Formats.QuickTime
 
             void UserDataHandler(AtomCallbackArgs a)
             {
-                switch (a.TypeString)
+                var key = a.TypeString;
+                if (key.Length < 1)
                 {
-                    case "?xyz":
+                    return;
+                }
+                if (key[0] == 0xa9 || key[0] == 0x40)
+                {
+                    //Tag ID's beginning with the copyright symbol (hex 0xa9) are multi-language text
+                    //Alternate language tags are accessed by adding a dash followed by a 3-character ISO 639-2 language code to the tag name.
+
+                    //some stupid Ricoh programmer used the '@' symbol instead of the copyright symbol in these tag ID's for the Ricoh Theta Z1 and maybe other models
+
+                    //For now we don't support those, we will strip the copyright and locale info
+                    key = key.Substring(1);
+                    key = key.Split('-')[0];
+                }
+
+                switch (key)
+                {
+                    case "xyz":
                         var stringSize = a.Reader.GetUInt16();
                         a.Reader.Skip(2); // uint16 language code
                         var stringBytes = a.Reader.GetBytes(stringSize);
