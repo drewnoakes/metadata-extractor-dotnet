@@ -2,6 +2,7 @@
 
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Exif.Makernotes;
+using MetadataExtractor.Formats.Iso14496;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Xmp;
 
@@ -19,6 +20,7 @@ namespace MetadataExtractor.Formats.QuickTime
         {
             var directories = new List<Directory>();
             var metaDataKeys = new List<string>();
+            var metaDataHandlerType = string.Empty;
             QuickTimeMetadataHeaderDirectory? metaHeaderDirectory = null;
 
             QuickTimeReader.ProcessAtoms(stream, Handler);
@@ -134,6 +136,12 @@ namespace MetadataExtractor.Formats.QuickTime
                             QuickTimeMetadataHeaderDirectory.TagGpsLocation,
                             new StringValue(stringBytes, Encoding.UTF8));
                         break;
+                    case "meta":
+                    {
+                        a.Reader.Skip(4);
+                        QuickTimeReader.ProcessAtoms(stream, MetaDataHandler, a.BytesLeft);
+                        break;
+                    }
                 }
             }
 
@@ -142,8 +150,22 @@ namespace MetadataExtractor.Formats.QuickTime
                 // see https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/Metadata/Metadata.html
                 switch (a.TypeString)
                 {
+                    case "hdlr":
+                        //QuickTime Handler Tags
+                        a.Reader.Skip(8);
+
+                        var handlerType = a.Reader.GetUInt32();
+                        metaDataHandlerType = TypeStringConverter.ToTypeString(handlerType);
+
+                        //metaDataHandlerType:
+                        //mdir => Metadata Item List Tags
+                        //mdta => Metadata Keys Tags
+
+                        break;
                     case "keys":
                     {
+                        //This directory contains a list of key names which are used to decode tags written by the "mdta" handler.
+
                         a.Reader.Skip(4); // 1 byte version, 3 bytes flags
                         var entryCount = a.Reader.GetUInt32();
                         for (int i = 1; i <= entryCount; i++)
@@ -158,78 +180,107 @@ namespace MetadataExtractor.Formats.QuickTime
                     }
                     case "ilst":
                     {
-                        // Iterate over the list of Metadata Item Atoms.
-                        for (int i = 0; i < metaDataKeys.Count; i++)
+                        //ilst is both used by both mdir (ItemList Tags) and mdta (Keys Tags) handlers
+
+                        if (metaDataHandlerType == "mdir")
                         {
-                            long atomSize = a.Reader.GetUInt32();
-                            if (atomSize < 24)
-                            {
-                                GetMetaHeaderDirectory().AddError("Invalid ilst atom type");
-                                a.Reader.Skip(atomSize - 4);
-                                continue;
-                            }
-                            var atomType = a.Reader.GetUInt32();
-
-                            // Indexes into the metadata item keys atom are 1-based (1…entry_count).
-                            // atom type for each metadata item atom is the index of the key
-                            if (atomType < 1 || atomType > metaDataKeys.Count)
-                            {
-                                GetMetaHeaderDirectory().AddError("Invalid ilst atom type");
-                                a.Reader.Skip(atomSize - 8);
-                                continue;
-                            }
-                            var key = metaDataKeys[(int)atomType - 1];
-
-                            // Value Atom
-                            a.Reader.Skip(8); // uint32 type indicator, uint32 locale indicator
-
-                            // Data Atom
-                            var dataTypeIndicator = a.Reader.GetUInt32();
-                            if (!_supportedAtomValueTypes.Contains((int)dataTypeIndicator))
-                            {
-                                GetMetaHeaderDirectory().AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
-                                a.Reader.Skip(atomSize - 20);
-                                continue;
-                            }
-
-                            // locale not supported yet.
-                            a.Reader.Skip(4);
-
-                            var data = a.Reader.GetBytes((int)atomSize - 24);
-                            if (QuickTimeMetadataHeaderDirectory.TryGetTag(key, out int tag))
-                            {
-                                object value = dataTypeIndicator switch
-                                {
-                                    // UTF-8
-                                    1 => new StringValue(data, Encoding.UTF8),
-
-                                    // BE Float32 (used for User Rating)
-                                    23 => BitConverter.ToSingle(BitConverter.IsLittleEndian ? data.Reverse().ToArray() : data, 0),
-
-                                    // 13 JPEG
-                                    // 14 PNG
-                                    // 27 BMP
-                                    _ => data
-                                };
-
-                                value = tag switch
-                                {
-                                    QuickTimeMetadataHeaderDirectory.TagCreationDate => DateTime.Parse(((StringValue)value).ToString()),
-                                    QuickTimeMetadataHeaderDirectory.TagLocationDate => DateTime.Parse(((StringValue)value).ToString()),
-                                    _ => value,
-                                };
-
-                                GetMetaHeaderDirectory().Set(tag, value);
-                            }
-                            else
-                            {
-                                GetMetaHeaderDirectory().AddError($"Unsupported ilst key \"{key}\"");
-                            }
+                            //ItemList Tags
+                            QuickTimeReader.ProcessAtoms(stream, MetaDataItemListTagsHandler, a.BytesLeft);
+                        }
+                        else if (metaDataHandlerType == "mdta")
+                        {
+                            // Iterate over the list of Metadata Item Atoms.
+                            QuickTimeReader.ProcessAtoms(stream, MetaDataKeysTagsHandler, a.BytesLeft);
                         }
 
                         break;
                     }
                 }
+            }
+
+            void MetaDataTagHandler(AtomCallbackArgs a, string key)
+            {
+                // Value Atom
+                a.Reader.Skip(8); // uint32 type indicator, uint32 locale indicator
+
+                // Data Atom
+                var dataTypeIndicator = a.Reader.GetUInt32();
+                if (!_supportedAtomValueTypes.Contains((int)dataTypeIndicator))
+                {
+                    GetMetaHeaderDirectory().AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
+                    return;
+                }
+
+                // locale not supported yet.
+                a.Reader.Skip(4);
+
+                var data = a.Reader.GetBytes((int)a.Size - 24);
+                if (QuickTimeMetadataHeaderDirectory.TryGetTag(key, out int tag))
+                {
+                    object value = dataTypeIndicator switch
+                    {
+                        // UTF-8
+                        1 => new StringValue(data, Encoding.UTF8),
+
+                        // BE Float32 (used for User Rating)
+                        23 => BitConverter.ToSingle(BitConverter.IsLittleEndian ? data.Reverse().ToArray() : data, 0),
+
+                        // 13 JPEG
+                        // 14 PNG
+                        // 27 BMP
+                        _ => data
+                    };
+
+                    value = tag switch
+                    {
+                        QuickTimeMetadataHeaderDirectory.TagCreationDate => DateTime.Parse(((StringValue)value).ToString()),
+                        QuickTimeMetadataHeaderDirectory.TagLocationDate => DateTime.Parse(((StringValue)value).ToString()),
+                        _ => value,
+                    };
+
+                    GetMetaHeaderDirectory().Set(tag, value);
+                }
+                else
+                {
+                    GetMetaHeaderDirectory().AddError($"Unsupported ilst key \"{key}\"");
+                }
+            }
+
+            void MetaDataKeysTagsHandler(AtomCallbackArgs a)
+            {
+                // Indexes into the metadata item keys atom are 1-based (1…entry_count).
+                // atom type for each metadata item atom is the index of the key
+                if (a.Type < 1 || a.Type > metaDataKeys.Count)
+                {
+                    GetMetaHeaderDirectory().AddError("Invalid ilst atom type");
+                    return;
+                }
+
+                var key = metaDataKeys[(int)a.Type - 1];
+
+                MetaDataTagHandler(a, key);
+            }
+
+            void MetaDataItemListTagsHandler(AtomCallbackArgs a)
+            {
+                var key = a.TypeString;
+                if (key.Length < 1)
+                {
+                    return;
+                }
+                if (key[0] == 0xa9 || key[0] == 0x40)
+                {
+                    //Tag ID's beginning with the copyright symbol (hex 0xa9) are multi-language text
+                    //Alternate language tags are accessed by adding a dash followed by a 3-character ISO 639-2 language code to the tag name.
+
+                    //some stupid Ricoh programmer used the '@' symbol instead of the copyright symbol in these tag ID's for the Ricoh Theta Z1 and maybe other models
+
+                    //For now we don't support those, we will strip the copyright and locale info
+                    key = key.Substring(1);
+                    key = key.Split('-')[0];
+                }
+
+                MetaDataTagHandler(a, key);
             }
 
             void MoovHandler(AtomCallbackArgs a)
