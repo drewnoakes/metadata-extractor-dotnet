@@ -198,7 +198,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 }
             }
 
-            void MetaDataTagHandler(AtomCallbackArgs a, string key)
+            void MetaDataTagHandler(AtomCallbackArgs a, string key, bool keyShouldBeValid = false)
             {
                 // Value Atom
                 a.Reader.Skip(8); // uint32 type indicator, uint32 locale indicator
@@ -207,7 +207,10 @@ namespace MetadataExtractor.Formats.QuickTime
                 var dataTypeIndicator = a.Reader.GetUInt32();
                 if (!_supportedAtomValueTypes.Contains((int)dataTypeIndicator))
                 {
-                    GetMetaHeaderDirectory().AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
+                    if (keyShouldBeValid)
+                    {
+                        GetMetaHeaderDirectory().AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
+                    }
                     return;
                 }
 
@@ -242,7 +245,10 @@ namespace MetadataExtractor.Formats.QuickTime
                 }
                 else
                 {
-                    GetMetaHeaderDirectory().AddError($"Unsupported ilst key \"{key}\"");
+                    if (keyShouldBeValid)
+                    {
+                        GetMetaHeaderDirectory().AddError($"Unsupported ilst key \"{key}\"");
+                    }
                 }
             }
 
@@ -258,7 +264,7 @@ namespace MetadataExtractor.Formats.QuickTime
 
                 var key = metaDataKeys[(int)a.Type - 1];
 
-                MetaDataTagHandler(a, key);
+                MetaDataTagHandler(a, key, true);
             }
 
             void MetaDataItemListTagsHandler(AtomCallbackArgs a)
