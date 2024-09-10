@@ -65,13 +65,6 @@ namespace MetadataExtractor.Formats.QuickTime
 
         public int ByteCount => 16;
 
-        public Util.FileType CheckTypeOld(byte[] bytes)
-        {
-            return bytes.AsSpan(4, 4).SequenceEqual(FtypBytes)
-                ? _ftypTrie.Find(bytes.AsSpan(8, 4))
-                : Util.FileType.Unknown;
-        }
-
         public Util.FileType CheckType(byte[] bytes)
         {
             // for standard apple quicktime format
