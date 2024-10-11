@@ -63,13 +63,33 @@ namespace MetadataExtractor.Formats.QuickTime
 
         private static ReadOnlySpan<byte> FtypBytes => "ftyp"u8;
 
-        public int ByteCount => 12;
+        public int ByteCount => 16;
 
         public Util.FileType CheckType(byte[] bytes)
         {
-            return bytes.AsSpan(4, 4).SequenceEqual(FtypBytes)
-                ? _ftypTrie.Find(bytes.AsSpan(8, 4))
-                : Util.FileType.Unknown;
+            // for standard apple quicktime format
+            // 00000000: 0000 0014 6674 7970 7174 2020 0000 0000  ....ftypqt  ....
+            // 00000010: 7174 2020 0000 0008 7769 6465 003e f32a  qt  ....wide.>.*
+            // 00000020: 6d64 6174 cefe f2fe 09ff 09ff 0dff 31ff  mdat..........1.
+            if (bytes.AsSpan(4, 4).SequenceEqual(FtypBytes))
+            {
+                return _ftypTrie.Find(bytes.AsSpan(8, 4));
+            }
+
+            // for live photo which is export from  native protocols with afcclient/afcservice
+            // example 1
+            // 00000000: 0000 0008 7769 6465 0033 a50e 6d64 6174  ....wide.3..mdat
+            // 00000010: 0000 001f 4e01 051a 4756 4adc 5c4c 433f  ....N...GVJ.\LC?
+            // 00000020: 94ef c511 3cd1 43a8 03ee 1111 ee02 00c3  ....<.C.........
+            // example 2
+            // 00000000: 0000 0008 7769 6465 004f 854d 6d64 6174  ....wide.O.Mmdat
+            // 00000010: 0000 002a 4e01 0523 4756 4adc 5c4c 433f  ...*N..#GVJ.\LC?
+            // 00000020: 94ef c511 3cd1 43a8 0000 0300 0003 0000  ....<.C.........
+            if (bytes.AsSpan(4, 4).SequenceEqual("wide"u8) && bytes.AsSpan(12, 4).SequenceEqual("mdat"u8))
+            {
+                return Util.FileType.QuickTime;
+            }
+            return Util.FileType.Unknown;
         }
     }
 }
