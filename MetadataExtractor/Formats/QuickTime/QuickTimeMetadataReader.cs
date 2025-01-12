@@ -134,6 +134,11 @@ namespace MetadataExtractor.Formats.QuickTime
                             QuickTimeMetadataHeaderDirectory.TagGpsLocation,
                             new StringValue(stringBytes, Encoding.UTF8));
                         break;
+                    case "XMP_":
+                        var xmpBytes = a.Reader.GetNullTerminatedBytes((int)a.BytesLeft);
+                        var xmpDirectory = new XmpReader().Extract(xmpBytes);
+                        directories.Add(xmpDirectory);
+                        break;
                 }
             }
 
