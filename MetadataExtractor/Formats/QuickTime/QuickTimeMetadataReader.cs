@@ -122,9 +122,9 @@ namespace MetadataExtractor.Formats.QuickTime
 
             void UserDataHandler(AtomCallbackArgs a)
             {
-                switch (a.TypeString)
+                switch (a.Type)
                 {
-                    case "?xyz":
+                    case 0xa978797a:
                         var stringSize = a.Reader.GetUInt16();
                         a.Reader.Skip(2); // uint16 language code
                         var stringBytes = a.Reader.GetBytes(stringSize);
