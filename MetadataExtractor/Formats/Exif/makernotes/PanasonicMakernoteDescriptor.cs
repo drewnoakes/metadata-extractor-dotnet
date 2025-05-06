@@ -425,7 +425,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagUptime, out int value))
                 return null;
-            return $"{(value / 100f):0.0##}" + " s";
+            return $"{value / 100f:0.0##}" + " s";
         }
 
         public string? GetBurstModeDescription()
@@ -561,7 +561,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 case 0:
                 {
-                    return (value[1]) switch
+                    return value[1] switch
                     {
                         1 => "Spot Mode On",
                         16 => "Spot Mode Off",
@@ -570,7 +570,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 }
                 case 1:
                 {
-                    return (value[1]) switch
+                    return value[1] switch
                     {
                         0 => "Spot Focusing",
                         1 => "5-area",
@@ -579,7 +579,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 }
                 case 16:
                 {
-                    return (value[1]) switch
+                    return value[1] switch
                     {
                         0 => "1-area",
                         16 => "1-area (high speed)",
@@ -588,7 +588,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 }
                 case 32:
                 {
-                    return (value[1]) switch
+                    return value[1] switch
                     {
                         0 => "Auto or Face Detect",
                         1 => "3-area (left)",

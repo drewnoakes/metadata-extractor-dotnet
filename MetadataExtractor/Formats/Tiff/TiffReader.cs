@@ -166,7 +166,7 @@ namespace MetadataExtractor.Formats.Tiff
                 //
                 // Per tag: 12 bytes / BigTIFF 20 bytes (see above docs for breakdown).
                 // Finally, a pointer to a "follower" IFD (optional)
-                var tagTableLength = (tagCount * entryLength);
+                var tagTableLength = tagCount * entryLength;
 
                 if (tagTableOffset + tagTableLength > checked((int)context.Reader.Length))
                 {

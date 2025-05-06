@@ -210,7 +210,7 @@ namespace MetadataExtractor.Formats.Exif
             if (value is null)
                 return null;
 
-            return (value.Trim()) switch
+            return value.Trim() switch
             {
                 "2" => "2-dimensional measurement",
                 "3" => "3-dimensional measurement",
