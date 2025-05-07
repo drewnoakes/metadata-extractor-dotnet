@@ -110,6 +110,8 @@ namespace MetadataExtractor.Util
 
         /// <summary>SRW (Samsung) Image File Format.</summary>
         Srw = 34,
+
+        Pdf = 35
     }
 
     public static class FileTypeExtensions
@@ -151,6 +153,7 @@ namespace MetadataExtractor.Util
             "3FR",
             "PEF",
             "SRW",
+            "PDF"
         ];
 
         private static readonly string[] _longNames =
@@ -190,6 +193,7 @@ namespace MetadataExtractor.Util
             "Hasselblad Raw",
             "Pentax Raw",
             "Samsung Raw",
+            "Portable Document Format"
         ];
 
         private static readonly string?[] _mimeTypes =
@@ -229,6 +233,7 @@ namespace MetadataExtractor.Util
             "image/x-hasselblad-3fr",
             "image/x-pentax-pef",
             "image/x-samsung-srw",
+            "application/pdf"
         ];
 
         private static readonly string[]?[] _extensions =
@@ -268,6 +273,7 @@ namespace MetadataExtractor.Util
             ["3fr"],
             ["pef"],
             ["srw"],
+            ["pdf"]
         ];
 
         public static string GetName(this FileType fileType)

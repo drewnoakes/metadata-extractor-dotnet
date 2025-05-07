@@ -45,6 +45,7 @@ namespace MetadataExtractor.Util
             { FileType.Pcx, [0x0A, 0x02, 0x01] },
             { FileType.Pcx, [0x0A, 0x03, 0x01] },
             { FileType.Pcx, [0x0A, 0x05, 0x01] },
+            { FileType.Pdf, "%PDF"u8 },
             { FileType.Eps, "%!PS"u8 },
             { FileType.Eps, [0xC5, 0xD0, 0xD3, 0xC6] },
             // NOTE several file types match this, which we handle in TryDisambiguate: DNG, GPR (GoPro), KDC (Kodak), 3FR (Hasselblad)
