@@ -98,6 +98,9 @@ namespace MetadataExtractor
 #endif
         }
 
+        public static bool operator ==(GeoLocation left, GeoLocation right) => left.Equals(right);
+        public static bool operator !=(GeoLocation left, GeoLocation right) => !(left == right);
+
         #endregion
 
         #region ToString

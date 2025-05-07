@@ -157,6 +157,8 @@ static MetadataExtractor.Formats.Apple.BplistReader.Parse(System.ReadOnlySpan<by
 static MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Parse(byte[]! bytes) -> MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory!
 static MetadataExtractor.Formats.Png.PngChunkType.operator !=(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool
 static MetadataExtractor.Formats.Png.PngChunkType.operator ==(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool
+static MetadataExtractor.GeoLocation.operator !=(MetadataExtractor.GeoLocation left, MetadataExtractor.GeoLocation right) -> bool
+static MetadataExtractor.GeoLocation.operator ==(MetadataExtractor.GeoLocation left, MetadataExtractor.GeoLocation right) -> bool
 static readonly MetadataExtractor.Formats.Png.PngChunkType.bKGD -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngChunkType.cHRM -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType

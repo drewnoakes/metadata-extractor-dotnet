@@ -155,6 +155,8 @@ static MetadataExtractor.Formats.Photoshop.DuckyReader.JpegSegmentPreamble.get -
 static MetadataExtractor.Formats.Photoshop.PhotoshopReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 static MetadataExtractor.Formats.Png.PngChunkType.operator !=(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool
 static MetadataExtractor.Formats.Png.PngChunkType.operator ==(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool
+static MetadataExtractor.GeoLocation.operator !=(MetadataExtractor.GeoLocation left, MetadataExtractor.GeoLocation right) -> bool
+static MetadataExtractor.GeoLocation.operator ==(MetadataExtractor.GeoLocation left, MetadataExtractor.GeoLocation right) -> bool
 static readonly MetadataExtractor.Formats.Png.PngChunkType.bKGD -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngChunkType.cHRM -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType
