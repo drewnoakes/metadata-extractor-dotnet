@@ -264,7 +264,9 @@ namespace MetadataExtractor.Formats.Png
                 {
                     if (compressionMethod == 0)
                     {
-                        if (!TryDeflate(bytes, bytesLeft, out textBytes, out string? errorMessage))
+                        reader.Skip(2); // Skip over the zlib header bytes (78 9C)
+                        bytesLeft -= 2;
+                        if (!TryDeflate(reader.GetBytes(bytesLeft), bytesLeft, out textBytes, out string? errorMessage))
                         {
                             var directory = new PngDirectory(PngChunkType.iTXt);
                             directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {errorMessage}");
