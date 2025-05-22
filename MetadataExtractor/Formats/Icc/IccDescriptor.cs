@@ -72,10 +72,10 @@ namespace MetadataExtractor.Formats.Icc
                     {
                         var stringLength = reader.GetInt32(8);
 
-                        if (stringLength < 0 || stringLength > bytes.Length)
+                        if (stringLength < 0 || stringLength > bytes.Length - 12)
                             return null;
 
-                        return Encoding.UTF8.GetString(bytes, 12, stringLength - 1);
+                        return Encoding.UTF8.GetString(bytes, index: 12, count: stringLength - 1);
                     }
 
                     case IccTagType.Sig:
