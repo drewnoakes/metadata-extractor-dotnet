@@ -56,7 +56,7 @@ namespace MetadataExtractor
         {
             try
             {
-#if NETSTANDARD2_0 || NETFRAMEWORK
+#if NETSTANDARD2_0
                 return int.Parse(ToString());
 #else
                 if (Bytes.Length < 100)
@@ -95,7 +95,7 @@ namespace MetadataExtractor
         {
             try
             {
-#if NETSTANDARD2_0 || NETFRAMEWORK
+#if NETSTANDARD2_0
                 return uint.Parse(ToString());
 #else
                 if (Bytes.Length < 100)

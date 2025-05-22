@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-#if NETSTANDARD2_0 || NETFRAMEWORK
+#if NETSTANDARD2_0
 
 internal static class EncodingExtensions
 {
