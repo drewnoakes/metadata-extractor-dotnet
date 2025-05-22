@@ -419,7 +419,7 @@ namespace MetadataExtractor.Formats.Tiff
                     else
                     {
                         var array = new sbyte[componentCount];
-                        var bytes = MemoryMarshal.Cast<sbyte, byte>(array);
+                        var bytes = MemoryMarshal.Cast<sbyte, byte>(array.AsSpan());
                         reader.GetBytes(valueOffset, bytes);
                         handler.SetInt8SArray(tagId, array);
                     }
