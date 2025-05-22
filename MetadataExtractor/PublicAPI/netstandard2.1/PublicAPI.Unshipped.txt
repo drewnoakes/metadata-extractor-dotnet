@@ -117,6 +117,7 @@ MetadataExtractor.Util.FileType.Avif = 28 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Dng = 29 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.GoPro = 30 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Kdc = 31 -> MetadataExtractor.Util.FileType
+MetadataExtractor.Util.FileType.Pdf = 35 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.ThreeFR = 32 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Pef = 33 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Srw = 34 -> MetadataExtractor.Util.FileType
