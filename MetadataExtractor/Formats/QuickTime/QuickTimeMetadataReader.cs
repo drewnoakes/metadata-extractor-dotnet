@@ -204,7 +204,7 @@ namespace MetadataExtractor.Formats.QuickTime
                                     1 => new StringValue(data, Encoding.UTF8),
 
                                     // BE Float32 (used for User Rating)
-                                    23 => BitConverter.ToSingle(BitConverter.IsLittleEndian ? data.Reverse().ToArray() : data, 0),
+                                    23 => BitConverter.ToSingle(BitConverter.IsLittleEndian ? Reversed(data) : data, 0),
 
                                     // 13 JPEG
                                     // 14 PNG
@@ -220,6 +220,12 @@ namespace MetadataExtractor.Formats.QuickTime
                                 };
 
                                 GetMetaHeaderDirectory().Set(tag, value);
+
+                                static byte[] Reversed(byte[] data)
+                                {
+                                    Array.Reverse(data);
+                                    return data;
+                                }
                             }
                             else
                             {
