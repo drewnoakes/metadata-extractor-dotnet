@@ -1,9 +1,8 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using MetadataExtractor.Formats.Adobe;
 using MetadataExtractor.Formats.Jpeg;
 
-namespace MetadataExtractor.Tests.Formats.Adobe
+namespace MetadataExtractor.Formats.Adobe
 {
     /// <summary>Unit tests for <see cref="AdobeJpegReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

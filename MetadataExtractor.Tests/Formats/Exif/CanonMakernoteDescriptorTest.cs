@@ -2,7 +2,7 @@
 
 using MetadataExtractor.Formats.Exif.Makernotes;
 
-namespace MetadataExtractor.Tests.Formats.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Unit tests for <see cref="CanonMakernoteDescriptor"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
