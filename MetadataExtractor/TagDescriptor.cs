@@ -289,15 +289,6 @@ namespace MetadataExtractor
 
         protected string? GetShutterSpeedDescription(int tagId)
         {
-            // I believe this method to now be stable, but am leaving some alternative snippets of
-            // code in here, to assist anyone who's looking into this (given that I don't have a public CVS).
-            //        float apexValue = _directory.getFloat(ExifSubIFDDirectory.TAG_SHUTTER_SPEED);
-            //        int apexPower = (int)Math.pow(2.0, apexValue);
-            //        return "1/" + apexPower + " sec";
-            // TODO test this method
-            // thanks to Mark Edwards for spotting and patching a bug in the calculation of this
-            // description (spotted bug using a Canon EOS 300D)
-            // thanks also to Gli Blr for spotting this bug
             if (!Directory.TryGetSingle(tagId, out float apexValue))
                 return null;
 
@@ -310,7 +301,7 @@ namespace MetadataExtractor
             }
             else
             {
-                var apexPower = (int)Math.Exp(apexValue * Math.Log(2));
+                var apexPower = (int)Math.Round(Math.Exp(apexValue * Math.Log(2)));
                 return "1/" + apexPower + " sec";
             }
         }
