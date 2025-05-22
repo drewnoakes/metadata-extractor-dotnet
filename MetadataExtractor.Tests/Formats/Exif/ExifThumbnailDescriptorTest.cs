@@ -1,8 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using MetadataExtractor.Formats.Exif;
-
-namespace MetadataExtractor.Tests.Formats.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Unit tests for <see cref="ExifThumbnailDescriptor"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

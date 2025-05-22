@@ -1,8 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using MetadataExtractor.Formats.Bmp;
-
-namespace MetadataExtractor.Tests.Formats.Bmp
+namespace MetadataExtractor.Formats.Bmp
 {
     /// <summary>Unit tests for <see cref="BmpReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
