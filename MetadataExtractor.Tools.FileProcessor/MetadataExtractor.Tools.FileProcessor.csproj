@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net48</TargetFrameworks>
+    <TargetFrameworks>$(ModernDotNetTargetFrameworkAlias);net48</TargetFrameworks>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
+  <PropertyGroup Condition="'$(TargetFramework)' == '$(ModernDotNetTargetFrameworkAlias)'">
     <PublishTrimmed>true</PublishTrimmed>
     <PublishAot>true</PublishAot>
     <InvariantGlobalization>true</InvariantGlobalization>

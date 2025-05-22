@@ -1,12 +1,15 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Drawing;
-using System.Text.RegularExpressions;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
+
+#if !NET
+using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
+#endif
 
 namespace MetadataExtractor.Benchmarks
 {
@@ -108,6 +111,7 @@ namespace MetadataExtractor.Benchmarks
             return subIfdDirectory.GetDateTime(ExifDirectoryBase.TagDateTimeOriginal);
         }
 
+#if !NET
         private readonly Regex _dateTimeRegex = new Regex(":");
 
         [Benchmark]
@@ -145,5 +149,6 @@ namespace MetadataExtractor.Benchmarks
             var dateTakenStr = (string)metadata.GetQuery("/app1/ifd/exif/subifd:{uint=36867}");
             return DateTime.Parse(_dateTimeRegex.Replace(dateTakenStr, "-", count: 2));
         }
+#endif
     }
 }

@@ -147,14 +147,14 @@ This library targets:
 
 - .NET 8.0 (`net8.0`)
 - .NET Framework 4.6.2 (`net462`)
-- .NET Standard 1.3 (`netstandard1.3`)
+- .NET Standard 2.0 (`netstandard2.0`)
 - .NET Standard 2.1 (`netstandard2.1`)
 
 All target frameworks are provided via the [one NuGet package](https://www.nuget.org/packages/MetadataExtractor).
 
 `net8.0` implements .NET 8, including support for NativeAOT.
 
-`netstandard1.3` implements version 1.3 of the [.NET Standard](https://docs.microsoft.com/en-us/dotnet/articles/standard/library) which covers .NET Core, Mono, Xamarin platforms, UWP, and future platforms. 
+`netstandard2.0` implements version 2.0 of the [.NET Standard](https://docs.microsoft.com/en-us/dotnet/articles/standard/library) which covers .NET Framework and .NET Core.
 
 `netstandard2.1` implements version 2.1 of the .NET Standard, which uses newer APIs where possible.
 
@@ -163,6 +163,8 @@ All target frameworks are provided via the [one NuGet package](https://www.nuget
 A PCL build was supported until [version 1.5.3](https://www.nuget.org/packages/MetadataExtractor/1.5.3) which supported Silverlight 5.0, Windows 8.0, Windows Phone 8.1 and Windows Phone Silverlight 8.0. PCL versions did not support file-system metadata due to restricted IO APIs.
 
 A `net3.5` build was supported until [version 2.8.1](https://www.nuget.org/packages/MetadataExtractor/2.8.1). Support for this framework was dropped in early 2024 to enable use of newer, more efficient, .NET APIs.
+
+A `netstandard1.3` build was supported until [version 2.8.1](https://www.nuget.org/packages/MetadataExtractor/2.8.1). Support for this framework was dropped in mid 2025 in response to Microsoft advisory [NETSDK1215](https://aka.ms/dotnet/dotnet-standard-guidance) (since .NET SDK 9).
 
 ## Building
 

@@ -7,11 +7,7 @@ namespace MetadataExtractor.Formats.QuickTime
     /// </summary>
     public static class QuickTimeReaderExtensions
     {
-#if NET462 || NETSTANDARD1_3
-        public static unsafe string Get4ccString(this SequentialReader reader)
-#else
         public static string Get4ccString(this SequentialReader reader)
-#endif
         {
             // https://en.wikipedia.org/wiki/FourCC
 
@@ -28,14 +24,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 (char)bytes[3]
             ];
 
-#if NET462 || NETSTANDARD1_3
-            fixed (char* pChars = chars)
-            {
-                return new string(pChars, startIndex: 0, length: 4);
-            }
-#else
-            return new string(chars);
-#endif
+            return chars.ToString();
         }
 
         public static decimal Get16BitFixedPoint(this SequentialReader reader)

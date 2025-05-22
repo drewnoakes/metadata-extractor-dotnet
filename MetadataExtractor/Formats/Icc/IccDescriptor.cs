@@ -56,15 +56,15 @@ namespace MetadataExtractor.Formats.Icc
                 {
                     case IccTagType.Text:
                     {
-#if !NETSTANDARD1_3
+                        Span<byte> textBytes = bytes.AsSpan(start: 8, length: bytes.Length - 8 - 1);
+
                         try
                         {
-                            return Encoding.ASCII.GetString(bytes, 8, bytes.Length - 8 - 1);
+                            return Encoding.ASCII.GetString(textBytes);
                         }
                         catch
-#endif
                         {
-                            return Encoding.UTF8.GetString(bytes, 8, bytes.Length - 8 - 1);
+                            return Encoding.UTF8.GetString(textBytes);
                         }
                     }
 

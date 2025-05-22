@@ -21,6 +21,8 @@
 
     <!-- https://aka.ms/vs-build-acceleration -->
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+
+    <ModernDotNetTargetFrameworkAlias>net8.0</ModernDotNetTargetFrameworkAlias>
   </PropertyGroup>
 
   <ItemGroup>

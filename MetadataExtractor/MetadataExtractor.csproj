@@ -8,7 +8,7 @@ MOV and related QuickTime video formats such as MP4, M4V, 3G2, 3GP are supported
 
 Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, Fujifilm, Kodak, Kyocera, Leica, Minolta, Nikon, Olympus, Panasonic, Pentax, Reconyx, Sanyo, Sigma/Foveon and Sony models.</Description>
     <AssemblyTitle>Metadata Extractor</AssemblyTitle>
-    <TargetFrameworks>net8.0;netstandard1.3;netstandard2.1;net462</TargetFrameworks>
+    <TargetFrameworks>$(ModernDotNetTargetFrameworkAlias);netstandard2.0;netstandard2.1;net462</TargetFrameworks>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>Metadata;Exif;IPTC;XMP;ICC;Photoshop;WebP;PNG;BMP;ICO;PCX;JPEG;TIFF;PSD;Photography;QuickTime;MOV;MP4;M4V;Video;MP3;WAV;Imaging;Video;Audio</PackageTags>
@@ -17,12 +17,12 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 
-    <AllowUnsafeBlocks Condition=" '$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'netstandard1.3' ">true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks Condition=" '$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'netstandard2.0' ">true</AllowUnsafeBlocks>
 
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == '$(ModernDotNetTargetFrameworkAlias)' ">
     <IsAotCompatible>true</IsAotCompatible>
     <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
@@ -44,12 +44,12 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
     <PackageReference Include="XmpCore" Version="6.1.10.1" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'netstandard1.3' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="System.Memory" Version="4.6.3" />
     <PackageReference Include="System.ValueTuple" Version="4.6.1" />
   </ItemGroup>
   
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' OR '$(TargetFramework)' == 'netstandard2.1' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netstandard2.1' ">
     <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.5" />
   </ItemGroup>
 

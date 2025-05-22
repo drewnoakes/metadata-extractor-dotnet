@@ -538,11 +538,7 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(new OlympusMakernoteDirectory());
                 TiffReader.ProcessIfd(this, context, ifdOffset: makernoteOffset);
             }
-#if NETSTANDARD1_3 || NET462
-            else if (cameraMake is not null && cameraMake.TrimStart().StartsWith("NIKON", StringComparison.OrdinalIgnoreCase))
-#else
             else if (cameraMake is not null && cameraMake.AsSpan().TrimStart().StartsWith("NIKON", StringComparison.OrdinalIgnoreCase))
-#endif
             {
                 if (headerBytes.StartsWith("Nikon"u8))
                 {
