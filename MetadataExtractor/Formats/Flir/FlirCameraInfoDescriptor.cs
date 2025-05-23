@@ -35,8 +35,8 @@ namespace MetadataExtractor.Formats.Flir
             string RelativeHumidity()
             {
                 float f = Directory.GetSingle(tagType);
-                float val = (f > 2 ? f / 100 : f);
-                return $"{(val * 100):N1} %";
+                float val = f > 2 ? f / 100 : f;
+                return $"{val * 100:N1} %";
             }
         }
     }

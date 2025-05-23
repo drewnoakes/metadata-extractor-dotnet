@@ -4,30 +4,23 @@ using MetadataExtractor.Formats.Exif;
 
 namespace MetadataExtractor
 {
-    /// <summary>Represents a latitude and longitude pair, giving a position on earth in spherical coordinates.</summary>
+    /// <summary>
+    /// Represents a latitude and longitude pair, giving a position on earth in spherical coordinates.
+    /// </summary>
     /// <remarks>
     /// Values of latitude and longitude are given in degrees.
     /// <para />
     /// This type is immutable.
     /// </remarks>
-    public readonly struct GeoLocation : IEquatable<GeoLocation>
+    /// <param name="latitude">the latitude, in degrees</param>
+    /// <param name="longitude">the longitude, in degrees</param>
+    public readonly struct GeoLocation(double latitude, double longitude) : IEquatable<GeoLocation>
     {
-        /// <summary>
-        /// Initialises an instance of <see cref="GeoLocation"/>.
-        /// </summary>
-        /// <param name="latitude">the latitude, in degrees</param>
-        /// <param name="longitude">the longitude, in degrees</param>
-        public GeoLocation(double latitude, double longitude)
-        {
-            Latitude = latitude;
-            Longitude = longitude;
-        }
-
         /// <value>the latitudinal angle of this location, in degrees.</value>
-        public double Latitude { get; }
+        public double Latitude { get; } = latitude;
 
         /// <value>the longitudinal angle of this location, in degrees.</value>
-        public double Longitude { get; }
+        public double Longitude { get; } = longitude;
 
         /// <value>true, if both latitude and longitude are equal to zero</value>
         public bool IsZero => Latitude == 0 && Longitude == 0;
@@ -97,6 +90,9 @@ namespace MetadataExtractor
             return unchecked((Latitude.GetHashCode() * 397) ^ Longitude.GetHashCode());
 #endif
         }
+
+        public static bool operator ==(GeoLocation left, GeoLocation right) => left.Equals(right);
+        public static bool operator !=(GeoLocation left, GeoLocation right) => !(left == right);
 
         #endregion
 

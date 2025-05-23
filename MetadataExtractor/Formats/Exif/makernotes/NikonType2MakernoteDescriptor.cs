@@ -137,7 +137,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values.Length != 4 || values[0] != 0 || values[2] != 0 || values[3] != 0)
                 return "Unknown (" + Directory.GetString(NikonType2MakernoteDirectory.TagAfFocusPosition) + ")";
 
-            return (values[1]) switch
+            return values[1] switch
             {
                 0 => "Centre",
                 1 => "Top",

@@ -74,12 +74,12 @@ namespace MetadataExtractor.Formats.Avi
 
                         if (fccType == "vids")
                         {
-                            directory.Set(AviDirectory.TagFramesPerSecond, (dwRate / dwScale));
+                            directory.Set(AviDirectory.TagFramesPerSecond, dwRate / dwScale);
 
                             double duration = dwLength / (dwRate / dwScale);
-                            int hours = (int)duration / (int)(Math.Pow(60, 2));
-                            int minutes = ((int)duration / (int)(Math.Pow(60, 1))) - (hours * 60);
-                            int seconds = (int)Math.Round((duration / (Math.Pow(60, 0))) - (minutes * 60));
+                            int hours = (int)duration / (int)Math.Pow(60, 2);
+                            int minutes = ((int)duration / (int)Math.Pow(60, 1)) - (hours * 60);
+                            int seconds = (int)Math.Round((duration / Math.Pow(60, 0)) - (minutes * 60));
                             string time = new DateTime(new TimeSpan(hours, minutes, seconds).Ticks).ToString("HH:mm:ss");
 
                             directory.Set(AviDirectory.TagDuration, time);
@@ -87,7 +87,7 @@ namespace MetadataExtractor.Formats.Avi
                         }
                         else if (fccType == "auds")
                         {
-                            directory.Set(AviDirectory.TagSamplesPerSecond, (dwRate / dwScale));
+                            directory.Set(AviDirectory.TagSamplesPerSecond, dwRate / dwScale);
                         }
                     }
                     catch (IOException e)

@@ -43,7 +43,7 @@ namespace MetadataExtractor.Formats.Jpeg
                     int vCount = 0;
                     foreach (byte b in lBytes)
                     {
-                        vCount += (b & 0xFF);
+                        vCount += b & 0xFF;
                     }
                     byte[] vBytes = GetBytes(reader, vCount);
                     directory.AddTable(new HuffmanTable(tableClass, tableDestinationId, lBytes, vBytes));
