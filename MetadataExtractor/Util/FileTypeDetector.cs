@@ -61,61 +61,6 @@ namespace MetadataExtractor.Util
             { FileType.Rw2, "II"u8.ToArray(), [0x55, 0x00] },
         };
 
-        private static FileType TryDisambiguate(FileType detectedFileType, string fileName)
-        {
-            if (detectedFileType == FileType.Tiff)
-            {
-                var extension = GetExtension();
-
-                if (MemoryExtensions.Equals(extension, ".arw".AsSpan(), StringComparison.OrdinalIgnoreCase))
-                {
-                    return FileType.Arw;
-                }
-                else if (MemoryExtensions.Equals(extension, ".dng".AsSpan(), StringComparison.OrdinalIgnoreCase))
-                {
-                    return FileType.Dng;
-                }
-                else if (MemoryExtensions.Equals(extension, ".gpr".AsSpan(), StringComparison.OrdinalIgnoreCase))
-                {
-                    return FileType.GoPro;
-                }
-                else if (MemoryExtensions.Equals(extension, ".kdc".AsSpan(), StringComparison.OrdinalIgnoreCase))
-                {
-                    return FileType.Kdc;
-                }
-                else if (MemoryExtensions.Equals(extension, ".nef".AsSpan(), StringComparison.OrdinalIgnoreCase))
-                {
-                    return FileType.Nef;
-                }
-                else if (MemoryExtensions.Equals(extension, ".3fr".AsSpan(), StringComparison.OrdinalIgnoreCase))
-                {
-                    return FileType.ThreeFR;
-                }
-                else if (MemoryExtensions.Equals(extension, ".pef".AsSpan(), StringComparison.OrdinalIgnoreCase))
-                {
-                    return FileType.Pef;
-                }
-                else if (MemoryExtensions.Equals(extension, ".srw".AsSpan(), StringComparison.OrdinalIgnoreCase))
-                {
-                    return FileType.Srw;
-                }
-            }
-
-            return detectedFileType;
-
-            ReadOnlySpan<char> GetExtension()
-            {
-                int index = fileName.LastIndexOf('.');
-
-                if (index == -1)
-                {
-                    return [];
-                }
-
-                return fileName.AsSpan(index);
-            }
-        }
-
         private static readonly IReadOnlyList<ITypeChecker> _checkers =
         [
             new QuickTimeTypeChecker(),
@@ -179,6 +124,61 @@ namespace MetadataExtractor.Util
             finally
             {
                 ArrayPool<byte>.Shared.Return(bytes);
+            }
+
+            static FileType TryDisambiguate(FileType detectedFileType, string fileName)
+            {
+                if (detectedFileType == FileType.Tiff)
+                {
+                    var extension = GetExtension();
+
+                    if (MemoryExtensions.Equals(extension, ".arw".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        return FileType.Arw;
+                    }
+                    else if (MemoryExtensions.Equals(extension, ".dng".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        return FileType.Dng;
+                    }
+                    else if (MemoryExtensions.Equals(extension, ".gpr".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        return FileType.GoPro;
+                    }
+                    else if (MemoryExtensions.Equals(extension, ".kdc".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        return FileType.Kdc;
+                    }
+                    else if (MemoryExtensions.Equals(extension, ".nef".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        return FileType.Nef;
+                    }
+                    else if (MemoryExtensions.Equals(extension, ".3fr".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        return FileType.ThreeFR;
+                    }
+                    else if (MemoryExtensions.Equals(extension, ".pef".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        return FileType.Pef;
+                    }
+                    else if (MemoryExtensions.Equals(extension, ".srw".AsSpan(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        return FileType.Srw;
+                    }
+                }
+
+                return detectedFileType;
+
+                ReadOnlySpan<char> GetExtension()
+                {
+                    int index = fileName.LastIndexOf('.');
+
+                    if (index == -1)
+                    {
+                        return [];
+                    }
+
+                    return fileName.AsSpan(index);
+                }
             }
         }
     }
