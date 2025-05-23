@@ -1,6 +1,12 @@
 ﻿#nullable enable
 abstract MetadataExtractor.IO.IndexedReader.GetBytes(int index, System.Span<byte> bytes) -> void
 abstract MetadataExtractor.IO.SequentialReader.GetBytes(System.Span<byte> bytes) -> void
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagAcceleration = 37892 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagCameraElevationAngle = 37893 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagHumidity = 37889 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagPressure = 37890 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagTemperature = 37888 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagWaterDepth = 37891 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAEAverage = 6 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAEMatrix = 2 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAEStable = 4 -> int
@@ -76,6 +82,12 @@ MetadataExtractor.Formats.Apple.BplistReader.BplistReader() -> void
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.Get(byte key) -> object!
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.GetTopObject() -> System.Collections.Generic.Dictionary<byte, byte>?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetAccelerationDescription() -> string?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetCameraElevationAngleDescription() -> string?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetHumidityDescription() -> string?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetPressureDescription() -> string?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetTemperatureDescription() -> string?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetWaterDepthDescription() -> string?
 MetadataExtractor.Formats.Exif.GpsDirectory.TryGetGeoLocation(out MetadataExtractor.GeoLocation geoLocation) -> bool
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAEStableDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAFStableDescription() -> string?

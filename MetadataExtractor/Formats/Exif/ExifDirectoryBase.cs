@@ -437,6 +437,13 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagSubsecondTimeDigitized = 0x9292;
 
+        public const int TagTemperature = 0x9400;
+        public const int TagHumidity = 0x9401;
+        public const int TagPressure = 0x9402;
+        public const int TagWaterDepth = 0x9403;
+        public const int TagAcceleration = 0x9404;
+        public const int TagCameraElevationAngle = 0x9405;
+
         /// <summary>The image title, as used by Windows XP.</summary>
         public const int TagWinTitle = 0x9C9B;
 
@@ -862,6 +869,12 @@ namespace MetadataExtractor.Formats.Exif
             map[TagSubsecondTime] = "Sub-Sec Time";
             map[TagSubsecondTimeOriginal] = "Sub-Sec Time Original";
             map[TagSubsecondTimeDigitized] = "Sub-Sec Time Digitized";
+            map[TagTemperature] = "Temperature";
+            map[TagHumidity] = "Humidity";
+            map[TagPressure] = "Pressure";
+            map[TagWaterDepth] = "Water Depth";
+            map[TagAcceleration] = "Acceleration";
+            map[TagCameraElevationAngle] = "Camera Elevation Angle";
             map[TagWinTitle] = "Windows XP Title";
             map[TagWinComment] = "Windows XP Comment";
             map[TagWinAuthor] = "Windows XP Author";
