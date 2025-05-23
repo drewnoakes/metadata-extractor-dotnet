@@ -21,6 +21,12 @@ namespace MetadataExtractor.Formats.Exif
                 TagInteropVersion                => GetInteropVersionDescription(),
                 TagOrientation                   => GetOrientationDescription(),
                 TagResolutionUnit                => GetResolutionDescription(),
+                TagTemperature                   => GetTemperatureDescription(),
+                TagHumidity                      => GetHumidityDescription(),
+                TagPressure                      => GetPressureDescription(),
+                TagWaterDepth                    => GetWaterDepthDescription(),
+                TagAcceleration                  => GetAccelerationDescription(),
+                TagCameraElevationAngle          => GetCameraElevationAngleDescription(),
                 TagYCbCrPositioning              => GetYCbCrPositioningDescription(),
                 TagXResolution                   => GetXResolutionDescription(),
                 TagYResolution                   => GetYResolutionDescription(),
@@ -162,6 +168,60 @@ namespace MetadataExtractor.Formats.Exif
                 "(No unit)",
                 "Inch",
                 "cm");
+        }
+
+        public string? GetTemperatureDescription()
+        {
+            if (!Directory.TryGetRational(TagTemperature, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.0} °C";
+        }
+
+        public string? GetHumidityDescription()
+        {
+            if (!Directory.TryGetRational(TagHumidity, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.0} %";
+        }
+
+        public string? GetPressureDescription()
+        {
+            if (!Directory.TryGetRational(TagPressure, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.0} hPa";
+        }
+
+        public string? GetWaterDepthDescription()
+        {
+            if (!Directory.TryGetRational(TagWaterDepth, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.0##} metres";
+        }
+
+        public string? GetAccelerationDescription()
+        {
+            if (!Directory.TryGetRational(TagAcceleration, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.0##} mGal";
+        }
+
+        public string? GetCameraElevationAngleDescription()
+        {
+            if (!Directory.TryGetRational(TagCameraElevationAngle, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.##} degrees";
         }
 
         /// <summary>The Windows specific tags uses plain Unicode.</summary>
