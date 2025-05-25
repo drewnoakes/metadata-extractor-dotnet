@@ -1,6 +1,8 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+﻿#pragma warning disable IDE0073 // The file header does not match the required text
 
-#if NETFRAMEWORK || NETSTANDARD1_3
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+
+#if NETSTANDARD2_0
 
 namespace System.Diagnostics.CodeAnalysis
 {

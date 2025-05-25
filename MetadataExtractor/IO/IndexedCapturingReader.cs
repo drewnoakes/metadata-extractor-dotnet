@@ -143,7 +143,7 @@ namespace MetadataExtractor.IO
 
         private void GetPosition(int index, out int chunkIndex, out int innerIndex)
         {
-#if NET462 || NETSTANDARD2_1
+#if NETSTANDARD2_1
             chunkIndex = Math.DivRem(index, _chunkLength, out innerIndex);
 #elif NET6_0_OR_GREATER
             (chunkIndex, innerIndex) = Math.DivRem(index, _chunkLength);

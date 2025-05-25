@@ -3,7 +3,7 @@
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !NETSTANDARD1_3 && !NET8_0_OR_GREATER
+#if !NET8_0_OR_GREATER
     [Serializable]
 #endif
     public sealed class PngColorType

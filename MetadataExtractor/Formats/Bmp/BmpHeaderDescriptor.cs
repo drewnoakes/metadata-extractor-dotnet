@@ -29,7 +29,7 @@ namespace MetadataExtractor.Formats.Bmp
                 case BmpHeaderDirectory.TagGammaRed:
                 case BmpHeaderDirectory.TagGammaGreen:
                 case BmpHeaderDirectory.TagGammaBlue:
-                    return $"{((double)Directory.GetInt64(tagType) / 0x10000):0.###}";
+                    return $"{(double)Directory.GetInt64(tagType) / 0x10000:0.###}";
                 //return FormatFixed1616(Directory.GetInt64(tagType));
                 case BmpHeaderDirectory.TagIntent:
                     return GetRenderingIntentDescription();

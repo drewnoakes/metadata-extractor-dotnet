@@ -6,7 +6,7 @@ using Xunit.Sdk;
 
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace MetadataExtractor.Tests
+namespace MetadataExtractor
 {
     /// <summary>
     /// Apply this attribute to your test method to replace the

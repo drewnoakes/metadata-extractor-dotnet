@@ -1,6 +1,12 @@
 ﻿#nullable enable
 abstract MetadataExtractor.IO.IndexedReader.GetBytes(int index, System.Span<byte> bytes) -> void
 abstract MetadataExtractor.IO.SequentialReader.GetBytes(System.Span<byte> bytes) -> void
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagAcceleration = 37892 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagCameraElevationAngle = 37893 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagHumidity = 37889 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagPressure = 37890 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagTemperature = 37888 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagWaterDepth = 37891 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAEAverage = 6 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAEMatrix = 2 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDirectory.TagAEStable = 4 -> int
@@ -76,6 +82,12 @@ MetadataExtractor.Formats.Apple.BplistReader.BplistReader() -> void
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.Get(byte key) -> object!
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.GetTopObject() -> System.Collections.Generic.Dictionary<byte, byte>?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetAccelerationDescription() -> string?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetCameraElevationAngleDescription() -> string?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetHumidityDescription() -> string?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetPressureDescription() -> string?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetTemperatureDescription() -> string?
+MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetWaterDepthDescription() -> string?
 MetadataExtractor.Formats.Exif.GpsDirectory.TryGetGeoLocation(out MetadataExtractor.GeoLocation geoLocation) -> bool
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAEStableDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAFStableDescription() -> string?
@@ -102,6 +114,7 @@ MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.GetToni
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.NikonPictureControl2Descriptor(MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory! directory) -> void
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory.NikonPictureControl2Directory() -> void
+MetadataExtractor.Formats.Jpeg.JpegProcessingException.JpegProcessingException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
 MetadataExtractor.Formats.Png.PngChunk.ChunkType.get -> MetadataExtractor.Formats.Png.PngChunkType
 MetadataExtractor.Formats.Png.PngChunk.PngChunk(MetadataExtractor.Formats.Png.PngChunkType chunkType, byte[]! bytes) -> void
 MetadataExtractor.Formats.Png.PngChunkReader.Extract(MetadataExtractor.IO.SequentialReader! reader, System.Collections.Generic.ICollection<MetadataExtractor.Formats.Png.PngChunkType>? desiredChunkTypes) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Png.PngChunk!>!
@@ -109,15 +122,22 @@ MetadataExtractor.Formats.Png.PngChunkType.Equals(MetadataExtractor.Formats.Png.
 MetadataExtractor.Formats.Png.PngChunkType.PngChunkType() -> void
 MetadataExtractor.Formats.Png.PngDirectory.GetPngChunkType() -> MetadataExtractor.Formats.Png.PngChunkType
 MetadataExtractor.Formats.Png.PngDirectory.PngDirectory(MetadataExtractor.Formats.Png.PngChunkType pngChunkType) -> void
+MetadataExtractor.Formats.Png.PngProcessingException.PngProcessingException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
+MetadataExtractor.Formats.Riff.RiffProcessingException.RiffProcessingException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
+MetadataExtractor.Formats.Tiff.TiffProcessingException.TiffProcessingException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
 MetadataExtractor.GeoLocation.Equals(MetadataExtractor.GeoLocation other) -> bool
 MetadataExtractor.GeoLocation.GeoLocation() -> void
+MetadataExtractor.ImageProcessingException.ImageProcessingException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
+MetadataExtractor.IO.BufferBoundsException.BufferBoundsException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
 MetadataExtractor.IO.IndexedCapturingReader.Dispose() -> void
 MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
 MetadataExtractor.IO.IndexedReader.GetBytes(int index, int count) -> byte[]!
+MetadataExtractor.MetadataException.MetadataException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
 MetadataExtractor.Util.FileType.Avif = 28 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Dng = 29 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.GoPro = 30 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Kdc = 31 -> MetadataExtractor.Util.FileType
+MetadataExtractor.Util.FileType.Pdf = 35 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.ThreeFR = 32 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Pef = 33 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Srw = 34 -> MetadataExtractor.Util.FileType
@@ -137,6 +157,8 @@ static MetadataExtractor.Formats.Apple.BplistReader.Parse(System.ReadOnlySpan<by
 static MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Parse(byte[]! bytes) -> MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory!
 static MetadataExtractor.Formats.Png.PngChunkType.operator !=(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool
 static MetadataExtractor.Formats.Png.PngChunkType.operator ==(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool
+static MetadataExtractor.GeoLocation.operator !=(MetadataExtractor.GeoLocation left, MetadataExtractor.GeoLocation right) -> bool
+static MetadataExtractor.GeoLocation.operator ==(MetadataExtractor.GeoLocation left, MetadataExtractor.GeoLocation right) -> bool
 static readonly MetadataExtractor.Formats.Png.PngChunkType.bKGD -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngChunkType.cHRM -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType

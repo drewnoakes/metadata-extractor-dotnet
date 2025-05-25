@@ -1,10 +1,9 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
 using Xunit.Abstractions;
 
-namespace MetadataExtractor.Tests.Formats.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>
     /// Long-running test of <see cref="ExifReader"/> that attempts to verify exceptions are not thrown for invalid input.

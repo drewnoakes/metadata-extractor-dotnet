@@ -3,7 +3,7 @@
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Jpeg;
 
-namespace MetadataExtractor.Tests.Formats.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Unit tests for Sony (Type 1) maker notes.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

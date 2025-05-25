@@ -25,7 +25,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (string.IsNullOrEmpty(value))
                 return null;
 
-            return (value![0]) switch
+            return value![0] switch
             {
                 '8' => "Multi Segment",
                 'A' => "Average",
@@ -40,7 +40,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (string.IsNullOrEmpty(value))
                 return null;
 
-            return (value![0]) switch
+            return value![0] switch
             {
                 'A' => "Aperture Priority AE",
                 'M' => "Manual",

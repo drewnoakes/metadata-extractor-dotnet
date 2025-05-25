@@ -129,7 +129,7 @@ internal ref partial struct BufferReader
     /// <exception cref="IOException"/>
     public readonly float GetFloat32(int index)
     {
-#if NET462 || NETSTANDARD1_3
+#if NETSTANDARD2_0
         return BitConverter.ToSingle(BitConverter.GetBytes(GetInt32(index)), 0);
 #else
         Span<byte> bytes = stackalloc byte[4];
@@ -153,7 +153,7 @@ internal ref partial struct BufferReader
 
     public readonly double GetDouble64(int index)
     {
-#if NET462 || NETSTANDARD1_3
+#if NETSTANDARD2_0
         return BitConverter.Int64BitsToDouble(GetInt64(index));
 #else
         Span<byte> bytes = stackalloc byte[8];
