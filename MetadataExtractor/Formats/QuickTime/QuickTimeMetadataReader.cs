@@ -122,9 +122,9 @@ namespace MetadataExtractor.Formats.QuickTime
 
             void UserDataHandler(AtomCallbackArgs a)
             {
-                switch (a.TypeString)
+                switch (a.Type)
                 {
-                    case "?xyz":
+                    case 0xa978797a: // "?xyz" (with a copyright symbol)
                         var stringSize = a.Reader.GetUInt16();
                         a.Reader.Skip(2); // uint16 language code
                         var stringBytes = a.Reader.GetBytes(stringSize);
@@ -134,7 +134,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             QuickTimeMetadataHeaderDirectory.TagGpsLocation,
                             new StringValue(stringBytes, Encoding.UTF8));
                         break;
-                    case "XMP_":
+                    case 0x584D505F: // "XMP_" (XMP metadata)
                         var xmpBytes = a.Reader.GetNullTerminatedBytes((int)a.BytesLeft);
                         var xmpDirectory = new XmpReader().Extract(xmpBytes);
                         directories.Add(xmpDirectory);
