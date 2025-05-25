@@ -82,20 +82,20 @@ namespace MetadataExtractor.Formats.Heif
                 var itemPropertyBox = boxes.Descendant<ItemPropertyBox>();
                 if (itemPropertyBox is null)
                     return;
-                var props = itemPropertyBox.Boxes.Descendant<ItemPropertyContainerBox>()?.Boxes;
+                var containers = itemPropertyBox.Boxes.Descendant<ItemPropertyContainerBox>()?.Boxes;
                 var associations = itemPropertyBox.Boxes.Descendant<ItemPropertyAssociationBox>();
 
-                if (props is not null && associations is not null)
+                if (containers is not null && associations is not null)
                 {
                     ParsePropertyBoxes(
                         "HEIC Primary Item Properties",
-                        ImageProperties(primaryItem, allPrimaryTiles, associations, props));
+                        ImageProperties(primaryItem, allPrimaryTiles, associations, containers));
 
                     foreach (var itemRef in itemRefs)
                     {
                         ParsePropertyBoxes(
                             "HEIC Thumbnail Properties",
-                            ImageProperties(itemRef.FromItemId, [], associations, props));
+                            ImageProperties(itemRef.FromItemId, [], associations, containers));
                     }
                 }
 
@@ -105,22 +105,26 @@ namespace MetadataExtractor.Formats.Heif
                     uint primaryId,
                     uint[] secondary,
                     ItemPropertyAssociationBox associations,
-                    IList<Box> props)
+                    IList<Box> containers)
                 {
-                    return DirectProperties(primaryId, associations, props)
+                    return DirectProperties(primaryId, associations, containers)
                         .Concat(
-                            (from associationBox in associations.Entries.Where(i => secondary.Contains(i.ItemId))
-                             from propIndex in associationBox.Properties
-                             let i = props.ElementAt(propIndex.Index - 1)
-                             where i is DecoderConfigurationBox or ColorInformationBox
-                             select i)
+                            (from entry in associations.Entries.Where(i => secondary.Contains(i.ItemId))
+                             from prop in entry.Properties
+                             let index = prop.Index - 1
+                             where index >= 0 && index < containers.Count
+                             let container = containers[index]
+                             where container is DecoderConfigurationBox or ColorInformationBox
+                             select container)
                             .Distinct());
 
-                    static IEnumerable<Box> DirectProperties(uint primaryId, ItemPropertyAssociationBox associations, IList<Box> props)
+                    static IEnumerable<Box> DirectProperties(uint primaryId, ItemPropertyAssociationBox associations, IList<Box> containers)
                     {
-                        return from associationBox in associations.Entries.Where(i => i.ItemId == primaryId)
-                               from propIndex in associationBox.Properties
-                               select props.ElementAt(propIndex.Index - 1);
+                        return from entry in associations.Entries.Where(i => i.ItemId == primaryId)
+                               from prop in entry.Properties
+                               let index = prop.Index - 1
+                               where index >= 0 && index < containers.Count
+                               select containers[index];
                     }
                 }
 

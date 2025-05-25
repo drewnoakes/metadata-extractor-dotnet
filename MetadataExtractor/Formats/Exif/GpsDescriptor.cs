@@ -130,13 +130,13 @@ namespace MetadataExtractor.Formats.Exif
             if (value is null)
                 return null;
 
-            return (value.Trim().ToUpper()) switch
+            return value.Trim() switch
             {
-                "K" => "kilometers",
-                "M" => "miles",
-                "N" => "knots",
+                "k" or "K" => "kilometers",
+                "m" or "M" => "miles",
+                "n" or "N" => "knots",
 
-                _ => "Unknown (" + value.Trim() + ")",
+                string other => "Unknown (" + other + ")",
             };
         }
 
@@ -163,12 +163,12 @@ namespace MetadataExtractor.Formats.Exif
             if (value is null)
                 return null;
 
-            return (value.Trim().ToUpper()) switch
+            return value.Trim() switch
             {
-                "T" => "True direction",
-                "M" => "Magnetic direction",
+                "t" or "T" => "True direction",
+                "m" or "M" => "Magnetic direction",
 
-                _ => "Unknown (" + value.Trim() + ")",
+                string other => "Unknown (" + other + ")",
             };
         }
 
@@ -185,13 +185,13 @@ namespace MetadataExtractor.Formats.Exif
             if (value is null)
                 return null;
 
-            return (value.Trim().ToUpper()) switch
+            return value.Trim() switch
             {
-                "K" => "km/h",
-                "M" => "mph",
-                "N" => "knots",
+                "k" or "K" => "km/h",
+                "m" or "M" => "mph",
+                "n" or "N" => "knots",
 
-                _ => "Unknown (" + value.Trim() + ")",
+                string other => "Unknown (" + other + ")",
             };
         }
 
@@ -210,7 +210,7 @@ namespace MetadataExtractor.Formats.Exif
             if (value is null)
                 return null;
 
-            return (value.Trim()) switch
+            return value.Trim() switch
             {
                 "2" => "2-dimensional measurement",
                 "3" => "3-dimensional measurement",
@@ -218,19 +218,18 @@ namespace MetadataExtractor.Formats.Exif
             };
         }
 
-
         public string? GetGpsStatusDescription()
         {
             var value = Directory.GetString(GpsDirectory.TagStatus);
             if (value is null)
                 return null;
 
-            return (value.Trim().ToUpper()) switch
+            return value.Trim() switch
             {
-                "A" => "Active (Measurement in progress)",
-                "V" => "Void (Measurement Interoperability)",
+                "a" or "A" => "Active (Measurement in progress)",
+                "v" or "V" => "Void (Measurement Interoperability)",
 
-                _ => "Unknown (" + value.Trim() + ")",
+                string other => "Unknown (" + other + ")",
             };
         }
 

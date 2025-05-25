@@ -3,7 +3,7 @@
 using System.Globalization;
 using MetadataExtractor.Formats.Exif;
 
-namespace MetadataExtractor.Tests
+namespace MetadataExtractor
 {
     /// <summary>Unit tests for <see cref="Directory"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

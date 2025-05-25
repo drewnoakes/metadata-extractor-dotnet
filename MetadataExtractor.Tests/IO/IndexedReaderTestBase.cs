@@ -1,6 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-namespace MetadataExtractor.Tests.IO
+namespace MetadataExtractor.IO
 {
     /// <summary>Base class for testing implementations of <see cref="IndexedReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

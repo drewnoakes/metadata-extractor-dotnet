@@ -61,11 +61,7 @@ namespace MetadataExtractor.Formats.Iptc
 
             if (ascii)
             {
-#if NETSTANDARD1_3
-                return Encoding.UTF8;
-#else
                 return Encoding.ASCII;
-#endif
             }
 
             var utf8 = false;
@@ -97,7 +93,7 @@ namespace MetadataExtractor.Formats.Iptc
                 {
                     int charCount = encoding.GetChars(bytes, 0, bytes.Length, charBuffer, 0);
 
-                    if (charBuffer.AsSpan(0, charCount).IndexOf((char)65533) != -1)
+                    if (charBuffer.AsSpan(0, charCount).IndexOf((char)0xFFFD) != -1)
                         continue;
                     return encoding;
                 }

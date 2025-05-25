@@ -85,7 +85,7 @@ namespace MetadataExtractor.IO
             if (n < 0)
                 throw new ArgumentException("n must be zero or greater.");
 
-            if ((ulong)(_stream.Position + n) > (ulong)(_stream.Length))
+            if ((ulong)(_stream.Position + n) > (ulong)_stream.Length)
                 throw new IOException($"Unable to skip. Requested {n} bytes but only {_stream.Length - _stream.Position} remained.");
 
             _stream.Seek(n, SeekOrigin.Current);

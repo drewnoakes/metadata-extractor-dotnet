@@ -280,7 +280,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public float GetFloat32(int index)
         {
-#if NET462 || NETSTANDARD1_3
+#if NETSTANDARD2_0
             return BitConverter.ToSingle(BitConverter.GetBytes(GetInt32(index)), 0);
 #else
             Span<byte> bytes = stackalloc byte[4];
@@ -299,7 +299,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public double GetDouble64(int index)
         {
-#if NET462 || NETSTANDARD1_3
+#if NETSTANDARD2_0
             return BitConverter.Int64BitsToDouble(GetInt64(index));
 #else
             Span<byte> bytes = stackalloc byte[8];

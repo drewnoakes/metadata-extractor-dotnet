@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 
-namespace MetadataExtractor.Tests
+namespace MetadataExtractor
 {
     /// <summary>Unit tests for the <see cref="Rational"/> type.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

@@ -1,8 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using MetadataExtractor.Formats.Png;
-
-namespace MetadataExtractor.Tests.Formats.Png
+namespace MetadataExtractor.Formats.Png
 {
     /// <summary>Unit tests for <see cref="PngMetadataReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
