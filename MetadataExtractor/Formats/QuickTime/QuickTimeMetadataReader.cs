@@ -6,9 +6,6 @@ using MetadataExtractor.Formats.Iso14496;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Xmp;
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference
-#pragma warning disable CS8604 // Dereference of a possibly null reference
-
 namespace MetadataExtractor.Formats.QuickTime
 {
     public static class QuickTimeMetadataReader
