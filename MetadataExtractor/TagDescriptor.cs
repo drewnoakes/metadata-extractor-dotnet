@@ -267,17 +267,9 @@ namespace MetadataExtractor
                     sb.Append(GetFStopDescription(values[2].ToDouble()));
                 else
                     sb.Append("f/")
-#if !NETSTANDARD1_3
                       .Append(Math.Round(values[2].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"))
-#else
-                      .Append(Math.Round(values[2].ToDouble(), 1).ToString("0.0"))
-#endif
                       .Append('-')
-#if !NETSTANDARD1_3
                       .Append(Math.Round(values[3].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"));
-#else
-                      .Append(Math.Round(values[3].ToDouble(), 1).ToString("0.0"));
-#endif
             }
 
             return sb.ToString();
@@ -297,15 +289,6 @@ namespace MetadataExtractor
 
         protected string? GetShutterSpeedDescription(int tagId)
         {
-            // I believe this method to now be stable, but am leaving some alternative snippets of
-            // code in here, to assist anyone who's looking into this (given that I don't have a public CVS).
-            //        float apexValue = _directory.getFloat(ExifSubIFDDirectory.TAG_SHUTTER_SPEED);
-            //        int apexPower = (int)Math.pow(2.0, apexValue);
-            //        return "1/" + apexPower + " sec";
-            // TODO test this method
-            // thanks to Mark Edwards for spotting and patching a bug in the calculation of this
-            // description (spotted bug using a Canon EOS 300D)
-            // thanks also to Gli Blr for spotting this bug
             if (!Directory.TryGetSingle(tagId, out float apexValue))
                 return null;
 
@@ -318,7 +301,7 @@ namespace MetadataExtractor
             }
             else
             {
-                var apexPower = (int)Math.Exp(apexValue * Math.Log(2));
+                var apexPower = (int)Math.Round(Math.Exp(apexValue * Math.Log(2)));
                 return "1/" + apexPower + " sec";
             }
         }

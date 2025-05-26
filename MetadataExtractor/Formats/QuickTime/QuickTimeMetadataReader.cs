@@ -124,9 +124,10 @@ namespace MetadataExtractor.Formats.QuickTime
 
             void UserDataHandler(AtomCallbackArgs a)
             {
-                switch (a.TypeString)
+                switch (a.Type)
                 {
-                    case "?xyz":
+                    case 0xa978797a: // "?xyz" (with a copyright symbol)
+                    {
                         var stringSize = a.Reader.GetUInt16();
                         a.Reader.Skip(2); // uint16 language code
                         var stringBytes = a.Reader.GetBytes(stringSize);
@@ -136,10 +137,18 @@ namespace MetadataExtractor.Formats.QuickTime
                             QuickTimeMetadataHeaderDirectory.TagGpsLocation,
                             new StringValue(stringBytes, Encoding.UTF8));
                         break;
-                    case "meta":
+                    }
+                    case 0x6d657461: // "meta":
                     {
                         a.Reader.Skip(4);
                         QuickTimeReader.ProcessAtoms(stream, MetaDataHandler, a.BytesLeft);
+                        break;
+                    }
+                    case 0x584d505f: // "XMP_" (XMP metadata)
+                    {
+                        var xmpBytes = a.Reader.GetNullTerminatedBytes((int)a.BytesLeft);
+                        var xmpDirectory = new XmpReader().Extract(xmpBytes);
+                        directories.Add(xmpDirectory);
                         break;
                     }
                 }
@@ -151,20 +160,22 @@ namespace MetadataExtractor.Formats.QuickTime
                 switch (a.TypeString)
                 {
                     case "hdlr":
-                        //QuickTime Handler Tags
+                    {
+                        // QuickTime Handler Tags
                         a.Reader.Skip(8);
 
                         var handlerType = a.Reader.GetUInt32();
                         metaDataHandlerType = TypeStringConverter.ToTypeString(handlerType);
 
-                        //metaDataHandlerType:
-                        //mdir => Metadata Item List Tags
-                        //mdta => Metadata Keys Tags
+                        // metaDataHandlerType:
+                        // mdir => Metadata Item List Tags
+                        // mdta => Metadata Keys Tags
 
                         break;
+                    }
                     case "keys":
                     {
-                        //This directory contains a list of key names which are used to decode tags written by the "mdta" handler.
+                        // This directory contains a list of key names which are used to decode tags written by the "mdta" handler.
 
                         a.Reader.Skip(4); // 1 byte version, 3 bytes flags
                         var entryCount = a.Reader.GetUInt32();
@@ -180,11 +191,11 @@ namespace MetadataExtractor.Formats.QuickTime
                     }
                     case "ilst":
                     {
-                        //ilst is both used by both mdir (ItemList Tags) and mdta (Keys Tags) handlers
+                        // ilst is used by both mdir (ItemList Tags) and mdta (Keys Tags) handlers
 
                         if (metaDataHandlerType == "mdir")
                         {
-                            //ItemList Tags
+                            // ItemList Tags
                             QuickTimeReader.ProcessAtoms(stream, MetaDataItemListTagsHandler, a.BytesLeft);
                         }
                         else if (metaDataHandlerType == "mdta")
@@ -226,7 +237,7 @@ namespace MetadataExtractor.Formats.QuickTime
                         1 => new StringValue(data, Encoding.UTF8),
 
                         // BE Float32 (used for User Rating)
-                        23 => BitConverter.ToSingle(BitConverter.IsLittleEndian ? data.Reverse().ToArray() : data, 0),
+                        23 => BitConverter.ToSingle(BitConverter.IsLittleEndian ? Reversed(data) : data, startIndex: 0),
 
                         // 13 JPEG
                         // 14 PNG
@@ -249,6 +260,12 @@ namespace MetadataExtractor.Formats.QuickTime
                     {
                         GetMetaHeaderDirectory().AddError($"Unsupported ilst key \"{key}\"");
                     }
+                }
+
+                static byte[] Reversed(byte[] data)
+                {
+                    Array.Reverse(data);
+                    return data;
                 }
             }
 

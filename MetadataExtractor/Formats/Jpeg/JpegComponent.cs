@@ -7,7 +7,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// quantization table number.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !NETSTANDARD1_3
+#if !NET8_0_OR_GREATER
     [Serializable]
 #endif
     public sealed class JpegComponent

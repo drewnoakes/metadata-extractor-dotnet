@@ -914,7 +914,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             if (values.Length == 0 || values[0] == 0)
                 return "Off";
-            var a = (values[0]) switch
+            var a = values[0] switch
             {
                 1 => "Left to Right",
                 2 => "Right to Left",

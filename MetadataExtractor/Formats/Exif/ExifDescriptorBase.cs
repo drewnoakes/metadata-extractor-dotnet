@@ -21,6 +21,12 @@ namespace MetadataExtractor.Formats.Exif
                 TagInteropVersion                => GetInteropVersionDescription(),
                 TagOrientation                   => GetOrientationDescription(),
                 TagResolutionUnit                => GetResolutionDescription(),
+                TagTemperature                   => GetTemperatureDescription(),
+                TagHumidity                      => GetHumidityDescription(),
+                TagPressure                      => GetPressureDescription(),
+                TagWaterDepth                    => GetWaterDepthDescription(),
+                TagAcceleration                  => GetAccelerationDescription(),
+                TagCameraElevationAngle          => GetCameraElevationAngleDescription(),
                 TagYCbCrPositioning              => GetYCbCrPositioningDescription(),
                 TagXResolution                   => GetXResolutionDescription(),
                 TagYResolution                   => GetYResolutionDescription(),
@@ -162,6 +168,60 @@ namespace MetadataExtractor.Formats.Exif
                 "(No unit)",
                 "Inch",
                 "cm");
+        }
+
+        public string? GetTemperatureDescription()
+        {
+            if (!Directory.TryGetRational(TagTemperature, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.0} °C";
+        }
+
+        public string? GetHumidityDescription()
+        {
+            if (!Directory.TryGetRational(TagHumidity, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.0} %";
+        }
+
+        public string? GetPressureDescription()
+        {
+            if (!Directory.TryGetRational(TagPressure, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.0} hPa";
+        }
+
+        public string? GetWaterDepthDescription()
+        {
+            if (!Directory.TryGetRational(TagWaterDepth, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.0##} metres";
+        }
+
+        public string? GetAccelerationDescription()
+        {
+            if (!Directory.TryGetRational(TagAcceleration, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.0##} mGal";
+        }
+
+        public string? GetCameraElevationAngleDescription()
+        {
+            if (!Directory.TryGetRational(TagCameraElevationAngle, out Rational value))
+                return null;
+            if (value.Denominator == 0xFFFFFFFFL)
+                return "Unknown";
+            return $"{value.ToDouble():0.##} degrees";
         }
 
         /// <summary>The Windows specific tags uses plain Unicode.</summary>
@@ -477,7 +537,8 @@ namespace MetadataExtractor.Formats.Exif
         /// </remarks>
         public string? GetCfaPatternDescription()
         {
-            return FormatCfaPattern(DecodeCfaPattern(TagCfaPattern));
+            int[]? pattern = DecodeCfaPattern(TagCfaPattern);
+            return pattern is null ? null : FormatCfaPattern(pattern);
         }
 
         /// <summary>
@@ -513,10 +574,8 @@ namespace MetadataExtractor.Formats.Exif
             return $"Unknown Pattern ({base.GetDescription(TagCfaPattern2)})";
         }
 
-        private static string? FormatCfaPattern(int[]? pattern)
+        private static string FormatCfaPattern(ReadOnlySpan<int> pattern)
         {
-            if (pattern is null)
-                return null;
             if (pattern.Length < 2)
                 return "<truncated data>";
             if (pattern[0] == 0 && pattern[1] == 0)
@@ -526,16 +585,11 @@ namespace MetadataExtractor.Formats.Exif
             if (end > pattern.Length)
                 return "<invalid pattern size>";
 
-            string[] cfaColors = ["Red", "Green", "Blue", "Cyan", "Magenta", "Yellow", "White"];
-
             var ret = new StringBuilder();
             ret.Append('[');
             for (var pos = 2; pos < end; pos++)
             {
-                if (pattern[pos] <= cfaColors.Length - 1)
-                    ret.Append(cfaColors[pattern[pos]]);
-                else
-                    ret.Append("Unknown");  // indicated pattern position is outside the array bounds
+                ret.Append(ToColor(pattern[pos]));
 
                 if ((pos - 2) % pattern[1] == 0)
                     ret.Append(',');
@@ -545,6 +599,21 @@ namespace MetadataExtractor.Formats.Exif
             ret.Append(']');
 
             return ret.ToString();
+
+            static string ToColor(int i)
+            {
+                return i switch
+                {
+                    0 => "Red",
+                    1 => "Green",
+                    2 => "Blue",
+                    3 => "Cyan",
+                    4 => "Magenta",
+                    5 => "Yellow",
+                    6 => "White",
+                    _ => "Unknown"
+                };
+            }
         }
 
         /// <summary>
