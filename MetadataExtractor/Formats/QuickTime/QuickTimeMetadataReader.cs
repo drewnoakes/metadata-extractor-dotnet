@@ -291,13 +291,21 @@ namespace MetadataExtractor.Formats.QuickTime
                 if (key[0] == 0xa9 || key[0] == 0x40)
                 {
                     //Tag ID's beginning with the copyright symbol (hex 0xa9) are multi-language text
-                    //Alternate language tags are accessed by adding a dash followed by a 3-character ISO 639-2 language code to the tag name.
+                    //some stupid Ricoh programmer used the '@' (hex 0x40) symbol instead of the copyright symbol in these tag ID's for the Ricoh Theta Z1 and maybe other models
 
-                    //some stupid Ricoh programmer used the '@' symbol instead of the copyright symbol in these tag ID's for the Ricoh Theta Z1 and maybe other models
+                    //The uint32 locale indicator following the key (which is skipped by the MetaDataTagHandler-call as its not supported (yet)) contains the locale information for the tag.
+                    //It contains a dash followed by a 3-character ISO 639-2 language code to the tag name.
 
-                    //For now we don't support those, we will strip the copyright and locale info
+                    //For now we don't support those, we will strip the copyright/@-sign and locale info
                     key = key.Substring(1);
+
+                    //Possible the key does not include a dash as it's derived from the TypeString which is uint32 so 4 characters long, but for safety we will split it anyway.
                     key = key.Split('-')[0];
+
+                    if (string.IsNullOrWhiteSpace(key))
+                    {
+                        return; // no valid key
+                    }
                 }
 
                 MetaDataTagHandler(a, key);
