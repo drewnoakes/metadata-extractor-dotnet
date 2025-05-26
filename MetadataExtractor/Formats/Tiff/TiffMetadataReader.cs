@@ -35,14 +35,15 @@ namespace MetadataExtractor.Formats.Tiff
         /// <exception cref="TiffProcessingException"/>
         public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
         {
-            // TIFF processing requires random access, as directories can be scattered throughout the byte sequence.
-            // Stream does not support seeking backwards, so we wrap it with IndexedCapturingReader, which
-            // buffers data from the stream as we seek forward.
             var directories = new List<Directory>();
 
             var handler = new ExifTiffHandler(directories, exifStartOffset: 0);
 
+            // TIFF processing requires random access, as directories can be scattered throughout the byte sequence.
+            // Stream does not support seeking backwards, so we wrap it with IndexedCapturingReader, which
+            // buffers data from the stream as we seek forward.
             using var reader = new IndexedCapturingReader(stream);
+
             TiffReader.ProcessTiff(reader, handler);
 
             return directories;
