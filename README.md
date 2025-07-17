@@ -95,7 +95,7 @@ It supports various file types.
   * [Camera Raw](https://en.wikipedia.org/wiki/Raw_image_format)
     * 3FR (Hasselblad)
     * [ARW](https://en.wikipedia.org/wiki/Sony_%CE%B1) (Sony)
-    * CRW / CR2 / CRX (Canon)
+    * CRW / CR2 / CR3 / CRX (Canon)
     * GPR (GoPro)
     * KDC (Kodak)
     * NEF (Nikon)
