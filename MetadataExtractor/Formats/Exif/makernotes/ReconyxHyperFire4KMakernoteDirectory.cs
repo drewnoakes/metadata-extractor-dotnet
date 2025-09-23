@@ -12,10 +12,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <summary>
         /// Identifier string used for detecting makernotes from Reconyx HyperFire 4K cameras.
         /// </summary>
-        public static readonly string MakernoteIdentifier = "HyperFire 4K";
+        public static readonly string MakernoteIdentifier = "RECONYXHF4K";
 
         // Offsets based on the HyperFire 4K MakerNote Structure specification
-        public const int TagMakernoteIdentifier = 0;           // char[12] - "HyperFire 4K"
+        public const int TagMakernoteIdentifier = 0;           // char[12] - "RECONYXHF4K"
         public const int TagAggregateMakernoteVersion = 12;     // uint32 - Aggregate MakerNote structure version
         public const int TagAggregateMakernoteSize = 16;       // uint32 - Aggregate MakerNote structure size in bytes
         public const int TagMakernoteInfoVersion = 20;         // uint32 - MakerNote INFO structure version

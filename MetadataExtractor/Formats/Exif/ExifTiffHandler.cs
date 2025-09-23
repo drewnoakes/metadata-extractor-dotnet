@@ -752,7 +752,7 @@ namespace MetadataExtractor.Formats.Exif
                 // Always in Motorola byte order
                 TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: true).WithShiftedBaseOffset(makernoteOffset), ifdOffset: 14);
             }
-            else if (headerString.StartsWith("HyperFire 4K", StringComparison.OrdinalIgnoreCase))
+            else if (headerString.StartsWith("RECONYXHF4K", StringComparison.OrdinalIgnoreCase))
             {
                 var directory = new ReconyxHyperFire4KMakernoteDirectory();
                 Directories.Add(directory);
