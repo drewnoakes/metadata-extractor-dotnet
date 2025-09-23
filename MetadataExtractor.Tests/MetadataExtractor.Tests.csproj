@@ -5,10 +5,6 @@
 
     <RootNamespace>MetadataExtractor</RootNamespace>
 
-    <RestoreAdditionalProjectSources>
-      $(RestoreAdditionalProjectSources);
-      https://www.myget.org/F/xunit/api/v3/index.json
-    </RestoreAdditionalProjectSources>
   </PropertyGroup>
 
   <ItemGroup>
