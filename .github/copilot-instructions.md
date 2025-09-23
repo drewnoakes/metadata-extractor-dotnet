@@ -12,20 +12,12 @@ Always reference these instructions first and fallback to search or bash command
 - Use absolute paths when working with the repository in `/home/runner/work/metadata-extractor-dotnet/metadata-extractor-dotnet`
 
 ### Bootstrap and Build Process
-- **Package restore**: `dotnet restore MetadataExtractor.sln` -- takes ~3 seconds. Can fail due to myget.org connectivity issues for xunit
+- **Package restore**: `dotnet restore MetadataExtractor.sln` -- takes ~3 seconds
 - **Build Release mode**: `dotnet build MetadataExtractor.sln --configuration Release` -- takes ~7 seconds when cached. NEVER CANCEL. Set timeout to 45+ minutes.
 - **Build Debug mode**: `dotnet build MetadataExtractor.sln --configuration Debug` -- takes ~7 seconds when cached. NEVER CANCEL. Set timeout to 30+ minutes.
 - **Run unit tests**: `dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj` -- takes ~2 seconds, expect 483+ passing tests. NEVER CANCEL. Set timeout to 15+ minutes.
 
 ### Known Issues and Workarounds
-- **myget.org connectivity**: If restore fails with "Unable to load service index for https://www.myget.org/F/xunit/api/v3/index.json", edit `MetadataExtractor.Tests/MetadataExtractor.Tests.csproj` and comment out the `<RestoreAdditionalProjectSources>` section:
-  ```xml
-  <!--<RestoreAdditionalProjectSources>
-    $(RestoreAdditionalProjectSources);
-    https://www.myget.org/F/xunit/api/v3/index.json
-  </RestoreAdditionalProjectSources>-->
-  ```
-  This prevents network timeout errors when the myget.org service is unavailable
 - **.NET Framework targets**: Cannot run net462/net472/net48 projects on Linux without Mono. Use net8.0 targets instead
 - **Benchmark execution**: Benchmarks require test data files and may fail if paths are incorrect
 
