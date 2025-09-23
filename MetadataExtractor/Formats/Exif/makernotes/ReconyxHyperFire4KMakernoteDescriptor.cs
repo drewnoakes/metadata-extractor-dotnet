@@ -158,7 +158,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             if (!Directory.TryGetByte(TagEventType, out var value))
                 return null;
-            return value != 0 ? ((char)value).ToString() : "";
+            
+            return value != 0 ? ((char)value) switch
+            {
+                'C' => "CodeLoc Not Entered",
+                'E' => "External Sensor",
+                'L' => "Cell Live View", 
+                'M' => "Motion Sensor",
+                'S' => "Cell Status",
+                'T' => "Time Lapse",
+                _ => ((char)value).ToString()
+            } : "";
         }
 
         public string? GetEventSequenceNumberDescription()
@@ -208,12 +218,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetDateDayOfWeekDescription()
         {
-            return GetIndexedDescription(TagDateDayOfWeek, "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+            return GetIndexedDescription(TagDateDayOfWeek, 1, "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
         }
 
         public string? GetMoonPhaseDescription()
         {
-            return GetIndexedDescription(TagMoonPhase, "New", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Waning Crescent");
+            return GetIndexedDescription(TagMoonPhase, "New", "New Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Old Crescent");
         }
 
         public string? GetTemperatureFahrenheitDescription()
@@ -273,7 +283,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetBatteryTypeDescription()
         {
-            return Directory.TryGetUInt16(TagBatteryType, out var value) ? value.ToString() : null;
+            return GetIndexedDescription(TagBatteryType, 1, "NiMH", "Lithium", "External", "SC10 Solar");
         }
 
         public string? GetUserLabelDescription()
