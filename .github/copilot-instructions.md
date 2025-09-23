@@ -43,6 +43,39 @@ Always run these validation steps after making changes:
 - **Target frameworks**: Library targets net8.0, netstandard2.0, netstandard2.1. Tests target net8.0 and net472
 - **Core library structure**: Main code in `MetadataExtractor/` with format-specific readers in `MetadataExtractor/Formats/` (Adobe, Exif, IPTC, JPEG, PNG, TIFF, XMP, etc.)
 
+### Descriptor Class Design Pattern
+When implementing descriptor classes for metadata directories, follow this established pattern:
+
+1. **Individual Get Methods**: Create individual `Get*Description()` methods for each tag that return `string?`. These methods should have semantically meaningful names based on the tag purpose.
+   ```csharp
+   public string? GetContrastDescription()
+   {
+       return Directory.GetUInt16(TagContrast).ToString();
+   }
+   
+   public string? GetFlashDescription()
+   {
+       return GetIndexedDescription(TagFlash, "Off", "On");
+   }
+   ```
+
+2. **Main GetDescription Method**: The overridden `GetDescription(int tagType)` method should use a switch expression to delegate to the individual methods:
+   ```csharp
+   public override string? GetDescription(int tagType)
+   {
+       return tagType switch
+       {
+           TagContrast => GetContrastDescription(),
+           TagFlash => GetFlashDescription(),
+           _ => base.GetDescription(tagType)
+       };
+   }
+   ```
+
+3. **Method Benefits**: This pattern provides both semantic access (`descriptor.GetContrastDescription()`) and general access (`descriptor.GetDescription(tagId)`) for users of the library.
+
+4. **Return Types**: All descriptor methods must return `string?` to maintain API consistency.
+
 ## Project Structure and Key Locations
 
 ### Main Projects

@@ -207,6 +207,51 @@ const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirec
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUserLabel = 81 -> int
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.ReconyxHyperFire4KMakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory! directory) -> void
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetAggregateMakernoteSizeDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetAggregateMakernoteVersionDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetAmbientLightReadingDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetBatteryTypeDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetBatteryVoltageAverageDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetBatteryVoltageInstantaneousDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetBrightnessDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetCameraFirmwareBuildDayDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetCameraFirmwareBuildMonthDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetCameraFirmwareBuildYearDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetCameraFirmwareMajorDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetCameraFirmwareMinorDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetCameraFirmwareRevisionDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetCameraSerialNumberDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetContrastDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetDateDayDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetDateDayOfWeekDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetDateMonthDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetDateYearDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetEventNumberDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetEventSequenceNumberDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetEventTypeDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetFileNumberDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetFlashDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetMakernoteIdentifierDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetMakernoteInfoSizeDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetMakernoteInfoVersionDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetMaxEventSequenceNumberDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetMoonPhaseDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetMotionSensorSensitivityDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetRECNXDirectoryNumberDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetSaturationDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetSharpnessDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetTemperatureCelsiusDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetTemperatureFahrenheitDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetTimeHoursDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetTimeMinutesDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetTimeSecondsDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareBuildDayDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareBuildMonthDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareBuildYearDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareMajorDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareMinorDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareRevisionDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUserLabelDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.ReconyxHyperFire4KMakernoteDirectory() -> void
 override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetDescription(int tagType) -> string?

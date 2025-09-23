@@ -13,111 +13,283 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     {
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case ReconyxHyperFire4KMakernoteDirectory.TagMakernoteIdentifier:
-                    return Directory.GetString(tagType);
+                ReconyxHyperFire4KMakernoteDirectory.TagMakernoteIdentifier => GetMakernoteIdentifierDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteVersion => GetAggregateMakernoteVersionDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteSize => GetAggregateMakernoteSizeDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoVersion => GetMakernoteInfoVersionDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoSize => GetMakernoteInfoSizeDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMajor => GetCameraFirmwareMajorDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMinor => GetCameraFirmwareMinorDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildYear => GetCameraFirmwareBuildYearDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildMonth => GetCameraFirmwareBuildMonthDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildDay => GetCameraFirmwareBuildDayDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareRevision => GetCameraFirmwareRevisionDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMajor => GetUIBFirmwareMajorDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMinor => GetUIBFirmwareMinorDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildYear => GetUIBFirmwareBuildYearDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildMonth => GetUIBFirmwareBuildMonthDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildDay => GetUIBFirmwareBuildDayDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareRevision => GetUIBFirmwareRevisionDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagEventType => GetEventTypeDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagEventSequenceNumber => GetEventSequenceNumberDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagMaxEventSequenceNumber => GetMaxEventSequenceNumberDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagEventNumber => GetEventNumberDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagTimeSeconds => GetTimeSecondsDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagTimeMinutes => GetTimeMinutesDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagTimeHours => GetTimeHoursDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagDateDay => GetDateDayDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagDateMonth => GetDateMonthDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagDateYear => GetDateYearDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagDateDayOfWeek => GetDateDayOfWeekDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagMoonPhase => GetMoonPhaseDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagTemperatureFahrenheit => GetTemperatureFahrenheitDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagTemperatureCelsius => GetTemperatureCelsiusDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagContrast => GetContrastDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagBrightness => GetBrightnessDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagSharpness => GetSharpnessDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagSaturation => GetSaturationDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagFlash => GetFlashDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagAmbientLightReading => GetAmbientLightReadingDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagMotionSensorSensitivity => GetMotionSensorSensitivityDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageInstantaneous => GetBatteryVoltageInstantaneousDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageAverage => GetBatteryVoltageAverageDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagBatteryType => GetBatteryTypeDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagUserLabel => GetUserLabelDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagCameraSerialNumber => GetCameraSerialNumberDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagRECNXDirectoryNumber => GetRECNXDirectoryNumberDescription(),
+                ReconyxHyperFire4KMakernoteDirectory.TagFileNumber => GetFileNumberDescription(),
+                _ => base.GetDescription(tagType)
+            };
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteVersion:
-                case ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteSize:
-                case ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoVersion:
-                    return Directory.GetUInt32(tagType).ToString();
+        public string? GetMakernoteIdentifierDescription()
+        {
+            return Directory.GetString(ReconyxHyperFire4KMakernoteDirectory.TagMakernoteIdentifier);
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoSize:
-                    return Directory.GetUInt16(tagType).ToString();
+        public string? GetAggregateMakernoteVersionDescription()
+        {
+            return Directory.GetUInt32(ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteVersion).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMajor:
-                case ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMinor:
-                case ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildMonth:
-                case ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildDay:
-                    return Directory.GetByte(tagType).ToString();
+        public string? GetAggregateMakernoteSizeDescription()
+        {
+            return Directory.GetUInt32(ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteSize).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildYear:
-                    return Directory.GetUInt16(tagType).ToString();
+        public string? GetMakernoteInfoVersionDescription()
+        {
+            return Directory.GetUInt32(ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoVersion).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareRevision:
-                    var cameraRevision = Directory.GetByte(tagType);
-                    return cameraRevision != 0 ? ((char)cameraRevision).ToString() : "";
+        public string? GetMakernoteInfoSizeDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoSize).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMajor:
-                case ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMinor:
-                case ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildMonth:
-                case ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildDay:
-                    return Directory.GetByte(tagType).ToString();
+        public string? GetCameraFirmwareMajorDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMajor).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildYear:
-                    return Directory.GetUInt16(tagType).ToString();
+        public string? GetCameraFirmwareMinorDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMinor).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareRevision:
-                    var uibRevision = Directory.GetByte(tagType);
-                    return uibRevision != 0 ? ((char)uibRevision).ToString() : "";
+        public string? GetCameraFirmwareBuildYearDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildYear).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagEventType:
-                    var eventType = Directory.GetByte(tagType);
-                    return eventType != 0 ? ((char)eventType).ToString() : "";
+        public string? GetCameraFirmwareBuildMonthDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildMonth).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagEventSequenceNumber:
-                case ReconyxHyperFire4KMakernoteDirectory.TagMaxEventSequenceNumber:
-                    return Directory.GetByte(tagType).ToString();
+        public string? GetCameraFirmwareBuildDayDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildDay).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagEventNumber:
-                    return Directory.GetUInt32(tagType).ToString();
+        public string? GetCameraFirmwareRevisionDescription()
+        {
+            var cameraRevision = Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareRevision);
+            return cameraRevision != 0 ? ((char)cameraRevision).ToString() : "";
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagTimeSeconds:
-                case ReconyxHyperFire4KMakernoteDirectory.TagTimeMinutes:
-                case ReconyxHyperFire4KMakernoteDirectory.TagTimeHours:
-                case ReconyxHyperFire4KMakernoteDirectory.TagDateDay:
-                case ReconyxHyperFire4KMakernoteDirectory.TagDateMonth:
-                    return Directory.GetByte(tagType).ToString();
+        public string? GetUIBFirmwareMajorDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMajor).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagDateYear:
-                    return Directory.GetUInt16(tagType).ToString();
+        public string? GetUIBFirmwareMinorDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMinor).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagDateDayOfWeek:
-                    return GetIndexedDescription(tagType, "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+        public string? GetUIBFirmwareBuildYearDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildYear).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagMoonPhase:
-                    return GetIndexedDescription(tagType, "New", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Waning Crescent");
+        public string? GetUIBFirmwareBuildMonthDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildMonth).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagTemperatureFahrenheit:
-                    return $"{Directory.GetInt16(tagType)}°F";
+        public string? GetUIBFirmwareBuildDayDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildDay).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagTemperatureCelsius:
-                    return $"{Directory.GetInt16(tagType)}°C";
+        public string? GetUIBFirmwareRevisionDescription()
+        {
+            var uibRevision = Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareRevision);
+            return uibRevision != 0 ? ((char)uibRevision).ToString() : "";
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagContrast:
-                case ReconyxHyperFire4KMakernoteDirectory.TagBrightness:
-                case ReconyxHyperFire4KMakernoteDirectory.TagSharpness:
-                case ReconyxHyperFire4KMakernoteDirectory.TagSaturation:
-                    return Directory.GetUInt16(tagType).ToString();
+        public string? GetEventTypeDescription()
+        {
+            var eventType = Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagEventType);
+            return eventType != 0 ? ((char)eventType).ToString() : "";
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagFlash:
-                    return GetIndexedDescription(tagType, "Off", "On");
+        public string? GetEventSequenceNumberDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagEventSequenceNumber).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagAmbientLightReading:
-                    return Directory.GetUInt32(tagType).ToString();
+        public string? GetMaxEventSequenceNumberDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagMaxEventSequenceNumber).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagMotionSensorSensitivity:
-                    return Directory.GetUInt16(tagType).ToString();
+        public string? GetEventNumberDescription()
+        {
+            return Directory.GetUInt32(ReconyxHyperFire4KMakernoteDirectory.TagEventNumber).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageInstantaneous:
-                case ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageAverage:
-                    return Directory.GetDouble(tagType).ToString("0.000");
+        public string? GetTimeSecondsDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagTimeSeconds).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagBatteryType:
-                    return Directory.GetUInt16(tagType).ToString();
+        public string? GetTimeMinutesDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagTimeMinutes).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagUserLabel:
-                case ReconyxHyperFire4KMakernoteDirectory.TagCameraSerialNumber:
-                    return Directory.GetString(tagType);
+        public string? GetTimeHoursDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagTimeHours).ToString();
+        }
 
-                case ReconyxHyperFire4KMakernoteDirectory.TagRECNXDirectoryNumber:
-                case ReconyxHyperFire4KMakernoteDirectory.TagFileNumber:
-                    return Directory.GetUInt16(tagType).ToString();
+        public string? GetDateDayDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagDateDay).ToString();
+        }
 
-                default:
-                    return base.GetDescription(tagType);
-            }
+        public string? GetDateMonthDescription()
+        {
+            return Directory.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagDateMonth).ToString();
+        }
+
+        public string? GetDateYearDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagDateYear).ToString();
+        }
+
+        public string? GetDateDayOfWeekDescription()
+        {
+            return GetIndexedDescription(ReconyxHyperFire4KMakernoteDirectory.TagDateDayOfWeek, "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+        }
+
+        public string? GetMoonPhaseDescription()
+        {
+            return GetIndexedDescription(ReconyxHyperFire4KMakernoteDirectory.TagMoonPhase, "New", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Waning Crescent");
+        }
+
+        public string? GetTemperatureFahrenheitDescription()
+        {
+            return $"{Directory.GetInt16(ReconyxHyperFire4KMakernoteDirectory.TagTemperatureFahrenheit)}°F";
+        }
+
+        public string? GetTemperatureCelsiusDescription()
+        {
+            return $"{Directory.GetInt16(ReconyxHyperFire4KMakernoteDirectory.TagTemperatureCelsius)}°C";
+        }
+
+        public string? GetContrastDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagContrast).ToString();
+        }
+
+        public string? GetBrightnessDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagBrightness).ToString();
+        }
+
+        public string? GetSharpnessDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagSharpness).ToString();
+        }
+
+        public string? GetSaturationDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagSaturation).ToString();
+        }
+
+        public string? GetFlashDescription()
+        {
+            return GetIndexedDescription(ReconyxHyperFire4KMakernoteDirectory.TagFlash, "Off", "On");
+        }
+
+        public string? GetAmbientLightReadingDescription()
+        {
+            return Directory.GetUInt32(ReconyxHyperFire4KMakernoteDirectory.TagAmbientLightReading).ToString();
+        }
+
+        public string? GetMotionSensorSensitivityDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagMotionSensorSensitivity).ToString();
+        }
+
+        public string? GetBatteryVoltageInstantaneousDescription()
+        {
+            return Directory.GetDouble(ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageInstantaneous).ToString("0.000");
+        }
+
+        public string? GetBatteryVoltageAverageDescription()
+        {
+            return Directory.GetDouble(ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageAverage).ToString("0.000");
+        }
+
+        public string? GetBatteryTypeDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagBatteryType).ToString();
+        }
+
+        public string? GetUserLabelDescription()
+        {
+            return Directory.GetString(ReconyxHyperFire4KMakernoteDirectory.TagUserLabel);
+        }
+
+        public string? GetCameraSerialNumberDescription()
+        {
+            return Directory.GetString(ReconyxHyperFire4KMakernoteDirectory.TagCameraSerialNumber);
+        }
+
+        public string? GetRECNXDirectoryNumberDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagRECNXDirectoryNumber).ToString();
+        }
+
+        public string? GetFileNumberDescription()
+        {
+            return Directory.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagFileNumber).ToString();
         }
     }
 }
