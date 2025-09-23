@@ -256,7 +256,6 @@ MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.ReconyxHyperFire4KMakernoteDirectory() -> void
 override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.Name.get -> string!
-static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.MakernoteIdentifier -> string!
 static readonly MetadataExtractor.Formats.Png.PngChunkType.bKGD -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngChunkType.cHRM -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType

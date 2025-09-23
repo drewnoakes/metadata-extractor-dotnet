@@ -3,17 +3,8 @@
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Reconyx HyperFire 4K cameras.</summary>
-    /// <remarks>
-    /// Reconyx HyperFire 4K cameras use a fixed makernote block starting with "HyperFire 4K" identifier.
-    /// Tag values are the byte offset within the makernote structure.
-    /// </remarks>
     public class ReconyxHyperFire4KMakernoteDirectory : Directory
     {
-        /// <summary>
-        /// Identifier string used for detecting makernotes from Reconyx HyperFire 4K cameras.
-        /// </summary>
-        public static readonly string MakernoteIdentifier = "RECONYXHF4K";
-
         // Offsets based on the HyperFire 4K MakerNote Structure specification
         public const int TagMakernoteIdentifier = 0;           // char[12] - "RECONYXHF4K"
         public const int TagAggregateMakernoteVersion = 12;     // uint32 - Aggregate MakerNote structure version
