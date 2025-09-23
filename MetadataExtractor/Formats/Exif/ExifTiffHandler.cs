@@ -1223,8 +1223,8 @@ namespace MetadataExtractor.Formats.Exif
                 {
                     try
                     {
-                        DateTime dateTime = new DateTime(dateYear, dateMonth, dateDay, timeHours, timeMinutes, timeSeconds, DateTimeKind.Unspecified);
-                        directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagTimeSeconds, dateTime); // Store complete datetime in one of the time fields for convenience
+                        // Validate that the DateTime can be constructed, but don't store it to avoid overwriting raw values
+                        var _ = new DateTime(dateYear, dateMonth, dateDay, timeHours, timeMinutes, timeSeconds, DateTimeKind.Unspecified);
                     }
                     catch (ArgumentOutOfRangeException)
                     {
