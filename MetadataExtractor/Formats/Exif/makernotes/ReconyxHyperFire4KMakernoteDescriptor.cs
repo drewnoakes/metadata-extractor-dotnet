@@ -98,8 +98,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return Directory.GetUInt32(tagType).ToString();
 
                 case ReconyxHyperFire4KMakernoteDirectory.TagMotionSensorSensitivity:
+                    return Directory.GetUInt16(tagType).ToString();
+
                 case ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageInstantaneous:
                 case ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageAverage:
+                    return Directory.GetDouble(tagType).ToString("0.000");
+
                 case ReconyxHyperFire4KMakernoteDirectory.TagBatteryType:
                     return Directory.GetUInt16(tagType).ToString();
 
