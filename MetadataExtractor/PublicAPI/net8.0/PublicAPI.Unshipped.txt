@@ -157,6 +157,59 @@ static MetadataExtractor.Formats.Png.PngChunkType.operator !=(MetadataExtractor.
 static MetadataExtractor.Formats.Png.PngChunkType.operator ==(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool
 static MetadataExtractor.GeoLocation.operator !=(MetadataExtractor.GeoLocation left, MetadataExtractor.GeoLocation right) -> bool
 static MetadataExtractor.GeoLocation.operator ==(MetadataExtractor.GeoLocation left, MetadataExtractor.GeoLocation right) -> bool
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagAmbientLightReading = 69 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteSize = 16 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteVersion = 12 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagBatteryType = 79 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageAverage = 77 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageInstantaneous = 75 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagBrightness = 62 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildDay = 31 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildMonth = 30 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildYear = 28 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMajor = 26 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMinor = 27 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareRevision = 32 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagCameraSerialNumber = 132 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagContrast = 60 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagDateDay = 50 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagDateDayOfWeek = 54 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagDateMonth = 51 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagDateYear = 52 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagEventNumber = 43 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagEventSequenceNumber = 41 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagEventType = 40 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagFileNumber = 149 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagFlash = 68 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagMakernoteIdentifier = 0 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoSize = 24 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoVersion = 20 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagMaxEventSequenceNumber = 42 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagMoonPhase = 55 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagMotionSensorSensitivity = 73 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagRECNXDirectoryNumber = 147 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagReserved = 151 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagSaturation = 66 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagSharpness = 64 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagTemperatureCelsius = 58 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagTemperatureFahrenheit = 56 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagTimeHours = 49 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagTimeMinutes = 48 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagTimeSeconds = 47 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildDay = 38 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildMonth = 37 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildYear = 35 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMajor = 33 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMinor = 34 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareRevision = 39 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUserLabel = 81 -> int
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.ReconyxHyperFire4KMakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory! directory) -> void
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.ReconyxHyperFire4KMakernoteDirectory() -> void
+override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetDescription(int tagType) -> string?
+override MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.Name.get -> string!
+static readonly MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.MakernoteIdentifier -> string!
 static readonly MetadataExtractor.Formats.Png.PngChunkType.bKGD -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngChunkType.cHRM -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngChunkType.eXIf -> MetadataExtractor.Formats.Png.PngChunkType
