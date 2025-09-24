@@ -196,12 +196,12 @@ const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirec
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagTimeHours = 49 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagTimeMinutes = 48 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagTimeSeconds = 47 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildDay = 38 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildMonth = 37 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildYear = 35 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMajor = 33 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMinor = 34 -> int
-const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareRevision = 39 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildDay = 38 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildMonth = 37 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildYear = 35 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareMajor = 33 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareMinor = 34 -> int
+const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareRevision = 39 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.TagUserLabel = 81 -> int
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.ReconyxHyperFire4KMakernoteDescriptor(MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory! directory) -> void
@@ -243,12 +243,12 @@ MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetTimeHoursDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetTimeMinutesDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetTimeSecondsDescription() -> string?
-MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareBuildDayDescription() -> string?
-MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareBuildMonthDescription() -> string?
-MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareBuildYearDescription() -> string?
-MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareMajorDescription() -> string?
-MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareMinorDescription() -> string?
-MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUIBFirmwareRevisionDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUibFirmwareBuildDayDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUibFirmwareBuildMonthDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUibFirmwareBuildYearDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUibFirmwareMajorDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUibFirmwareMinorDescription() -> string?
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUibFirmwareRevisionDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.GetUserLabelDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDirectory.ReconyxHyperFire4KMakernoteDirectory() -> void
@@ -274,3 +274,4 @@ static readonly MetadataExtractor.Formats.Png.PngChunkType.tIME -> MetadataExtra
 static readonly MetadataExtractor.Formats.Png.PngChunkType.tRNS -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngChunkType.zTXt -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngColorType.Greyscale -> MetadataExtractor.Formats.Png.PngColorType!
+MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.TryGetDateTime(out System.DateTime dateTime) -> bool

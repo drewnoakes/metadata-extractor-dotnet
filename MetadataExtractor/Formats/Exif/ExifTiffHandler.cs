@@ -1172,19 +1172,19 @@ namespace MetadataExtractor.Formats.Exif
                 directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareRevision, cameraFirmwareRevision);
 
                 // Read UIB firmware information
-                byte uibFirmwareMajor = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMajor);
-                byte uibFirmwareMinor = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMinor);
-                ushort uibFirmwareBuildYear = reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildYear);
-                byte uibFirmwareBuildMonth = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildMonth);
-                byte uibFirmwareBuildDay = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildDay);
-                byte uibFirmwareRevision = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareRevision);
+                byte uibFirmwareMajor = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareMajor);
+                byte uibFirmwareMinor = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareMinor);
+                ushort uibFirmwareBuildYear = reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildYear);
+                byte uibFirmwareBuildMonth = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildMonth);
+                byte uibFirmwareBuildDay = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildDay);
+                byte uibFirmwareRevision = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareRevision);
 
-                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMajor, uibFirmwareMajor);
-                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareMinor, uibFirmwareMinor);
-                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildYear, uibFirmwareBuildYear);
-                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildMonth, uibFirmwareBuildMonth);
-                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareBuildDay, uibFirmwareBuildDay);
-                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUIBFirmwareRevision, uibFirmwareRevision);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareMajor, uibFirmwareMajor);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareMinor, uibFirmwareMinor);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildYear, uibFirmwareBuildYear);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildMonth, uibFirmwareBuildMonth);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildDay, uibFirmwareBuildDay);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareRevision, uibFirmwareRevision);
 
                 // Read event information
                 directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagEventType,
@@ -1212,25 +1212,6 @@ namespace MetadataExtractor.Formats.Exif
                 directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagDateMonth, dateMonth);
                 directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagDateYear, dateYear);
                 directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagDateDayOfWeek, dateDayOfWeek);
-
-                // Validate and create DateTime if valid
-                if (timeSeconds < 60 &&
-                    timeMinutes < 60 &&
-                    timeHours < 24 &&
-                    dateMonth is >= 1 and <= 12 &&
-                    dateDay is >= 1 and <= 31 &&
-                    dateYear >= DateTime.MinValue.Year && dateYear <= DateTime.MaxValue.Year)
-                {
-                    try
-                    {
-                        // Validate that the DateTime can be constructed, but don't store it to avoid overwriting raw values
-                        var _ = new DateTime(dateYear, dateMonth, dateDay, timeHours, timeMinutes, timeSeconds, DateTimeKind.Unspecified);
-                    }
-                    catch (ArgumentOutOfRangeException)
-                    {
-                        directory.AddError($"Invalid date/time: {dateYear}-{dateMonth:D2}-{dateDay:D2} {timeHours:D2}:{timeMinutes:D2}:{timeSeconds:D2}");
-                    }
-                }
 
                 // Read environmental information
                 directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagMoonPhase,

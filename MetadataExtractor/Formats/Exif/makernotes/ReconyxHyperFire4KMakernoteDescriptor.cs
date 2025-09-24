@@ -27,12 +27,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 TagCameraFirmwareBuildMonth => GetCameraFirmwareBuildMonthDescription(),
                 TagCameraFirmwareBuildDay => GetCameraFirmwareBuildDayDescription(),
                 TagCameraFirmwareRevision => GetCameraFirmwareRevisionDescription(),
-                TagUIBFirmwareMajor => GetUIBFirmwareMajorDescription(),
-                TagUIBFirmwareMinor => GetUIBFirmwareMinorDescription(),
-                TagUIBFirmwareBuildYear => GetUIBFirmwareBuildYearDescription(),
-                TagUIBFirmwareBuildMonth => GetUIBFirmwareBuildMonthDescription(),
-                TagUIBFirmwareBuildDay => GetUIBFirmwareBuildDayDescription(),
-                TagUIBFirmwareRevision => GetUIBFirmwareRevisionDescription(),
+                TagUibFirmwareMajor => GetUibFirmwareMajorDescription(),
+                TagUibFirmwareMinor => GetUibFirmwareMinorDescription(),
+                TagUibFirmwareBuildYear => GetUibFirmwareBuildYearDescription(),
+                TagUibFirmwareBuildMonth => GetUibFirmwareBuildMonthDescription(),
+                TagUibFirmwareBuildDay => GetUibFirmwareBuildDayDescription(),
+                TagUibFirmwareRevision => GetUibFirmwareRevisionDescription(),
                 TagEventType => GetEventTypeDescription(),
                 TagEventSequenceNumber => GetEventSequenceNumberDescription(),
                 TagMaxEventSequenceNumber => GetMaxEventSequenceNumberDescription(),
@@ -117,41 +117,37 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetCameraFirmwareRevisionDescription()
         {
-            if (!Directory.TryGetByte(TagCameraFirmwareRevision, out var value))
-                return null;
-            return value != 0 ? ((char)value).ToString() : "";
+            return Directory.TryGetByte(TagCameraFirmwareRevision, out var value) ? value.ToString() : null;
         }
 
-        public string? GetUIBFirmwareMajorDescription()
+        public string? GetUibFirmwareMajorDescription()
         {
-            return Directory.TryGetByte(TagUIBFirmwareMajor, out var value) ? value.ToString() : null;
+            return Directory.TryGetByte(TagUibFirmwareMajor, out var value) ? value.ToString() : null;
         }
 
-        public string? GetUIBFirmwareMinorDescription()
+        public string? GetUibFirmwareMinorDescription()
         {
-            return Directory.TryGetByte(TagUIBFirmwareMinor, out var value) ? value.ToString() : null;
+            return Directory.TryGetByte(TagUibFirmwareMinor, out var value) ? value.ToString() : null;
         }
 
-        public string? GetUIBFirmwareBuildYearDescription()
+        public string? GetUibFirmwareBuildYearDescription()
         {
-            return Directory.TryGetUInt16(TagUIBFirmwareBuildYear, out var value) ? value.ToString() : null;
+            return Directory.TryGetUInt16(TagUibFirmwareBuildYear, out var value) ? value.ToString() : null;
         }
 
-        public string? GetUIBFirmwareBuildMonthDescription()
+        public string? GetUibFirmwareBuildMonthDescription()
         {
-            return Directory.TryGetByte(TagUIBFirmwareBuildMonth, out var value) ? value.ToString() : null;
+            return Directory.TryGetByte(TagUibFirmwareBuildMonth, out var value) ? value.ToString() : null;
         }
 
-        public string? GetUIBFirmwareBuildDayDescription()
+        public string? GetUibFirmwareBuildDayDescription()
         {
-            return Directory.TryGetByte(TagUIBFirmwareBuildDay, out var value) ? value.ToString() : null;
+            return Directory.TryGetByte(TagUibFirmwareBuildDay, out var value) ? value.ToString() : null;
         }
 
-        public string? GetUIBFirmwareRevisionDescription()
+        public string? GetUibFirmwareRevisionDescription()
         {
-            if (!Directory.TryGetByte(TagUIBFirmwareRevision, out var value))
-                return null;
-            return value != 0 ? ((char)value).ToString() : "";
+            return Directory.TryGetByte(TagUibFirmwareRevision, out var value) ? value.ToString() : null;
         }
 
         public string? GetEventTypeDescription()
@@ -304,6 +300,44 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string? GetFileNumberDescription()
         {
             return Directory.TryGetUInt16(TagFileNumber, out var value) ? value.ToString() : null;
+        }
+
+        /// <summary>
+        /// Attempts to construct a DateTime from the individual time components stored in the makernote.
+        /// </summary>
+        /// <param name="dateTime">The constructed DateTime if successful</param>
+        /// <returns>True if a valid DateTime could be constructed from the stored values</returns>
+        public bool TryGetDateTime(out DateTime dateTime)
+        {
+            dateTime = default;
+            
+            if (!Directory.TryGetByte(TagTimeSeconds, out var seconds) ||
+                !Directory.TryGetByte(TagTimeMinutes, out var minutes) ||
+                !Directory.TryGetByte(TagTimeHours, out var hours) ||
+                !Directory.TryGetByte(TagDateDay, out var day) ||
+                !Directory.TryGetByte(TagDateMonth, out var month) ||
+                !Directory.TryGetUInt16(TagDateYear, out var year))
+            {
+                return false;
+            }
+
+            // Validate ranges
+            if (seconds >= 60 || minutes >= 60 || hours >= 24 || 
+                month is < 1 or > 12 || day is < 1 or > 31 ||
+                year < DateTime.MinValue.Year || year > DateTime.MaxValue.Year)
+            {
+                return false;
+            }
+
+            try
+            {
+                dateTime = new DateTime(year, month, day, hours, minutes, seconds, DateTimeKind.Unspecified);
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     {
         // Offsets based on the HyperFire 4K MakerNote Structure specification
         public const int TagMakernoteIdentifier = 0;           // char[12] - "RECONYXHF4K"
-        public const int TagAggregateMakernoteVersion = 12;     // uint32 - Aggregate MakerNote structure version
+        public const int TagAggregateMakernoteVersion = 12;    // uint32 - Aggregate MakerNote structure version
         public const int TagAggregateMakernoteSize = 16;       // uint32 - Aggregate MakerNote structure size in bytes
         public const int TagMakernoteInfoVersion = 20;         // uint32 - MakerNote INFO structure version
         public const int TagMakernoteInfoSize = 24;            // uint16 - MakerNote INFO structure size in bytes
@@ -19,12 +19,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagCameraFirmwareBuildDay = 31;       // uint8 - Camera firmware build day
         public const int TagCameraFirmwareRevision = 32;       // char - Camera firmware revision
 
-        public const int TagUIBFirmwareMajor = 33;             // uint8 - UIB firmware major version
-        public const int TagUIBFirmwareMinor = 34;             // uint8 - UIB firmware minor version
-        public const int TagUIBFirmwareBuildYear = 35;         // uint16 - UIB firmware build year
-        public const int TagUIBFirmwareBuildMonth = 37;        // uint8 - UIB firmware build month
-        public const int TagUIBFirmwareBuildDay = 38;          // uint8 - UIB firmware build day
-        public const int TagUIBFirmwareRevision = 39;          // char - UIB firmware revision
+        public const int TagUibFirmwareMajor = 33;             // uint8 - UIB firmware major version
+        public const int TagUibFirmwareMinor = 34;             // uint8 - UIB firmware minor version
+        public const int TagUibFirmwareBuildYear = 35;         // uint16 - UIB firmware build year
+        public const int TagUibFirmwareBuildMonth = 37;        // uint8 - UIB firmware build month
+        public const int TagUibFirmwareBuildDay = 38;          // uint8 - UIB firmware build day
+        public const int TagUibFirmwareRevision = 39;          // char - UIB firmware revision
 
         public const int TagEventType = 40;                    // char - Event type
         public const int TagEventSequenceNumber = 41;          // uint8 - Event sequence number
@@ -76,12 +76,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagCameraFirmwareBuildDay, "Camera Firmware Build Day" },
             { TagCameraFirmwareRevision, "Camera Firmware Revision" },
 
-            { TagUIBFirmwareMajor, "UIB Firmware Major" },
-            { TagUIBFirmwareMinor, "UIB Firmware Minor" },
-            { TagUIBFirmwareBuildYear, "UIB Firmware Build Year" },
-            { TagUIBFirmwareBuildMonth, "UIB Firmware Build Month" },
-            { TagUIBFirmwareBuildDay, "UIB Firmware Build Day" },
-            { TagUIBFirmwareRevision, "UIB Firmware Revision" },
+            { TagUibFirmwareMajor, "UIB Firmware Major" },
+            { TagUibFirmwareMinor, "UIB Firmware Minor" },
+            { TagUibFirmwareBuildYear, "UIB Firmware Build Year" },
+            { TagUibFirmwareBuildMonth, "UIB Firmware Build Month" },
+            { TagUibFirmwareBuildDay, "UIB Firmware Build Day" },
+            { TagUibFirmwareRevision, "UIB Firmware Revision" },
 
             { TagEventType, "Event Type" },
             { TagEventSequenceNumber, "Event Sequence Number" },
