@@ -17,13 +17,5 @@ namespace MetadataExtractor.Util
             => hours is >= 0 and < 24 &&
                minutes is >= 0 and < 60
                && seconds is >= 0 and < 60;
-
-#if NET8_0_OR_GREATER || NETSTANDARD2_1
-        private static readonly DateTime _unixEpoch = DateTime.UnixEpoch;
-#else
-        private static readonly DateTime _unixEpoch = new(1970, 1, 1, 0, 0, 0);
-#endif
-
-        public static DateTime FromUnixTime(long unixTimeSeconds) => _unixEpoch.AddSeconds(unixTimeSeconds);
     }
 }
