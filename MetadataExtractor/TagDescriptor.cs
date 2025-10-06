@@ -163,7 +163,7 @@ namespace MetadataExtractor
         {
             // TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
             return Directory.TryGetInt64(tagType, out long value)
-                ? DateUtil.FromUnixTime(value).ToString("ddd MMM dd HH:mm:ss zzz yyyy")
+                ? DateTimeOffset.FromUnixTimeSeconds(value).ToString("ddd MMM dd HH:mm:ss zzz yyyy")
                 : null;
         }
 
