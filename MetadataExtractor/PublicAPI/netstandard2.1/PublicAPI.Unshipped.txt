@@ -87,6 +87,7 @@ MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetHumidityDescription() ->
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetPressureDescription() -> string?
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetTemperatureDescription() -> string?
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetWaterDepthDescription() -> string?
+MetadataExtractor.Formats.Exif.GpsDirectory.GetGeoLocation() -> MetadataExtractor.GeoLocation?
 MetadataExtractor.Formats.Exif.GpsDirectory.TryGetGeoLocation(out MetadataExtractor.GeoLocation geoLocation) -> bool
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAEStableDescription() -> string?
 MetadataExtractor.Formats.Exif.Makernotes.AppleMakernoteDescriptor.GetAFStableDescription() -> string?

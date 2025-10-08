@@ -185,6 +185,16 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         /// <summary>
+        /// Parses various tags in an attempt to obtain a single object representing the latitude and longitude
+        /// at which this image was captured.
+        /// </summary>
+        /// <returns>The geographical location of this image, or null if location could not be determined.</returns>
+        public GeoLocation? GetGeoLocation()
+        {
+            return TryGetGeoLocation(out GeoLocation geoLocation) ? geoLocation : null;
+        }
+
+        /// <summary>
         /// Parses values for <see cref="TagDateStamp"/> and <see cref="TagTimeStamp"/> to produce a single
         /// <see cref="DateTime"/> value representing when this image was captured according to the GPS unit.
         /// </summary>
