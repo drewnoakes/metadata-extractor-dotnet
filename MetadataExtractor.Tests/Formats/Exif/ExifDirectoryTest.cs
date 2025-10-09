@@ -48,6 +48,24 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         [Fact]
+        public void GetGeoLocation()
+        {
+            var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Data/withExifAndIptc.jpg.app1.0", JpegSegmentType.App1);
+            var geoLocation = gpsDirectory.GetGeoLocation();
+            Assert.NotNull(geoLocation);
+            Assert.Equal(54.989666666666665, geoLocation.Value.Latitude);
+            Assert.Equal(-1.9141666666666666, geoLocation.Value.Longitude);
+        }
+
+        [Fact]
+        public void GetGeoLocationReturnsNullWhenNoGpsData()
+        {
+            var gpsDirectory = new GpsDirectory();
+            var geoLocation = gpsDirectory.GetGeoLocation();
+            Assert.Null(geoLocation);
+        }
+
+        [Fact]
         public void GpsDate()
         {
             var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Data/withPanasonicFaces.jpg.app1", JpegSegmentType.App1);
