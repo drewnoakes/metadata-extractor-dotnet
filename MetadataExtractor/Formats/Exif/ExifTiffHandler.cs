@@ -752,6 +752,12 @@ namespace MetadataExtractor.Formats.Exif
                 // Always in Motorola byte order
                 TiffReader.ProcessIfd(this, context.WithByteOrder(isMotorolaByteOrder: true).WithShiftedBaseOffset(makernoteOffset), ifdOffset: 14);
             }
+            else if (headerString.StartsWith("RECONYXHF4K", StringComparison.OrdinalIgnoreCase))
+            {
+                var directory = new ReconyxHyperFire4KMakernoteDirectory();
+                Directories.Add(directory);
+                ProcessReconyxHyperFire4KMakernote(directory, context.Reader.WithShiftedBaseOffset(makernoteOffset));
+            }
             else if (context.Reader.GetUInt16(makernoteOffset) == ReconyxHyperFireMakernoteDirectory.MakernoteVersion)
             {
                 var directory = new ReconyxHyperFireMakernoteDirectory();
@@ -1130,6 +1136,131 @@ namespace MetadataExtractor.Formats.Exif
             directory.Set(ReconyxHyperFire2MakernoteDirectory.TagUserLabel, reader.GetNullTerminatedString(ReconyxHyperFire2MakernoteDirectory.TagUserLabel, 22));
             // two unread bytes: terminating null of unicode string
             directory.Set(ReconyxHyperFire2MakernoteDirectory.TagSerialNumber, reader.GetString(ReconyxHyperFire2MakernoteDirectory.TagSerialNumber, 28, Encoding.Unicode));
+        }
+
+        private static void ProcessReconyxHyperFire4KMakernote(ReconyxHyperFire4KMakernoteDirectory directory, IndexedReader reader)
+        {
+            try
+            {
+                // Read the identifier string
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagMakernoteIdentifier,
+                    reader.GetNullTerminatedString(ReconyxHyperFire4KMakernoteDirectory.TagMakernoteIdentifier, 12));
+
+                // Read aggregate makernote structure information
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteVersion,
+                    reader.GetUInt32(ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteVersion));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteSize,
+                    reader.GetUInt32(ReconyxHyperFire4KMakernoteDirectory.TagAggregateMakernoteSize));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoVersion,
+                    reader.GetUInt32(ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoVersion));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoSize,
+                    reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagMakernoteInfoSize));
+
+                // Read camera firmware information
+                byte cameraFirmwareMajor = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMajor);
+                byte cameraFirmwareMinor = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMinor);
+                ushort cameraFirmwareBuildYear = reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildYear);
+                byte cameraFirmwareBuildMonth = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildMonth);
+                byte cameraFirmwareBuildDay = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildDay);
+                byte cameraFirmwareRevision = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareRevision);
+
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMajor, cameraFirmwareMajor);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareMinor, cameraFirmwareMinor);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildYear, cameraFirmwareBuildYear);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildMonth, cameraFirmwareBuildMonth);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareBuildDay, cameraFirmwareBuildDay);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagCameraFirmwareRevision, cameraFirmwareRevision);
+
+                // Read UIB firmware information
+                byte uibFirmwareMajor = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareMajor);
+                byte uibFirmwareMinor = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareMinor);
+                ushort uibFirmwareBuildYear = reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildYear);
+                byte uibFirmwareBuildMonth = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildMonth);
+                byte uibFirmwareBuildDay = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildDay);
+                byte uibFirmwareRevision = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareRevision);
+
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareMajor, uibFirmwareMajor);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareMinor, uibFirmwareMinor);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildYear, uibFirmwareBuildYear);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildMonth, uibFirmwareBuildMonth);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareBuildDay, uibFirmwareBuildDay);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUibFirmwareRevision, uibFirmwareRevision);
+
+                // Read event information
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagEventType,
+                    reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagEventType));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagEventSequenceNumber,
+                    reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagEventSequenceNumber));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagMaxEventSequenceNumber,
+                    reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagMaxEventSequenceNumber));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagEventNumber,
+                    reader.GetUInt32(ReconyxHyperFire4KMakernoteDirectory.TagEventNumber));
+
+                // Read timestamp information
+                byte timeSeconds = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagTimeSeconds);
+                byte timeMinutes = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagTimeMinutes);
+                byte timeHours = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagTimeHours);
+                byte dateDay = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagDateDay);
+                byte dateMonth = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagDateMonth);
+                ushort dateYear = reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagDateYear);
+                byte dateDayOfWeek = reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagDateDayOfWeek);
+
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagTimeSeconds, timeSeconds);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagTimeMinutes, timeMinutes);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagTimeHours, timeHours);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagDateDay, dateDay);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagDateMonth, dateMonth);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagDateYear, dateYear);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagDateDayOfWeek, dateDayOfWeek);
+
+                // Read environmental information
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagMoonPhase,
+                    reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagMoonPhase));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagTemperatureFahrenheit,
+                    reader.GetInt16(ReconyxHyperFire4KMakernoteDirectory.TagTemperatureFahrenheit));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagTemperatureCelsius,
+                    reader.GetInt16(ReconyxHyperFire4KMakernoteDirectory.TagTemperatureCelsius));
+
+                // Read camera settings
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagContrast,
+                    reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagContrast));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagBrightness,
+                    reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagBrightness));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagSharpness,
+                    reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagSharpness));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagSaturation,
+                    reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagSaturation));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagFlash,
+                    reader.GetByte(ReconyxHyperFire4KMakernoteDirectory.TagFlash));
+
+                // Read sensor information
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagAmbientLightReading,
+                    reader.GetUInt32(ReconyxHyperFire4KMakernoteDirectory.TagAmbientLightReading));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagMotionSensorSensitivity,
+                    reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagMotionSensorSensitivity));
+
+                // Read battery information  
+                ushort batteryVoltageInstantaneous = reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageInstantaneous);
+                ushort batteryVoltageAverage = reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageAverage);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageInstantaneous, batteryVoltageInstantaneous / 1000.0);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagBatteryVoltageAverage, batteryVoltageAverage / 1000.0);
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagBatteryType,
+                    reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagBatteryType));
+
+                // Read device identification
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagUserLabel,
+                    reader.GetNullTerminatedString(ReconyxHyperFire4KMakernoteDirectory.TagUserLabel, 51));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagCameraSerialNumber,
+                    reader.GetNullTerminatedString(ReconyxHyperFire4KMakernoteDirectory.TagCameraSerialNumber, 15));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagRECNXDirectoryNumber,
+                    reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagRECNXDirectoryNumber));
+                directory.Set(ReconyxHyperFire4KMakernoteDirectory.TagFileNumber,
+                    reader.GetUInt16(ReconyxHyperFire4KMakernoteDirectory.TagFileNumber));
+            }
+            catch (Exception ex)
+            {
+                directory.AddError("Error processing Reconyx HyperFire 4K makernote data: " + ex.Message);
+            }
         }
     }
 }
