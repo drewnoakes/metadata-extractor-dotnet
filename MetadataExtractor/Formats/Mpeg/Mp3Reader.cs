@@ -72,15 +72,18 @@ namespace MetadataExtractor.Formats.Mpeg
                 { 44100, 48000, 32000 },
                 { 22050, 24000, 16000 }
             };
-            if (id == 1)
+            if (frequency < frequencyMapping.GetLength(1))
             {
-                directory.Set(Mp3Directory.TagFrequency, frequencyMapping[0, frequency]);
-                frequency = frequencyMapping[0, frequency];
-            }
-            else if (id == 2)
-            {
-                directory.Set(Mp3Directory.TagFrequency, frequencyMapping[1, frequency]);
-                frequency = frequencyMapping[1, frequency];
+                if (id == 1)
+                {
+                    directory.Set(Mp3Directory.TagFrequency, frequencyMapping[0, frequency]);
+                    frequency = frequencyMapping[0, frequency];
+                }
+                else if (id == 2)
+                {
+                    directory.Set(Mp3Directory.TagFrequency, frequencyMapping[1, frequency]);
+                    frequency = frequencyMapping[1, frequency];
+                }
             }
 
             // int paddingBit = (header & 0x00000200) >> 9;
@@ -129,8 +132,11 @@ namespace MetadataExtractor.Formats.Mpeg
                     break;
             }
 
-            int frameSize = SetBitrate(bitrate, layer, id) * 1000 * 144 / frequency;
-            directory.Set(Mp3Directory.TagFrameSize, frameSize + " bytes");
+            if (bitrate != 0 && bitrate != 15 && frequency != 0)
+            {
+                int frameSize = SetBitrate(bitrate, layer, id) * 1000 * 144 / frequency;
+                directory.Set(Mp3Directory.TagFrameSize, frameSize + " bytes");
+            }
 
             return directory;
         }
