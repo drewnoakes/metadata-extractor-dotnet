@@ -67,6 +67,7 @@ namespace MetadataExtractor.Formats.Mpeg
 
             // Frequency: depends on ID
             int frequency = (header & 0x00000C00) >> 10;
+            int sampleRate = 0;
             int[,] frequencyMapping = new int[2, 3]
             {
                 { 44100, 48000, 32000 },
@@ -76,13 +77,13 @@ namespace MetadataExtractor.Formats.Mpeg
             {
                 if (id == 1)
                 {
-                    directory.Set(Mp3Directory.TagFrequency, frequencyMapping[0, frequency]);
-                    frequency = frequencyMapping[0, frequency];
+                    sampleRate = frequencyMapping[0, frequency];
+                    directory.Set(Mp3Directory.TagFrequency, sampleRate);
                 }
                 else if (id == 2)
                 {
-                    directory.Set(Mp3Directory.TagFrequency, frequencyMapping[1, frequency]);
-                    frequency = frequencyMapping[1, frequency];
+                    sampleRate = frequencyMapping[1, frequency];
+                    directory.Set(Mp3Directory.TagFrequency, sampleRate);
                 }
             }
 
@@ -132,9 +133,9 @@ namespace MetadataExtractor.Formats.Mpeg
                     break;
             }
 
-            if (bitrate != 0 && bitrate != 15 && frequency != 0)
+            if (bitrate != 0 && bitrate != 15 && sampleRate > 0)
             {
-                int frameSize = SetBitrate(bitrate, layer, id) * 1000 * 144 / frequency;
+                int frameSize = SetBitrate(bitrate, layer, id) * 1000 * 144 / sampleRate;
                 directory.Set(Mp3Directory.TagFrameSize, frameSize + " bytes");
             }
 
