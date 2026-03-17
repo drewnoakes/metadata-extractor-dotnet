@@ -2,22 +2,11 @@ name: release
 on:
   release:
     types: [published]
-  workflow_dispatch:
-    inputs:
-      dry-run:
-        description: 'If true, packs and validates but does not push to NuGet'
-        required: false
-        default: 'true'
-        type: boolean
-      version:
-        description: 'Package version (required for manual runs)'
-        required: true
-        type: string
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || !github.event.release.prerelease
+    if: "!github.event.release.prerelease"
     permissions:
       id-token: write
     steps:
@@ -25,14 +14,8 @@ jobs:
     - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 10.0.x
-    - name: Determine version
+    - name: Get version from tag
       id: get_version
-      run: |
-        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-          echo "VERSION=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
-        else
-          echo "VERSION=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
-        fi
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
     - run: dotnet pack MetadataExtractor/MetadataExtractor.csproj -o . -c Release /p:Version=${{ steps.get_version.outputs.VERSION }} /p:ContinuousIntegrationBuild=true
-    - name: Push to NuGet
-      run: dotnet nuget push "*.nupkg" --source https://api.nuget.org/v3/index.json ${{ inputs.dry-run == true && '--dry-run' || '' }}
+    - run: dotnet nuget push "*.nupkg" --source https://api.nuget.org/v3/index.json
