@@ -269,10 +269,12 @@ namespace MetadataExtractor.Tools.FileProcessor
                 {
                     handler.OnBeforeExtraction(file, relativePath, log);
 
-                    // Read metadata
-                    using var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    Stream? stream = null;
                     try
                     {
+                        // Read metadata
+                        stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read);
+
                         var directories = ImageMetadataReader.ReadMetadata(stream).ToList();
 
                         // ImageMetadataReader.ReadMetadata(Stream) doesn't add a FileMetadataReader directory.
@@ -283,7 +285,11 @@ namespace MetadataExtractor.Tools.FileProcessor
                     }
                     catch (Exception e)
                     {
-                        handler.OnExtractionError(file, e, log, stream.Position);
+                        handler.OnExtractionError(file, e, log, stream?.Position ?? -1);
+                    }
+                    finally
+                    {
+                        stream?.Dispose();
                     }
                 }
             }
