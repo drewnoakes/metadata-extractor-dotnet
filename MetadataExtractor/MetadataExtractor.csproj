@@ -46,11 +46,11 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="System.Memory" Version="4.6.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.6.1" />
+    <PackageReference Include="System.ValueTuple" Version="4.6.2" />
   </ItemGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netstandard2.1' ">
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.5" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.5" />
   </ItemGroup>
 
   <!-- Analyzers -->

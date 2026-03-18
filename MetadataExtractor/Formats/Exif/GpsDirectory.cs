@@ -177,7 +177,7 @@ namespace MetadataExtractor.Formats.Exif
 #pragma warning restore format
 
             // This can return null, in cases where the conversion was not possible
-            if (lat == null || lon == null)
+            if (lat is null || lon is null)
                 return false;
 
             geoLocation = new GeoLocation((double)lat, (double)lon);

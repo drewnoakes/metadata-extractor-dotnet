@@ -121,7 +121,7 @@ namespace MetadataExtractor.Formats.Exif
             var dec = GeoLocation.DegreesMinutesSecondsToDecimal(
                 values[0], values[1], values[2], @ref.Equals(positiveRef, StringComparison.OrdinalIgnoreCase));
 
-            return dec == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString((double)dec);
+            return dec is null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString((double)dec);
         }
 
         public string? GetGpsDestinationReferenceDescription()
