@@ -2,29 +2,28 @@
 
 using MetadataExtractor.Formats.FileSystem;
 
-namespace MetadataExtractor.Formats.Bmp
+namespace MetadataExtractor.Formats.Bmp;
+
+/// <summary>Obtains metadata from BMP files.</summary>
+/// <author>Drew Noakes https://drewnoakes.com</author>
+/// <author>Kevin Mott https://github.com/kwhopper</author>
+public static class BmpMetadataReader
 {
-    /// <summary>Obtains metadata from BMP files.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-    /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public static class BmpMetadataReader
+    /// <exception cref="IOException"/>
+    public static IReadOnlyList<Directory> ReadMetadata(string filePath)
     {
-        /// <exception cref="IOException"/>
-        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
-        {
-            var directories = new List<Directory>(2);
+        var directories = new List<Directory>(2);
 
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream));
+        using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            directories.AddRange(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+        directories.Add(new FileMetadataReader().Read(filePath));
 
-            return directories;
-        }
+        return directories;
+    }
 
-        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
-        {
-            return new BmpReader().Extract(new SequentialStreamReader(stream)).ToList();
-        }
+    public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
+    {
+        return new BmpReader().Extract(new SequentialStreamReader(stream)).ToList();
     }
 }

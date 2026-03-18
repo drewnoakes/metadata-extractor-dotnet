@@ -3,33 +3,32 @@
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Riff;
 
-namespace MetadataExtractor.Formats.WebP
+namespace MetadataExtractor.Formats.WebP;
+
+/// <summary>Obtains metadata from WebP files.</summary>
+/// <author>Drew Noakes https://drewnoakes.com</author>
+public static class WebPMetadataReader
 {
-    /// <summary>Obtains metadata from WebP files.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-    public static class WebPMetadataReader
+    /// <exception cref="IOException"/>
+    /// <exception cref="RiffProcessingException"/>
+    public static IReadOnlyList<Directory> ReadMetadata(string filePath)
     {
-        /// <exception cref="IOException"/>
-        /// <exception cref="RiffProcessingException"/>
-        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
-        {
-            var directories = new List<Directory>();
+        var directories = new List<Directory>();
 
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream));
+        using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            directories.AddRange(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+        directories.Add(new FileMetadataReader().Read(filePath));
 
-            return directories;
-        }
+        return directories;
+    }
 
-        /// <exception cref="IOException"/>
-        /// <exception cref="RiffProcessingException"/>
-        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
-        {
-            var directories = new List<Directory>();
-            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(directories));
-            return directories;
-        }
+    /// <exception cref="IOException"/>
+    /// <exception cref="RiffProcessingException"/>
+    public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
+    {
+        var directories = new List<Directory>();
+        new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(directories));
+        return directories;
     }
 }
