@@ -41,21 +41,21 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="XmpCore" Version="6.1.10.1" />
+    <PackageReference Include="XmpCore" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Memory" Version="4.6.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.6.2" />
+    <PackageReference Include="System.Memory" />
+    <PackageReference Include="System.ValueTuple" />
   </ItemGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netstandard2.1' ">
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.5" />
+    <PackageReference Include="System.Text.Encoding.CodePages" />
   </ItemGroup>
 
   <!-- Analyzers -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
