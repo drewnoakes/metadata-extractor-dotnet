@@ -1,35 +1,34 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-namespace MetadataExtractor.Formats.Adobe
+namespace MetadataExtractor.Formats.Adobe;
+
+/// <summary>Provides human-readable string versions of the tags stored in an AdobeJpegDirectory.</summary>
+public class AdobeJpegDescriptor(AdobeJpegDirectory directory)
+    : TagDescriptor<AdobeJpegDirectory>(directory)
 {
-    /// <summary>Provides human-readable string versions of the tags stored in an AdobeJpegDirectory.</summary>
-    public class AdobeJpegDescriptor(AdobeJpegDirectory directory)
-        : TagDescriptor<AdobeJpegDirectory>(directory)
+    public override string? GetDescription(int tagType)
     {
-        public override string? GetDescription(int tagType)
+        return tagType switch
         {
-            return tagType switch
-            {
-                AdobeJpegDirectory.TagColorTransform => GetColorTransformDescription(),
-                AdobeJpegDirectory.TagDctEncodeVersion => GetDctEncodeVersionDescription(),
-                _ => base.GetDescription(tagType),
-            };
-        }
+            AdobeJpegDirectory.TagColorTransform => GetColorTransformDescription(),
+            AdobeJpegDirectory.TagDctEncodeVersion => GetDctEncodeVersionDescription(),
+            _ => base.GetDescription(tagType),
+        };
+    }
 
-        public string? GetDctEncodeVersionDescription()
-        {
-            if (!Directory.TryGetInt32(AdobeJpegDirectory.TagDctEncodeVersion, out int value))
-                return null;
+    public string? GetDctEncodeVersionDescription()
+    {
+        if (!Directory.TryGetInt32(AdobeJpegDirectory.TagDctEncodeVersion, out int value))
+            return null;
 
-            return value == 0x64 ? "100" : value.ToString();
-        }
+        return value == 0x64 ? "100" : value.ToString();
+    }
 
-        public string? GetColorTransformDescription()
-        {
-            return GetIndexedDescription(AdobeJpegDirectory.TagColorTransform,
-                "Unknown (RGB or CMYK)",
-                "YCbCr",
-                "YCCK");
-        }
+    public string? GetColorTransformDescription()
+    {
+        return GetIndexedDescription(AdobeJpegDirectory.TagColorTransform,
+            "Unknown (RGB or CMYK)",
+            "YCbCr",
+            "YCCK");
     }
 }

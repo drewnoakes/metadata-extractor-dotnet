@@ -6,84 +6,83 @@ using Xunit.Sdk;
 
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace MetadataExtractor
+namespace MetadataExtractor;
+
+/// <summary>
+/// Apply this attribute to your test method to replace the
+/// <see cref="System.Threading.Thread.CurrentThread" /> <see cref="CultureInfo.CurrentCulture" /> and
+/// <see cref="CultureInfo.CurrentUICulture" /> with another culture.
+/// </summary>
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+public class UseCultureAttribute : BeforeAfterTestAttribute
 {
+    private readonly Lazy<CultureInfo> _culture;
+    private readonly Lazy<CultureInfo> _uiCulture;
+
+    private CultureInfo? _originalCulture;
+    private CultureInfo? _originalUiCulture;
+
     /// <summary>
-    /// Apply this attribute to your test method to replace the
-    /// <see cref="System.Threading.Thread.CurrentThread" /> <see cref="CultureInfo.CurrentCulture" /> and
-    /// <see cref="CultureInfo.CurrentUICulture" /> with another culture.
+    /// Replaces the culture and UI culture of the current thread with
+    /// <paramref name="culture" />
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class UseCultureAttribute : BeforeAfterTestAttribute
+    /// <param name="culture">The name of the culture.</param>
+    /// <remarks>
+    /// <para>
+    /// This constructor overload uses <paramref name="culture" /> for both
+    /// <see cref="Culture" /> and <see cref="UICulture" />.
+    /// </para>
+    /// </remarks>
+    public UseCultureAttribute(string culture)
+        : this(culture, culture)
+    { }
+
+    /// <summary>
+    /// Replaces the culture and UI culture of the current thread with
+    /// <paramref name="culture" /> and <paramref name="uiCulture" />
+    /// </summary>
+    /// <param name="culture">The name of the culture.</param>
+    /// <param name="uiCulture">The name of the UI culture.</param>
+    public UseCultureAttribute(string culture, string uiCulture)
     {
-        private readonly Lazy<CultureInfo> _culture;
-        private readonly Lazy<CultureInfo> _uiCulture;
+        _culture = new Lazy<CultureInfo>(() => new CultureInfo(culture));
+        _uiCulture = new Lazy<CultureInfo>(() => new CultureInfo(uiCulture));
+    }
 
-        private CultureInfo? _originalCulture;
-        private CultureInfo? _originalUiCulture;
+    /// <summary>
+    /// Gets the culture.
+    /// </summary>
+    public CultureInfo Culture => _culture.Value;
 
-        /// <summary>
-        /// Replaces the culture and UI culture of the current thread with
-        /// <paramref name="culture" />
-        /// </summary>
-        /// <param name="culture">The name of the culture.</param>
-        /// <remarks>
-        /// <para>
-        /// This constructor overload uses <paramref name="culture" /> for both
-        /// <see cref="Culture" /> and <see cref="UICulture" />.
-        /// </para>
-        /// </remarks>
-        public UseCultureAttribute(string culture)
-            : this(culture, culture)
-        { }
+    /// <summary>
+    /// Gets the UI culture.
+    /// </summary>
+    public CultureInfo UICulture => _uiCulture.Value;
 
-        /// <summary>
-        /// Replaces the culture and UI culture of the current thread with
-        /// <paramref name="culture" /> and <paramref name="uiCulture" />
-        /// </summary>
-        /// <param name="culture">The name of the culture.</param>
-        /// <param name="uiCulture">The name of the UI culture.</param>
-        public UseCultureAttribute(string culture, string uiCulture)
-        {
-            _culture = new Lazy<CultureInfo>(() => new CultureInfo(culture));
-            _uiCulture = new Lazy<CultureInfo>(() => new CultureInfo(uiCulture));
-        }
+    /// <summary>
+    /// Stores the current <see cref="CultureInfo.CurrentCulture" /> and <see cref="CultureInfo.CurrentUICulture" />
+    /// and replaces them with the new cultures defined in the constructor.
+    /// </summary>
+    /// <param name="methodUnderTest">The method under test</param>
+    public override void Before(MethodInfo methodUnderTest)
+    {
+        _originalCulture = CultureInfo.CurrentCulture;
+        _originalUiCulture = CultureInfo.CurrentUICulture;
 
-        /// <summary>
-        /// Gets the culture.
-        /// </summary>
-        public CultureInfo Culture => _culture.Value;
+        System.Threading.Thread.CurrentThread.CurrentCulture = Culture;
+        System.Threading.Thread.CurrentThread.CurrentUICulture = Culture;
+    }
 
-        /// <summary>
-        /// Gets the UI culture.
-        /// </summary>
-        public CultureInfo UICulture => _uiCulture.Value;
-
-        /// <summary>
-        /// Stores the current <see cref="CultureInfo.CurrentCulture" /> and <see cref="CultureInfo.CurrentUICulture" />
-        /// and replaces them with the new cultures defined in the constructor.
-        /// </summary>
-        /// <param name="methodUnderTest">The method under test</param>
-        public override void Before(MethodInfo methodUnderTest)
-        {
-            _originalCulture = CultureInfo.CurrentCulture;
-            _originalUiCulture = CultureInfo.CurrentUICulture;
-
-            System.Threading.Thread.CurrentThread.CurrentCulture = Culture;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = Culture;
-        }
-
-        /// <summary>
-        /// Restores the original <see cref="CultureInfo.CurrentCulture" /> and
-        /// <see cref="CultureInfo.CurrentUICulture" />.
-        /// </summary>
-        /// <param name="methodUnderTest">The method under test</param>
-        public override void After(MethodInfo methodUnderTest)
-        {
-            Assert.NotNull(_originalCulture);
-            Assert.NotNull(_originalUiCulture);
-            System.Threading.Thread.CurrentThread.CurrentCulture = _originalCulture;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = _originalUiCulture;
-        }
+    /// <summary>
+    /// Restores the original <see cref="CultureInfo.CurrentCulture" /> and
+    /// <see cref="CultureInfo.CurrentUICulture" />.
+    /// </summary>
+    /// <param name="methodUnderTest">The method under test</param>
+    public override void After(MethodInfo methodUnderTest)
+    {
+        Assert.NotNull(_originalCulture);
+        Assert.NotNull(_originalUiCulture);
+        System.Threading.Thread.CurrentThread.CurrentCulture = _originalCulture;
+        System.Threading.Thread.CurrentThread.CurrentUICulture = _originalUiCulture;
     }
 }

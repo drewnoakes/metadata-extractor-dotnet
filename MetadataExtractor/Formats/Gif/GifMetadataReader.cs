@@ -2,28 +2,27 @@
 
 using MetadataExtractor.Formats.FileSystem;
 
-namespace MetadataExtractor.Formats.Gif
+namespace MetadataExtractor.Formats.Gif;
+
+/// <summary>Obtains metadata from GIF files.</summary>
+/// <author>Drew Noakes https://drewnoakes.com</author>
+public static class GifMetadataReader
 {
-    /// <summary>Obtains metadata from GIF files.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-    public static class GifMetadataReader
+    /// <exception cref="IOException"/>
+    public static IReadOnlyList<Directory> ReadMetadata(string filePath)
     {
-        /// <exception cref="IOException"/>
-        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
-        {
-            var directories = new List<Directory>(2);
+        var directories = new List<Directory>(2);
 
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream));
+        using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            directories.AddRange(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+        directories.Add(new FileMetadataReader().Read(filePath));
 
-            return directories;
-        }
+        return directories;
+    }
 
-        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
-        {
-            return new GifReader().Extract(new SequentialStreamReader(stream)).ToList();
-        }
+    public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
+    {
+        return new GifReader().Extract(new SequentialStreamReader(stream)).ToList();
     }
 }

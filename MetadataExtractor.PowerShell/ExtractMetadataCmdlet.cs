@@ -3,74 +3,73 @@
 using System.Management.Automation;
 using MetadataExtractor.Formats.Xmp;
 
-namespace MetadataExtractor.PowerShell
+namespace MetadataExtractor.PowerShell;
+
+[Cmdlet("Extract", "Metadata")]
+public sealed class ExtractMetadata : PSCmdlet
 {
-    [Cmdlet("Extract", "Metadata")]
-    public sealed class ExtractMetadata : PSCmdlet
+    [Parameter(Position = 0, Mandatory = true, HelpMessage = "Path to the file to process")]
+    [ValidateNotNullOrEmpty]
+    public string FilePath { get; set; } = default!;
+
+    [Parameter(HelpMessage = "Show raw value")]
+    public SwitchParameter Raw { get; set; }
+
+    protected override void ProcessRecord()
     {
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "Path to the file to process")]
-        [ValidateNotNullOrEmpty]
-        public string FilePath { get; set; } = default!;
+        base.ProcessRecord();
 
-        [Parameter(HelpMessage = "Show raw value")]
-        public SwitchParameter Raw { get; set; }
+        WriteVerbose($"Extracting metadata from file: {FilePath}");
 
-        protected override void ProcessRecord()
+        var directories = ImageMetadataReader.ReadMetadata(FilePath);
+
+        WriteObject(directories.SelectMany(GetDirectoryItems).ToList());
+    }
+
+    private IEnumerable<object> GetDirectoryItems(Directory directory)
+    {
+        // XmpDirectory gets special treatment -- we use the XmpMeta object to list properties
+        var xmp = directory as XmpDirectory;
+
+        if (xmp?.XmpMeta is not null)
         {
-            base.ProcessRecord();
-
-            WriteVerbose($"Extracting metadata from file: {FilePath}");
-
-            var directories = ImageMetadataReader.ReadMetadata(FilePath);
-
-            WriteObject(directories.SelectMany(GetDirectoryItems).ToList());
-        }
-
-        private IEnumerable<object> GetDirectoryItems(Directory directory)
-        {
-            // XmpDirectory gets special treatment -- we use the XmpMeta object to list properties
-            var xmp = directory as XmpDirectory;
-
-            if (xmp?.XmpMeta is not null)
-            {
-                if (Raw)
-                {
-                    return xmp.XmpMeta.Properties.Select(prop => new
-                    {
-                        Directory = directory.Name,
-                        Tag = prop.Path,
-                        RawValue = (object)prop.Value
-                    });
-                }
-                else
-                {
-                    return xmp.XmpMeta.Properties.Select(prop => new
-                    {
-                        Directory = directory.Name,
-                        Tag = prop.Path,
-                        Description = prop.Value
-                    });
-                }
-            }
-
             if (Raw)
             {
-                return directory.Tags.Select(tag => new
+                return xmp.XmpMeta.Properties.Select(prop => new
                 {
                     Directory = directory.Name,
-                    Tag = tag.Name,
-                    RawValue = directory.GetObject(tag.Type)
+                    Tag = prop.Path,
+                    RawValue = (object)prop.Value
                 });
             }
             else
             {
-                return directory.Tags.Select(tag => new
+                return xmp.XmpMeta.Properties.Select(prop => new
                 {
                     Directory = directory.Name,
-                    Tag = tag.Name,
-                    Description = tag.Description
+                    Tag = prop.Path,
+                    Description = prop.Value
                 });
             }
+        }
+
+        if (Raw)
+        {
+            return directory.Tags.Select(tag => new
+            {
+                Directory = directory.Name,
+                Tag = tag.Name,
+                RawValue = directory.GetObject(tag.Type)
+            });
+        }
+        else
+        {
+            return directory.Tags.Select(tag => new
+            {
+                Directory = directory.Name,
+                Tag = tag.Name,
+                Description = tag.Description
+            });
         }
     }
 }

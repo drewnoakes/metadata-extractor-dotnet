@@ -3,31 +3,30 @@
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Tiff;
 
-namespace MetadataExtractor.Formats.QuickTime
+namespace MetadataExtractor.Formats.QuickTime;
+
+public sealed class QuickTimeTiffHandler<T> : ExifTiffHandler
+    where T : Directory, new()
 {
-    public sealed class QuickTimeTiffHandler<T> : ExifTiffHandler
-        where T : Directory, new()
+    public QuickTimeTiffHandler(List<Directory> directories)
+        : base(directories, exifStartOffset: 0)
     {
-        public QuickTimeTiffHandler(List<Directory> directories)
-            : base(directories, exifStartOffset: 0)
+    }
+
+    public override TiffStandard ProcessTiffMarker(ushort marker)
+    {
+        const ushort StandardTiffMarker = 0x002A;
+        const ushort BigTiffMarker = 0x002B;
+
+        var standard = marker switch
         {
-        }
+            StandardTiffMarker => TiffStandard.Tiff,
+            BigTiffMarker => TiffStandard.BigTiff,
+            _ => throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}")
+        };
 
-        public override TiffStandard ProcessTiffMarker(ushort marker)
-        {
-            const ushort StandardTiffMarker = 0x002A;
-            const ushort BigTiffMarker = 0x002B;
+        PushDirectory(new T());
 
-            var standard = marker switch
-            {
-                StandardTiffMarker => TiffStandard.Tiff,
-                BigTiffMarker => TiffStandard.BigTiff,
-                _ => throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}")
-            };
-
-            PushDirectory(new T());
-
-            return standard;
-        }
+        return standard;
     }
 }

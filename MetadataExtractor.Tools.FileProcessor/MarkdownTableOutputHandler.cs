@@ -2,153 +2,152 @@
 
 using MetadataExtractor.Formats.Exif;
 
-namespace MetadataExtractor.Tools.FileProcessor
+namespace MetadataExtractor.Tools.FileProcessor;
+
+/// <summary>
+/// Creates a table describing sample images using Wiki markdown.
+/// <para/>
+/// Output hosted at: https://github.com/drewnoakes/metadata-extractor-images/wiki/ContentSummary
+/// </summary>
+internal class MarkdownTableOutputHandler : FileHandlerBase
 {
-    /// <summary>
-    /// Creates a table describing sample images using Wiki markdown.
-    /// <para/>
-    /// Output hosted at: https://github.com/drewnoakes/metadata-extractor-images/wiki/ContentSummary
-    /// </summary>
-    internal class MarkdownTableOutputHandler : FileHandlerBase
+    // TODO this should be modelled centrally
+    private readonly Dictionary<string, string> _extensionEquivalence = new Dictionary<string, string> { { "jpeg", "jpg" }, { "tiff", "tif" } };
+    private readonly Dictionary<string, List<Row>> _rowsByExtension = new Dictionary<string, List<Row>>();
+
+    private class Row
     {
-        // TODO this should be modelled centrally
-        private readonly Dictionary<string, string> _extensionEquivalence = new Dictionary<string, string> { { "jpeg", "jpg" }, { "tiff", "tif" } };
-        private readonly Dictionary<string, List<Row>> _rowsByExtension = new Dictionary<string, List<Row>>();
+        public string FilePath { get; }
+        public string RelativePath { get; }
+        public int DirectoryCount { get; }
+        public string? Manufacturer { get; }
+        public string? Model { get; }
+        public string? ExifVersion { get; }
+        public string? Thumbnail { get; }
+        public string? Makernote { get; }
 
-        private class Row
+        internal Row(string filePath, ICollection<Directory> directories, string relativePath)
         {
-            public string FilePath { get; }
-            public string RelativePath { get; }
-            public int DirectoryCount { get; }
-            public string? Manufacturer { get; }
-            public string? Model { get; }
-            public string? ExifVersion { get; }
-            public string? Thumbnail { get; }
-            public string? Makernote { get; }
+            FilePath = filePath;
+            RelativePath = relativePath;
+            DirectoryCount = directories.Count;
 
-            internal Row(string filePath, ICollection<Directory> directories, string relativePath)
+            var ifd0Dir = directories.OfType<ExifIfd0Directory>().FirstOrDefault();
+            var subIfdDir = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
+            var thumbDir = directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
+
+            if (ifd0Dir is not null)
             {
-                FilePath = filePath;
-                RelativePath = relativePath;
-                DirectoryCount = directories.Count;
-
-                var ifd0Dir = directories.OfType<ExifIfd0Directory>().FirstOrDefault();
-                var subIfdDir = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
-                var thumbDir = directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
-
-                if (ifd0Dir is not null)
-                {
-                    Manufacturer = ifd0Dir.GetDescription(ExifDirectoryBase.TagMake);
-                    Model = ifd0Dir.GetDescription(ExifDirectoryBase.TagModel);
-                }
-
-                var hasMakernoteData = false;
-                if (subIfdDir is not null)
-                {
-                    ExifVersion = subIfdDir.GetDescription(ExifDirectoryBase.TagExifVersion);
-                    hasMakernoteData = subIfdDir.ContainsTag(ExifDirectoryBase.TagMakernote);
-                }
-
-                if (thumbDir is not null)
-                {
-                    Thumbnail = thumbDir.TryGetInt32(ExifDirectoryBase.TagImageWidth, out int width) &&
-                                thumbDir.TryGetInt32(ExifDirectoryBase.TagImageHeight, out int height)
-                        ? $"Yes ({width} x {height})"
-                        : "Yes";
-                }
-
-                foreach (var directory in directories)
-                {
-                    if (directory.GetType().Name.Contains("Makernote"))
-                    {
-                        Makernote = directory.Name.Replace("Makernote", "").Trim();
-                        break;
-                    }
-                }
-
-                if (Makernote is null)
-                    Makernote = hasMakernoteData ? "(Unknown)" : "N/A";
-            }
-        }
-
-        public override void OnExtractionSuccess(string filePath, IList<Directory> directories, string relativePath, TextWriter log, long streamPosition)
-        {
-            base.OnExtractionSuccess(filePath, directories, relativePath, log, streamPosition);
-
-            var extension = Path.GetExtension(filePath);
-
-            if (extension.Length == 0)
-                return;
-
-            // Sanitise the extension
-            extension = extension.ToLower();
-            if (_extensionEquivalence.ContainsKey(extension))
-                extension = _extensionEquivalence[extension];
-
-            if (!_rowsByExtension.TryGetValue(extension, out List<Row>? rows))
-            {
-                rows = new List<Row>();
-                _rowsByExtension[extension] = rows;
+                Manufacturer = ifd0Dir.GetDescription(ExifDirectoryBase.TagMake);
+                Model = ifd0Dir.GetDescription(ExifDirectoryBase.TagModel);
             }
 
-            rows.Add(new Row(filePath, directories, relativePath));
+            var hasMakernoteData = false;
+            if (subIfdDir is not null)
+            {
+                ExifVersion = subIfdDir.GetDescription(ExifDirectoryBase.TagExifVersion);
+                hasMakernoteData = subIfdDir.ContainsTag(ExifDirectoryBase.TagMakernote);
+            }
+
+            if (thumbDir is not null)
+            {
+                Thumbnail = thumbDir.TryGetInt32(ExifDirectoryBase.TagImageWidth, out int width) &&
+                            thumbDir.TryGetInt32(ExifDirectoryBase.TagImageHeight, out int height)
+                    ? $"Yes ({width} x {height})"
+                    : "Yes";
+            }
+
+            foreach (var directory in directories)
+            {
+                if (directory.GetType().Name.Contains("Makernote"))
+                {
+                    Makernote = directory.Name.Replace("Makernote", "").Trim();
+                    break;
+                }
+            }
+
+            if (Makernote is null)
+                Makernote = hasMakernoteData ? "(Unknown)" : "N/A";
+        }
+    }
+
+    public override void OnExtractionSuccess(string filePath, IList<Directory> directories, string relativePath, TextWriter log, long streamPosition)
+    {
+        base.OnExtractionSuccess(filePath, directories, relativePath, log, streamPosition);
+
+        var extension = Path.GetExtension(filePath);
+
+        if (extension.Length == 0)
+            return;
+
+        // Sanitise the extension
+        extension = extension.ToLower();
+        if (_extensionEquivalence.ContainsKey(extension))
+            extension = _extensionEquivalence[extension];
+
+        if (!_rowsByExtension.TryGetValue(extension, out List<Row>? rows))
+        {
+            rows = new List<Row>();
+            _rowsByExtension[extension] = rows;
         }
 
-        public override void OnScanCompleted(TextWriter log)
-        {
-            base.OnScanCompleted(log);
+        rows.Add(new Row(filePath, directories, relativePath));
+    }
 
-            using var stream = File.OpenWrite("ContentSummary.md");
-            using var writer = new StreamWriter(stream);
-            WriteOutput(writer);
-        }
+    public override void OnScanCompleted(TextWriter log)
+    {
+        base.OnScanCompleted(log);
 
-        private void WriteOutput(TextWriter writer)
+        using var stream = File.OpenWrite("ContentSummary.md");
+        using var writer = new StreamWriter(stream);
+        WriteOutput(writer);
+    }
+
+    private void WriteOutput(TextWriter writer)
+    {
+        writer.WriteLine("# Image Database Summary");
+        writer.WriteLine();
+
+        foreach (var extension in _rowsByExtension.Keys)
         {
-            writer.WriteLine("# Image Database Summary");
+            writer.WriteLine($"## {extension.ToUpper()} Files");
             writer.WriteLine();
 
-            foreach (var extension in _rowsByExtension.Keys)
+            writer.Write("File|Manufacturer|Model|Dir Count|Exif?|Makernote|Thumbnail|All Data\n");
+            writer.Write("----|------------|-----|---------|-----|---------|---------|--------\n");
+
+            var rows = _rowsByExtension[extension];
+
+            // Order by manufacturer, then model
+            rows.Sort((o1, o2) =>
             {
-                writer.WriteLine($"## {extension.ToUpper()} Files");
-                writer.WriteLine();
+                var c1 = string.CompareOrdinal(o1.Manufacturer, o2.Manufacturer);
+                return c1 != 0
+                    ? c1
+                    : string.CompareOrdinal(o1.Model, o2.Model);
+            });
 
-                writer.Write("File|Manufacturer|Model|Dir Count|Exif?|Makernote|Thumbnail|All Data\n");
-                writer.Write("----|------------|-----|---------|-----|---------|---------|--------\n");
+            foreach (var row in rows)
+            {
+                var fileName = Path.GetFileName(row.FilePath);
+                var urlEncodedFileName = Uri.EscapeDataString(fileName).Replace("%20", "+");
 
-                var rows = _rowsByExtension[extension];
-
-                // Order by manufacturer, then model
-                rows.Sort((o1, o2) =>
-                {
-                    var c1 = string.CompareOrdinal(o1.Manufacturer, o2.Manufacturer);
-                    return c1 != 0
-                        ? c1
-                        : string.CompareOrdinal(o1.Model, o2.Model);
-                });
-
-                foreach (var row in rows)
-                {
-                    var fileName = Path.GetFileName(row.FilePath);
-                    var urlEncodedFileName = Uri.EscapeDataString(fileName).Replace("%20", "+");
-
-                    writer.WriteLine(
-                        "[{0}](https://github.com/drewnoakes/metadata-extractor-images/raw/main/{1}/{2})|{3}|{4}|{5}|{6}|{7}|{8}|[Java](https://github.com/drewnoakes/metadata-extractor-images/raw/main/{9}/metadata/java/{10}.txt) [.NET](https://github.com/drewnoakes/metadata-extractor-images/raw/main/{9}/metadata/dotnet/{10}.txt)",
-                        fileName,
-                        row.RelativePath,
-                        urlEncodedFileName,
-                        row.Manufacturer,
-                        row.Model,
-                        row.DirectoryCount,
-                        row.ExifVersion,
-                        row.Makernote,
-                        row.Thumbnail,
-                        row.RelativePath,
-                        urlEncodedFileName.ToLower());
-                }
-
-                writer.WriteLine();
+                writer.WriteLine(
+                    "[{0}](https://github.com/drewnoakes/metadata-extractor-images/raw/main/{1}/{2})|{3}|{4}|{5}|{6}|{7}|{8}|[Java](https://github.com/drewnoakes/metadata-extractor-images/raw/main/{9}/metadata/java/{10}.txt) [.NET](https://github.com/drewnoakes/metadata-extractor-images/raw/main/{9}/metadata/dotnet/{10}.txt)",
+                    fileName,
+                    row.RelativePath,
+                    urlEncodedFileName,
+                    row.Manufacturer,
+                    row.Model,
+                    row.DirectoryCount,
+                    row.ExifVersion,
+                    row.Makernote,
+                    row.Thumbnail,
+                    row.RelativePath,
+                    urlEncodedFileName.ToLower());
             }
+
+            writer.WriteLine();
         }
     }
 }
