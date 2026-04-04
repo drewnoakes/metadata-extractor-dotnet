@@ -4,7 +4,7 @@ using MetadataExtractor.Formats.FileSystem;
 
 namespace MetadataExtractor.Formats.Netpbm;
 
-/// <summary>Obtains metadata from BMP files.</summary>
+/// <summary>Obtains metadata from Netpbm files (PBM, PGM, PPM, and PAM).</summary>
 /// <author>Drew Noakes https://drewnoakes.com</author>
 public static class NetpbmMetadataReader
 {
