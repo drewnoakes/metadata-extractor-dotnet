@@ -276,3 +276,6 @@ static readonly MetadataExtractor.Formats.Png.PngChunkType.tRNS -> MetadataExtra
 static readonly MetadataExtractor.Formats.Png.PngChunkType.zTXt -> MetadataExtractor.Formats.Png.PngChunkType
 static readonly MetadataExtractor.Formats.Png.PngColorType.Greyscale -> MetadataExtractor.Formats.Png.PngColorType!
 MetadataExtractor.Formats.Exif.Makernotes.ReconyxHyperFire4KMakernoteDescriptor.TryGetDateTime(out System.DateTime dateTime) -> bool
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagSubtitle = 37 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagCategory = 38 -> int
+const MetadataExtractor.Formats.QuickTime.QuickTimeMetadataHeaderDirectory.TagMood = 39 -> int

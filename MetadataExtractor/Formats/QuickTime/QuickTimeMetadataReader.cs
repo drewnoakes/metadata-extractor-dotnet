@@ -139,6 +139,105 @@ public static class QuickTimeMetadataReader
                     var xmpDirectory = new XmpReader().Extract(xmpBytes);
                     directories.Add(xmpDirectory);
                     break;
+                case 0x6D657461: // "meta" (iTunes-style user-data metadata)
+                    // 'meta' is a FullBox in the MP4/ISO base media format: skip its 1-byte
+                    // version and 3-byte flags, then process child atoms looking for 'ilst'.
+                    a.Reader.Skip(4);
+                    QuickTimeReader.ProcessAtoms(stream, UserDataMetaHandler, a.BytesLeft);
+                    break;
+                case 0x58747261: // "Xtra" (Windows Media metadata, surfaced in the Windows Properties dialog)
+                    ReadXtraBox(a);
+                    break;
+            }
+        }
+
+        void UserDataMetaHandler(AtomCallbackArgs a)
+        {
+            // Within udta/meta we look for the iTunes-style 'ilst' box whose children are keyed
+            // directly by 4CC (e.g. ©nam, ©cmt), each wrapping a 'data' atom. This differs from
+            // the moov/meta 'keys'+'ilst' system handled by MetaDataHandler.
+            if (a.Type == 0x696C7374) // "ilst"
+                QuickTimeReader.ProcessAtoms(stream, UserDataIlstHandler, a.BytesLeft);
+        }
+
+        void UserDataIlstHandler(AtomCallbackArgs a)
+        {
+            switch (a.Type)
+            {
+                case 0xA96E616D: // "©nam" (title)
+                    SetIlstStringFromDataAtom(a, QuickTimeMetadataHeaderDirectory.TagTitle);
+                    break;
+                case 0xA9636D74: // "©cmt" (comment)
+                    SetIlstStringFromDataAtom(a, QuickTimeMetadataHeaderDirectory.TagComment);
+                    break;
+            }
+        }
+
+        void SetIlstStringFromDataAtom(AtomCallbackArgs a, int tag)
+        {
+            // Nested 'data' atom layout: uint32 size, uint32 'data', uint32 type indicator,
+            // uint32 locale, then the string payload (UTF-8 for these text values).
+            long dataAtomSize = a.Reader.GetUInt32();
+            if (dataAtomSize <= 16 || dataAtomSize - 16 > a.BytesLeft)
+                return;
+            a.Reader.Skip(12);
+            var bytes = a.Reader.GetBytes((int)dataAtomSize - 16);
+            GetMetaHeaderDirectory().Set(tag, new StringValue(bytes, Encoding.UTF8));
+        }
+
+        void ReadXtraBox(AtomCallbackArgs a)
+        {
+            // The Windows 'Xtra' box is a flat list of tag entries (not nested atoms), so unlike
+            // the atom-structured boxes we must advance to each entry's end manually using its
+            // declared size, otherwise unhandled or trailing entries would misalign parsing.
+            long xtraEnd = a.Reader.Position + a.BytesLeft;
+            while (a.Reader.Position + 12 <= xtraEnd)
+            {
+                long entryStart = a.Reader.Position;
+                long entrySize = a.Reader.GetUInt32();
+                if (entrySize < 12 || entryStart + entrySize > xtraEnd)
+                    break;
+                long keyNameSize = a.Reader.GetUInt32();
+                if (keyNameSize > entrySize)
+                    break;
+                string keyName = a.Reader.GetString((int)keyNameSize, Encoding.UTF8);
+                long entryCount = a.Reader.GetUInt32();
+                switch (keyName)
+                {
+                    case "WM/SubTitle":
+                        GetMetaHeaderDirectory().Set(QuickTimeMetadataHeaderDirectory.TagSubtitle, ReadXtraValues(a.Reader, entryCount));
+                        break;
+                    case "WM/SharedUserRating":
+                        a.Reader.GetUInt32(); // value length
+                        a.Reader.GetUInt16(); // value type
+                        GetMetaHeaderDirectory().Set(QuickTimeMetadataHeaderDirectory.TagRating, a.Reader.GetInt64());
+                        break;
+                    case "WM/Category":
+                        GetMetaHeaderDirectory().Set(QuickTimeMetadataHeaderDirectory.TagCategory, ReadXtraValues(a.Reader, entryCount));
+                        break;
+                    case "WM/Mood":
+                        GetMetaHeaderDirectory().Set(QuickTimeMetadataHeaderDirectory.TagMood, ReadXtraValues(a.Reader, entryCount));
+                        break;
+                }
+
+                // Advance to the end of this entry regardless of which fields we consumed.
+                long consumed = a.Reader.Position - entryStart;
+                if (entrySize > consumed)
+                    a.Reader.Skip(entrySize - consumed);
+            }
+
+            static string ReadXtraValues(SequentialReader reader, long entryCount)
+            {
+                var values = new List<string>();
+                for (long i = 0; i < entryCount; i++)
+                {
+                    long valueSize = reader.GetUInt32();
+                    reader.GetUInt16(); // value type
+                    if (valueSize < 6)
+                        break;
+                    values.Add(reader.GetString((int)(valueSize - 6), Encoding.Unicode).Replace("\0", ""));
+                }
+                return string.Join(" | ", values);
             }
         }
 
