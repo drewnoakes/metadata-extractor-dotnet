@@ -40,6 +40,9 @@ public sealed class QuickTimeMetadataHeaderDirectory : Directory
     public const int TagAndroidVersion = 34;
     public const int TagAndroidManufacturer = 35;
     public const int TagAndroidModel = 36;
+    public const int TagSubtitle = 37;
+    public const int TagCategory = 38;
+    public const int TagMood = 39;
 
     public override string Name => "QuickTime Metadata Header";
 
@@ -81,6 +84,9 @@ public sealed class QuickTimeMetadataHeaderDirectory : Directory
         { TagAndroidVersion,       "Android Version" },
         { TagAndroidManufacturer,  "Android Manufacturer" },
         { TagAndroidModel,         "Android Model" },
+        { TagSubtitle,             "Subtitle" },
+        { TagCategory,             "Tags" },
+        { TagMood,                 "Mood" },
     };
 
     private static readonly Dictionary<string, int> _nameTagMap = new()
