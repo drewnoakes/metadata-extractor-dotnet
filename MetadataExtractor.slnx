@@ -1,0 +1,94 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path=".gitmodules" />
+    <File Path="CONTRIBUTING.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="LICENSE" />
+    <File Path="MetadataExtractor.snk" />
+    <File Path="README.md" />
+    <File Path="spelling.dic" />
+  </Folder>
+  <Folder Name="/Solution Items/.github/" />
+  <Folder Name="/Solution Items/.github/workflows/">
+    <File Path=".github/workflows/CI.yml" />
+    <File Path=".github/workflows/prerelease.yml" />
+    <File Path=".github/workflows/release.yml" />
+  </Folder>
+  <Folder Name="/Specs/">
+    <File Path="wiki/docs/5116.DCT_Filter.pdf" />
+    <File Path="wiki/docs/Adobe Photoshop File Format Specification.html" />
+    <File Path="wiki/docs/CIFFspecV1R03.pdf" />
+    <File Path="wiki/docs/CIFFspecV1R04.pdf" />
+    <File Path="wiki/docs/DCF-Exif.pdf" />
+    <File Path="wiki/docs/DCF.pdf" />
+    <File Path="wiki/docs/dng_spec_1.4.0.0.pdf" />
+    <File Path="wiki/docs/Exif2-1.pdf" />
+    <File Path="wiki/docs/Exif2-2.pdf" />
+    <File Path="wiki/docs/Exif2-3.pdf" />
+    <File Path="wiki/docs/gif87a.txt" />
+    <File Path="wiki/docs/gif89a.txt" />
+    <File Path="wiki/docs/ICC1v43_2010-12.pdf" />
+    <File Path="wiki/docs/IPTC-IIMV3.PDF" />
+    <File Path="wiki/docs/IPTC-IIMV4.1.pdf" />
+    <File Path="wiki/docs/IPTC-IIMV4.2.pdf" />
+    <File Path="wiki/docs/JFIF-1.02.pdf" />
+    <File Path="wiki/docs/JPEG-itu-t81.pdf" />
+    <File Path="wiki/docs/PCX File Format.html" />
+    <File Path="wiki/docs/PCX File Format.txt" />
+    <File Path="wiki/docs/QTFF.pdf" />
+    <File Path="wiki/docs/tga_specs.pdf" />
+    <File Path="wiki/docs/TIFF6.pdf" />
+    <File Path="wiki/docs/x3f-raw-format.pdf" />
+    <File Path="wiki/docs/XMPSpecificationPart1.pdf" />
+    <File Path="wiki/docs/XMPSpecificationPart2.pdf" />
+    <File Path="wiki/docs/XMPSpecificationPart3.pdf" />
+  </Folder>
+  <Folder Name="/Wiki (Images)/">
+    <File Path="wiki-images/ContentSummary.md" />
+    <File Path="wiki-images/Home.md" />
+  </Folder>
+  <Folder Name="/Wiki/">
+    <File Path="wiki/.gitignore" />
+    <File Path="wiki/ChangeLog.md" />
+    <File Path="wiki/Contributing.md" />
+    <File Path="wiki/FAQ.md" />
+    <File Path="wiki/File-Type-Detection.md" />
+    <File Path="wiki/Getting Started (dotnet).md" />
+    <File Path="wiki/Getting Started (Java).md" />
+    <File Path="wiki/Getting Started.md" />
+    <File Path="wiki/Getting-Started-(dotnet).md" />
+    <File Path="wiki/Getting-Started.md" />
+    <File Path="wiki/Home.md" />
+    <File Path="wiki/ImageDatabase.md" />
+    <File Path="wiki/ImageDatabaseSummary.md" />
+    <File Path="wiki/JPEG.md" />
+    <File Path="wiki/Makernotes.md" />
+    <File Path="wiki/ProGuard.md" />
+    <File Path="wiki/project-logo-inkscape.svg" />
+    <File Path="wiki/project-logo-optimised.svg" />
+    <File Path="wiki/project-logo.svg" />
+    <File Path="wiki/Resources.md" />
+    <File Path="wiki/SampleOutput.md" />
+    <File Path="wiki/Troubleshooting.md" />
+    <File Path="wiki/UsedBy.md" />
+    <File Path="wiki/Working-with-test-images.md" />
+    <File Path="wiki/XMP.md" />
+    <File Path="wiki/_JavaReleaseProcess.md" />
+    <File Path="wiki/_SampleOutputGeneration.txt" />
+  </Folder>
+  <Project Path="MetadataExtractor.Benchmarks/MetadataExtractor.Benchmarks.csproj" />
+  <Project Path="MetadataExtractor.PowerShell/MetadataExtractor.PowerShell.csproj" />
+  <Project Path="MetadataExtractor.Samples/MetadataExtractor.Samples.csproj" />
+  <Project Path="MetadataExtractor.Tests/MetadataExtractor.Tests.csproj" />
+  <Project Path="MetadataExtractor.Tools.FileProcessor/MetadataExtractor.Tools.FileProcessor.csproj" />
+  <Project Path="MetadataExtractor.Tools.JpegSegmentExtractor/MetadataExtractor.Tools.JpegSegmentExtractor.csproj" />
+  <Project Path="MetadataExtractor/MetadataExtractor.csproj" />
+</Solution>
