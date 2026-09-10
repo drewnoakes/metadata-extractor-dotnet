@@ -20,11 +20,11 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore
-      run: dotnet restore MetadataExtractor.sln
+      run: dotnet restore MetadataExtractor.slnx
     - name: Build (Release)
-      run: dotnet build MetadataExtractor.sln --configuration Release
+      run: dotnet build MetadataExtractor.slnx --configuration Release
     - name: Build (Debug)
-      run: dotnet build MetadataExtractor.sln --configuration Debug
+      run: dotnet build MetadataExtractor.slnx --configuration Debug
     - name: Test net8.0 (Release)
       run: dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj
     - name: Test net8.0 (Debug)
@@ -43,12 +43,12 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore
-      run: dotnet restore MetadataExtractor.sln
+      run: dotnet restore MetadataExtractor.slnx
     - name: Build
-      run: dotnet build MetadataExtractor.sln --configuration Release
+      run: dotnet build MetadataExtractor.slnx --configuration Release
     - name: Test net8.0
       run: dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests\MetadataExtractor.Tests.csproj
-    - name: Test net462
-      run: dotnet test --verbosity normal --configuration Release --no-build -f net462 MetadataExtractor.Tests\MetadataExtractor.Tests.csproj
+    - name: Test net472
+      run: dotnet test --verbosity normal --configuration Release --no-build -f net472 MetadataExtractor.Tests\MetadataExtractor.Tests.csproj
     - name: Publish NativeAOT
       run: dotnet publish --verbosity normal --configuration Release -f net8.0 -r win-x64 MetadataExtractor.Tools.FileProcessor/MetadataExtractor.Tools.FileProcessor.csproj

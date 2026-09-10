@@ -2,9 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>$(ModernDotNetTargetFrameworkAlias);net472</TargetFrameworks>
-
     <RootNamespace>MetadataExtractor</RootNamespace>
-
   </PropertyGroup>
 
   <ItemGroup>
