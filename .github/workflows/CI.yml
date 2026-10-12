@@ -38,6 +38,17 @@ jobs:
       DOTNET_NOLOGO: true
     steps:
     - uses: actions/checkout@v3
+    # Hosted Windows runners have a faster temporary drive than the OS drive
+    # used by NuGet's default caches. Move package extraction and subsequent
+    # build reads there to reduce disk I/O time.
+    - name: Configure NuGet caches
+      if: runner.environment == 'github-hosted'
+      shell: pwsh
+      run: |
+        $packages = Join-Path $env:RUNNER_TEMP 'nuget\packages'
+        $httpCache = Join-Path $env:RUNNER_TEMP 'nuget\http-cache'
+        "NUGET_PACKAGES=$packages" >> $env:GITHUB_ENV
+        "NUGET_HTTP_CACHE_PATH=$httpCache" >> $env:GITHUB_ENV
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
