@@ -6,6 +6,61 @@ namespace MetadataExtractor.Formats.Exif;
 /// <author>Drew Noakes https://drewnoakes.com</author>
 public sealed class ExifSubIfdDescriptorTest
 {
+    [Theory]
+    [InlineData(1, 25, "1/25 sec")]
+    [InlineData(4, 100, "1/25 sec")]
+    [InlineData(1, 2, "1/2 sec")]
+    [InlineData(1, 125, "1/125 sec")]
+    [InlineData(3, 10, "3/10 sec")]
+    public void ExposureTimeDescription_Subsecond(int numerator, int denominator, string expected)
+    {
+        var directory = new ExifSubIfdDirectory();
+        directory.Set(ExifDirectoryBase.TagExposureTime, new Rational(numerator, denominator));
+
+        Assert.Equal(expected, directory.GetDescription(ExifDirectoryBase.TagExposureTime));
+    }
+
+    [Theory, UseCulture("en-GB")]
+    [InlineData(1, 1, "1 sec")]
+    [InlineData(2, 1, "2 sec")]
+    [InlineData(3, 2, "1.5 sec")]
+    public void ExposureTimeDescription_OneSecondOrLonger(int numerator, int denominator, string expected)
+    {
+        var directory = new ExifSubIfdDirectory();
+        directory.Set(ExifDirectoryBase.TagExposureTime, new Rational(numerator, denominator));
+
+        Assert.Equal(expected, directory.GetDescription(ExifDirectoryBase.TagExposureTime));
+    }
+
+    [Fact]
+    public void ExposureTimeDescription_Missing()
+    {
+        var directory = new ExifSubIfdDirectory();
+
+        Assert.Null(directory.GetDescription(ExifDirectoryBase.TagExposureTime));
+    }
+
+    [Fact, UseCulture("en-GB")]
+    public void ExposureTimeRawString()
+    {
+        var directory = new ExifSubIfdDirectory();
+        directory.Set(ExifDirectoryBase.TagExposureTime, new Rational(1, 25));
+
+        Assert.Equal("0.04", directory.GetString(ExifDirectoryBase.TagExposureTime));
+    }
+
+    [Fact, UseCulture("en-GB")]
+    public void LensSpecificationDescription_DecimalFocalLength()
+    {
+        var directory = new ExifSubIfdDirectory();
+        directory.Set(ExifDirectoryBase.TagLensSpecification, new[]
+        {
+            new Rational(17, 4), new Rational(17, 4), new Rational(9, 5), new Rational(9, 5)
+        });
+
+        Assert.Equal("4.25mm f/1.8", directory.GetDescription(ExifDirectoryBase.TagLensSpecification));
+    }
+
     [Fact]
     public void UserCommentDescription_EmptyEncoding()
     {
