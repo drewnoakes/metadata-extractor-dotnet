@@ -952,6 +952,9 @@ public abstract class ExifDescriptorBase<T>(T directory)
 
     public string? GetExposureTimeDescription()
     {
+        if (Directory.TryGetRational(TagExposureTime, out Rational rational) && rational.ToDouble() < 1)
+            return rational.ToSimpleString(allowDecimal: false) + " sec";
+
         var value = Directory.GetString(TagExposureTime);
         return value is null ? null : value + " sec";
     }
