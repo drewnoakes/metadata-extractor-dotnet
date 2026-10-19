@@ -2,48 +2,47 @@
 
 using MetadataExtractor.Formats.Jpeg;
 
-namespace MetadataExtractor.Formats.Xmp
+namespace MetadataExtractor.Formats.Xmp;
+
+/// <summary>Unit tests for <see cref="XmpReader"/>.</summary>
+/// <author>Drew Noakes https://drewnoakes.com</author>
+public sealed class XmpReaderTest
 {
-    /// <summary>Unit tests for <see cref="XmpReader"/>.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class XmpReaderTest
+    private const int ExpectedPropertyCount = 167;
+
+    private readonly XmpDirectory _directory;
+
+    public XmpReaderTest()
     {
-        private const int ExpectedPropertyCount = 167;
+        var jpegSegments = new[] { new JpegSegment(JpegSegmentType.App1, TestDataUtil.GetBytes("Data/withXmpAndIptc.jpg.app1.1"), offset: 0) };
+        var directories = new XmpReader().ReadJpegSegments(jpegSegments);
+        _directory = directories.OfType<XmpDirectory>().ToList().Single();
+        Assert.False(_directory.HasError);
+    }
 
-        private readonly XmpDirectory _directory;
+    [Fact]
+    public void Extract_HasXMPMeta()
+    {
+        Assert.NotNull(_directory.XmpMeta);
+    }
 
-        public XmpReaderTest()
-        {
-            var jpegSegments = new[] { new JpegSegment(JpegSegmentType.App1, TestDataUtil.GetBytes("Data/withXmpAndIptc.jpg.app1.1"), offset: 0) };
-            var directories = new XmpReader().ReadJpegSegments(jpegSegments);
-            _directory = directories.OfType<XmpDirectory>().ToList().Single();
-            Assert.False(_directory.HasError);
-        }
+    [Fact]
+    public void Extract_PropertyCount()
+    {
+        Assert.Equal(ExpectedPropertyCount, _directory.GetInt32(XmpDirectory.TagXmpValueCount));
+    }
 
-        [Fact]
-        public void Extract_HasXMPMeta()
-        {
-            Assert.NotNull(_directory.XmpMeta);
-        }
+    [Fact]
+    public void GetXmpProperties()
+    {
+        var propertyMap = _directory.GetXmpProperties();
 
-        [Fact]
-        public void Extract_PropertyCount()
-        {
-            Assert.Equal(ExpectedPropertyCount, _directory.GetInt32(XmpDirectory.TagXmpValueCount));
-        }
+        Assert.Equal(ExpectedPropertyCount, propertyMap.Count);
 
-        [Fact]
-        public void GetXmpProperties()
-        {
-            var propertyMap = _directory.GetXmpProperties();
+        Assert.True(propertyMap.ContainsKey("photoshop:Country"));
+        Assert.Equal("Deutschland", propertyMap["photoshop:Country"]);
 
-            Assert.Equal(ExpectedPropertyCount, propertyMap.Count);
-
-            Assert.True(propertyMap.ContainsKey("photoshop:Country"));
-            Assert.Equal("Deutschland", propertyMap["photoshop:Country"]);
-
-            Assert.True(propertyMap.ContainsKey("tiff:ImageLength"));
-            Assert.Equal("900", propertyMap["tiff:ImageLength"]);
-        }
+        Assert.True(propertyMap.ContainsKey("tiff:ImageLength"));
+        Assert.Equal("900", propertyMap["tiff:ImageLength"]);
     }
 }

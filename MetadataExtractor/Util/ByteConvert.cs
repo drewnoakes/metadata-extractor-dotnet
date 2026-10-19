@@ -2,29 +2,28 @@
 
 using System.Buffers.Binary;
 
-namespace MetadataExtractor.Util
+namespace MetadataExtractor.Util;
+
+internal static class ByteConvert
 {
-    internal static class ByteConvert
+    public static uint FromBigEndianToNative(uint bigEndian)
     {
-        public static uint FromBigEndianToNative(uint bigEndian)
-        {
-            return BitConverter.IsLittleEndian
-               ? BinaryPrimitives.ReverseEndianness(bigEndian)
-               : bigEndian;
-        }
+        return BitConverter.IsLittleEndian
+           ? BinaryPrimitives.ReverseEndianness(bigEndian)
+           : bigEndian;
+    }
 
-        public static ushort FromBigEndianToNative(ushort bigEndian)
-        {
-            return BitConverter.IsLittleEndian
-              ? BinaryPrimitives.ReverseEndianness(bigEndian)
-              : bigEndian;
-        }
+    public static ushort FromBigEndianToNative(ushort bigEndian)
+    {
+        return BitConverter.IsLittleEndian
+          ? BinaryPrimitives.ReverseEndianness(bigEndian)
+          : bigEndian;
+    }
 
-        public static short FromBigEndianToNative(short bigEndian)
-        {
-            return BitConverter.IsLittleEndian
-                ? BinaryPrimitives.ReverseEndianness(bigEndian)
-                : bigEndian;
-        }
+    public static short FromBigEndianToNative(short bigEndian)
+    {
+        return BitConverter.IsLittleEndian
+            ? BinaryPrimitives.ReverseEndianness(bigEndian)
+            : bigEndian;
     }
 }

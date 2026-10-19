@@ -1,0 +1,160 @@
+# MetadataExtractor .NET Library
+
+MetadataExtractor is a .NET library for reading metadata from image, movie and audio files. It extracts Exif, IPTC, XMP, ICC, Photoshop, WebP, PNG, BMP, GIF, ICO, PCX metadata from JPEG, TIFF WebP, PSD, PNG, BMP, GIF, ICO, PCX and camera RAW files.
+
+Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.
+
+## Working Effectively
+
+### Prerequisites and Environment Setup
+- Ensure .NET 8.0 SDK is installed (`dotnet --version` should show 8.0.x)
+- The repository is a standard .NET solution with multiple projects
+- Use absolute paths when working with the repository in `/home/runner/work/metadata-extractor-dotnet/metadata-extractor-dotnet`
+
+### Bootstrap and Build Process
+- **Package restore**: `dotnet restore MetadataExtractor.slnx` -- takes ~3 seconds
+- **Build Release mode**: `dotnet build MetadataExtractor.slnx --configuration Release` -- takes ~7 seconds when cached. NEVER CANCEL. Set timeout to 45+ minutes.
+- **Build Debug mode**: `dotnet build MetadataExtractor.slnx --configuration Debug` -- takes ~7 seconds when cached. NEVER CANCEL. Set timeout to 30+ minutes.
+- **Run unit tests**: `dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj` -- takes ~2 seconds, expect 483+ passing tests. NEVER CANCEL. Set timeout to 15+ minutes.
+
+### Known Issues and Workarounds
+- **.NET Framework targets**: Cannot run net462/net472/net48 projects on Linux without Mono. Use net8.0 targets instead
+- **Benchmark execution**: Benchmarks require test data files and may fail if paths are incorrect
+
+### Testing and Validation Scenarios
+Always run these validation steps after making changes:
+1. **Build validation**: `dotnet build MetadataExtractor.slnx --configuration Release && dotnet build MetadataExtractor.slnx --configuration Debug`
+2. **Unit test validation**: `dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj`
+3. **Tool functionality test**: 
+   ```bash
+   dotnet run --project MetadataExtractor.Tools.FileProcessor/MetadataExtractor.Tools.FileProcessor.csproj --configuration Release --framework net8.0 -- MetadataExtractor.Tests/Data/withIptc.jpg
+   ```
+   Expect output showing extracted metadata including JPEG, JFIF, Photoshop, IPTC, Adobe JPEG sections
+4. **NativeAOT publishing test**: 
+   ```bash
+   dotnet publish --verbosity normal --configuration Release -f net8.0 MetadataExtractor.Tools.FileProcessor/MetadataExtractor.Tools.FileProcessor.csproj
+   ./MetadataExtractor.Tools.FileProcessor/bin/Release/net8.0/linux-x64/publish/MetadataExtractor.Tools.FileProcessor MetadataExtractor.Tests/Data/withIptc.jpg
+   ```
+   Takes ~22 seconds. NEVER CANCEL. Set timeout to 45+ minutes.
+
+### Development and Debugging
+- **Code style**: Follow `.editorconfig` rules - 4 spaces, PascalCase for public members, camelCase with `_` prefix for fields
+- **File header**: All C# files must start with the copyright header as defined in `.editorconfig`
+- **Target frameworks**: Library targets net8.0, netstandard2.0, netstandard2.1. Tests target net8.0 and net472
+- **Core library structure**: Main code in `MetadataExtractor/` with format-specific readers in `MetadataExtractor/Formats/` (Adobe, Exif, IPTC, JPEG, PNG, TIFF, XMP, etc.)
+
+### Descriptor Class Design Pattern
+When implementing descriptor classes for metadata directories, follow this established pattern:
+
+1. **Static Import**: Use static import of the directory class to reduce repetition and improve readability:
+   ```csharp
+   using static MetadataExtractor.Formats.Exif.Makernotes.YourMakernoteDirectory;
+   ```
+
+2. **Individual Get Methods**: Create individual `Get*Description()` methods for each tag that return `string?`. These methods should have semantically meaningful names based on the tag purpose. Always use `TryGet*` methods to handle missing tags:
+   ```csharp
+   public string? GetContrastDescription()
+   {
+       return Directory.TryGetUInt16(TagContrast, out var value) ? value.ToString() : null;
+   }
+   
+   public string? GetFlashDescription()
+   {
+       return GetIndexedDescription(TagFlash, "Off", "On");
+   }
+   ```
+
+3. **Main GetDescription Method**: The overridden `GetDescription(int tagType)` method should use a switch expression to delegate to the individual methods:
+   ```csharp
+   public override string? GetDescription(int tagType)
+   {
+       return tagType switch
+       {
+           TagContrast => GetContrastDescription(),
+           TagFlash => GetFlashDescription(),
+           _ => base.GetDescription(tagType)
+       };
+   }
+   ```
+
+4. **Method Benefits**: This pattern provides both semantic access (`descriptor.GetContrastDescription()`) and general access (`descriptor.GetDescription(tagId)`) for users of the library.
+
+5. **Return Types**: All descriptor methods must return `string?` to maintain API consistency.
+
+## Project Structure and Key Locations
+
+### Main Projects
+- **MetadataExtractor**: Core library with metadata readers for 30+ file formats
+- **MetadataExtractor.Tests**: Comprehensive test suite with test data in `Data/` folder
+- **MetadataExtractor.Tools.FileProcessor**: CLI tool for metadata extraction
+- **MetadataExtractor.Tools.JpegSegmentExtractor**: CLI tool for JPEG segment extraction
+- **MetadataExtractor.Benchmarks**: Performance benchmarking (requires test data setup)
+- **MetadataExtractor.PowerShell**: PowerShell module
+- **MetadataExtractor.Samples**: Sample usage code (targets .NET Framework only)
+
+### Important Directories
+- **MetadataExtractor/Formats/**: Format-specific metadata readers (Exif, IPTC, XMP, JPEG, PNG, TIFF, etc.)
+- **MetadataExtractor.Tests/Data/**: Test images and data files for validation
+- **wiki/**: Extensive documentation and specifications
+- **.github/workflows/**: CI/CD pipeline definitions
+
+### Common Commands Reference
+```bash
+# Complete build and test cycle
+dotnet restore MetadataExtractor.slnx
+dotnet build MetadataExtractor.slnx --configuration Release
+dotnet test --verbosity normal --configuration Release --no-build -f net8.0 MetadataExtractor.Tests/MetadataExtractor.Tests.csproj
+
+# Extract metadata from an image
+dotnet run --project MetadataExtractor.Tools.FileProcessor --configuration Release --framework net8.0 -- [image_file] [--markdown] [--hex]
+
+# Run benchmarks (if test data is available)
+cd MetadataExtractor.Benchmarks && dotnet run -c Release
+
+# Publish NativeAOT executable
+dotnet publish --configuration Release -f net8.0 MetadataExtractor.Tools.FileProcessor/MetadataExtractor.Tools.FileProcessor.csproj
+```
+
+### Expected Timing and Performance
+- **Restore**: ~3 seconds
+- **Build Release**: ~7 seconds (when cached), ~20 seconds (first time)
+- **Build Debug**: ~7 seconds (when cached), ~14 seconds (first time)
+- **Unit tests**: ~2 seconds (483+ tests)
+- **NativeAOT publish**: ~22 seconds
+- **Metadata extraction**: <1 second per typical image file
+
+### Manual Testing Scenarios
+After making changes, always verify:
+1. **Library functionality**: Extract metadata from various image formats in test data
+2. **Tool usability**: Use FileProcessor tool with different options (--markdown, --hex)
+3. **Performance**: Ensure metadata extraction completes in reasonable time
+4. **Cross-format support**: Test with JPEG, PNG, TIFF, and RAW files if available
+
+Always run the complete validation cycle before committing changes. The library should extract comprehensive metadata including camera settings, GPS coordinates, color profiles, and embedded thumbnails from supported image files.
+
+---
+
+<dotnet-agent>
+# .NET MCP Tool usage
+
+When working on .NET projects, *ALWAYS* prefer to use MCP tools that are dedicated to processing .NET code. This includes:
+
+- `search-package-docs`: Use this before implementing any C# code that uses libraries to check you know the correct latest APIs.
+- `find-symbols`: Use this when exploring the codebase to enumerate classes, methods, properties, etc., use the `FindSymbols` tool. This is faster and more accurate than reading C# source code.
+- `find-all-references`: Use this to instantly locate all references to a class/method/property/etc.
+- `rename-symbol`: Use this to rename classes, properties, methods, etc. This is faster and more accurate than directly writing to C# source code.
+- `get-symbol-definition`: Use this to look up the definition of a class, method, property, etc., either from sources or referenced libraries.
+- `get-generated-source-file-names`, `get-generated-source-file-content`: Use these to locate and read source generator outputs, since that code will not necessarily exist as files on disk.
+- `fix-errors`: Use this tool to fix errors and warnings.
+- `list-errors`: Use this tool to find out what warnings and errors exist in the solution. This is faster than running a build manually.
+- `find-all-references`: Use this to find all references to a class, method, property, local variables, etc. Can trigger from location of either target symbol declaration or one of its references. This is faster and more accurate than reading C# source code.
+- `add-member`, `update-member`: Use these when adding or modifying the source code for methods/properties.
+
+Tool calling strategy:
+- Check for relevant docs before deciding what to do.
+- Before passing any solution path to these tools, be sure that file really exists on disk (and actually verify this).
+- First think about how you can chain together these tools to achieve your overall goal. Often the output from `find-symbols` can be used with other tools.
+
+Confidence:
+- When you use these tools, the results will be correct. Do not waste time validating the results. For example, the `rename-symbol` tool will correctly update references in strongly-typed .NET code, and you do not need to verify that.
+</dotnet-agent>

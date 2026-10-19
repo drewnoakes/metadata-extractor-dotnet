@@ -2,28 +2,27 @@
 
 using MetadataExtractor.Formats.FileSystem;
 
-namespace MetadataExtractor.Formats.Pcx
+namespace MetadataExtractor.Formats.Pcx;
+
+/// <summary>Obtains metadata from PCX image files.</summary>
+/// <author>Drew Noakes https://drewnoakes.com</author>
+public static class PcxMetadataReader
 {
-    /// <summary>Obtains metadata from PCX image files.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-    public static class PcxMetadataReader
+    /// <exception cref="IOException"/>
+    public static IReadOnlyList<Directory> ReadMetadata(string filePath)
     {
-        /// <exception cref="IOException"/>
-        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
-        {
-            var directories = new List<Directory>();
+        var directories = new List<Directory>();
 
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.Add(ReadMetadata(stream));
+        using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            directories.Add(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+        directories.Add(new FileMetadataReader().Read(filePath));
 
-            return directories;
-        }
+        return directories;
+    }
 
-        public static PcxDirectory ReadMetadata(Stream stream)
-        {
-            return new PcxReader().Extract(new SequentialStreamReader(stream));
-        }
+    public static PcxDirectory ReadMetadata(Stream stream)
+    {
+        return new PcxReader().Extract(new SequentialStreamReader(stream));
     }
 }

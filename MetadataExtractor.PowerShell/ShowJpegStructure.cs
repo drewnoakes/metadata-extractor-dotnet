@@ -9,129 +9,128 @@ using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.Formats.Xmp;
 
-namespace MetadataExtractor.PowerShell
+namespace MetadataExtractor.PowerShell;
+
+public readonly struct JpegSegment(JpegSegmentType type, int length, int padding, long offset, string? preamble)
 {
-    public readonly struct JpegSegment(JpegSegmentType type, int length, int padding, long offset, string? preamble)
+    public JpegSegmentType Type { get; } = type;
+
+    public int Length { get; } = length;
+
+    public int Padding { get; } = padding;
+
+    public long Offset { get; } = offset;
+
+    public string? Preamble { get; } = preamble;
+}
+
+[Cmdlet(VerbsCommon.Show, "JpegStructure")]
+public sealed class ShowJpegStructure : PSCmdlet
+{
+    private static readonly ByteTrie<string?> _appSegmentByPreambleBytes = new ByteTrie<string?>(null)
     {
-        public JpegSegmentType Type { get; } = type;
+        { "Adobe",          "Adobe"u8 },
+        { "Ducky",          DuckyReader.JpegSegmentPreamble },
+        { "Exif",           ExifReader.JpegSegmentPreamble },
+        { "ICC",            IccReader.JpegSegmentPreamble },
+        { "JFIF",           JfifReader.JpegSegmentPreamble },
+        { "JFXX",           JfxxReader.JpegSegmentPreamble },
+        { "Photoshop",      PhotoshopReader.JpegSegmentPreamble },
+        { "XMP",            XmpReader.JpegSegmentPreamble },
+        { "XMP (Extended)", XmpReader.JpegSegmentPreambleExtension }
+    };
 
-        public int Length { get; } = length;
+    [Parameter(Position = 0, Mandatory = true, HelpMessage = "Path to the file to process")]
+    [ValidateNotNullOrEmpty]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+    public string FilePath { get; set; } = default!;
 
-        public int Padding { get; } = padding;
+    protected override void ProcessRecord()
+    {
+        base.ProcessRecord();
 
-        public long Offset { get; } = offset;
+        WriteVerbose($"Extracting metadata from file: {FilePath}");
 
-        public string? Preamble { get; } = preamble;
+        using var stream = File.OpenRead(FilePath);
+        WriteObject(ReadSegments(stream).ToList());
     }
 
-    [Cmdlet(VerbsCommon.Show, "JpegStructure")]
-    public sealed class ShowJpegStructure : PSCmdlet
+    private static IEnumerable<JpegSegment> ReadSegments(Stream stream)
     {
-        private static readonly ByteTrie<string?> _appSegmentByPreambleBytes = new ByteTrie<string?>(null)
+        if (!stream.CanSeek)
+            throw new ArgumentException("Must be able to seek.", nameof(stream));
+
+        // first two bytes should be JPEG magic number
+        var magicNumber = GetUInt16(stream);
+
+        if (magicNumber != 0xFFD8)
+            throw new JpegProcessingException($"JPEG data should begin with 0xFFD8, not 0x{magicNumber:X4}.");
+
+        while (true)
         {
-            { "Adobe",          "Adobe"u8 },
-            { "Ducky",          DuckyReader.JpegSegmentPreamble },
-            { "Exif",           ExifReader.JpegSegmentPreamble },
-            { "ICC",            IccReader.JpegSegmentPreamble },
-            { "JFIF",           JfifReader.JpegSegmentPreamble },
-            { "JFXX",           JfxxReader.JpegSegmentPreamble },
-            { "Photoshop",      PhotoshopReader.JpegSegmentPreamble },
-            { "XMP",            XmpReader.JpegSegmentPreamble },
-            { "XMP (Extended)", XmpReader.JpegSegmentPreambleExtension }
-        };
+            var padding = 0;
 
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "Path to the file to process")]
-        [ValidateNotNullOrEmpty]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-        public string FilePath { get; set; } = default!;
+            // Find the segment marker. Markers are zero or more 0xFF bytes, followed
+            // by a 0xFF and then a byte not equal to 0x00 or 0xFF.
+            var segmentIdentifier = stream.ReadByte();
+            var segmentTypeByte = stream.ReadByte();
 
-        protected override void ProcessRecord()
-        {
-            base.ProcessRecord();
+            if (segmentTypeByte == -1)
+                yield break;
 
-            WriteVerbose($"Extracting metadata from file: {FilePath}");
-
-            using var stream = File.OpenRead(FilePath);
-            WriteObject(ReadSegments(stream).ToList());
-        }
-
-        private static IEnumerable<JpegSegment> ReadSegments(Stream stream)
-        {
-            if (!stream.CanSeek)
-                throw new ArgumentException("Must be able to seek.", nameof(stream));
-
-            // first two bytes should be JPEG magic number
-            var magicNumber = GetUInt16(stream);
-
-            if (magicNumber != 0xFFD8)
-                throw new JpegProcessingException($"JPEG data should begin with 0xFFD8, not 0x{magicNumber:X4}.");
-
-            while (true)
+            // Read until we have a 0xFF byte followed by a byte that is not 0xFF or 0x00
+            while (segmentIdentifier != 0xFF || segmentTypeByte == 0xFF || segmentTypeByte == 0)
             {
-                var padding = 0;
-
-                // Find the segment marker. Markers are zero or more 0xFF bytes, followed
-                // by a 0xFF and then a byte not equal to 0x00 or 0xFF.
-                var segmentIdentifier = stream.ReadByte();
-                var segmentTypeByte = stream.ReadByte();
+                padding++;
+                segmentIdentifier = segmentTypeByte;
+                segmentTypeByte = stream.ReadByte();
 
                 if (segmentTypeByte == -1)
                     yield break;
+            }
 
-                // Read until we have a 0xFF byte followed by a byte that is not 0xFF or 0x00
-                while (segmentIdentifier != 0xFF || segmentTypeByte == 0xFF || segmentTypeByte == 0)
-                {
-                    padding++;
-                    segmentIdentifier = segmentTypeByte;
-                    segmentTypeByte = stream.ReadByte();
+            var segmentType = (JpegSegmentType)segmentTypeByte;
+            var offset = stream.Position - 2;
 
-                    if (segmentTypeByte == -1)
-                        yield break;
-                }
+            // if there is a payload, then segment length includes the two size bytes
+            if (segmentType.ContainsPayload())
+            {
+                var pos = stream.Position;
 
-                var segmentType = (JpegSegmentType)segmentTypeByte;
-                var offset = stream.Position - 2;
+                // Read the 2-byte big-endian segment length (excludes two marker bytes)
+                var b1 = stream.ReadByte();
+                var b2 = stream.ReadByte();
+                if (b2 == -1)
+                    yield break;
+                var segmentLength = unchecked((ushort)(b1 << 8 | b2));
 
-                // if there is a payload, then segment length includes the two size bytes
-                if (segmentType.ContainsPayload())
-                {
-                    var pos = stream.Position;
+                var preambleBytes = new byte[Math.Min(segmentLength, _appSegmentByPreambleBytes.MaxDepth)];
+                if (stream.Read(preambleBytes, 0, preambleBytes.Length) != preambleBytes.Length)
+                    yield break;
+                var preamble = _appSegmentByPreambleBytes.Find(preambleBytes);
 
-                    // Read the 2-byte big-endian segment length (excludes two marker bytes)
-                    var b1 = stream.ReadByte();
-                    var b2 = stream.ReadByte();
-                    if (b2 == -1)
-                        yield break;
-                    var segmentLength = unchecked((ushort)(b1 << 8 | b2));
+                yield return new JpegSegment(segmentType, segmentLength, padding, offset, preamble);
 
-                    var preambleBytes = new byte[Math.Min(segmentLength, _appSegmentByPreambleBytes.MaxDepth)];
-                    if (stream.Read(preambleBytes, 0, preambleBytes.Length) != preambleBytes.Length)
-                        yield break;
-                    var preamble = _appSegmentByPreambleBytes.Find(preambleBytes);
+                // A length of less than two would be an error
+                if (segmentLength < 2)
+                    yield break;
 
-                    yield return new JpegSegment(segmentType, segmentLength, padding, offset, preamble);
-
-                    // A length of less than two would be an error
-                    if (segmentLength < 2)
-                        yield break;
-
-                    stream.Position = pos + segmentLength;
-                }
-                else
-                {
-                    yield return new JpegSegment(segmentType, 0, padding, offset, "");
-                }
+                stream.Position = pos + segmentLength;
+            }
+            else
+            {
+                yield return new JpegSegment(segmentType, 0, padding, offset, "");
             }
         }
+    }
 
-        private static ushort GetUInt16(Stream stream)
-        {
-            var b1 = stream.ReadByte();
-            var b2 = stream.ReadByte();
-            if (b2 == -1)
-                throw new IOException("Unexpected end of stream.");
-            return unchecked((ushort)(b1 << 8 | b2));
-        }
+    private static ushort GetUInt16(Stream stream)
+    {
+        var b1 = stream.ReadByte();
+        var b2 = stream.ReadByte();
+        if (b2 == -1)
+            throw new IOException("Unexpected end of stream.");
+        return unchecked((ushort)(b1 << 8 | b2));
     }
 }

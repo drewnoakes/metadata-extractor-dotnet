@@ -14,7 +14,6 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
     <PackageTags>Metadata;Exif;IPTC;XMP;ICC;Photoshop;WebP;PNG;BMP;ICO;PCX;JPEG;TIFF;PSD;Photography;QuickTime;MOV;MP4;M4V;Video;MP3;WAV;Imaging;Video;Audio</PackageTags>
     <AssemblyOriginatorKeyFile>../MetadataExtractor.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 
     <AllowUnsafeBlocks Condition=" '$(TargetFramework)' == 'netstandard2.0' ">true</AllowUnsafeBlocks>
@@ -41,21 +40,21 @@ Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, 
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="XmpCore" Version="6.1.10.1" />
+    <PackageReference Include="XmpCore" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Memory" Version="4.6.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.6.1" />
+    <PackageReference Include="System.Memory" />
+    <PackageReference Include="System.ValueTuple" />
   </ItemGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netstandard2.1' ">
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.5" />
+    <PackageReference Include="System.Text.Encoding.CodePages" />
   </ItemGroup>
 
   <!-- Analyzers -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

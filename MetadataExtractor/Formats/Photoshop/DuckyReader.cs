@@ -2,80 +2,79 @@
 
 using MetadataExtractor.Formats.Jpeg;
 
-namespace MetadataExtractor.Formats.Photoshop
+namespace MetadataExtractor.Formats.Photoshop;
+
+/// <summary>Reads Photoshop "ducky" segments, created during Save-for-Web.</summary>
+/// <author>Drew Noakes https://drewnoakes.com</author>
+public sealed class DuckyReader : IJpegSegmentMetadataReader
 {
-    /// <summary>Reads Photoshop "ducky" segments, created during Save-for-Web.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class DuckyReader : IJpegSegmentMetadataReader
+    public static ReadOnlySpan<byte> JpegSegmentPreamble => "Ducky"u8;
+
+    IReadOnlyCollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.AppC];
+
+    public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
     {
-        public static ReadOnlySpan<byte> JpegSegmentPreamble => "Ducky"u8;
+        // Skip segments not starting with the required header
+        return segments
+            .Where(static segment => segment.Span.StartsWith(JpegSegmentPreamble))
+            .Select(segment => (Directory)Extract(new SequentialByteArrayReader(segment.Bytes, JpegSegmentPreamble.Length)));
+    }
 
-        IReadOnlyCollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.AppC];
+    public DuckyDirectory Extract(SequentialReader reader)
+    {
+        var directory = new DuckyDirectory();
 
-        public IEnumerable<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        try
         {
-            // Skip segments not starting with the required header
-            return segments
-                .Where(static segment => segment.Span.StartsWith(JpegSegmentPreamble))
-                .Select(segment => (Directory)Extract(new SequentialByteArrayReader(segment.Bytes, JpegSegmentPreamble.Length)));
-        }
-
-        public DuckyDirectory Extract(SequentialReader reader)
-        {
-            var directory = new DuckyDirectory();
-
-            try
+            while (true)
             {
-                while (true)
+                var tag = reader.GetUInt16();
+
+                // End of Segment is marked with zero
+                if (tag == 0)
+                    break;
+
+                int length = reader.GetUInt16();
+
+                switch (tag)
                 {
-                    var tag = reader.GetUInt16();
-
-                    // End of Segment is marked with zero
-                    if (tag == 0)
-                        break;
-
-                    int length = reader.GetUInt16();
-
-                    switch (tag)
+                    case DuckyDirectory.TagQuality:
                     {
-                        case DuckyDirectory.TagQuality:
+                        if (length != 4)
                         {
-                            if (length != 4)
-                            {
-                                directory.AddError("Unexpected length for the quality tag");
-                                return directory;
-                            }
-                            directory.Set(tag, reader.GetUInt32());
-                            break;
+                            directory.AddError("Unexpected length for the quality tag");
+                            return directory;
                         }
-                        case DuckyDirectory.TagComment:
-                        case DuckyDirectory.TagCopyright:
+                        directory.Set(tag, reader.GetUInt32());
+                        break;
+                    }
+                    case DuckyDirectory.TagComment:
+                    case DuckyDirectory.TagCopyright:
+                    {
+                        reader.Skip(4);
+                        length -= 4;
+                        if (length < 0)
                         {
-                            reader.Skip(4);
-                            length -= 4;
-                            if (length < 0)
-                            {
-                                directory.AddError("Unexpected length for a text tag");
-                                return directory;
-                            }
-                            directory.Set(tag, reader.GetString(length, Encoding.BigEndianUnicode));
-                            break;
+                            directory.AddError("Unexpected length for a text tag");
+                            return directory;
                         }
-                        default:
-                        {
-                            // Unexpected tag
-                            directory.Set(tag, reader.GetBytes(length));
-                            break;
-                        }
+                        directory.Set(tag, reader.GetString(length, Encoding.BigEndianUnicode));
+                        break;
+                    }
+                    default:
+                    {
+                        // Unexpected tag
+                        directory.Set(tag, reader.GetBytes(length));
+                        break;
                     }
                 }
             }
-            catch (IOException e)
-            {
-                directory.AddError(e.Message);
-            }
-
-            return directory;
         }
+        catch (IOException e)
+        {
+            directory.AddError(e.Message);
+        }
+
+        return directory;
     }
 }

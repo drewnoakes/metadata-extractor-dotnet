@@ -4,18 +4,23 @@ on:
     types: [published]
 
 jobs:
- windows:
-    runs-on: windows-latest
+  publish:
+    runs-on: ubuntu-latest
     if: "!github.event.release.prerelease"
+    permissions:
+      id-token: write
     steps:
-    - uses: actions/checkout@v3
-    - name: Get the version
+    - uses: actions/checkout@v4
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
+    - name: Get version from tag
       id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-      shell: bash
-    - run: echo ${{ steps.get_version.outputs.VERSION }}
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
     - run: dotnet pack MetadataExtractor/MetadataExtractor.csproj -o . -c Release /p:Version=${{ steps.get_version.outputs.VERSION }} /p:ContinuousIntegrationBuild=true
-    - run: dotnet nuget push *.nupkg -k $NUGET_API_KEY -s https://api.nuget.org/v3/index.json
-      env:
-        NUGET_API_KEY: ${{ secrets.NuGetAPIKey }}
-      shell: bash
+    - name: NuGet login
+      uses: NuGet/login@v1
+      id: login
+      with:
+        user: ${{ secrets.NUGET_USER }}
+    - run: dotnet nuget push "*.nupkg" --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

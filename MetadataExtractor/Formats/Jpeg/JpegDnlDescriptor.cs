@@ -1,28 +1,27 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-namespace MetadataExtractor.Formats.Jpeg
+namespace MetadataExtractor.Formats.Jpeg;
+
+/// <summary>
+/// Provides human-readable string representations of tag values stored in a <see cref="JpegDnlDirectory"/>.
+/// </summary>
+/// <author>Kevin Mott https://github.com/kwhopper</author>
+public sealed class JpegDnlDescriptor(JpegDnlDirectory directory)
+    : TagDescriptor<JpegDnlDirectory>(directory)
 {
-    /// <summary>
-    /// Provides human-readable string representations of tag values stored in a <see cref="JpegDnlDirectory"/>.
-    /// </summary>
-    /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public sealed class JpegDnlDescriptor(JpegDnlDirectory directory)
-        : TagDescriptor<JpegDnlDirectory>(directory)
+    public override string? GetDescription(int tagType)
     {
-        public override string? GetDescription(int tagType)
+        return tagType switch
         {
-            return tagType switch
-            {
-                JpegDnlDirectory.TagImageHeight => GetImageHeightDescription(),
-                _ => base.GetDescription(tagType),
-            };
-        }
+            JpegDnlDirectory.TagImageHeight => GetImageHeightDescription(),
+            _ => base.GetDescription(tagType),
+        };
+    }
 
-        public string? GetImageHeightDescription()
-        {
-            var value = Directory.GetString(JpegDnlDirectory.TagImageHeight);
+    public string? GetImageHeightDescription()
+    {
+        var value = Directory.GetString(JpegDnlDirectory.TagImageHeight);
 
-            return value is null ? null : value + " pixels";
-        }
+        return value is null ? null : value + " pixels";
     }
 }

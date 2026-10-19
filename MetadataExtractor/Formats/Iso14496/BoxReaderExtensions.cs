@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-namespace MetadataExtractor.Formats.Iso14496
-{
-    internal static class BoxReaderExtensions
-    {
-        public static bool IsWithinBox(this SequentialReader reader, BoxLocation location) => (ulong)reader.Position < location.NextPosition;
+namespace MetadataExtractor.Formats.Iso14496;
 
-        public static ulong BytesRemainingInBox(this SequentialReader reader, BoxLocation boxLocation) => boxLocation.NextPosition - (ulong)reader.Position;
-    }
+internal static class BoxReaderExtensions
+{
+    public static bool IsWithinBox(this SequentialReader reader, BoxLocation location) => (ulong)reader.Position < location.NextPosition;
+
+    public static ulong BytesRemainingInBox(this SequentialReader reader, BoxLocation boxLocation) => boxLocation.NextPosition - (ulong)reader.Position;
 }

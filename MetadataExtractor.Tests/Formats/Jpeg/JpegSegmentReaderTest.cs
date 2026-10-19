@@ -1,71 +1,70 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-namespace MetadataExtractor.Formats.Jpeg
+namespace MetadataExtractor.Formats.Jpeg;
+
+/// <summary>Unit tests for <see cref="JpegSegmentReader"/>.</summary>
+/// <author>Drew Noakes https://drewnoakes.com</author>
+public sealed class JpegSegmentReaderTest
 {
-    /// <summary>Unit tests for <see cref="JpegSegmentReader"/>.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class JpegSegmentReaderTest
+    private static IReadOnlyList<JpegSegment> ReadSegments(string fileName, ICollection<JpegSegmentType>? segmentTypes = null)
     {
-        private static IReadOnlyList<JpegSegment> ReadSegments(string fileName, ICollection<JpegSegmentType>? segmentTypes = null)
-        {
-            using var stream = TestDataUtil.OpenRead(fileName);
-            return JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
-        }
+        using var stream = TestDataUtil.OpenRead(fileName);
+        return JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
+    }
 
-        [Fact]
-        public void ReadAllSegments()
-        {
-            var segments = ReadSegments("Data/withExifAndIptc.jpg");
+    [Fact]
+    public void ReadAllSegments()
+    {
+        var segments = ReadSegments("Data/withExifAndIptc.jpg");
 
-            Assert.Equal(13, segments.Count);
+        Assert.Equal(13, segments.Count);
 
-            Assert.Equal(JpegSegmentType.App0, segments[0].Type);
-            Assert.Equal(JpegSegmentType.App1, segments[1].Type);
-            Assert.Equal(JpegSegmentType.AppD, segments[2].Type);
-            Assert.Equal(JpegSegmentType.App1, segments[3].Type);
-            Assert.Equal(JpegSegmentType.App2, segments[4].Type);
-            Assert.Equal(JpegSegmentType.AppE, segments[5].Type);
+        Assert.Equal(JpegSegmentType.App0, segments[0].Type);
+        Assert.Equal(JpegSegmentType.App1, segments[1].Type);
+        Assert.Equal(JpegSegmentType.AppD, segments[2].Type);
+        Assert.Equal(JpegSegmentType.App1, segments[3].Type);
+        Assert.Equal(JpegSegmentType.App2, segments[4].Type);
+        Assert.Equal(JpegSegmentType.AppE, segments[5].Type);
 
 #pragma warning disable format
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"),   segments[0].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.0"), segments[1].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appd"),   segments[2].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.1"), segments[3].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"),   segments[4].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appe"),   segments[5].Bytes);
+        Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"),   segments[0].Bytes);
+        Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.0"), segments[1].Bytes);
+        Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appd"),   segments[2].Bytes);
+        Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.1"), segments[3].Bytes);
+        Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"),   segments[4].Bytes);
+        Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appe"),   segments[5].Bytes);
 #pragma warning restore format
-        }
+    }
 
-        [Fact]
-        public void ReadSpecificSegments()
-        {
-            var segments = ReadSegments("Data/withExifAndIptc.jpg", [JpegSegmentType.App0, JpegSegmentType.App2]);
+    [Fact]
+    public void ReadSpecificSegments()
+    {
+        var segments = ReadSegments("Data/withExifAndIptc.jpg", [JpegSegmentType.App0, JpegSegmentType.App2]);
 
-            Assert.Equal(2, segments.Count);
+        Assert.Equal(2, segments.Count);
 
-            Assert.Equal(JpegSegmentType.App0, segments[0].Type);
-            Assert.Equal(JpegSegmentType.App2, segments[1].Type);
+        Assert.Equal(JpegSegmentType.App0, segments[0].Type);
+        Assert.Equal(JpegSegmentType.App2, segments[1].Type);
 
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"), segments[0].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"), segments[1].Bytes);
-        }
+        Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"), segments[0].Bytes);
+        Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"), segments[1].Bytes);
+    }
 
-        [Fact]
-        public void LoadJpegWithoutExifDataReturnsNull()
-        {
-            Assert.DoesNotContain(
-                ReadSegments("Data/noExif.jpg"),
-                s => s.Type == JpegSegmentType.App1);
-        }
+    [Fact]
+    public void LoadJpegWithoutExifDataReturnsNull()
+    {
+        Assert.DoesNotContain(
+            ReadSegments("Data/noExif.jpg"),
+            s => s.Type == JpegSegmentType.App1);
+    }
 
-        [Fact]
-        public void WithNonJpegData()
-        {
-            var bytes = Enumerable.Range(1, 100).Select(i => (byte)i).ToArray();
-            var ex = Assert.Throws<JpegProcessingException>(
-                () => JpegSegmentReader.ReadSegments(new SequentialByteArrayReader(bytes)).ToList());
+    [Fact]
+    public void WithNonJpegData()
+    {
+        var bytes = Enumerable.Range(1, 100).Select(i => (byte)i).ToArray();
+        var ex = Assert.Throws<JpegProcessingException>(
+            () => JpegSegmentReader.ReadSegments(new SequentialByteArrayReader(bytes)).ToList());
 
-            Assert.Equal("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x0102", ex.Message);
-        }
+        Assert.Equal("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x0102", ex.Message);
     }
 }

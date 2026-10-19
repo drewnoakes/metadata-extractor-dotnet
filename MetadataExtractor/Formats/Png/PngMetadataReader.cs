@@ -9,618 +9,617 @@ using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Xmp;
 
-namespace MetadataExtractor.Formats.Png
+namespace MetadataExtractor.Formats.Png;
+
+/// <author>Drew Noakes https://drewnoakes.com</author>
+public static class PngMetadataReader
 {
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-    public static class PngMetadataReader
+    private static readonly HashSet<PngChunkType> _desiredChunkTypes =
+    [
+        PngChunkType.IHDR,
+        PngChunkType.PLTE,
+        PngChunkType.tRNS,
+        PngChunkType.cHRM,
+        PngChunkType.sRGB,
+        PngChunkType.gAMA,
+        PngChunkType.iCCP,
+        PngChunkType.bKGD,
+        PngChunkType.tEXt,
+        PngChunkType.zTXt,
+        PngChunkType.iTXt,
+        PngChunkType.tIME,
+        PngChunkType.pHYs,
+        PngChunkType.sBIT,
+        PngChunkType.eXIf
+    ];
+
+    /// <exception cref="PngProcessingException"/>
+    /// <exception cref="IOException"/>
+    public static IReadOnlyList<Directory> ReadMetadata(string filePath)
     {
-        private static readonly HashSet<PngChunkType> _desiredChunkTypes =
-        [
-            PngChunkType.IHDR,
-            PngChunkType.PLTE,
-            PngChunkType.tRNS,
-            PngChunkType.cHRM,
-            PngChunkType.sRGB,
-            PngChunkType.gAMA,
-            PngChunkType.iCCP,
-            PngChunkType.bKGD,
-            PngChunkType.tEXt,
-            PngChunkType.zTXt,
-            PngChunkType.iTXt,
-            PngChunkType.tIME,
-            PngChunkType.pHYs,
-            PngChunkType.sBIT,
-            PngChunkType.eXIf
-        ];
+        var directories = new List<Directory>();
 
-        /// <exception cref="PngProcessingException"/>
-        /// <exception cref="IOException"/>
-        public static IReadOnlyList<Directory> ReadMetadata(string filePath)
+        using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            directories.AddRange(ReadMetadata(stream));
+
+        directories.Add(new FileMetadataReader().Read(filePath));
+
+        return directories;
+    }
+
+    /// <exception cref="PngProcessingException"/>
+    /// <exception cref="IOException"/>
+    public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
+    {
+        List<Directory>? directories = null;
+
+        var chunks = new PngChunkReader().Extract(new SequentialStreamReader(stream), _desiredChunkTypes);
+
+        foreach (var chunk in chunks)
         {
-            var directories = new List<Directory>();
+            directories ??= new List<Directory>();
 
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream));
-
-            directories.Add(new FileMetadataReader().Read(filePath));
-
-            return directories;
+            try
+            {
+                directories.AddRange(ProcessChunk(chunk));
+            }
+            catch (Exception ex)
+            {
+                directories.Add(new ErrorDirectory("Exception reading PNG chunk: " + ex.Message));
+            }
         }
 
-        /// <exception cref="PngProcessingException"/>
-        /// <exception cref="IOException"/>
-        public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
+        return directories ?? Directory.EmptyList;
+    }
+
+    /// <summary>
+    /// The PNG spec states that ISO_8859_1 (Latin-1) encoding should be used for:
+    /// <list type="bullet">
+    ///   <item>"tEXt" and "zTXt" chunks, both for keys and values (https://www.w3.org/TR/PNG/#11tEXt)</item>
+    ///   <item>"iCCP" chunks, for the profile name (https://www.w3.org/TR/PNG/#11iCCP)</item>
+    ///   <item>"sPLT" chunks, for the palette name (https://www.w3.org/TR/PNG/#11sPLT)</item>
+    /// </list>
+    /// Note that "iTXt" chunks use UTF-8 encoding (https://www.w3.org/TR/PNG/#11iTXt).
+    /// <para/>
+    /// For more guidance: http://www.w3.org/TR/PNG-Decoders.html#D.Text-chunk-processing
+    /// </summary>
+    private static readonly Encoding _latin1Encoding = Encoding.GetEncoding("ISO-8859-1");
+
+    /// <exception cref="PngProcessingException"/>
+    /// <exception cref="IOException"/>
+    private static IEnumerable<Directory> ProcessChunk(PngChunk chunk)
+    {
+        var chunkType = chunk.ChunkType;
+        var bytes = chunk.Bytes;
+
+        if (chunkType == PngChunkType.IHDR)
         {
-            List<Directory>? directories = null;
-
-            var chunks = new PngChunkReader().Extract(new SequentialStreamReader(stream), _desiredChunkTypes);
-
-            foreach (var chunk in chunks)
+            var header = new PngHeader(bytes);
+            var directory = new PngDirectory(PngChunkType.IHDR);
+            directory.Set(PngDirectory.TagImageWidth, header.ImageWidth);
+            directory.Set(PngDirectory.TagImageHeight, header.ImageHeight);
+            directory.Set(PngDirectory.TagBitsPerSample, header.BitsPerSample);
+            directory.Set(PngDirectory.TagColorType, header.ColorType.NumericValue);
+            directory.Set(PngDirectory.TagCompressionType, header.CompressionType);
+            directory.Set(PngDirectory.TagFilterMethod, header.FilterMethod);
+            directory.Set(PngDirectory.TagInterlaceMethod, header.InterlaceMethod);
+            yield return directory;
+        }
+        else if (chunkType == PngChunkType.PLTE)
+        {
+            var directory = new PngDirectory(PngChunkType.PLTE);
+            directory.Set(PngDirectory.TagPaletteSize, bytes.Length / 3);
+            yield return directory;
+        }
+        else if (chunkType == PngChunkType.tRNS)
+        {
+            var directory = new PngDirectory(PngChunkType.tRNS);
+            directory.Set(PngDirectory.TagPaletteHasTransparency, 1);
+            yield return directory;
+        }
+        else if (chunkType == PngChunkType.sRGB)
+        {
+            int srgbRenderingIntent = unchecked((sbyte)bytes[0]);
+            var directory = new PngDirectory(PngChunkType.sRGB);
+            directory.Set(PngDirectory.TagSrgbRenderingIntent, srgbRenderingIntent);
+            yield return directory;
+        }
+        else if (chunkType == PngChunkType.cHRM)
+        {
+            var chromaticities = new PngChromaticities(bytes);
+            var directory = new PngChromaticitiesDirectory();
+            directory.Set(PngChromaticitiesDirectory.TagWhitePointX, chromaticities.WhitePointX);
+            directory.Set(PngChromaticitiesDirectory.TagWhitePointY, chromaticities.WhitePointY);
+            directory.Set(PngChromaticitiesDirectory.TagRedX, chromaticities.RedX);
+            directory.Set(PngChromaticitiesDirectory.TagRedY, chromaticities.RedY);
+            directory.Set(PngChromaticitiesDirectory.TagGreenX, chromaticities.GreenX);
+            directory.Set(PngChromaticitiesDirectory.TagGreenY, chromaticities.GreenY);
+            directory.Set(PngChromaticitiesDirectory.TagBlueX, chromaticities.BlueX);
+            directory.Set(PngChromaticitiesDirectory.TagBlueY, chromaticities.BlueY);
+            yield return directory;
+        }
+        else if (chunkType == PngChunkType.gAMA)
+        {
+            var gammaInt = BinaryPrimitives.ReadInt32BigEndian(bytes);
+            var directory = new PngDirectory(PngChunkType.gAMA);
+            directory.Set(PngDirectory.TagGamma, gammaInt / 100000.0);
+            yield return directory;
+        }
+        else if (chunkType == PngChunkType.iCCP)
+        {
+            var reader = new BufferReader(bytes, isBigEndian: true);
+            var profileName = reader.GetNullTerminatedStringValue(maxLengthBytes: 79);
+            var directory = new PngDirectory(PngChunkType.iCCP);
+            directory.Set(PngDirectory.TagIccProfileName, profileName);
+            var compressionMethod = reader.GetSByte();
+            if (compressionMethod == 0)
             {
-                directories ??= new List<Directory>();
+                // Only compression method allowed by the spec is zero: deflate
+                // This assumes 1-byte-per-char, which it is by spec.
+                var bytesLeft = bytes.Length - profileName.Bytes.Length - 2;
 
+                // http://george.chiramattel.com/blog/2007/09/deflatestream-block-length-does-not-match.html
+                // First two bytes are part of the zlib specification (RFC 1950), not the deflate specification (RFC 1951).
+                reader.Skip(2);
+                bytesLeft -= 2;
+
+                var compressedProfile = reader.GetBytes(bytesLeft);
+
+                IccDirectory? iccDirectory = null;
+                Exception? ex = null;
                 try
                 {
-                    directories.AddRange(ProcessChunk(chunk));
+                    using var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress);
+                    using var iccReader = new IndexedCapturingReader(inflaterStream);
+                    iccDirectory = new IccReader().Extract(iccReader);
+                    iccDirectory.Parent = directory;
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    directories.Add(new ErrorDirectory("Exception reading PNG chunk: " + ex.Message));
+                    ex = e;
                 }
-            }
 
-            return directories ?? Directory.EmptyList;
+                if (iccDirectory is not null)
+                    yield return iccDirectory;
+                else if (ex is not null)
+                    directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.iCCP)} chunk: {ex.Message}");
+            }
+            else
+            {
+                directory.AddError("Invalid compression method value");
+            }
+            yield return directory;
         }
-
-        /// <summary>
-        /// The PNG spec states that ISO_8859_1 (Latin-1) encoding should be used for:
-        /// <list type="bullet">
-        ///   <item>"tEXt" and "zTXt" chunks, both for keys and values (https://www.w3.org/TR/PNG/#11tEXt)</item>
-        ///   <item>"iCCP" chunks, for the profile name (https://www.w3.org/TR/PNG/#11iCCP)</item>
-        ///   <item>"sPLT" chunks, for the palette name (https://www.w3.org/TR/PNG/#11sPLT)</item>
-        /// </list>
-        /// Note that "iTXt" chunks use UTF-8 encoding (https://www.w3.org/TR/PNG/#11iTXt).
-        /// <para/>
-        /// For more guidance: http://www.w3.org/TR/PNG-Decoders.html#D.Text-chunk-processing
-        /// </summary>
-        private static readonly Encoding _latin1Encoding = Encoding.GetEncoding("ISO-8859-1");
-
-        /// <exception cref="PngProcessingException"/>
-        /// <exception cref="IOException"/>
-        private static IEnumerable<Directory> ProcessChunk(PngChunk chunk)
+        else if (chunkType == PngChunkType.bKGD)
         {
-            var chunkType = chunk.ChunkType;
-            var bytes = chunk.Bytes;
+            var directory = new PngDirectory(PngChunkType.bKGD);
+            directory.Set(PngDirectory.TagBackgroundColor, bytes);
+            yield return directory;
+        }
+        else if (chunkType == PngChunkType.tEXt)
+        {
+            var reader = new BufferReader(bytes, isBigEndian: true);
+            var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
+            var bytesLeft = bytes.Length - keyword.Length - 1;
+            var value = reader.GetNullTerminatedStringValue(bytesLeft, _latin1Encoding);
 
-            if (chunkType == PngChunkType.IHDR)
-            {
-                var header = new PngHeader(bytes);
-                var directory = new PngDirectory(PngChunkType.IHDR);
-                directory.Set(PngDirectory.TagImageWidth, header.ImageWidth);
-                directory.Set(PngDirectory.TagImageHeight, header.ImageHeight);
-                directory.Set(PngDirectory.TagBitsPerSample, header.BitsPerSample);
-                directory.Set(PngDirectory.TagColorType, header.ColorType.NumericValue);
-                directory.Set(PngDirectory.TagCompressionType, header.CompressionType);
-                directory.Set(PngDirectory.TagFilterMethod, header.FilterMethod);
-                directory.Set(PngDirectory.TagInterlaceMethod, header.InterlaceMethod);
-                yield return directory;
-            }
-            else if (chunkType == PngChunkType.PLTE)
-            {
-                var directory = new PngDirectory(PngChunkType.PLTE);
-                directory.Set(PngDirectory.TagPaletteSize, bytes.Length / 3);
-                yield return directory;
-            }
-            else if (chunkType == PngChunkType.tRNS)
-            {
-                var directory = new PngDirectory(PngChunkType.tRNS);
-                directory.Set(PngDirectory.TagPaletteHasTransparency, 1);
-                yield return directory;
-            }
-            else if (chunkType == PngChunkType.sRGB)
-            {
-                int srgbRenderingIntent = unchecked((sbyte)bytes[0]);
-                var directory = new PngDirectory(PngChunkType.sRGB);
-                directory.Set(PngDirectory.TagSrgbRenderingIntent, srgbRenderingIntent);
-                yield return directory;
-            }
-            else if (chunkType == PngChunkType.cHRM)
-            {
-                var chromaticities = new PngChromaticities(bytes);
-                var directory = new PngChromaticitiesDirectory();
-                directory.Set(PngChromaticitiesDirectory.TagWhitePointX, chromaticities.WhitePointX);
-                directory.Set(PngChromaticitiesDirectory.TagWhitePointY, chromaticities.WhitePointY);
-                directory.Set(PngChromaticitiesDirectory.TagRedX, chromaticities.RedX);
-                directory.Set(PngChromaticitiesDirectory.TagRedY, chromaticities.RedY);
-                directory.Set(PngChromaticitiesDirectory.TagGreenX, chromaticities.GreenX);
-                directory.Set(PngChromaticitiesDirectory.TagGreenY, chromaticities.GreenY);
-                directory.Set(PngChromaticitiesDirectory.TagBlueX, chromaticities.BlueX);
-                directory.Set(PngChromaticitiesDirectory.TagBlueY, chromaticities.BlueY);
-                yield return directory;
-            }
-            else if (chunkType == PngChunkType.gAMA)
-            {
-                var gammaInt = BinaryPrimitives.ReadInt32BigEndian(bytes);
-                var directory = new PngDirectory(PngChunkType.gAMA);
-                directory.Set(PngDirectory.TagGamma, gammaInt / 100000.0);
-                yield return directory;
-            }
-            else if (chunkType == PngChunkType.iCCP)
-            {
-                var reader = new BufferReader(bytes, isBigEndian: true);
-                var profileName = reader.GetNullTerminatedStringValue(maxLengthBytes: 79);
-                var directory = new PngDirectory(PngChunkType.iCCP);
-                directory.Set(PngDirectory.TagIccProfileName, profileName);
-                var compressionMethod = reader.GetSByte();
-                if (compressionMethod == 0)
-                {
-                    // Only compression method allowed by the spec is zero: deflate
-                    // This assumes 1-byte-per-char, which it is by spec.
-                    var bytesLeft = bytes.Length - profileName.Bytes.Length - 2;
+            var textPairs = new List<KeyValuePair> { new(keyword, value) };
+            var directory = new PngDirectory(PngChunkType.tEXt);
+            directory.Set(PngDirectory.TagTextualData, textPairs);
+            yield return directory;
+        }
+        else if (chunkType == PngChunkType.zTXt)
+        {
+            var reader = new BufferReader(bytes, isBigEndian: true);
+            var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
+            var compressionMethod = reader.GetSByte();
 
-                    // http://george.chiramattel.com/blog/2007/09/deflatestream-block-length-does-not-match.html
-                    // First two bytes are part of the zlib specification (RFC 1950), not the deflate specification (RFC 1951).
-                    reader.Skip(2);
-                    bytesLeft -= 2;
-
-                    var compressedProfile = reader.GetBytes(bytesLeft);
-
-                    IccDirectory? iccDirectory = null;
-                    Exception? ex = null;
-                    try
-                    {
-                        using var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress);
-                        using var iccReader = new IndexedCapturingReader(inflaterStream);
-                        iccDirectory = new IccReader().Extract(iccReader);
-                        iccDirectory.Parent = directory;
-                    }
-                    catch (Exception e)
-                    {
-                        ex = e;
-                    }
-
-                    if (iccDirectory is not null)
-                        yield return iccDirectory;
-                    else if (ex is not null)
-                        directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.iCCP)} chunk: {ex.Message}");
-                }
-                else
-                {
-                    directory.AddError("Invalid compression method value");
-                }
-                yield return directory;
-            }
-            else if (chunkType == PngChunkType.bKGD)
+            var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - 1;
+            byte[]? textBytes = null;
+            if (compressionMethod == 0)
             {
-                var directory = new PngDirectory(PngChunkType.bKGD);
-                directory.Set(PngDirectory.TagBackgroundColor, bytes);
-                yield return directory;
-            }
-            else if (chunkType == PngChunkType.tEXt)
-            {
-                var reader = new BufferReader(bytes, isBigEndian: true);
-                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
-                var bytesLeft = bytes.Length - keyword.Length - 1;
-                var value = reader.GetNullTerminatedStringValue(bytesLeft, _latin1Encoding);
-
-                var textPairs = new List<KeyValuePair> { new(keyword, value) };
-                var directory = new PngDirectory(PngChunkType.tEXt);
-                directory.Set(PngDirectory.TagTextualData, textPairs);
-                yield return directory;
-            }
-            else if (chunkType == PngChunkType.zTXt)
-            {
-                var reader = new BufferReader(bytes, isBigEndian: true);
-                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
-                var compressionMethod = reader.GetSByte();
-
-                var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - 1;
-                byte[]? textBytes = null;
-                if (compressionMethod == 0)
-                {
-                    if (!TryDeflate(bytes, bytesLeft, out textBytes, out string? errorMessage))
-                    {
-                        var directory = new PngDirectory(PngChunkType.zTXt);
-                        directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.zTXt)} chunk with keyword \"{keyword}\": {errorMessage}");
-                        yield return directory;
-                    }
-                }
-                else
+                if (!TryDeflate(bytes, bytesLeft, out textBytes, out string? errorMessage))
                 {
                     var directory = new PngDirectory(PngChunkType.zTXt);
-                    directory.AddError("Invalid compression method value");
+                    directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.zTXt)} chunk with keyword \"{keyword}\": {errorMessage}");
                     yield return directory;
                 }
+            }
+            else
+            {
+                var directory = new PngDirectory(PngChunkType.zTXt);
+                directory.AddError("Invalid compression method value");
+                yield return directory;
+            }
 
-                if (textBytes is not null)
+            if (textBytes is not null)
+            {
+                foreach (var directory in ProcessTextChunk(keyword, textBytes))
                 {
-                    foreach (var directory in ProcessTextChunk(keyword, textBytes))
-                    {
-                        yield return directory;
-                    }
+                    yield return directory;
                 }
             }
-            else if (chunkType == PngChunkType.iTXt)
+        }
+        else if (chunkType == PngChunkType.iTXt)
+        {
+            var reader = new BufferReader(bytes, isBigEndian: true);
+            var keywordStringValue = reader.GetNullTerminatedStringValue(maxLengthBytes: 79);
+            var keyword = keywordStringValue.ToString(Encoding.UTF8);
+            var compressionFlag = reader.GetSByte();
+            var compressionMethod = reader.GetSByte();
+
+            // TODO we currently ignore languageTagBytes and translatedKeywordBytes
+            var languageTagBytes = reader.GetNullTerminatedBytes(bytes.Length);
+            var translatedKeywordBytes = reader.GetNullTerminatedBytes(bytes.Length);
+
+            // bytes left for compressed text is:
+            // total bytes length - (Keyword length + null byte + comp flag byte + comp method byte + lang length + null byte + translated length + null byte)
+            var bytesLeft = bytes.Length - keywordStringValue.Bytes.Length - 1 - 1 - 1 - languageTagBytes.Length - 1 - translatedKeywordBytes.Length - 1;
+            byte[]? textBytes = null;
+            if (compressionFlag == 0)
             {
-                var reader = new BufferReader(bytes, isBigEndian: true);
-                var keywordStringValue = reader.GetNullTerminatedStringValue(maxLengthBytes: 79);
-                var keyword = keywordStringValue.ToString(Encoding.UTF8);
-                var compressionFlag = reader.GetSByte();
-                var compressionMethod = reader.GetSByte();
-
-                // TODO we currently ignore languageTagBytes and translatedKeywordBytes
-                var languageTagBytes = reader.GetNullTerminatedBytes(bytes.Length);
-                var translatedKeywordBytes = reader.GetNullTerminatedBytes(bytes.Length);
-
-                // bytes left for compressed text is:
-                // total bytes length - (Keyword length + null byte + comp flag byte + comp method byte + lang length + null byte + translated length + null byte)
-                var bytesLeft = bytes.Length - keywordStringValue.Bytes.Length - 1 - 1 - 1 - languageTagBytes.Length - 1 - translatedKeywordBytes.Length - 1;
-                byte[]? textBytes = null;
-                if (compressionFlag == 0)
+                textBytes = reader.GetNullTerminatedBytes(bytesLeft);
+            }
+            else if (compressionFlag == 1)
+            {
+                if (compressionMethod == 0)
                 {
-                    textBytes = reader.GetNullTerminatedBytes(bytesLeft);
-                }
-                else if (compressionFlag == 1)
-                {
-                    if (compressionMethod == 0)
-                    {
-                        reader.Skip(2); // Skip over the zlib header bytes (78 9C)
-                        bytesLeft -= 2;
-                        if (!TryDeflate(reader.GetBytes(bytesLeft), bytesLeft, out textBytes, out string? errorMessage))
-                        {
-                            var directory = new PngDirectory(PngChunkType.iTXt);
-                            directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {errorMessage}");
-                            yield return directory;
-                        }
-                    }
-                    else
+                    reader.Skip(2); // Skip over the zlib header bytes (78 9C)
+                    bytesLeft -= 2;
+                    if (!TryDeflate(reader.GetBytes(bytesLeft), bytesLeft, out textBytes, out string? errorMessage))
                     {
                         var directory = new PngDirectory(PngChunkType.iTXt);
-                        directory.AddError("Invalid compression method value");
+                        directory.AddError($"Exception decompressing PNG {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {errorMessage}");
                         yield return directory;
                     }
                 }
                 else
                 {
                     var directory = new PngDirectory(PngChunkType.iTXt);
-                    directory.AddError("Invalid compression flag value");
-                    yield return directory;
-                }
-
-                if (textBytes is not null)
-                {
-                    foreach (var directory in ProcessTextChunk(keyword, textBytes))
-                    {
-                        yield return directory;
-                    }
-                }
-            }
-            else if (chunkType == PngChunkType.tIME)
-            {
-                var directory = new PngDirectory(PngChunkType.tIME);
-
-                if (bytes.Length < 2 + 1 + 1 + 1 + 1 + 1)
-                {
-                    directory.AddError("Insufficient bytes for PNG tIME chunk.");
-                }
-                else
-                {
-                    var reader = new BufferReader(bytes, isBigEndian: true);
-
-                    var year = reader.GetUInt16();
-                    var month = reader.GetByte();
-                    int day = reader.GetByte();
-                    int hour = reader.GetByte();
-                    int minute = reader.GetByte();
-                    int second = reader.GetByte();
-
-                    if (DateUtil.IsValidDate(year, month, day) && DateUtil.IsValidTime(hour, minute, second))
-                    {
-                        var time = new DateTime(year, month, day, hour, minute, second, DateTimeKind.Unspecified);
-                        directory.Set(PngDirectory.TagLastModificationTime, time);
-                    }
-                    else
-                    {
-                        directory.AddError($"PNG tIME data describes an invalid date/time: year={year} month={month} day={day} hour={hour} minute={minute} second={second}");
-                    }
+                    directory.AddError("Invalid compression method value");
                     yield return directory;
                 }
             }
-            else if (chunkType == PngChunkType.pHYs)
+            else
             {
-                var directory = new PngDirectory(PngChunkType.pHYs);
-
-                if (bytes.Length < 4 + 4 + 1)
-                {
-                    directory.AddError("Insufficient bytes for PNG pHYs chunk.");
-                }
-                else
-                {
-                    var reader = new BufferReader(bytes, isBigEndian: true);
-
-                    var pixelsPerUnitX = reader.GetInt32();
-                    var pixelsPerUnitY = reader.GetInt32();
-                    var unitSpecifier = reader.GetSByte();
-
-                    directory.Set(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
-                    directory.Set(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);
-                    directory.Set(PngDirectory.TagUnitSpecifier, unitSpecifier);
-                    yield return directory;
-                }
-            }
-            else if (chunkType.Equals(PngChunkType.sBIT))
-            {
-                var directory = new PngDirectory(PngChunkType.sBIT);
-                directory.Set(PngDirectory.TagSignificantBits, bytes);
+                var directory = new PngDirectory(PngChunkType.iTXt);
+                directory.AddError("Invalid compression flag value");
                 yield return directory;
             }
-            else if (chunkType.Equals(PngChunkType.eXIf))
-            {
-                var directories = new List<Directory>();
-                try
-                {
-                    TiffReader.ProcessTiff(
-                        new ByteArrayReader(bytes),
-                        new ExifTiffHandler(directories, exifStartOffset: 0));
-                }
-                catch (Exception ex)
-                {
-                    var directory = new PngDirectory(PngChunkType.eXIf);
-                    directory.AddError(ex.Message);
-                    directories.Add(directory);
-                }
 
-                foreach (var directory in directories)
+            if (textBytes is not null)
+            {
+                foreach (var directory in ProcessTextChunk(keyword, textBytes))
                 {
                     yield return directory;
                 }
             }
+        }
+        else if (chunkType == PngChunkType.tIME)
+        {
+            var directory = new PngDirectory(PngChunkType.tIME);
 
-            yield break;
-
-            IEnumerable<Directory> ProcessTextChunk(string keyword, byte[] textBytes)
+            if (bytes.Length < 2 + 1 + 1 + 1 + 1 + 1)
             {
-                if (keyword == "XML:com.adobe.xmp")
-                {
-                    yield return new XmpReader().Extract(textBytes);
-                }
-                else if (keyword == "Raw profile type xmp")
-                {
-                    if (TryProcessRawProfile(out int byteCount))
-                    {
-                        yield return new XmpReader().Extract(textBytes, 0, byteCount);
-                    }
-                    else
-                    {
-                        yield return ReadTextDirectory(keyword, textBytes, chunkType);
-                    }
-                }
-                else if (keyword is "Raw profile type exif" or "Raw profile type APP1")
-                {
-                    if (TryProcessRawProfile(out _))
-                    {
-                        int offset = 0;
-                        if (ExifReader.StartsWithJpegExifPreamble(textBytes))
-                            offset = ExifReader.JpegSegmentPreambleLength;
+                directory.AddError("Insufficient bytes for PNG tIME chunk.");
+            }
+            else
+            {
+                var reader = new BufferReader(bytes, isBigEndian: true);
 
-                        foreach (var exifDirectory in new ExifReader().Extract(new ByteArrayReader(textBytes, offset), exifStartOffset: 0))
-                            yield return exifDirectory;
-                    }
-                    else
-                    {
-                        yield return ReadTextDirectory(keyword, textBytes, chunkType);
-                    }
-                }
-                else if (keyword is "Raw profile type icc" or "Raw profile type icm")
+                var year = reader.GetUInt16();
+                var month = reader.GetByte();
+                int day = reader.GetByte();
+                int hour = reader.GetByte();
+                int minute = reader.GetByte();
+                int second = reader.GetByte();
+
+                if (DateUtil.IsValidDate(year, month, day) && DateUtil.IsValidTime(hour, minute, second))
                 {
-                    if (TryProcessRawProfile(out _))
-                    {
-                        yield return new IccReader().Extract(new ByteArrayReader(textBytes));
-                    }
-                    else
-                    {
-                        yield return ReadTextDirectory(keyword, textBytes, chunkType);
-                    }
+                    var time = new DateTime(year, month, day, hour, minute, second, DateTimeKind.Unspecified);
+                    directory.Set(PngDirectory.TagLastModificationTime, time);
                 }
-                else if (keyword == "Raw profile type iptc")
+                else
                 {
-                    if (TryProcessRawProfile(out int byteCount))
+                    directory.AddError($"PNG tIME data describes an invalid date/time: year={year} month={month} day={day} hour={hour} minute={minute} second={second}");
+                }
+                yield return directory;
+            }
+        }
+        else if (chunkType == PngChunkType.pHYs)
+        {
+            var directory = new PngDirectory(PngChunkType.pHYs);
+
+            if (bytes.Length < 4 + 4 + 1)
+            {
+                directory.AddError("Insufficient bytes for PNG pHYs chunk.");
+            }
+            else
+            {
+                var reader = new BufferReader(bytes, isBigEndian: true);
+
+                var pixelsPerUnitX = reader.GetInt32();
+                var pixelsPerUnitY = reader.GetInt32();
+                var unitSpecifier = reader.GetSByte();
+
+                directory.Set(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
+                directory.Set(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);
+                directory.Set(PngDirectory.TagUnitSpecifier, unitSpecifier);
+                yield return directory;
+            }
+        }
+        else if (chunkType.Equals(PngChunkType.sBIT))
+        {
+            var directory = new PngDirectory(PngChunkType.sBIT);
+            directory.Set(PngDirectory.TagSignificantBits, bytes);
+            yield return directory;
+        }
+        else if (chunkType.Equals(PngChunkType.eXIf))
+        {
+            var directories = new List<Directory>();
+            try
+            {
+                TiffReader.ProcessTiff(
+                    new ByteArrayReader(bytes),
+                    new ExifTiffHandler(directories, exifStartOffset: 0));
+            }
+            catch (Exception ex)
+            {
+                var directory = new PngDirectory(PngChunkType.eXIf);
+                directory.AddError(ex.Message);
+                directories.Add(directory);
+            }
+
+            foreach (var directory in directories)
+            {
+                yield return directory;
+            }
+        }
+
+        yield break;
+
+        IEnumerable<Directory> ProcessTextChunk(string keyword, byte[] textBytes)
+        {
+            if (keyword == "XML:com.adobe.xmp")
+            {
+                yield return new XmpReader().Extract(textBytes);
+            }
+            else if (keyword == "Raw profile type xmp")
+            {
+                if (TryProcessRawProfile(out int byteCount))
+                {
+                    yield return new XmpReader().Extract(textBytes, 0, byteCount);
+                }
+                else
+                {
+                    yield return ReadTextDirectory(keyword, textBytes, chunkType);
+                }
+            }
+            else if (keyword is "Raw profile type exif" or "Raw profile type APP1")
+            {
+                if (TryProcessRawProfile(out _))
+                {
+                    int offset = 0;
+                    if (ExifReader.StartsWithJpegExifPreamble(textBytes))
+                        offset = ExifReader.JpegSegmentPreambleLength;
+
+                    foreach (var exifDirectory in new ExifReader().Extract(new ByteArrayReader(textBytes, offset), exifStartOffset: 0))
+                        yield return exifDirectory;
+                }
+                else
+                {
+                    yield return ReadTextDirectory(keyword, textBytes, chunkType);
+                }
+            }
+            else if (keyword is "Raw profile type icc" or "Raw profile type icm")
+            {
+                if (TryProcessRawProfile(out _))
+                {
+                    yield return new IccReader().Extract(new ByteArrayReader(textBytes));
+                }
+                else
+                {
+                    yield return ReadTextDirectory(keyword, textBytes, chunkType);
+                }
+            }
+            else if (keyword == "Raw profile type iptc")
+            {
+                if (TryProcessRawProfile(out int byteCount))
+                {
+                    // From ExifTool:
+                    // this is unfortunate, but the "IPTC" profile may be stored as either
+                    // IPTC IIM or a Photoshop IRB resource, so we must test for this.
+                    // Check if the first byte matches IptcReader.IptcMarkerByte (0x1c)
+                    if (byteCount > 0 && textBytes[0] == IptcReader.IptcMarkerByte)
                     {
-                        // From ExifTool:
-                        // this is unfortunate, but the "IPTC" profile may be stored as either
-                        // IPTC IIM or a Photoshop IRB resource, so we must test for this.
-                        // Check if the first byte matches IptcReader.IptcMarkerByte (0x1c)
-                        if (byteCount > 0 && textBytes[0] == IptcReader.IptcMarkerByte)
-                        {
-                            yield return new IptcReader().Extract(new SequentialByteArrayReader(textBytes), byteCount);
-                        }
-                        else
-                        {
-                            foreach (var psDirectory in new Photoshop.PhotoshopReader().Extract(new SequentialByteArrayReader(textBytes), byteCount))
-                                yield return psDirectory;
-                        }
+                        yield return new IptcReader().Extract(new SequentialByteArrayReader(textBytes), byteCount);
                     }
                     else
                     {
-                        yield return ReadTextDirectory(keyword, textBytes, chunkType);
+                        foreach (var psDirectory in new Photoshop.PhotoshopReader().Extract(new SequentialByteArrayReader(textBytes), byteCount))
+                            yield return psDirectory;
                     }
                 }
                 else
                 {
                     yield return ReadTextDirectory(keyword, textBytes, chunkType);
                 }
+            }
+            else
+            {
+                yield return ReadTextDirectory(keyword, textBytes, chunkType);
+            }
 
-                static PngDirectory ReadTextDirectory(string keyword, byte[] textBytes, PngChunkType pngChunkType)
+            static PngDirectory ReadTextDirectory(string keyword, byte[] textBytes, PngChunkType pngChunkType)
+            {
+                var encoding = _latin1Encoding;
+
+                if (pngChunkType == PngChunkType.iTXt)
                 {
-                    var encoding = _latin1Encoding;
-
-                    if (pngChunkType == PngChunkType.iTXt)
-                    {
-                        encoding = Encoding.UTF8;
-                    }
-
-                    var textPairs = new[] { new KeyValuePair(keyword, new StringValue(textBytes, encoding)) };
-                    var directory = new PngDirectory(pngChunkType);
-                    directory.Set(PngDirectory.TagTextualData, textPairs);
-                    return directory;
+                    encoding = Encoding.UTF8;
                 }
 
-                bool TryProcessRawProfile(out int byteCount)
+                var textPairs = new[] { new KeyValuePair(keyword, new StringValue(textBytes, encoding)) };
+                var directory = new PngDirectory(pngChunkType);
+                directory.Set(PngDirectory.TagTextualData, textPairs);
+                return directory;
+            }
+
+            bool TryProcessRawProfile(out int byteCount)
+            {
+                // Raw profiles have form "\n<name>\n<length>\n<hex>\n"
+
+                if (textBytes.Length == 0 || textBytes[0] != '\n')
                 {
-                    // Raw profiles have form "\n<name>\n<length>\n<hex>\n"
+                    byteCount = default;
+                    return false;
+                }
 
-                    if (textBytes.Length == 0 || textBytes[0] != '\n')
-                    {
-                        byteCount = default;
-                        return false;
-                    }
+                var i = 1;
 
-                    var i = 1;
-
-                    // Skip name
-                    while (i < textBytes.Length && textBytes[i] != '\n')
-                        i++;
-
-                    if (i == textBytes.Length)
-                    {
-                        byteCount = default;
-                        return false;
-                    }
-
-                    // Read length
-                    int length = 0;
-                    while (true)
-                    {
-                        i++;
-                        var c = (char)textBytes[i];
-
-                        if (c == ' ')
-                            continue;
-                        if (c == '\n')
-                            break;
-
-                        if (c is >= '0' and <= '9')
-                        {
-                            length *= 10;
-                            length += c - '0';
-                        }
-                        else
-                        {
-                            byteCount = default;
-                            return false;
-                        }
-                    }
-
+                // Skip name
+                while (i < textBytes.Length && textBytes[i] != '\n')
                     i++;
 
-                    // We should be at the ASCII-encoded hex data. Walk through the remaining bytes, re-writing as raw bytes
-                    // starting at offset zero in the array. We have to skip \n characters.
+                if (i == textBytes.Length)
+                {
+                    byteCount = default;
+                    return false;
+                }
 
-                    // Validate the data can be correctly parsed before modifying it in-place, because if parsing fails later
-                    // consumers may want the unmodified data.
+                // Read length
+                int length = 0;
+                while (true)
+                {
+                    i++;
+                    var c = (char)textBytes[i];
 
-                    // Each row must have 72 characters (36 bytes once decoded) separated by \n
-                    const int RowCharCount = 72;
-                    int charsInRow = RowCharCount;
+                    if (c == ' ')
+                        continue;
+                    if (c == '\n')
+                        break;
 
-                    for (int j = i; j < length + i; j++)
+                    if (c is >= '0' and <= '9')
                     {
-                        byte c = textBytes[j];
+                        length *= 10;
+                        length += c - '0';
+                    }
+                    else
+                    {
+                        byteCount = default;
+                        return false;
+                    }
+                }
 
-                        if (charsInRow-- == 0)
-                        {
-                            if (c != '\n')
-                            {
-                                byteCount = default;
-                                return false;
-                            }
+                i++;
 
-                            charsInRow = RowCharCount;
-                            continue;
-                        }
+                // We should be at the ASCII-encoded hex data. Walk through the remaining bytes, re-writing as raw bytes
+                // starting at offset zero in the array. We have to skip \n characters.
 
-                        if ((c < '0' || c > '9') && (c < 'a' || c > 'f') && (c < 'A' || c > 'F'))
+                // Validate the data can be correctly parsed before modifying it in-place, because if parsing fails later
+                // consumers may want the unmodified data.
+
+                // Each row must have 72 characters (36 bytes once decoded) separated by \n
+                const int RowCharCount = 72;
+                int charsInRow = RowCharCount;
+
+                for (int j = i; j < length + i; j++)
+                {
+                    byte c = textBytes[j];
+
+                    if (charsInRow-- == 0)
+                    {
+                        if (c != '\n')
                         {
                             byteCount = default;
                             return false;
                         }
+
+                        charsInRow = RowCharCount;
+                        continue;
                     }
 
-                    byteCount = length;
-                    var writeIndex = 0;
-                    charsInRow = RowCharCount;
-                    while (length > 0)
+                    if ((c < '0' || c > '9') && (c < 'a' || c > 'f') && (c < 'A' || c > 'F'))
                     {
-                        var c1 = textBytes[i++];
-
-                        if (charsInRow-- == 0)
-                        {
-                            Debug.Assert(c1 == '\n');
-                            charsInRow = RowCharCount;
-                            continue;
-                        }
-
-                        var c2 = textBytes[i++];
-
-                        charsInRow--;
-
-                        var n1 = ParseHexNibble(c1);
-                        var n2 = ParseHexNibble(c2);
-
-                        length--;
-                        textBytes[writeIndex++] = (byte)((n1 << 4) | n2);
+                        byteCount = default;
+                        return false;
                     }
+                }
 
-                    return writeIndex == byteCount;
+                byteCount = length;
+                var writeIndex = 0;
+                charsInRow = RowCharCount;
+                while (length > 0)
+                {
+                    var c1 = textBytes[i++];
 
-                    static int ParseHexNibble(int h)
+                    if (charsInRow-- == 0)
                     {
-                        if (h is >= '0' and <= '9')
-                        {
-                            return h - '0';
-                        }
-
-                        if (h is >= 'a' and <= 'f')
-                        {
-                            return 10 + (h - 'a');
-                        }
-
-                        if (h is >= 'A' and <= 'F')
-                        {
-                            return 10 + (h - 'A');
-                        }
-
-                        Debug.Fail("Should not reach here");
-                        throw new InvalidOperationException();
+                        Debug.Assert(c1 == '\n');
+                        charsInRow = RowCharCount;
+                        continue;
                     }
+
+                    var c2 = textBytes[i++];
+
+                    charsInRow--;
+
+                    var n1 = ParseHexNibble(c1);
+                    var n2 = ParseHexNibble(c2);
+
+                    length--;
+                    textBytes[writeIndex++] = (byte)((n1 << 4) | n2);
+                }
+
+                return writeIndex == byteCount;
+
+                static int ParseHexNibble(int h)
+                {
+                    if (h is >= '0' and <= '9')
+                    {
+                        return h - '0';
+                    }
+
+                    if (h is >= 'a' and <= 'f')
+                    {
+                        return 10 + (h - 'a');
+                    }
+
+                    if (h is >= 'A' and <= 'F')
+                    {
+                        return 10 + (h - 'A');
+                    }
+
+                    Debug.Fail("Should not reach here");
+                    throw new InvalidOperationException();
                 }
             }
         }
+    }
 
-        private static bool TryDeflate(
-            byte[] bytes,
-            int bytesLeft,
-            [NotNullWhen(returnValue: true)] out byte[]? textBytes,
-            [NotNullWhen(returnValue: false)] out string? errorMessage)
+    private static bool TryDeflate(
+        byte[] bytes,
+        int bytesLeft,
+        [NotNullWhen(returnValue: true)] out byte[]? textBytes,
+        [NotNullWhen(returnValue: false)] out string? errorMessage)
+    {
+        using var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress);
+        try
         {
-            using var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress);
-            try
-            {
-                var ms = new MemoryStream();
+            var ms = new MemoryStream();
 
-                inflaterStream.CopyTo(ms);
+            inflaterStream.CopyTo(ms);
 
-                textBytes = ms.ToArray();
-            }
-            catch (Exception ex)
-            {
-                errorMessage = ex.Message;
-                textBytes = default;
-                return false;
-            }
-
-            errorMessage = default;
-            return true;
+            textBytes = ms.ToArray();
         }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+            textBytes = default;
+            return false;
+        }
+
+        errorMessage = default;
+        return true;
     }
 }

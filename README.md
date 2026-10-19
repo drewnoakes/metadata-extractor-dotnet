@@ -14,7 +14,7 @@ Either add this to your project file
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="MetadataExtractor" Version="2.8.1" />
+    <PackageReference Include="MetadataExtractor" Version="2.9.1" />
 </ItemGroup>
 ```
 
@@ -63,6 +63,35 @@ var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault()
 var dateTime = subIfdDirectory?.GetDescription(ExifDirectoryBase.TagDateTime);
 ```
 
+### Dates and UTC offsets
+
+Use `GetDateTimeOffset` or `TryGetDateTimeOffset` to read a timestamp while preserving its UTC offset:
+
+```csharp
+var quickTime = directories.OfType<QuickTimeMetadataHeaderDirectory>().FirstOrDefault();
+if (quickTime is not null &&
+    quickTime.TryGetDateTimeOffset(QuickTimeMetadataHeaderDirectory.TagCreationDate, out var captured))
+{
+    DateTime shootingTime = captured.DateTime; // The recorded wall-clock time, Kind.Unspecified
+    TimeSpan offset = captured.Offset;
+}
+```
+
+These getters support stored `DateTimeOffset` values, UTC `DateTime` values, and supported
+metadata date strings containing an explicit offset. They never infer an offset from the
+computer's timezone: offset-less strings and local or unspecified `DateTime` values cannot
+be converted. The `Try` method returns `false` in those cases; the throwing getter raises
+`MetadataException`.
+
+QuickTime creation and location dates with explicit offsets are stored as `DateTimeOffset`
+values. Consequently, `GetObject` returns that type, and strings and descriptions reflect
+the stored offset rather than the reading computer's timezone. Offset-less QuickTime
+dates remain `DateTime` values with `Kind.Unspecified`. Existing `GetDateTime` and
+`TryGetDateTime` calls convert stored `DateTimeOffset` values to the computer's local time,
+preserving the previous QuickTime date conversion behavior. Use the offset-aware getters
+to retain the original offset, then `.DateTime` for the shooting-local clock time or
+`.UtcDateTime` for UTC.
+
 ## Features
 
 The library understands several formats of metadata, many of which may be present in a single image:
@@ -95,7 +124,7 @@ It supports various file types.
   * [Camera Raw](https://en.wikipedia.org/wiki/Raw_image_format)
     * 3FR (Hasselblad)
     * [ARW](https://en.wikipedia.org/wiki/Sony_%CE%B1) (Sony)
-    * CRW / CR2 / CRX (Canon)
+    * CRW / CR2 / CR3 / CRX (Canon)
     * GPR (GoPro)
     * KDC (Kodak)
     * NEF (Nikon)

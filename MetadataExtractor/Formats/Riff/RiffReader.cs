@@ -1,100 +1,112 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-namespace MetadataExtractor.Formats.Riff
+namespace MetadataExtractor.Formats.Riff;
+
+/// <summary>
+/// Processes RIFF-formatted data, calling into client code via that <see cref="IRiffHandler"/> interface.
+/// </summary>
+/// <remarks>
+/// For information on this file format, see:
+/// <list type="bullet">
+///   <item>http://en.wikipedia.org/wiki/Resource_Interchange_File_Format</item>
+///   <item>https://developers.google.com/speed/webp/docs/riff_container</item>
+///   <item>https://www.daubnet.com/en/file-format-riff</item>
+/// </list>
+/// </remarks>
+/// <author>Drew Noakes https://drewnoakes.com</author>
+public sealed class RiffReader
 {
-    /// <summary>
-    /// Processes RIFF-formatted data, calling into client code via that <see cref="IRiffHandler"/> interface.
-    /// </summary>
+    private const int MaxChunkDepth = 100;
+
+    /// <summary>Processes a RIFF data sequence.</summary>
     /// <remarks>
-    /// For information on this file format, see:
-    /// <list type="bullet">
-    ///   <item>http://en.wikipedia.org/wiki/Resource_Interchange_File_Format</item>
-    ///   <item>https://developers.google.com/speed/webp/docs/riff_container</item>
-    ///   <item>https://www.daubnet.com/en/file-format-riff</item>
-    /// </list>
+    /// At most 100 levels of nested LIST or RIFF containers are processed.
+    /// Excess nesting is reported to the handler and the remaining container contents are skipped.
     /// </remarks>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class RiffReader
+    /// <param name="reader">The <see cref="SequentialReader"/> from which the data should be read.</param>
+    /// <param name="handler">The <see cref="IRiffHandler"/> that will coordinate processing and accept read values.</param>
+    public void ProcessRiff(SequentialReader reader, IRiffHandler handler)
     {
-        /// <summary>Processes a RIFF data sequence.</summary>
-        /// <param name="reader">The <see cref="SequentialReader"/> from which the data should be read.</param>
-        /// <param name="handler">The <see cref="IRiffHandler"/> that will coordinate processing and accept read values.</param>
-        public void ProcessRiff(SequentialReader reader, IRiffHandler handler)
+        try
         {
-            try
-            {
-                // RIFF files are always little-endian
-                reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+            // RIFF files are always little-endian
+            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 
-                // PROCESS FILE HEADER
+            // PROCESS FILE HEADER
 
-                Span<byte> fileFourCc = stackalloc byte[4];
-                reader.GetBytes(fileFourCc);
-                if (!fileFourCc.SequenceEqual("RIFF"u8))
-                    throw new RiffProcessingException("Invalid RIFF header: " + Encoding.ASCII.GetString(fileFourCc));
+            Span<byte> fileFourCc = stackalloc byte[4];
+            reader.GetBytes(fileFourCc);
+            if (!fileFourCc.SequenceEqual("RIFF"u8))
+                throw new RiffProcessingException("Invalid RIFF header: " + Encoding.ASCII.GetString(fileFourCc));
 
-                // The total size of the chunks that follow plus 4 bytes for the 'WEBP' or 'AVI ' FourCC
-                int fileSize = reader.GetInt32();
-                int sizeLeft = fileSize;
-                Span<byte> identifier = stackalloc byte[4];
-                reader.GetBytes(identifier);
-                sizeLeft -= 4;
+            // The total size of the chunks that follow plus 4 bytes for the 'WEBP' or 'AVI ' FourCC
+            int fileSize = reader.GetInt32();
+            int sizeLeft = fileSize;
+            Span<byte> identifier = stackalloc byte[4];
+            reader.GetBytes(identifier);
+            sizeLeft -= 4;
 
-                if (!handler.ShouldAcceptRiffIdentifier(identifier))
-                    return;
+            if (!handler.ShouldAcceptRiffIdentifier(identifier))
+                return;
 
-                var maxPosition = reader.Position + sizeLeft;
-                ProcessChunks(reader, maxPosition, handler);
-            }
-            catch (Exception e) when (e is ImageProcessingException or IOException)
-            {
-                handler.AddError(e.Message);
-            }
+            var maxPosition = reader.Position + sizeLeft;
+            ProcessChunks(reader, maxPosition, handler, depth: 0);
+        }
+        catch (Exception e) when (e is ImageProcessingException or IOException)
+        {
+            handler.AddError(e.Message);
+        }
+    }
+
+    // PROCESS CHUNKS
+    private static void ProcessChunks(SequentialReader reader, long maxPosition, IRiffHandler handler, int depth)
+    {
+        if (depth > MaxChunkDepth)
+        {
+            handler.AddError("RIFF nesting too deep.");
+            reader.Skip(maxPosition - reader.Position);
+            return;
         }
 
-        // PROCESS CHUNKS
-        private static void ProcessChunks(SequentialReader reader, long maxPosition, IRiffHandler handler)
+        // Processing chunks. Each chunk is 8 bytes header (4 bytes CC code + 4 bytes length of chunk) + data of the chunk
+
+        Span<byte> listName = stackalloc byte[4];
+
+        while (reader.Position < maxPosition - 8)
         {
-            // Processing chunks. Each chunk is 8 bytes header (4 bytes CC code + 4 bytes length of chunk) + data of the chunk
+            string chunkFourCc = reader.GetString(4, Encoding.ASCII);
+            int chunkSize = reader.GetInt32();
 
-            Span<byte> listName = stackalloc byte[4];
+            // NOTE we fail a negative chunk size here (greater than 0x7FFFFFFF) as we cannot allocate arrays larger than this
+            if (chunkSize < 0 || chunkSize + reader.Position > maxPosition)
+                throw new RiffProcessingException("Invalid RIFF chunk size");
 
-            while (reader.Position < maxPosition - 8)
+            if (chunkFourCc is "LIST" or "RIFF")
             {
-                string chunkFourCc = reader.GetString(4, Encoding.ASCII);
-                int chunkSize = reader.GetInt32();
-
-                // NOTE we fail a negative chunk size here (greater than 0x7FFFFFFF) as we cannot allocate arrays larger than this
-                if (chunkSize < 0 || chunkSize + reader.Position > maxPosition)
-                    throw new RiffProcessingException("Invalid RIFF chunk size");
-
-                if (chunkFourCc is "LIST" or "RIFF")
+                if (chunkSize < 4)
+                    break;
+                listName = reader.GetBytes(4);
+                if (handler.ShouldAcceptList(listName))
+                    ProcessChunks(reader, reader.Position + chunkSize - 4, handler, depth + 1);
+                else
+                    reader.Skip(chunkSize - 4);
+            }
+            else
+            {
+                if (handler.ShouldAcceptChunk(chunkFourCc))
                 {
-                    if (chunkSize < 4)
-                        break;
-                    listName = reader.GetBytes(4);
-                    if (handler.ShouldAcceptList(listName))
-                        ProcessChunks(reader, reader.Position + chunkSize - 4, handler);
-                    else
-                        reader.Skip(chunkSize - 4);
+                    // TODO is it feasible to avoid copying the chunk here, and to pass the sequential reader to the handler?
+                    handler.ProcessChunk(chunkFourCc, reader.GetBytes(chunkSize));
                 }
                 else
                 {
-                    if (handler.ShouldAcceptChunk(chunkFourCc))
-                    {
-                        // TODO is it feasible to avoid copying the chunk here, and to pass the sequential reader to the handler?
-                        handler.ProcessChunk(chunkFourCc, reader.GetBytes(chunkSize));
-                    }
-                    else
-                    {
-                        reader.Skip(chunkSize);
-                    }
+                    reader.Skip(chunkSize);
+                }
 
-                    // Skip any padding byte added to keep chunks aligned to even numbers of bytes
-                    if (chunkSize % 2 == 1)
-                    {
-                        reader.Skip(1);
-                    }
+                // Skip any padding byte added to keep chunks aligned to even numbers of bytes
+                if (chunkSize % 2 == 1)
+                {
+                    reader.Skip(1);
                 }
             }
         }
