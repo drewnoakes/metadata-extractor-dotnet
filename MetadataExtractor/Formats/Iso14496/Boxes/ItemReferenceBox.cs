@@ -12,9 +12,10 @@ internal sealed class ItemReferenceBox : FullBox
         var list = new List<SingleItemTypeReferenceBox>();
         while (reader.IsWithinBox(location))
         {
-            var box = BoxReader.ReadBox(reader, (l, r) => new SingleItemTypeReferenceBox(l, r, Version));
-            if (box is not null)
-                list.Add((SingleItemTypeReferenceBox)box);
+            var box = BoxReader.ReadBox(reader, (l, r) => new SingleItemTypeReferenceBox(l, r, Version), location);
+            if (box is null)
+                break;
+            list.Add((SingleItemTypeReferenceBox)box);
         }
         Boxes = list;
     }

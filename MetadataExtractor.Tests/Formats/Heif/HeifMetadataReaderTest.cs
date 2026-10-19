@@ -201,7 +201,7 @@ public sealed class HeifMetadataReaderTest
         using (var writer = new BinaryWriter(stream, Encoding.ASCII, leaveOpen: true))
         {
             writeBoxes(writer);
-            // The existing reader ignores a box ending exactly at EOF. Keep meaningful boxes before this padding.
+            // Exercise parsing through a trailing padding box as well.
             WriteBoxHeader(writer, "free", 0);
         }
         stream.Position = 0;
@@ -311,5 +311,240 @@ public sealed class HeifMetadataReaderTest
         writer.Write((byte)(value >> 16));
         writer.Write((byte)(value >> 8));
         writer.Write((byte)value);
+    }
+
+    // ISO box types are internal, so these fixtures exercise BoxLocation and BoxReader
+    // through the public reader instead of reflection or a new friend assembly.
+    [Theory]
+    [CombinatorialData]
+    public void ReadsLastFileTypeBoxEndingExactlyAtEof(bool extended)
+    {
+        byte[] bytes = [
+            .. Box("free", [], extended),
+            .. Box("ftyp", [.. Encoding.ASCII.GetBytes("heic"), 0, 0, 0, 0, .. Encoding.ASCII.GetBytes("mif1")], extended)];
+        using var stream = new MemoryStream(bytes);
+
+        var directory = Assert.Single(HeifMetadataReader.ReadMetadata(stream).OfType<QuickTimeFileTypeDirectory>());
+
+        Assert.Equal("heic", directory.GetString(QuickTimeFileTypeDirectory.TagMajorBrand));
+        Assert.Equal("mif1", directory.GetString(QuickTimeFileTypeDirectory.TagCompatibleBrands));
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ReadsMetaAndLastNestedImagePropertyEndingExactlyAtEof(bool extendedMeta, bool extendedProperty)
+    {
+        // meta > iprp > ipco > ispe all end exactly at EOF. Put ipma first so
+        // the final leaf is a metadata-bearing box, not merely an unknown box.
+        var ispe = Box("ispe", [0, 0, 0, 0, .. UInt32(640), .. UInt32(480)], extendedProperty);
+        var ipma = Box("ipma", [0, 0, 0, 0, .. UInt32(1), 0, 1, 1, 0x81]);
+        var iprp = Box("iprp", [.. ipma, .. Box("ipco", ispe, extendedProperty)], extendedProperty);
+        var pitm = Box("pitm", [0, 0, 0, 0, 0, 1]);
+        var bytes = Box("meta", [0, 0, 0, 0, .. pitm, .. iprp], extendedMeta);
+        using var stream = new MemoryStream(bytes);
+
+        var directory = Assert.Single(HeifMetadataReader.ReadMetadata(stream).OfType<HeicImagePropertiesDirectory>());
+
+        Assert.Equal(640, directory.GetInt32(HeicImagePropertiesDirectory.TagImageWidth));
+        Assert.Equal(480, directory.GetInt32(HeicImagePropertiesDirectory.TagImageHeight));
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void SizeZeroIncludesHeaderAtNonZeroOrigin(bool metadataContainer)
+    {
+        // ftyp's last compatible brand would be lost if the eight-byte header were
+        // omitted from BoxLocation.Length. meta also checks the container boundary.
+        var ftyp = Box("ftyp", [.. Encoding.ASCII.GetBytes("heic"), 0, 0, 0, 0, .. Encoding.ASCII.GetBytes("mif1")]);
+        var last = metadataContainer ? Box("meta", [0, 0, 0, 0, .. ftyp]) : ftyp;
+        Array.Clear(last, 0, 4);
+        byte[] bytes = [.. Box("free", [4, 5, 6, 7]), .. last];
+        using var stream = new MemoryStream(bytes);
+
+        var directory = Assert.Single(HeifMetadataReader.ReadMetadata(stream).OfType<QuickTimeFileTypeDirectory>());
+
+        Assert.Equal("heic", directory.GetString(QuickTimeFileTypeDirectory.TagMajorBrand));
+        Assert.Equal("mif1", directory.GetString(QuickTimeFileTypeDirectory.TagCompatibleBrands));
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void RejectsInvalidExtendedSizes(
+        [CombinatorialValues(0UL, 1UL, 7UL, 8UL, 15UL, 0x8000000000000000UL, ulong.MaxValue)] ulong size)
+    {
+        byte[] bytes = [.. UInt32(1), .. Encoding.ASCII.GetBytes("free"), .. UInt64(size)];
+        using var stream = new MemoryStream(bytes);
+
+        Assert.Throws<ImageProcessingException>(() => HeifMetadataReader.ReadMetadata(stream));
+        Assert.Equal(16, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void RejectsOrdinarySizeSmallerThanHeader([CombinatorialValues(2U, 7U)] uint size)
+    {
+        using var stream = new MemoryStream([.. UInt32(size), .. Encoding.ASCII.GetBytes("free")]);
+
+        Assert.Throws<ImageProcessingException>(() => HeifMetadataReader.ReadMetadata(stream));
+        Assert.Equal(8, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void RejectsChildExtendingBeyondParentEvenWhenPhysicalBytesExist(bool extended)
+    {
+        byte[] childHeader = [
+            .. UInt32(extended ? 1U : 16U), .. Encoding.ASCII.GetBytes("free"),
+            .. (extended ? UInt64(24) : [])];
+        var parent = Box("meta", [0, 0, 0, 0, .. childHeader]);
+        byte[] bytes = [.. parent, .. Box("free", new byte[16])];
+        using var stream = new ProgressGuardStream(bytes);
+
+        Assert.Throws<ImageProcessingException>(() => HeifMetadataReader.ReadMetadata(stream));
+        Assert.Equal(parent.Length, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void RejectsBoxExtendingBeyondPhysicalEof(bool extended)
+    {
+        var bytes = Box("free", [1, 2, 3, 4], extended);
+        using var stream = new MemoryStream(bytes.Take(bytes.Length - 1).ToArray());
+
+        Assert.Throws<ImageProcessingException>(() => HeifMetadataReader.ReadMetadata(stream));
+        Assert.Equal(extended ? 16 : 8, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void RejectsTruncatedChildHeaderWithoutLooping(
+        [CombinatorialValues("meta", "iprp", "ipco", "iref")] string container,
+        [CombinatorialValues(1, 7)] int tailBytes)
+    {
+        byte[] prefix = container is "meta" or "iref" ? new byte[4] : [];
+        var bytes = Box(container, [.. prefix, .. new byte[tailBytes]]);
+        using var stream = new ProgressGuardStream(bytes);
+
+        Assert.Throws<ImageProcessingException>(() => HeifMetadataReader.ReadMetadata(stream));
+        Assert.Equal(8 + prefix.Length, stream.Position);
+    }
+
+    [Fact]
+    public void SkipsExtendedBoxLargerThanIntMaxValueToReadFollowingMetadata()
+    {
+        const long largeSize = (long)int.MaxValue + 4096;
+        byte[] header = [.. UInt32(1), .. Encoding.ASCII.GetBytes("free"), .. UInt64((ulong)largeSize)];
+        var ftyp = Box("ftyp", [.. Encoding.ASCII.GetBytes("heic"), 0, 0, 0, 0, .. Encoding.ASCII.GetBytes("mif1")]);
+        using var stream = new SparseStream(largeSize + ftyp.Length, (0, header), (largeSize, ftyp));
+
+        var directory = Assert.Single(HeifMetadataReader.ReadMetadata(stream).OfType<QuickTimeFileTypeDirectory>());
+
+        Assert.Equal("heic", directory.GetString(QuickTimeFileTypeDirectory.TagMajorBrand));
+        Assert.Equal("mif1", directory.GetString(QuickTimeFileTypeDirectory.TagCompatibleBrands));
+        Assert.Equal(new[] { largeSize, 0L }, stream.SeekTargets);
+        Assert.Equal(header.Length + ftyp.Length, stream.BytesRead);
+        Assert.False(directory.HasError);
+    }
+
+    [Fact]
+    public void SizeZeroBoxLargerThanIntMaxValueSkipsToActualEof()
+    {
+        const long length = (long)int.MaxValue + 8192;
+        byte[] headers = [.. Box("free", []), .. UInt32(0), .. Encoding.ASCII.GetBytes("free")];
+        using var stream = new SparseStream(length, (0, headers));
+
+        var directories = HeifMetadataReader.ReadMetadata(stream);
+
+        Assert.Empty(directories);
+        Assert.Equal(new[] { length, 0L }, stream.SeekTargets);
+        Assert.Equal(headers.Length, stream.BytesRead);
+    }
+
+    private static byte[] Box(string type, byte[] payload, bool extended = false)
+    {
+        return [
+            .. UInt32(extended ? 1U : (uint)(8 + payload.Length)),
+            .. Encoding.ASCII.GetBytes(type),
+            .. (extended ? UInt64((ulong)(16 + payload.Length)) : []),
+            .. payload];
+    }
+
+    private static byte[] UInt32(uint value) =>
+        [(byte)(value >> 24), (byte)(value >> 16), (byte)(value >> 8), (byte)value];
+
+    private static byte[] UInt64(ulong value) =>
+        [.. UInt32((uint)(value >> 32)), .. UInt32((uint)value)];
+
+    /// <summary>Turns a non-advancing parser loop into a deterministic failure, without timing or threads.</summary>
+    private sealed class ProgressGuardStream(byte[] bytes) : MemoryStream(bytes)
+    {
+        private int _positionReads;
+
+        public override long Position
+        {
+            get
+            {
+                if (++_positionReads > 1024)
+                    throw new InvalidOperationException("Box reader failed to make progress.");
+                return base.Position;
+            }
+            set => base.Position = value;
+        }
+    }
+
+    /// <summary>Models huge seekable boxes using only their small headers and metadata payloads.</summary>
+    private sealed class SparseStream(long length, params (long Offset, byte[] Bytes)[] segments) : Stream
+    {
+        public int BytesRead { get; private set; }
+        public List<long> SeekTargets { get; } = [];
+        public override bool CanRead => true;
+        public override bool CanSeek => true;
+        public override bool CanWrite => false;
+        public override long Length => length;
+        public override long Position { get; set; }
+
+        public override int ReadByte()
+        {
+            if (Position >= Length)
+                return -1;
+            if (++BytesRead > 1024)
+                throw new InvalidOperationException("Reader failed to seek past a sparse payload.");
+            var position = Position++;
+            foreach (var segment in segments)
+            {
+                var index = position - segment.Offset;
+                if (index >= 0 && index < segment.Bytes.Length)
+                    return segment.Bytes[(int)index];
+            }
+            return 0;
+        }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            var read = 0;
+            while (read < count && Position < Length)
+                buffer[offset + read++] = (byte)ReadByte();
+            return read;
+        }
+
+        public override long Seek(long offset, SeekOrigin origin)
+        {
+            Position = origin switch
+            {
+                SeekOrigin.Begin => offset,
+                SeekOrigin.Current => Position + offset,
+                SeekOrigin.End => Length + offset,
+                _ => throw new ArgumentOutOfRangeException(nameof(origin))
+            };
+            SeekTargets.Add(Position);
+            return Position;
+        }
+
+        public override void Flush() { }
+        public override void SetLength(long value) => throw new NotSupportedException();
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
     }
 }

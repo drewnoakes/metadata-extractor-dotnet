@@ -179,4 +179,215 @@ public sealed class QuickTimeReaderTest
         buffer[offset + 2] = (byte)(value >> 8);
         buffer[offset + 3] = (byte)value;
     }
+
+    [Theory]
+    [CombinatorialData]
+    public void AcceptsEmptyAtomAtMinimumHeaderSize(bool extended)
+    {
+        var bytes = Header("free", extended ? 16U : 8U, extended);
+        using var stream = new MemoryStream(bytes);
+        var calls = 0;
+
+        QuickTimeReader.ProcessAtoms(stream, atom =>
+        {
+            calls++;
+            Assert.Equal("free", atom.TypeString);
+            Assert.Equal(bytes.Length, atom.Size);
+            Assert.Equal(0, atom.BytesLeft);
+        });
+
+        Assert.Equal(1, calls);
+        Assert.Equal(bytes.Length, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void SkipsUnreadPayloadAndContinuesAtFollowingSibling(bool extended)
+    {
+        var header = Header("free", extended ? 19U : 11U, extended);
+        byte[] bytes = [.. header, 11, 22, 33, .. Header("next", 10), 44, 55];
+        using var stream = new MemoryStream(bytes);
+        var types = new List<string>();
+
+        QuickTimeReader.ProcessAtoms(stream, atom =>
+        {
+            types.Add(atom.TypeString);
+            Assert.Same(stream, atom.Stream);
+            if (atom.TypeString == "free")
+            {
+                Assert.Equal(0, atom.StartPosition);
+                Assert.Equal(extended ? 19 : 11, atom.Size);
+                Assert.Equal(3, atom.BytesLeft);
+                Assert.Equal(11, atom.Reader.GetByte());
+                Assert.Equal(2, atom.BytesLeft);
+                // Leave two bytes unread, as an unknown-box handler would.
+            }
+            else
+            {
+                Assert.Equal(header.Length + 3, atom.StartPosition);
+                Assert.Equal(10, atom.Size);
+                Assert.Equal(2, atom.BytesLeft);
+                Assert.Equal(new byte[] { 44, 55 }, atom.Reader.GetBytes(2));
+                Assert.Equal(0, atom.BytesLeft);
+            }
+        });
+
+        Assert.Equal(new[] { "free", "next" }, types);
+        Assert.Equal(bytes.Length, stream.Position);
+    }
+
+    [Fact]
+    public void SizeZeroPreservesPublicSizeButCountsPayloadToEof()
+    {
+        // Start at a non-zero offset and include apparent box bytes in the payload:
+        // size zero consumes them, rather than interpreting a following sibling.
+        byte[] payload = [12, 34, .. Header("fake", 8)];
+        byte[] bytes = [99, 88, .. Header("mdat", 0), .. payload];
+        using var stream = new MemoryStream(bytes);
+        stream.Position = 2;
+        var calls = 0;
+
+        QuickTimeReader.ProcessAtoms(stream, atom =>
+        {
+            calls++;
+            Assert.Equal("mdat", atom.TypeString);
+            Assert.Equal(0, atom.Size); // Documented public API, not the effective size.
+            Assert.Equal(2, atom.StartPosition);
+            Assert.Equal(payload.Length, atom.BytesLeft);
+            Assert.Equal(12, atom.Reader.GetByte());
+            Assert.Equal(payload.Length - 1, atom.BytesLeft);
+            Assert.Equal(payload.Skip(1).ToArray(), atom.Reader.GetBytes(payload.Length - 1));
+            Assert.Equal(0, atom.BytesLeft);
+        });
+
+        Assert.Equal(1, calls);
+        Assert.Equal(bytes.Length, stream.Position);
+    }
+
+    [Theory]
+    [InlineData(2, false)]
+    [InlineData(3, false)]
+    [InlineData(4, false)]
+    [InlineData(5, false)]
+    [InlineData(6, false)]
+    [InlineData(7, false)]
+    [InlineData(0, true)]
+    [InlineData(1, true)]
+    [InlineData(7, true)]
+    [InlineData(8, true)]
+    [InlineData(15, true)]
+    public void RejectsSizesSmallerThanHeaderBeforeCallback(uint declaredSize, bool extended)
+    {
+        using var stream = new MemoryStream(Header("bad!", declaredSize, extended));
+        var calls = 0;
+
+        QuickTimeReader.ProcessAtoms(stream, _ => calls++);
+
+        Assert.Equal(0, calls);
+        Assert.Equal(extended ? 16 : 8, stream.Position);
+    }
+
+    [Fact]
+    public void RejectsExtendedSizeAboveLongMaxValueBeforeCallback()
+    {
+        var bytes = Header("bad!", 16, extended: true);
+        bytes[8] = 0x80; // 2^63 + 16
+        using var stream = new MemoryStream(bytes);
+        var calls = 0;
+
+        QuickTimeReader.ProcessAtoms(stream, _ => calls++);
+
+        Assert.Equal(0, calls);
+        Assert.Equal(16, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void TruncatedExtendedHeaderDoesNotInvokeCallback([CombinatorialValues(0, 4, 7, 8, 12, 15)] int available)
+    {
+        using var stream = new MemoryStream(Header("bad!", 16, extended: true).Take(available).ToArray());
+        var calls = 0;
+
+        QuickTimeReader.ProcessAtoms(stream, _ => calls++);
+
+        Assert.Equal(0, calls);
+        Assert.InRange(stream.Position, 0, available);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ChildExtendingBeyondParentDoesNotInvokeChildHandler(bool extended)
+    {
+        var child = Header("bad!", extended ? 24U : 16U, extended);
+        // The child declares eight more bytes than its parent contains. A following
+        // sibling supplies physical bytes, but must not be swallowed by that child.
+        byte[] bytes = [.. Header("moov", (uint)(8 + child.Length)), .. child, .. Header("next", 8)];
+        using var stream = new MemoryStream(bytes);
+        var types = new List<string>();
+
+        QuickTimeReader.ProcessAtoms(stream, atom =>
+        {
+            types.Add(atom.TypeString);
+            if (atom.TypeString == "moov")
+                QuickTimeReader.ProcessAtoms(stream, childAtom => types.Add(childAtom.TypeString), atom.BytesLeft);
+        });
+
+        Assert.Equal(new[] { "moov", "next" }, types);
+        Assert.Equal(bytes.Length, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ChildWithTruncatedPayloadDoesNotInvokeChildHandler(bool extended)
+    {
+        var child = Header("bad!", extended ? 24U : 16U, extended);
+        byte[] bytes = [.. Header("moov", (uint)(8 + child.Length)), .. child];
+        using var stream = new MemoryStream(bytes);
+        var children = 0;
+        var parents = 0;
+
+        QuickTimeReader.ProcessAtoms(stream, atom =>
+        {
+            parents++;
+            QuickTimeReader.ProcessAtoms(stream, _ => children++, atom.BytesLeft);
+        });
+
+        Assert.Equal(1, parents);
+        Assert.Equal(0, children);
+        Assert.Equal(bytes.Length, stream.Position);
+    }
+
+    [Theory]
+    [InlineData(4, false)]
+    [InlineData(7, false)]
+    [InlineData(8, true)]
+    [InlineData(15, true)]
+    public void HeaderCrossingParentBoundaryDoesNotInvokeCallback(int parentBytes, bool extended)
+    {
+        // Enough physical bytes exist; only the declared parent boundary is short.
+        using var stream = new MemoryStream(Header("free", extended ? 16U : 8U, extended));
+        var calls = 0;
+
+        QuickTimeReader.ProcessAtoms(stream, _ => calls++, parentBytes);
+
+        Assert.Equal(0, calls);
+        Assert.InRange(stream.Position, 0, parentBytes);
+    }
+
+    private static byte[] Header(string type, uint size, bool extended = false)
+    {
+        var bytes = new byte[extended ? 16 : 8];
+        WriteUInt32(0, extended ? 1U : size);
+        for (var i = 0; i < 4; i++)
+            bytes[4 + i] = (byte)type[i];
+        if (extended)
+            WriteUInt32(12, size);
+        return bytes;
+
+        void WriteUInt32(int offset, uint value)
+        {
+            for (var i = 0; i < 4; i++)
+                bytes[offset + i] = (byte)(value >> (24 - 8 * i));
+        }
+    }
 }

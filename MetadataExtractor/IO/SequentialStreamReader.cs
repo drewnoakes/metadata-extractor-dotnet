@@ -10,6 +10,8 @@ public class SequentialStreamReader(Stream stream, bool isMotorolaByteOrder = tr
 
     public override long Position => _stream.Position;
 
+    internal long AvailableBytes => _stream.Length - _stream.Position;
+
     public override byte GetByte()
     {
         var value = _stream.ReadByte();
@@ -108,7 +110,7 @@ public class SequentialStreamReader(Stream stream, bool isMotorolaByteOrder = tr
 
     public override int Available()
     {
-        return (int)Math.Min(int.MaxValue, _stream.Length - _stream.Position);
+        return (int)Math.Min(int.MaxValue, AvailableBytes);
     }
 
     public override bool IsCloserToEnd(long numberOfBytes)

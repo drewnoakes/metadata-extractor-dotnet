@@ -41,15 +41,22 @@ public sealed class QuickTimeMetadataReaderTest
     }
 
     [Theory]
-    [InlineData("2025-04-11T20:01:03+0800", 480, 0)]
-    [InlineData("2025-04-11T20:01:03-05:30", -330, 0)]
-    [InlineData("2025-04-11T20:01:03Z", 0, 0)]
-    [InlineData("2025-04-11T20:01:03.1234567+08:00", 480, 1234567)]
-    public void ReadsKeyedDatesWithOffsetsWithoutLosingWallTime(string text, int offsetMinutes, int fractionTicks)
+    [CombinatorialData]
+    public void ReadsKeyedDatesWithOffsetsWithoutLosingWallTime(
+        [CombinatorialValues("+0800", "-05:30", "Z", "+08:00")] string offsetText,
+        [CombinatorialValues("", ".1234567")] string fraction,
+        bool extended)
     {
-        using var stream = new MemoryStream(KeyedDates(text, text));
+        var text = $"2025-04-11T20:01:03{fraction}{offsetText}";
+        using var stream = new MemoryStream(KeyedDates(text, text, extended));
         var directory = QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>().Single();
-        var wallTime = new DateTime(2025, 4, 11, 20, 1, 3).AddTicks(fractionTicks);
+        var wallTime = new DateTime(2025, 4, 11, 20, 1, 3).AddTicks(fraction.Length == 0 ? 0 : 1234567);
+        var offsetMinutes = offsetText switch
+        {
+            "-05:30" => -330,
+            "Z" => 0,
+            _ => 480
+        };
         var offset = TimeSpan.FromMinutes(offsetMinutes);
 
         foreach (var tag in new[] { QuickTimeMetadataHeaderDirectory.TagCreationDate, QuickTimeMetadataHeaderDirectory.TagLocationDate })
@@ -129,7 +136,7 @@ public sealed class QuickTimeMetadataReaderTest
         Assert.Throws<FormatException>(() => QuickTimeMetadataReader.ReadMetadata(stream));
     }
 
-    private static byte[] KeyedDates(string creationDate, string locationDate)
+    private static byte[] KeyedDates(string creationDate, string locationDate, bool extended = false)
     {
         // moov/meta uses indexed keys, unlike the iTunes-style moov/udta/meta fixture.
         var keyHeader = new byte[8]; // version/flags, then entry count
@@ -137,41 +144,207 @@ public sealed class QuickTimeMetadataReaderTest
         var keys = Box("keys", Concat(
             keyHeader,
             Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.creationdate")),
-            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.location.date"))));
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.location.date"))), extended);
         var ilst = Box("ilst", Concat(
-            Box("\0\0\0\u0001", DataAtom(creationDate)),
-            Box("\0\0\0\u0002", DataAtom(locationDate))));
-        return Box("moov", Box("meta", Concat(keys, ilst)));
+            Box("\0\0\0\u0001", DataAtom(creationDate, extended), extended),
+            Box("\0\0\0\u0002", DataAtom(locationDate, extended), extended)), extended);
+        return Box("moov", Box("meta", Concat(keys, ilst), extended), extended);
     }
 
-    private static byte[] Box(string type, byte[] payload)
+    [Theory]
+    [CombinatorialData]
+    public void ReadsMovieHeaderAndFollowingSiblings(bool extendedMoov, bool extendedMvhd)
     {
-        var size = 8 + payload.Length;
+        var movie = new byte[100];
+        WriteUInt32(movie, 4, 60); // created
+        WriteUInt32(movie, 8, 120); // modified
+        WriteUInt32(movie, 12, 1000); // time scale
+        WriteUInt32(movie, 16, 2500); // duration
+        WriteUInt32(movie, 20, 0x00010000); // preferred rate: 1
+        WriteUInt16(movie, 24, 0x0100); // preferred volume: 1
+        WriteUInt32(movie, 96, 7); // next track id
+
+        var bytes = Concat(
+            Box("moov", Concat(
+                Box("free", [9, 8, 7], extended: true),
+                Box("mvhd", movie, extendedMvhd),
+                Box("udta", Box("meta", Concat(new byte[4],
+                    Box("ilst", Box("\u00A9nam", DataAtom("After movie"))))))), extendedMoov),
+            Box("ftyp", Concat(Encoding.ASCII.GetBytes("mp42"), [0, 0, 0, 1], Encoding.ASCII.GetBytes("isom"))));
+
+        var directories = QuickTimeMetadataReader.ReadMetadata(new MemoryStream(bytes));
+        var header = Assert.Single(directories.OfType<QuickTimeMovieHeaderDirectory>());
+        Assert.Equal(1000, header.GetInt32(QuickTimeMovieHeaderDirectory.TagTimeScale));
+        Assert.Equal(TimeSpan.FromMilliseconds(2500), header.GetObject(QuickTimeMovieHeaderDirectory.TagDuration));
+        Assert.Equal(new DateTime(1904, 1, 1).AddSeconds(60), header.GetDateTime(QuickTimeMovieHeaderDirectory.TagCreated));
+        Assert.Equal(7, header.GetInt32(QuickTimeMovieHeaderDirectory.TagNextTrackId));
+        Assert.Equal("After movie", Assert.Single(directories.OfType<QuickTimeMetadataHeaderDirectory>())
+            .GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.Equal("mp42", Assert.Single(directories.OfType<QuickTimeFileTypeDirectory>())
+            .GetString(QuickTimeFileTypeDirectory.TagMajorBrand));
+        Assert.All(directories, directory => Assert.False(directory.HasError));
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ReadsMultipleItunesValuesWithoutSwallowingFollowingItem(bool extended)
+    {
+        var ilst = Box("ilst", Concat(
+            Box("\u00A9nam", Concat(
+                DataAtom("Earlier title", !extended),
+                Box("free", [1, 2, 3], extended),
+                DataAtom("Final title", extended)), extended),
+            Box("\u00A9cmt", DataAtom("Following comment", !extended), !extended)), extended);
+        var bytes = Box("moov", Box("udta", Box("meta", Concat(new byte[4], ilst), extended), extended), extended);
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(new MemoryStream(bytes))
+            .OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("Final title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.Equal("Following comment", directory.GetString(QuickTimeMetadataHeaderDirectory.TagComment));
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ReadsItunesMetadataWithExtendedHeaders(
+        bool extendedMoov, bool extendedUdta, bool extendedMeta, bool extendedIlst, bool extendedItem, bool extendedData)
+    {
+        var ilst = Box("ilst", Concat(
+            Box("\u00A9nam", DataAtom("Titre café \u65E5\u672C", extendedData), extendedItem),
+            Box("\u00A9cmt", DataAtom("Following comment", !extendedData), !extendedItem)), extendedIlst);
+        var meta = Box("meta", Concat(new byte[4], ilst), extendedMeta);
+        var bytes = Box("moov", Box("udta", meta, extendedUdta), extendedMoov);
+
+        var directories = QuickTimeMetadataReader.ReadMetadata(new MemoryStream(bytes));
+
+        var directory = Assert.Single(directories.OfType<QuickTimeMetadataHeaderDirectory>());
+        Assert.Equal("Titre café \u65E5\u672C", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.Equal("Following comment", directory.GetString(QuickTimeMetadataHeaderDirectory.TagComment));
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ReadsKeyedMetadataWithExtendedHeadersAndMultipleValues(
+        bool extendedMoov, bool extendedMeta, bool extendedKeys, bool extendedIlst, bool extendedItem, bool extendedData)
+    {
+        var keys = Box("keys", Concat(new byte[4], [0, 0, 0, 3],
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.title")),
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.comment")),
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.rating.user"))), extendedKeys);
+        var ilst = Box("ilst", Concat(
+            Box("\0\0\0\u0001", Concat(
+                DataAtom("Earlier value", !extendedData),
+                DataAtom("Titre café \u65E5\u672C", extendedData)), extendedItem),
+            Box("\0\0\0\u0002", DataAtom("Following keyed comment", !extendedData), !extendedItem),
+            Box("\0\0\0\u0003", TypedDataAtom(23, [0x40, 0x70, 0, 0], extendedData), extendedItem)), extendedIlst);
+        // Unlike udta/meta, this QuickTime metadata container has no FullBox prefix.
+        var bytes = Box("moov", Box("meta", Concat(keys, ilst), extendedMeta), extendedMoov);
+
+        var directories = QuickTimeMetadataReader.ReadMetadata(new MemoryStream(bytes));
+
+        var directory = Assert.Single(directories.OfType<QuickTimeMetadataHeaderDirectory>());
+        Assert.Equal("Titre café \u65E5\u672C", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.Equal("Following keyed comment", directory.GetString(QuickTimeMetadataHeaderDirectory.TagComment));
+        Assert.Equal(3.75f, directory.GetObject(QuickTimeMetadataHeaderDirectory.TagRating));
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ReadsKeyedBinaryValuesWithExtendedHeaders([CombinatorialValues(13, 14, 27)] int dataType)
+    {
+        byte[] artwork = [0x12, 0x34, 0x56, 0x78, 0x90];
+        var keys = Box("keys", Concat(new byte[4], [0, 0, 0, 2],
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.artwork")),
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.title"))), extended: true);
+        var ilst = Box("ilst", Concat(
+            Box("\0\0\0\u0001", TypedDataAtom((uint)dataType, artwork, extended: true), extended: true),
+            Box("\0\0\0\u0002", DataAtom("After artwork", extended: true), extended: true)), extended: true);
+        var bytes = Box("moov", Box("meta", Concat(keys, ilst), extended: true), extended: true);
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(new MemoryStream(bytes))
+            .OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal(artwork, directory.GetByteArray(QuickTimeMetadataHeaderDirectory.TagArtwork));
+        Assert.Equal("After artwork", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ValidatesDataTypeAndLocaleHeaderWithoutSwallowingFollowingItem(
+        bool keyed, [CombinatorialValues(0, 7, 8)] int payloadLength)
+    {
+        var payload = new byte[payloadLength];
+        if (payloadLength >= 4)
+            WriteUInt32(payload, 0, 1); // UTF-8, with no text when the payload is exactly eight bytes.
+        var titleData = Box("data", payload, extended: true);
+        byte[] bytes;
+        if (keyed)
+        {
+            var keys = Box("keys", Concat(new byte[4], [0, 0, 0, 2],
+                Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.title")),
+                Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.comment"))), extended: true);
+            var ilst = Box("ilst", Concat(
+                Box("\0\0\0\u0001", titleData, extended: true),
+                Box("\0\0\0\u0002", DataAtom("After data", extended: true), extended: true)), extended: true);
+            bytes = Box("moov", Box("meta", Concat(keys, ilst), extended: true), extended: true);
+        }
+        else
+        {
+            var ilst = Box("ilst", Concat(
+                Box("\u00A9nam", titleData, extended: true),
+                Box("\u00A9cmt", DataAtom("After data", extended: true), extended: true)), extended: true);
+            bytes = Box("moov", Box("udta", Box("meta", Concat(new byte[4], ilst), extended: true), extended: true), extended: true);
+        }
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(new MemoryStream(bytes))
+            .OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("After data", directory.GetString(QuickTimeMetadataHeaderDirectory.TagComment));
+        if (payloadLength < 8)
+        {
+            Assert.False(directory.ContainsTag(QuickTimeMetadataHeaderDirectory.TagTitle));
+            Assert.Contains("data atom size", Assert.Single(directory.Errors));
+        }
+        else
+        {
+            Assert.Equal("", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+            Assert.False(directory.HasError);
+        }
+    }
+
+    private static byte[] Box(string type, byte[] payload, bool extended = false)
+    {
+        var headerSize = extended ? 16 : 8;
+        var size = headerSize + payload.Length;
         var buffer = new byte[size];
-        WriteUInt32(buffer, 0, (uint)size);
+        WriteUInt32(buffer, 0, extended ? 1U : (uint)size);
         buffer[4] = (byte)type[0];
         buffer[5] = (byte)type[1];
         buffer[6] = (byte)type[2];
         buffer[7] = (byte)type[3];
-        Array.Copy(payload, 0, buffer, 8, payload.Length);
+        if (extended)
+            WriteInt64(buffer, 8, size);
+        Array.Copy(payload, 0, buffer, headerSize, payload.Length);
         return buffer;
     }
 
     /// <summary>Builds an iTunes-style "data" atom holding a UTF-8 string.</summary>
-    private static byte[] DataAtom(string text)
+    private static byte[] DataAtom(string text, bool extended = false)
     {
-        var payload = Encoding.UTF8.GetBytes(text);
-        var size = 16 + payload.Length;
-        var buffer = new byte[size];
-        WriteUInt32(buffer, 0, (uint)size);
-        buffer[4] = (byte)'d';
-        buffer[5] = (byte)'a';
-        buffer[6] = (byte)'t';
-        buffer[7] = (byte)'a';
-        WriteUInt32(buffer, 8, 1);  // type indicator (UTF-8)
-        WriteUInt32(buffer, 12, 0); // locale
-        Array.Copy(payload, 0, buffer, 16, payload.Length);
-        return buffer;
+        return TypedDataAtom(1, Encoding.UTF8.GetBytes(text), extended);
+    }
+
+    private static byte[] TypedDataAtom(uint type, byte[] value, bool extended)
+    {
+        var payload = new byte[8 + value.Length];
+        WriteUInt32(payload, 0, type);
+        // Four-byte locale stays zero.
+        Array.Copy(value, 0, payload, 8, value.Length);
+        return Box("data", payload, extended);
     }
 
     private static byte[] XtraStringEntry(string keyName, params string[] values)
