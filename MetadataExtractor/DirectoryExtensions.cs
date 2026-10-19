@@ -646,6 +646,8 @@ public static class DirectoryExtensions
     /// If that string contains a time-zone offset, the returned <see cref="DateTime"/> will have kind <see cref="DateTimeKind.Utc"/>,
     /// otherwise it will be <see cref="DateTimeKind.Unspecified"/>.
     /// </para>
+    /// <para>A stored <see cref="DateTimeOffset"/> is converted to the computer's local time, with kind <see cref="DateTimeKind.Local"/>.
+    /// Use <see cref="GetDateTimeOffset"/> to retain its original offset.</para>
     /// </remarks>
     /// <returns><see langword="true"/> if a DateTime was returned, otherwise <see langword="false"/>.</returns>
     public static bool TryGetDateTime(this Directory directory, int tagType /*, TimeZoneInfo? timeZone = null*/, out DateTime dateTime)
@@ -661,6 +663,12 @@ public static class DirectoryExtensions
         if (o is DateTime dt)
         {
             dateTime = dt;
+            return true;
+        }
+
+        if (o is DateTimeOffset offset)
+        {
+            dateTime = offset.LocalDateTime;
             return true;
         }
 
@@ -693,6 +701,71 @@ public static class DirectoryExtensions
 
         dateTime = default;
         return false;
+    }
+
+    #endregion
+
+    #region DateTimeOffset
+
+    // Every pattern requires an explicit offset. AssumeUniversal applies only to the literal Z patterns.
+    private static readonly string[] _dateTimeOffsetPatterns = _datePatterns
+        .Where(pattern => pattern.EndsWith("zzz", StringComparison.Ordinal))
+        .Select(pattern => pattern.Replace(".fff", ".FFFFFFF"))
+        .SelectMany(pattern => new[]
+        {
+            pattern,
+            pattern.Replace("zzz", "zz"),
+            pattern.Replace("zzz", "z"),
+            pattern.Replace("zzz", "'Z'"),
+            pattern.Replace("zzz", "'z'")
+        })
+        .ToArray();
+
+    /// <summary>Returns a tag's value as a <see cref="DateTimeOffset"/>, retaining its offset.</summary>
+    /// <remarks>Strings must include an explicit offset. UTC <see cref="DateTime"/> values are also supported.
+    /// Local and unspecified <see cref="DateTime"/> values are not converted, since their original offset is unknown.</remarks>
+    /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value has no known offset or cannot be converted.</exception>
+    public static DateTimeOffset GetDateTimeOffset(this Directory directory, int tagType)
+    {
+        if (directory.TryGetDateTimeOffset(tagType, out var value))
+            return value;
+
+        return ThrowValueNotPossible<DateTimeOffset>(directory, tagType);
+    }
+
+    /// <summary>Attempts to return a tag's value as a <see cref="DateTimeOffset"/>, retaining its offset.</summary>
+    /// <remarks>Supports stored <see cref="DateTimeOffset"/> values, UTC <see cref="DateTime"/> values and
+    /// strings containing an explicit offset. No offset is inferred from the computer's local timezone.</remarks>
+    public static bool TryGetDateTimeOffset(this Directory directory, int tagType, out DateTimeOffset dateTimeOffset)
+    {
+        var value = directory.GetObject(tagType);
+
+        if (value is DateTimeOffset offset)
+        {
+            dateTimeOffset = offset;
+            return true;
+        }
+
+        if (value is DateTime { Kind: DateTimeKind.Utc } utc)
+        {
+            dateTimeOffset = new DateTimeOffset(utc);
+            return true;
+        }
+
+        if (value is string text)
+            return TryParseDateTimeOffset(text, out dateTimeOffset);
+
+        if (value is StringValue stringValue)
+            return TryParseDateTimeOffset(stringValue.ToString(), out dateTimeOffset);
+
+        dateTimeOffset = default;
+        return false;
+    }
+
+    internal static bool TryParseDateTimeOffset(string value, out DateTimeOffset dateTimeOffset)
+    {
+        return DateTimeOffset.TryParseExact(value, _dateTimeOffsetPatterns, CultureInfo.InvariantCulture,
+            DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AssumeUniversal, out dateTimeOffset);
     }
 
     #endregion

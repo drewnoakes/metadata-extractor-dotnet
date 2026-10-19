@@ -113,8 +113,6 @@ public sealed class DirectoryTest
 
         Assert.Equal(expected.Kind, actual.Kind);
         Assert.Equal(expected, actual);
-
-        // TODO revisit these commented cases and introduce GetDateTimeOffset impl/test
     }
 
     [Fact]

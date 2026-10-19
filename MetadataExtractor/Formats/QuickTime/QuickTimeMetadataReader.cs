@@ -323,8 +323,8 @@ public static class QuickTimeMetadataReader
 
                             value = tag switch
                             {
-                                QuickTimeMetadataHeaderDirectory.TagCreationDate => DateTime.Parse(((StringValue)value).ToString()),
-                                QuickTimeMetadataHeaderDirectory.TagLocationDate => DateTime.Parse(((StringValue)value).ToString()),
+                                QuickTimeMetadataHeaderDirectory.TagCreationDate or
+                                QuickTimeMetadataHeaderDirectory.TagLocationDate => ParseDate(((StringValue)value).ToString()),
                                 _ => value,
                             };
 
@@ -334,6 +334,14 @@ public static class QuickTimeMetadataReader
                             {
                                 Array.Reverse(data);
                                 return data;
+                            }
+
+                            static object ParseDate(string text)
+                            {
+                                if (DirectoryExtensions.TryParseDateTimeOffset(text, out var offset))
+                                    return offset;
+
+                                return DateTime.Parse(text);
                             }
                         }
                         else
