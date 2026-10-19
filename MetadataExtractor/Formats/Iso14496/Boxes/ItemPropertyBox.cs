@@ -6,9 +6,9 @@ internal class ItemPropertyBox : Box
 {
     public IList<Box> Boxes { get; }
 
-    public ItemPropertyBox(BoxLocation loc, SequentialReader sr) : base(loc)
+    public ItemPropertyBox(BoxLocation loc, SequentialReader sr, BoxReader boxReader) : base(loc)
     {
-        Boxes = BoxReader.ReadBoxes(sr, loc);
+        Boxes = boxReader.ReadBoxes(sr, loc);
     }
 
     public override IEnumerable<Box> Children() => Boxes;

@@ -123,6 +123,7 @@ MetadataExtractor.Formats.Png.PngChunkType.Equals(MetadataExtractor.Formats.Png.
 MetadataExtractor.Formats.Png.PngChunkType.PngChunkType() -> void
 MetadataExtractor.Formats.Png.PngDirectory.GetPngChunkType() -> MetadataExtractor.Formats.Png.PngChunkType
 MetadataExtractor.Formats.Png.PngDirectory.PngDirectory(MetadataExtractor.Formats.Png.PngChunkType pngChunkType) -> void
+MetadataExtractor.Formats.QuickTime.AtomCallbackArgs.ProcessChildren(System.Action<MetadataExtractor.Formats.QuickTime.AtomCallbackArgs!>! handler, System.Action<string!>! errorHandler) -> void
 MetadataExtractor.Formats.Png.PngProcessingException.PngProcessingException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
 MetadataExtractor.Formats.Riff.RiffProcessingException.RiffProcessingException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
 MetadataExtractor.Formats.Tiff.TiffProcessingException.TiffProcessingException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void

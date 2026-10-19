@@ -36,6 +36,11 @@ public static class QuickTimeMetadataReader
             return metaHeaderDirectory;
         }
 
+        void AddError(string message)
+        {
+            GetMetaHeaderDirectory().AddError(message);
+        }
+
         void TrakHandler(AtomCallbackArgs a)
         {
             switch (a.TypeString)
@@ -143,7 +148,7 @@ public static class QuickTimeMetadataReader
                     // 'meta' is a FullBox in the MP4/ISO base media format: skip its 1-byte
                     // version and 3-byte flags, then process child atoms looking for 'ilst'.
                     a.Reader.Skip(4);
-                    QuickTimeReader.ProcessAtoms(stream, UserDataMetaHandler, a.BytesLeft);
+                    a.ProcessChildren(UserDataMetaHandler, AddError);
                     break;
                 case 0x58747261: // "Xtra" (Windows Media metadata, surfaced in the Windows Properties dialog)
                     ReadXtraBox(a);
@@ -157,7 +162,7 @@ public static class QuickTimeMetadataReader
             // directly by 4CC (e.g. ©nam, ©cmt), each wrapping a 'data' atom. This differs from
             // the moov/meta 'keys'+'ilst' system handled by MetaDataHandler.
             if (a.Type == 0x696C7374) // "ilst"
-                QuickTimeReader.ProcessAtoms(stream, UserDataIlstHandler, a.BytesLeft);
+                a.ProcessChildren(UserDataIlstHandler, AddError);
         }
 
         void UserDataIlstHandler(AtomCallbackArgs a)
@@ -377,29 +382,29 @@ public static class QuickTimeMetadataReader
                     a.Reader.GetBytes(actual);
                     if (cr3.SequenceEqual(actual))
                     {
-                        QuickTimeReader.ProcessAtoms(stream, UuidHandler, a.BytesLeft);
+                        a.ProcessChildren(UuidHandler, AddError);
                     }
                     break;
                 }
                 case "trak":
                 {
-                    QuickTimeReader.ProcessAtoms(stream, TrakHandler, a.BytesLeft);
+                    a.ProcessChildren(TrakHandler, AddError);
                     break;
                 }
                 case "meta":
                 {
-                    QuickTimeReader.ProcessAtoms(stream, MetaDataHandler, a.BytesLeft);
+                    a.ProcessChildren(MetaDataHandler, AddError);
                     break;
                 }
                 case "udta":
                 {
-                    QuickTimeReader.ProcessAtoms(stream, UserDataHandler, a.BytesLeft);
+                    a.ProcessChildren(UserDataHandler, AddError);
                     break;
                 }
                 /*
                 case "clip":
                 {
-                    QuickTimeReader.ProcessAtoms(stream, clipHandler, a.BytesLeft);
+                    a.ProcessChildren(clipHandler, AddError);
                     break;
                 }
                 case "prfl":
@@ -421,7 +426,7 @@ public static class QuickTimeMetadataReader
             {
                 case "moov":
                 {
-                    QuickTimeReader.ProcessAtoms(stream, MoovHandler, a.BytesLeft);
+                    a.ProcessChildren(MoovHandler, AddError);
                     break;
                 }
                 case "uuid":
