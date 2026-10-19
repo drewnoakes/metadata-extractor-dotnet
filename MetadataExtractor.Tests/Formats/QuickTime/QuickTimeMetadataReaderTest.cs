@@ -40,6 +40,110 @@ public sealed class QuickTimeMetadataReaderTest
         Assert.Equal("Happy", directory.GetString(QuickTimeMetadataHeaderDirectory.TagMood));
     }
 
+    [Theory]
+    [InlineData("2025-04-11T20:01:03+0800", 480, 0)]
+    [InlineData("2025-04-11T20:01:03-05:30", -330, 0)]
+    [InlineData("2025-04-11T20:01:03Z", 0, 0)]
+    [InlineData("2025-04-11T20:01:03.1234567+08:00", 480, 1234567)]
+    public void ReadsKeyedDatesWithOffsetsWithoutLosingWallTime(string text, int offsetMinutes, int fractionTicks)
+    {
+        using var stream = new MemoryStream(KeyedDates(text, text));
+        var directory = QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>().Single();
+        var wallTime = new DateTime(2025, 4, 11, 20, 1, 3).AddTicks(fractionTicks);
+        var offset = TimeSpan.FromMinutes(offsetMinutes);
+
+        foreach (var tag in new[] { QuickTimeMetadataHeaderDirectory.TagCreationDate, QuickTimeMetadataHeaderDirectory.TagLocationDate })
+        {
+            var stored = Assert.IsType<DateTimeOffset>(directory.GetObject(tag));
+            Assert.Equal(wallTime, stored.DateTime);
+            Assert.Equal(offset, stored.Offset);
+            Assert.Equal(DateTime.SpecifyKind(wallTime - offset, DateTimeKind.Utc), stored.UtcDateTime);
+            Assert.True(directory.TryGetDateTimeOffset(tag, out var actual));
+            Assert.True(stored.EqualsExact(actual));
+            Assert.True(stored.EqualsExact(directory.GetDateTimeOffset(tag)));
+            Assert.Equal(stored.ToString(), directory.GetString(tag));
+            Assert.Equal(stored.ToString(), directory.GetDescription(tag));
+            Assert.Equal(DateTimeKind.Local, directory.GetDateTime(tag).Kind);
+            Assert.Equal(stored.UtcDateTime, directory.GetDateTime(tag).ToUniversalTime());
+        }
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [InlineData("2025-04-11T20:01:03", 0)]
+    [InlineData("2025-04-11T20:01:03.1234567", 1234567)]
+    public void ReadsKeyedDatesWithoutOffsetsAsUnspecifiedDateTime(string text, int fractionTicks)
+    {
+        using var stream = new MemoryStream(KeyedDates(text, text));
+        var directory = QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>().Single();
+        var expected = new DateTime(2025, 4, 11, 20, 1, 3).AddTicks(fractionTicks);
+
+        foreach (var tag in new[] { QuickTimeMetadataHeaderDirectory.TagCreationDate, QuickTimeMetadataHeaderDirectory.TagLocationDate })
+        {
+            var stored = Assert.IsType<DateTime>(directory.GetObject(tag));
+            Assert.Equal(expected, stored);
+            Assert.Equal(DateTimeKind.Unspecified, stored.Kind);
+            Assert.Equal(expected, directory.GetDateTime(tag));
+            Assert.Equal(DateTimeKind.Unspecified, directory.GetDateTime(tag).Kind);
+            Assert.False(directory.TryGetDateTimeOffset(tag, out var actual));
+            Assert.Equal(default(DateTimeOffset), actual);
+            Assert.Throws<MetadataException>(() => directory.GetDateTimeOffset(tag));
+        }
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ReadsKeyedDatesWithIndependentOffsetPresence(bool creationHasOffset)
+    {
+        const string withOffset = "2025-04-11T20:01:03+0800";
+        const string withoutOffset = "2025-04-12T06:07:08";
+        using var stream = new MemoryStream(KeyedDates(
+            creationHasOffset ? withOffset : withoutOffset,
+            creationHasOffset ? withoutOffset : withOffset));
+        var directory = QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>().Single();
+        var offsetTag = creationHasOffset ? QuickTimeMetadataHeaderDirectory.TagCreationDate : QuickTimeMetadataHeaderDirectory.TagLocationDate;
+        var unknownTag = creationHasOffset ? QuickTimeMetadataHeaderDirectory.TagLocationDate : QuickTimeMetadataHeaderDirectory.TagCreationDate;
+
+        var known = Assert.IsType<DateTimeOffset>(directory.GetObject(offsetTag));
+        Assert.Equal(new DateTime(2025, 4, 11, 20, 1, 3), known.DateTime);
+        Assert.Equal(TimeSpan.FromHours(8), known.Offset);
+        Assert.Equal(new DateTime(2025, 4, 11, 12, 1, 3, DateTimeKind.Utc), known.UtcDateTime);
+        var unknown = Assert.IsType<DateTime>(directory.GetObject(unknownTag));
+        Assert.Equal(new DateTime(2025, 4, 12, 6, 7, 8), unknown);
+        Assert.Equal(DateTimeKind.Unspecified, unknown.Kind);
+        Assert.False(directory.TryGetDateTimeOffset(unknownTag, out var actual));
+        Assert.Equal(default(DateTimeOffset), actual);
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [InlineData("2025-02-30T20:01:03+0800", "2025-04-11T20:01:03+0800")]
+    [InlineData("2025-04-11T20:01:03+0800", "2025-02-30T20:01:03+0800")]
+    [InlineData("not a date", "2025-04-11T20:01:03")]
+    [InlineData("2025-04-11T20:01:03", "not a date")]
+    public void ReadKeyedDates_InvalidDate_ThrowsFormatException(string creationDate, string locationDate)
+    {
+        using var stream = new MemoryStream(KeyedDates(creationDate, locationDate));
+
+        Assert.Throws<FormatException>(() => QuickTimeMetadataReader.ReadMetadata(stream));
+    }
+
+    private static byte[] KeyedDates(string creationDate, string locationDate)
+    {
+        // moov/meta uses indexed keys, unlike the iTunes-style moov/udta/meta fixture.
+        var keyHeader = new byte[8]; // version/flags, then entry count
+        WriteUInt32(keyHeader, 4, 2);
+        var keys = Box("keys", Concat(
+            keyHeader,
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.creationdate")),
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.location.date"))));
+        var ilst = Box("ilst", Concat(
+            Box("\0\0\0\u0001", DataAtom(creationDate)),
+            Box("\0\0\0\u0002", DataAtom(locationDate))));
+        return Box("moov", Box("meta", Concat(keys, ilst)));
+    }
+
     private static byte[] Box(string type, byte[] payload)
     {
         var size = 8 + payload.Length;
