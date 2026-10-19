@@ -153,6 +153,7 @@ public static class QuickTimeMetadataReader
                     directories.Add(xmpDirectory);
                     break;
                 case 0x6D657461: // "meta" (iTunes-style user-data metadata)
+                    // MP4/ISO 'meta' is a FullBox: skip its 1-byte version and 3-byte flags.
                     a.Reader.Skip(4);
                     ReadMetaData(a, itemListByDefault: true);
                     break;
@@ -164,7 +165,10 @@ public static class QuickTimeMetadataReader
 
         void UserDataIlstHandler(AtomCallbackArgs a)
         {
+            // ItemList children use 4CC keys (e.g. ©nam, ©cmt) and contain 'data' atoms.
+            // Keyed metadata instead uses numeric indexes into a separate 'keys' table.
             var key = a.TypeString;
+            // Ricoh Theta Z1 files may use '@' in place of the copyright prefix.
             if (key[0] is '\u00a9' or '@')
                 key = key.Substring(1);
 
@@ -197,8 +201,13 @@ public static class QuickTimeMetadataReader
 
                 object value = dataTypeIndicator switch
                 {
+                    // UTF-8
                     1 => new StringValue(data, Encoding.UTF8),
+
+                    // BE Float32 (used for user rating)
                     23 => BitConverter.ToSingle(BitConverter.IsLittleEndian ? Reversed(data) : data, 0),
+
+                    // 13 JPEG, 14 PNG, 27 BMP
                     _ => data
                 };
 
@@ -256,7 +265,7 @@ public static class QuickTimeMetadataReader
                 }
 
                 var typeIndicator = data.Reader.GetUInt32();
-                data.Reader.Skip(4); // locale
+                data.Reader.Skip(4); // locale selection is not currently supported
                 handler(typeIndicator, data.Reader.GetBytes((int)data.BytesLeft));
             }, AddError);
         }
@@ -330,10 +339,12 @@ public static class QuickTimeMetadataReader
                 {
                     case "hdlr":
                         a.Reader.Skip(8); // version/flags and pre-defined
+                        // 'mdir' identifies ItemList metadata; 'mdta' identifies keyed metadata.
                         metaDataHandlerType = a.Reader.Get4ccString();
                         break;
                     case "keys":
                     {
+                        // Key names used to decode the indexed 'ilst' entries for the 'mdta' handler.
                         a.Reader.Skip(4); // 1 byte version, 3 bytes flags
                         var entryCount = a.Reader.GetUInt32();
                         for (int i = 1; i <= entryCount; i++)
@@ -348,6 +359,7 @@ public static class QuickTimeMetadataReader
                     }
                     case "ilst":
                     {
+                        // Both 'mdir' and 'mdta' use 'ilst', but with different kinds of item keys.
                         if (metaDataHandlerType == "mdir" || (itemListByDefault && metaDataHandlerType != "mdta"))
                         {
                             a.ProcessChildren(UserDataIlstHandler, AddError);
