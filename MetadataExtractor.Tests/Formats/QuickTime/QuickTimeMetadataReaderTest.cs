@@ -4,6 +4,228 @@ namespace MetadataExtractor.Formats.QuickTime;
 
 public sealed class QuickTimeMetadataReaderTest
 {
+    [Theory]
+    [CombinatorialData]
+    public void ReadsMetadataWithOrWithoutFullBoxPrefix(
+        bool inUserData, bool fullBox, bool keyed, bool extended, bool extendedHandler)
+    {
+        var handler = Box("hdlr", Concat(new byte[8], Encoding.ASCII.GetBytes(keyed ? "mdta" : "mdir")), extendedHandler);
+        var keys = keyed ? Box("keys", Concat(new byte[4], [0, 0, 0, 2],
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.title")),
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.year"))), extended) : [];
+        var ilst = Box("ilst", Concat(
+            Box(keyed ? "\0\0\0\u0001" : "\u00a9nam", DataAtom("Title", extended), extended),
+            Box(keyed ? "\0\0\0\u0002" : "yrrc", DataAtom("2024", extended), extended)), extended);
+        var meta = Box("meta", Concat(fullBox ? new byte[4] : [], handler, keys, ilst), extended);
+        var bytes = Box("moov", inUserData ? Box("udta", meta, extended) : meta, extended);
+        using var stream = new MemoryStream(bytes);
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("Title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.Equal("2024", Assert.IsType<StringValue>(directory.GetObject(QuickTimeMetadataHeaderDirectory.TagYear)).ToString());
+        Assert.False(directory.HasError);
+        Assert.Equal(stream.Length, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ReadsZeroSizedFirstMetadataChildWithOrWithoutFullBoxPrefix(bool fullBox, bool extended)
+    {
+        var ilst = Box("ilst", Box("\u00a9nam", DataAtom("Title")));
+        WriteUInt32(ilst, 0, 0);
+        var meta = Box("meta", Concat(fullBox ? new byte[4] : [], ilst), extended);
+        using var stream = new MemoryStream(Box("moov", Box("udta", meta, extended), extended));
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("Title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void RejectsShortMetadataHandlerWithoutConsumingFollowingSiblings(
+        [CombinatorialValues(0, 4, 8, 11)] int payloadLength, bool inUserData, bool extended)
+    {
+        var malformed = Box("hdlr", new byte[payloadLength], extended);
+        var handler = Box("hdlr", Concat(new byte[8], Encoding.ASCII.GetBytes("mdir")), extended);
+        var ilst = Box("ilst", Box("\u00a9nam", DataAtom("Following title", extended), extended), extended);
+        var meta = Box("meta", Concat(inUserData ? new byte[4] : [], malformed, handler, ilst), extended);
+        using var stream = new MemoryStream(Box("moov", inUserData ? Box("udta", meta, extended) : meta, extended));
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("Following title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.Equal("Invalid metadata handler atom size", Assert.Single(directory.Errors));
+        Assert.Equal(stream.Length, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void SkipsUnknownMetadataPayloadWithoutReadingIt(bool keyed, bool extended)
+    {
+        const int payloadLength = 128 * 1024;
+        var headerSize = extended ? 16 : 8;
+        var handler = Box("hdlr", Concat(new byte[8], Encoding.ASCII.GetBytes(keyed ? "mdta" : "mdir")), extended);
+        var keys = keyed ? Box("keys", Concat(new byte[4], [0, 0, 0, 2],
+            Box("mdta", Encoding.UTF8.GetBytes("com.example.unsupported")),
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.title"))), extended) : [];
+        var prefix = Concat(new byte[4], handler, keys);
+        var ignoredItem = Box(keyed ? "\0\0\0\u0001" : "covr", TypedDataAtom(13, new byte[payloadLength], extended), extended);
+        var title = Box(keyed ? "\0\0\0\u0002" : "\u00a9nam", DataAtom("Following title", extended), extended);
+        var bytes = Box("moov", Box("udta", Box("meta", Concat(prefix,
+            Box("ilst", Concat(ignoredItem, title), extended)), extended), extended), extended);
+        using var stream = new PayloadGuardStream(bytes, 6 * headerSize + prefix.Length + 8, payloadLength);
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("Following title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        if (keyed)
+            Assert.Equal("Unsupported ilst key \"com.example.unsupported\"", Assert.Single(directory.Errors));
+        else
+            Assert.False(directory.HasError);
+        Assert.Equal(stream.Length, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ReadsItemListMetadataInBothContainers(bool inUserData, bool extended)
+    {
+        var handler = Box("hdlr", Concat(new byte[8], Encoding.ASCII.GetBytes("mdir")));
+        var ilst = Box("ilst", Concat(
+            Box("\u00a9alb", DataAtom("Album", extended), extended),
+            Box("\u00a9ART", DataAtom("Artist", extended), extended),
+            Box("@cmt", DataAtom("Comment", extended), extended),
+            Box("desc", DataAtom("Description", extended), extended),
+            Box("\u00a9nam", Concat(DataAtom("Earlier title"), DataAtom("Title", extended)), extended)), extended);
+        var meta = Box("meta", Concat(inUserData ? new byte[4] : [], handler, ilst), extended);
+        var bytes = Box("moov", inUserData ? Box("udta", meta, extended) : meta, extended);
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(new MemoryStream(bytes))
+            .OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("Album", directory.GetString(QuickTimeMetadataHeaderDirectory.TagAlbum));
+        Assert.Equal("Artist", directory.GetString(QuickTimeMetadataHeaderDirectory.TagArtist));
+        Assert.Equal("Comment", directory.GetString(QuickTimeMetadataHeaderDirectory.TagComment));
+        Assert.Equal("Description", directory.GetString(QuickTimeMetadataHeaderDirectory.TagDescription));
+        Assert.Equal("Title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.False(directory.HasError);
+    }
+
+    [Fact]
+    public void ReadsIndependentMetadataContainersWithoutLeakingKeysOrHandlers()
+    {
+        var itemList = Box("meta", Concat(
+            Box("hdlr", Concat(new byte[8], Encoding.ASCII.GetBytes("mdir"))),
+            Box("ilst", Box("\u00a9alb", DataAtom("Album")))));
+        var title = KeyedMetadata("com.apple.quicktime.title", "Title", inUserData: false);
+        var comment = KeyedMetadata("com.apple.quicktime.comment", "Comment", inUserData: true);
+        var bytes = Box("moov", Concat(itemList, title, Box("udta", comment)));
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(new MemoryStream(bytes))
+            .OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("Album", directory.GetString(QuickTimeMetadataHeaderDirectory.TagAlbum));
+        Assert.Equal("Title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.Equal("Comment", directory.GetString(QuickTimeMetadataHeaderDirectory.TagComment));
+        Assert.False(directory.HasError);
+
+        static byte[] KeyedMetadata(string key, string value, bool inUserData)
+        {
+            return Box("meta", Concat(
+                inUserData ? new byte[4] : [],
+                Box("hdlr", Concat(new byte[8], Encoding.ASCII.GetBytes("mdta"))),
+                Box("keys", Concat(new byte[4], [0, 0, 0, 1], Box("mdta", Encoding.UTF8.GetBytes(key)))),
+                Box("ilst", Box("\0\0\0\u0001", DataAtom(value)))));
+        }
+    }
+
+    [Theory, UseCulture("en-US")]
+    [CombinatorialData]
+    public void PreservesPartialOrUnparseableItemListDates(
+        [CombinatorialValues("2024", "2024-05", "", "not a date", "2024-02-30", "12:34:56")] string text,
+        bool inUserData, bool extended)
+    {
+        var directory = ReadItemListDate(text, inUserData, extended);
+
+        var stored = Assert.IsType<StringValue>(directory.GetObject(QuickTimeMetadataHeaderDirectory.TagCreationDate));
+        Assert.Equal(text, stored.ToString());
+        Assert.Equal("Following title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ReadsCompleteItemListDates(
+        [CombinatorialValues("2024-05-06", "2024-05-06T12:34:56", "2024-05-06T12:34:56.1234567")] string text,
+        bool inUserData, bool extended)
+    {
+        var directory = ReadItemListDate(text, inUserData, extended);
+        var expected = new DateTime(2024, 5, 6);
+        if (text.Length > 10)
+            expected = expected.AddHours(12).AddMinutes(34).AddSeconds(56);
+        if (text.Contains("."))
+            expected = expected.AddTicks(1234567);
+
+        var stored = Assert.IsType<DateTime>(directory.GetObject(QuickTimeMetadataHeaderDirectory.TagCreationDate));
+        Assert.Equal(expected, stored);
+        Assert.Equal(DateTimeKind.Unspecified, stored.Kind);
+        Assert.Equal("Following title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ReadsItemListDateOffsets(
+        [CombinatorialValues("+0800", "-05:30", "Z")] string offset,
+        bool inUserData, bool extended)
+    {
+        var directory = ReadItemListDate($"2024-05-06T12:34:56.1234567{offset}", inUserData, extended);
+        var stored = Assert.IsType<DateTimeOffset>(directory.GetObject(QuickTimeMetadataHeaderDirectory.TagCreationDate));
+
+        Assert.Equal(new DateTime(2024, 5, 6, 12, 34, 56).AddTicks(1234567), stored.DateTime);
+        Assert.Equal(TimeSpan.FromMinutes(offset switch { "+0800" => 480, "-05:30" => -330, _ => 0 }), stored.Offset);
+        Assert.Equal("Following title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.False(directory.HasError);
+    }
+
+    private static QuickTimeMetadataHeaderDirectory ReadItemListDate(string text, bool inUserData, bool extended)
+    {
+        var meta = Box("meta", Concat(
+            inUserData ? new byte[4] : [],
+            Box("hdlr", Concat(new byte[8], Encoding.ASCII.GetBytes("mdir"))),
+            Box("ilst", Concat(
+                Box("\u00a9day", DataAtom(text, extended), extended),
+                Box("\u00a9nam", DataAtom("Following title", extended), extended)), extended)), extended);
+        using var stream = new MemoryStream(Box("moov", inUserData ? Box("udta", meta, extended) : meta, extended));
+        return Assert.Single(QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>());
+    }
+
+    [Fact]
+    public void UnsupportedNumericItemListTagsDoNotOverwriteGenreOrUserRating()
+    {
+        var keyed = Box("meta", Concat(
+            Box("keys", Concat(new byte[4], [0, 0, 0, 1],
+                Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.rating.user")))),
+            Box("ilst", Box("\0\0\0\u0001", TypedDataAtom(23, [0x40, 0x70, 0, 0], false)))));
+        var itemList = Box("meta", Concat(new byte[4], Box("ilst", Concat(
+            Box("\u00a9gen", DataAtom("Rock")),
+            Box("gnre", TypedDataAtom(0, [0, 18], false)),
+            Box("rtng", TypedDataAtom(21, [1], false)),
+            Box("\u00a9nam", DataAtom("Following title"))))));
+        using var stream = new MemoryStream(Box("moov", Concat(keyed, Box("udta", itemList))));
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.False(QuickTimeMetadataHeaderDirectory.TryGetTag("gnre", out _));
+        Assert.False(QuickTimeMetadataHeaderDirectory.TryGetTag("rtng", out _));
+        Assert.Equal("Rock", directory.GetString(QuickTimeMetadataHeaderDirectory.TagGenre));
+        Assert.Equal(3.75f, directory.GetObject(QuickTimeMetadataHeaderDirectory.TagRating));
+        Assert.Equal("Following title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.False(directory.HasError);
+    }
+
     [Fact]
     public void ReadsUserDataMetadataFromUdta()
     {
@@ -313,6 +535,23 @@ public sealed class QuickTimeMetadataReaderTest
         {
             Assert.Equal("", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
             Assert.False(directory.HasError);
+        }
+    }
+
+    private sealed class PayloadGuardStream(byte[] bytes, long payloadStart, long payloadLength) : MemoryStream(bytes)
+    {
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            Assert.False(Position < payloadStart + payloadLength && Position + count > payloadStart,
+                "The unsupported metadata payload must be skipped, not read.");
+            return base.Read(buffer, offset, count);
+        }
+
+        public override int ReadByte()
+        {
+            Assert.False(Position >= payloadStart && Position < payloadStart + payloadLength,
+                "The unsupported metadata payload must be skipped, not read.");
+            return base.ReadByte();
         }
     }
 

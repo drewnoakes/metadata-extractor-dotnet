@@ -1,5 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Globalization;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Tiff;
@@ -14,11 +15,18 @@ public static class QuickTimeMetadataReader
 {
     private static readonly DateTime _epoch = new(1904, 1, 1);
     private static readonly int[] _supportedAtomValueTypes = [1, 13, 14, 23, 27];
+    private static readonly string[] _itemListDatePatterns =
+    [
+        "yyyy-MM-dd",
+        "yyyy:MM:dd",
+        "yyyy-MM-dd'T'HH:mm:ss.FFFFFFF",
+        "yyyy-MM-dd HH:mm:ss.FFFFFFF",
+        "yyyy:MM:dd HH:mm:ss.FFFFFFF"
+    ];
 
     public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
     {
         var directories = new List<Directory>();
-        var metaDataKeys = new List<string>();
         QuickTimeMetadataHeaderDirectory? metaHeaderDirectory = null;
 
         QuickTimeReader.ProcessAtoms(stream, Handler);
@@ -145,10 +153,7 @@ public static class QuickTimeMetadataReader
                     directories.Add(xmpDirectory);
                     break;
                 case 0x6D657461: // "meta" (iTunes-style user-data metadata)
-                    // 'meta' is a FullBox in the MP4/ISO base media format: skip its 1-byte
-                    // version and 3-byte flags, then process child atoms looking for 'ilst'.
-                    a.Reader.Skip(4);
-                    a.ProcessChildren(UserDataMetaHandler, AddError);
+                    ReadMetaData(a, itemListByDefault: true);
                     break;
                 case 0x58747261: // "Xtra" (Windows Media metadata, surfaced in the Windows Properties dialog)
                     ReadXtraBox(a);
@@ -156,31 +161,92 @@ public static class QuickTimeMetadataReader
             }
         }
 
-        void UserDataMetaHandler(AtomCallbackArgs a)
-        {
-            // Within udta/meta we look for the iTunes-style 'ilst' box whose children are keyed
-            // directly by 4CC (e.g. ©nam, ©cmt), each wrapping a 'data' atom. This differs from
-            // the moov/meta 'keys'+'ilst' system handled by MetaDataHandler.
-            if (a.Type == 0x696C7374) // "ilst"
-                a.ProcessChildren(UserDataIlstHandler, AddError);
-        }
-
         void UserDataIlstHandler(AtomCallbackArgs a)
         {
-            switch (a.Type)
-            {
-                case 0xA96E616D: // "©nam" (title)
-                    SetIlstStringFromDataAtom(a, QuickTimeMetadataHeaderDirectory.TagTitle);
-                    break;
-                case 0xA9636D74: // "©cmt" (comment)
-                    SetIlstStringFromDataAtom(a, QuickTimeMetadataHeaderDirectory.TagComment);
-                    break;
-            }
+            // ItemList children use 4CC keys (e.g. ©nam, ©cmt) and contain 'data' atoms.
+            // Keyed metadata instead uses numeric indexes into a separate 'keys' table.
+            var key = a.TypeString;
+            // Ricoh Theta Z1 files may use '@' in place of the copyright prefix.
+            if (key[0] is '\u00a9' or '@')
+                key = key.Substring(1);
+
+            ReadMetadataItem(a, key, keyShouldBeValid: false);
         }
 
-        void SetIlstStringFromDataAtom(AtomCallbackArgs a, int tag)
+        void ReadMetadataItem(AtomCallbackArgs item, string key, bool keyShouldBeValid)
         {
-            ReadDataAtoms(a, (_, bytes) => GetMetaHeaderDirectory().Set(tag, new StringValue(bytes, Encoding.UTF8)));
+            if (!QuickTimeMetadataHeaderDirectory.TryGetTag(key, out int tag))
+            {
+                if (keyShouldBeValid)
+                    AddError($"Unsupported ilst key \"{key}\"");
+                return;
+            }
+
+            ReadDataAtoms(item, (dataTypeIndicator, data) =>
+            {
+                if (!_supportedAtomValueTypes.Contains((int)dataTypeIndicator))
+                {
+                    if (keyShouldBeValid)
+                        AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
+                    return;
+                }
+
+                if (dataTypeIndicator == 23 && data.Length != 4)
+                {
+                    AddError($"Invalid Float32 value for key \"{key}\"");
+                    return;
+                }
+
+                object value = dataTypeIndicator switch
+                {
+                    // UTF-8
+                    1 => new StringValue(data, Encoding.UTF8),
+
+                    // BE Float32 (used for user rating)
+                    23 => BitConverter.ToSingle(BitConverter.IsLittleEndian ? Reversed(data) : data, 0),
+
+                    // 13 JPEG, 14 PNG, 27 BMP
+                    _ => data
+                };
+
+                value = tag switch
+                {
+                    QuickTimeMetadataHeaderDirectory.TagCreationDate when !keyShouldBeValid && key == "day" => ParseItemListDate(value),
+                    QuickTimeMetadataHeaderDirectory.TagCreationDate or
+                    QuickTimeMetadataHeaderDirectory.TagLocationDate => ParseDate(((StringValue)value).ToString()),
+                    _ => value,
+                };
+
+                GetMetaHeaderDirectory().Set(tag, value);
+
+                static byte[] Reversed(byte[] bytes)
+                {
+                    Array.Reverse(bytes);
+                    return bytes;
+                }
+
+                static object ParseDate(string text)
+                {
+                    if (DirectoryExtensions.TryParseDateTimeOffset(text, out var offset))
+                        return offset;
+
+                    return DateTime.Parse(text);
+                }
+
+                static object ParseItemListDate(object value)
+                {
+                    if (value is not StringValue stringValue)
+                        return value;
+
+                    var text = stringValue.ToString();
+                    if (DirectoryExtensions.TryParseDateTimeOffset(text, out var offset))
+                        return offset;
+
+                    // Exact formats require a complete date, rather than filling in missing components.
+                    return DateTime.TryParseExact(text, _itemListDatePatterns, CultureInfo.InvariantCulture,
+                        DateTimeStyles.AllowWhiteSpaces, out var date) ? date : value;
+                }
+            });
         }
 
         void ReadDataAtoms(AtomCallbackArgs item, Action<uint, byte[]> handler)
@@ -197,7 +263,7 @@ public static class QuickTimeMetadataReader
                 }
 
                 var typeIndicator = data.Reader.GetUInt32();
-                data.Reader.Skip(4); // locale
+                data.Reader.Skip(4); // locale selection is not currently supported
                 handler(typeIndicator, data.Reader.GetBytes((int)data.BytesLeft));
             }, AddError);
         }
@@ -258,96 +324,83 @@ public static class QuickTimeMetadataReader
             }
         }
 
-        void MetaDataHandler(AtomCallbackArgs a)
+        void ReadMetaData(AtomCallbackArgs container, bool itemListByDefault = false)
         {
-            // see https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/Metadata/Metadata.html
-            switch (a.TypeString)
+            var bytesLeft = container.BytesLeft;
+            if (bytesLeft >= 8)
             {
-                case "keys":
+                var position = container.Stream.Position;
+                var versionAndFlags = container.Reader.GetUInt32();
+                var firstChildSize = container.Reader.GetUInt32();
+                container.Stream.Position = position;
+
+                // MP4/ISO 'meta' is a FullBox: skip its 1-byte version and 3-byte flags.
+                // QuickTime may omit them; a size-zero child instead has its 4CC in the second word.
+                if (versionAndFlags == 0 &&
+                    (firstChildSize is 0 or 1 || (firstChildSize >= 8 && firstChildSize <= bytesLeft - 4)))
                 {
-                    a.Reader.Skip(4); // 1 byte version, 3 bytes flags
-                    var entryCount = a.Reader.GetUInt32();
-                    for (int i = 1; i <= entryCount; i++)
-                    {
-                        var keySize = a.Reader.GetUInt32();
-                        var keyValueSize = (int)keySize - 8;
-                        a.Reader.Skip(4); // uint32: key namespace
-                        var keyValue = a.Reader.GetBytes(keyValueSize);
-                        metaDataKeys.Add(Encoding.UTF8.GetString(keyValue));
-                    }
-                    break;
+                    container.Reader.Skip(4);
                 }
-                case "ilst":
+            }
+
+            var metaDataKeys = new List<string>();
+            var metaDataHandlerType = string.Empty;
+            container.ProcessChildren(MetaDataHandler, AddError);
+
+            void MetaDataHandler(AtomCallbackArgs a)
+            {
+                // see https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/Metadata/Metadata.html
+                switch (a.TypeString)
                 {
-                    a.ProcessChildren(item =>
-                    {
-                        // Indexes into the metadata item keys atom are 1-based (1…entry_count).
-                        if (item.Type < 1 || item.Type > metaDataKeys.Count)
+                    case "hdlr":
+                        if (a.BytesLeft < 12)
                         {
-                            GetMetaHeaderDirectory().AddError("Invalid ilst atom type");
-                            return;
+                            AddError("Invalid metadata handler atom size");
+                            break;
                         }
-                        var key = metaDataKeys[(int)item.Type - 1];
-
-                        ReadDataAtoms(item, (dataTypeIndicator, data) =>
+                        a.Reader.Skip(8); // version/flags and pre-defined
+                        // 'mdir' identifies ItemList metadata; 'mdta' identifies keyed metadata.
+                        metaDataHandlerType = a.Reader.Get4ccString();
+                        break;
+                    case "keys":
+                    {
+                        // Key names used to decode the indexed 'ilst' entries for the 'mdta' handler.
+                        a.Reader.Skip(4); // 1 byte version, 3 bytes flags
+                        var entryCount = a.Reader.GetUInt32();
+                        for (int i = 1; i <= entryCount; i++)
                         {
-                            if (!_supportedAtomValueTypes.Contains((int)dataTypeIndicator))
+                            var keySize = a.Reader.GetUInt32();
+                            var keyValueSize = (int)keySize - 8;
+                            a.Reader.Skip(4); // uint32: key namespace
+                            var keyValue = a.Reader.GetBytes(keyValueSize);
+                            metaDataKeys.Add(Encoding.UTF8.GetString(keyValue));
+                        }
+                        break;
+                    }
+                    case "ilst":
+                    {
+                        // Both 'mdir' and 'mdta' use 'ilst', but with different kinds of item keys.
+                        if (metaDataHandlerType == "mdir" || (itemListByDefault && metaDataHandlerType != "mdta"))
+                        {
+                            a.ProcessChildren(UserDataIlstHandler, AddError);
+                            break;
+                        }
+
+                        a.ProcessChildren(item =>
+                        {
+                            // Indexes into the metadata item keys atom are 1-based (1…entry_count).
+                            if (item.Type < 1 || item.Type > metaDataKeys.Count)
                             {
-                                GetMetaHeaderDirectory().AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
+                                GetMetaHeaderDirectory().AddError("Invalid ilst atom type");
                                 return;
                             }
+                            var key = metaDataKeys[(int)item.Type - 1];
 
-                            if (!QuickTimeMetadataHeaderDirectory.TryGetTag(key, out int tag))
-                            {
-                                GetMetaHeaderDirectory().AddError($"Unsupported ilst key \"{key}\"");
-                                return;
-                            }
+                            ReadMetadataItem(item, key, keyShouldBeValid: true);
+                        }, AddError);
 
-                            if (dataTypeIndicator == 23 && data.Length != 4)
-                            {
-                                GetMetaHeaderDirectory().AddError($"Invalid Float32 value for key \"{key}\"");
-                                return;
-                            }
-
-                            object value = dataTypeIndicator switch
-                            {
-                                // UTF-8
-                                1 => new StringValue(data, Encoding.UTF8),
-
-                                // BE Float32 (used for User Rating)
-                                23 => BitConverter.ToSingle(BitConverter.IsLittleEndian ? Reversed(data) : data, 0),
-
-                                // 13 JPEG
-                                // 14 PNG
-                                // 27 BMP
-                                _ => data
-                            };
-
-                            value = tag switch
-                            {
-                                QuickTimeMetadataHeaderDirectory.TagCreationDate or
-                                QuickTimeMetadataHeaderDirectory.TagLocationDate => ParseDate(((StringValue)value).ToString()),
-                                _ => value,
-                            };
-
-                            GetMetaHeaderDirectory().Set(tag, value);
-
-                            static byte[] Reversed(byte[] bytes)
-                            {
-                                Array.Reverse(bytes);
-                                return bytes;
-                            }
-                            static object ParseDate(string text)
-                            {
-                                if (DirectoryExtensions.TryParseDateTimeOffset(text, out var offset))
-                                    return offset;
-
-                                return DateTime.Parse(text);
-                            }
-                        });
-                    }, AddError);
-
-                    break;
+                        break;
+                    }
                 }
             }
         }
@@ -398,7 +451,7 @@ public static class QuickTimeMetadataReader
                 }
                 case "meta":
                 {
-                    a.ProcessChildren(MetaDataHandler, AddError);
+                    ReadMetaData(a);
                     break;
                 }
                 case "udta":

@@ -10,7 +10,12 @@ public sealed class QuickTimeMetadataHeaderDirectory : Directory
     public const int TagAuthor = 4;
     public const int TagComment = 5;
     public const int TagCopyright = 6;
+
+    /// <summary>
+    /// A creation date. Partial or unparseable ItemList dates are retained as <see cref="StringValue"/>.
+    /// </summary>
     public const int TagCreationDate = 7;
+
     public const int TagDescription = 8;
     public const int TagDirector = 9;
     public const int TagTitle = 10;
@@ -127,6 +132,27 @@ public sealed class QuickTimeMetadataHeaderDirectory : Directory
         { "com.android.version",                    TagAndroidVersion },
         { "com.android.manufacturer",               TagAndroidManufacturer },
         { "com.android.model",                      TagAndroidModel },
+        { "alb",                                    TagAlbum },
+        { "albm",                                   TagAlbum },
+        { "ART",                                    TagArtist },
+        { "aut",                                    TagAuthor },
+        { "auth",                                   TagAuthor },
+        { "cmt",                                    TagComment },
+        { "cpy",                                    TagCopyright },
+        { "cprt",                                   TagCopyright },
+        { "day",                                    TagCreationDate },
+        { "des",                                    TagDescription },
+        { "desc",                                   TagDescription },
+        { "dscp",                                   TagDescription },
+        { "dir",                                    TagDirector },
+        { "nam",                                    TagTitle },
+        { "titl",                                   TagTitle },
+        { "gen",                                    TagGenre },
+        { "keyw",                                   TagKeywords },
+        { "xyz",                                    TagGpsLocation },
+        { "prd",                                    TagProducer },
+        { "pub",                                    TagPublisher },
+        { "yrrc",                                   TagYear },
     };
 
     public QuickTimeMetadataHeaderDirectory() : base(_tagNameMap)
