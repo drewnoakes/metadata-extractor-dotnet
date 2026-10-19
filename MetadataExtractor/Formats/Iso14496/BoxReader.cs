@@ -31,17 +31,18 @@ internal sealed class BoxReader(Action<string> errorHandler)
         var ret = new List<Box>();
         while (sr.IsWithinBox(loc))
         {
-            var box = ReadBox(sr);
-            if (box is not null)
-                ret.Add(box);
+            var box = ReadBox(sr, loc);
+            if (box is null)
+                break;
+            ret.Add(box);
         }
 
         return ret;
     }
 
-    private Box? ReadBox(SequentialReader sr)
+    private Box? ReadBox(SequentialReader sr, BoxLocation? parent = null)
     {
-        return ReadBox(sr, ParseBox);
+        return ReadBox(sr, ParseBox, parent);
 
         Box ParseBox(BoxLocation location, SequentialReader sr)
         {
@@ -93,18 +94,22 @@ internal sealed class BoxReader(Action<string> errorHandler)
         }
     }
 
-    internal static Box? ReadBox(SequentialReader sr, Func<BoxLocation, SequentialReader, Box> parseBox)
+    internal static Box? ReadBox(SequentialReader sr, Func<BoxLocation, SequentialReader, Box> parseBox, BoxLocation? parent = null)
     {
+        if (parent is not null && parent.NextPosition - (ulong)sr.Position < 8)
+            throw new ImageProcessingException($"Incomplete box header within {parent.TypeString}.");
+
         if (sr.Available() < 8)
             return null;
 
         var location = new BoxLocation(sr);
 
-        if ((long)location.NextPosition - sr.Position >= sr.Available())
-        {
-            // skip the last box of the file.
-            return null;
-        }
+        if (parent is not null && location.NextPosition > parent.NextPosition)
+            throw new ImageProcessingException($"Box with type {location.TypeString} extends beyond its parent.");
+
+        var available = sr is SequentialStreamReader streamReader ? streamReader.AvailableBytes : sr.Available();
+        if ((long)location.NextPosition - sr.Position > available)
+            throw new ImageProcessingException($"Box with type {location.TypeString} extends beyond the end of the stream.");
 
         var box = parseBox(location, sr);
 

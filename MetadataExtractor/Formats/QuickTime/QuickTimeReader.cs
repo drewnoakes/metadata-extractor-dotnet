@@ -55,7 +55,7 @@ public sealed class AtomCallbackArgs(uint type, long size, Stream stream, long s
     /// <summary>
     /// Computes the number of bytes remaining in the atom, given the <see cref="Stream"/> position.
     /// </summary>
-    public long BytesLeft => Size - (Stream.Position - StartPosition);
+    public long BytesLeft => Size == 0 ? Stream.Length - Stream.Position : Size - (Stream.Position - StartPosition);
 
     /// <summary>
     /// Reads this atom's remaining contents as child atoms, allowing at most 100 levels of nested containers.
@@ -104,14 +104,17 @@ public static class QuickTimeReader
 
         var seriesStartPos = stream.Position;
 
-        while (stopByBytes == -1 || stream.Position < seriesStartPos + stopByBytes)
+        while (stopByBytes == -1 || stream.Position - seriesStartPos < stopByBytes)
         {
             var atomStartPos = stream.Position;
 
             try
             {
-                // Check if the end of the stream is closer then 8 bytes to current position (Length of the atom's data + atom type)
-                if (reader.IsCloserToEnd(8))
+                var remaining = stopByBytes == -1
+                    ? stream.Length - atomStartPos
+                    : Math.Min(stream.Length - atomStartPos, stopByBytes - (atomStartPos - seriesStartPos));
+
+                if (remaining < 8)
                     return;
 
                 // Length of the atom's data, in bytes, including size bytes
@@ -121,20 +124,22 @@ public static class QuickTimeReader
                 // By convention, lowercase 4CCs are reserved by Apple.
                 var atomType = reader.GetUInt32();
 
+                var headerSize = 8;
                 if (atomSize == 1)
                 {
-                    // Check if the end of the stream is closer then 8 bytes
-                    if (reader.IsCloserToEnd(8))
+                    headerSize = 16;
+                    if (remaining < headerSize)
                         return;
 
-                    // Size doesn't fit in 32 bits so read the 64 bit size here
-                    atomSize = checked((long)reader.GetUInt64());
+                    var extendedSize = reader.GetUInt64();
+                    if (extendedSize > long.MaxValue)
+                        return;
+                    atomSize = (long)extendedSize;
                 }
-                else if (atomSize < 8)
-                {
-                    // Atom should be at least 8 bytes long
+
+                var effectiveSize = atomSize == 0 && headerSize == 8 ? stream.Length - atomStartPos : atomSize;
+                if (effectiveSize < headerSize || effectiveSize > remaining)
                     return;
-                }
 
                 var args = new AtomCallbackArgs(atomType, atomSize, stream, atomStartPos, reader) { Depth = depth };
 
@@ -146,7 +151,7 @@ public static class QuickTimeReader
                 if (atomSize == 0)
                     return;
 
-                var toSkip = atomStartPos + atomSize - stream.Position;
+                var toSkip = effectiveSize - (stream.Position - atomStartPos);
 
                 if (toSkip < 0)
                 {
@@ -156,9 +161,8 @@ public static class QuickTimeReader
                     return;
                 }
 
-                // To avoid exception handling we can check if needed number of bytes are available
-                if (!reader.IsCloserToEnd(toSkip))
-                    reader.TrySkip(toSkip);
+                if (!reader.TrySkip(toSkip))
+                    return;
             }
             catch (IOException)
             {

@@ -180,14 +180,26 @@ public static class QuickTimeMetadataReader
 
         void SetIlstStringFromDataAtom(AtomCallbackArgs a, int tag)
         {
-            // Nested 'data' atom layout: uint32 size, uint32 'data', uint32 type indicator,
-            // uint32 locale, then the string payload (UTF-8 for these text values).
-            long dataAtomSize = a.Reader.GetUInt32();
-            if (dataAtomSize <= 16 || dataAtomSize - 16 > a.BytesLeft)
-                return;
-            a.Reader.Skip(12);
-            var bytes = a.Reader.GetBytes((int)dataAtomSize - 16);
-            GetMetaHeaderDirectory().Set(tag, new StringValue(bytes, Encoding.UTF8));
+            ReadDataAtoms(a, (_, bytes) => GetMetaHeaderDirectory().Set(tag, new StringValue(bytes, Encoding.UTF8)));
+        }
+
+        void ReadDataAtoms(AtomCallbackArgs item, Action<uint, byte[]> handler)
+        {
+            item.ProcessChildren(data =>
+            {
+                if (data.TypeString != "data")
+                    return;
+
+                if (data.BytesLeft < 8 || data.BytesLeft - 8 > int.MaxValue)
+                {
+                    GetMetaHeaderDirectory().AddError("Invalid metadata data atom size");
+                    return;
+                }
+
+                var typeIndicator = data.Reader.GetUInt32();
+                data.Reader.Skip(4); // locale
+                handler(typeIndicator, data.Reader.GetBytes((int)data.BytesLeft));
+            }, AddError);
         }
 
         void ReadXtraBox(AtomCallbackArgs a)
@@ -267,46 +279,36 @@ public static class QuickTimeMetadataReader
                 }
                 case "ilst":
                 {
-                    // Iterate over the list of Metadata Item Atoms.
-                    for (int i = 0; i < metaDataKeys.Count; i++)
+                    a.ProcessChildren(item =>
                     {
-                        long atomSize = a.Reader.GetUInt32();
-                        if (atomSize < 24)
-                        {
-                            GetMetaHeaderDirectory().AddError("Invalid ilst atom type");
-                            a.Reader.Skip(atomSize - 4);
-                            continue;
-                        }
-                        var atomType = a.Reader.GetUInt32();
-
                         // Indexes into the metadata item keys atom are 1-based (1…entry_count).
-                        // atom type for each metadata item atom is the index of the key
-                        if (atomType < 1 || atomType > metaDataKeys.Count)
+                        if (item.Type < 1 || item.Type > metaDataKeys.Count)
                         {
                             GetMetaHeaderDirectory().AddError("Invalid ilst atom type");
-                            a.Reader.Skip(atomSize - 8);
-                            continue;
+                            return;
                         }
-                        var key = metaDataKeys[(int)atomType - 1];
+                        var key = metaDataKeys[(int)item.Type - 1];
 
-                        // Value Atom
-                        a.Reader.Skip(8); // uint32 type indicator, uint32 locale indicator
-
-                        // Data Atom
-                        var dataTypeIndicator = a.Reader.GetUInt32();
-                        if (!_supportedAtomValueTypes.Contains((int)dataTypeIndicator))
+                        ReadDataAtoms(item, (dataTypeIndicator, data) =>
                         {
-                            GetMetaHeaderDirectory().AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
-                            a.Reader.Skip(atomSize - 20);
-                            continue;
-                        }
+                            if (!_supportedAtomValueTypes.Contains((int)dataTypeIndicator))
+                            {
+                                GetMetaHeaderDirectory().AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
+                                return;
+                            }
 
-                        // locale not supported yet.
-                        a.Reader.Skip(4);
+                            if (!QuickTimeMetadataHeaderDirectory.TryGetTag(key, out int tag))
+                            {
+                                GetMetaHeaderDirectory().AddError($"Unsupported ilst key \"{key}\"");
+                                return;
+                            }
 
-                        var data = a.Reader.GetBytes((int)atomSize - 24);
-                        if (QuickTimeMetadataHeaderDirectory.TryGetTag(key, out int tag))
-                        {
+                            if (dataTypeIndicator == 23 && data.Length != 4)
+                            {
+                                GetMetaHeaderDirectory().AddError($"Invalid Float32 value for key \"{key}\"");
+                                return;
+                            }
+
                             object value = dataTypeIndicator switch
                             {
                                 // UTF-8
@@ -330,12 +332,11 @@ public static class QuickTimeMetadataReader
 
                             GetMetaHeaderDirectory().Set(tag, value);
 
-                            static byte[] Reversed(byte[] data)
+                            static byte[] Reversed(byte[] bytes)
                             {
-                                Array.Reverse(data);
-                                return data;
+                                Array.Reverse(bytes);
+                                return bytes;
                             }
-
                             static object ParseDate(string text)
                             {
                                 if (DirectoryExtensions.TryParseDateTimeOffset(text, out var offset))
@@ -343,12 +344,8 @@ public static class QuickTimeMetadataReader
 
                                 return DateTime.Parse(text);
                             }
-                        }
-                        else
-                        {
-                            GetMetaHeaderDirectory().AddError($"Unsupported ilst key \"{key}\"");
-                        }
-                    }
+                        });
+                    }, AddError);
 
                     break;
                 }

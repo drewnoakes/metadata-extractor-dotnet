@@ -36,11 +36,13 @@ internal sealed class BoxLocation
         // Four bytes for the type (4CC, in ASCII)
         Type = reader.GetUInt32();
 
+        var headerSize = Length == 1 ? 16UL : 8UL;
+
         // Handle special length values
         Length = Length switch
         {
             // A length of 0 means the box continues until the end of the stream
-            0 => (ulong)reader.Available(), // Include 8 bytes for length/type
+            0 => (ulong)(reader is SequentialStreamReader streamReader ? streamReader.AvailableBytes : reader.Available()) + headerSize,
 
             // A length of 1 means the length is stored in 64 bits
             1 => reader.GetUInt64(),
@@ -48,5 +50,8 @@ internal sealed class BoxLocation
             // The length is fine so keep it
             _ => Length
         };
+
+        if (Length < headerSize || Length > long.MaxValue - Origin)
+            throw new ImageProcessingException($"Invalid size for box with type {TypeString}.");
     }
 }
