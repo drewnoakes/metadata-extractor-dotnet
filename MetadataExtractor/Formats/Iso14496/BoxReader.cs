@@ -4,9 +4,16 @@ using MetadataExtractor.Formats.Iso14496.Boxes;
 
 namespace MetadataExtractor.Formats.Iso14496;
 
-internal static class BoxReader
+/// <summary>
+/// Reads ISO base media boxes, allowing at most 100 levels of recursively parsed containers.
+/// </summary>
+internal sealed class BoxReader(Action<string> errorHandler)
 {
-    public static List<Box> ReadBoxes(SequentialReader reader)
+    private const int MaxBoxDepth = 100;
+
+    private int _depth;
+
+    public List<Box> ReadBoxes(SequentialReader reader)
     {
         var boxes = new List<Box>();
 
@@ -19,7 +26,7 @@ internal static class BoxReader
         return boxes;
     }
 
-    public static List<Box> ReadBoxes(SequentialReader sr, BoxLocation loc)
+    public List<Box> ReadBoxes(SequentialReader sr, BoxLocation loc)
     {
         var ret = new List<Box>();
         while (sr.IsWithinBox(loc))
@@ -32,27 +39,27 @@ internal static class BoxReader
         return ret;
     }
 
-    private static Box? ReadBox(SequentialReader sr)
+    private Box? ReadBox(SequentialReader sr)
     {
         return ReadBox(sr, ParseBox);
 
-        static Box ParseBox(BoxLocation location, SequentialReader sr)
+        Box ParseBox(BoxLocation location, SequentialReader sr)
         {
             return location.Type switch
             {
                 BoxTypes.FTypTag => new FileTypeBox(location, sr),
-                BoxTypes.MetaTag => new MetaBox(location, sr),
+                BoxTypes.MetaTag => ReadContainer(location, sr, static (l, r, b) => new MetaBox(l, r, b)),
                 BoxTypes.HdlrTag => new HandlerBox(location, sr),
-                BoxTypes.DinfTag => new DataInformationBox(location, sr),
-                BoxTypes.DrefTag => new DataReferenceBox(location, sr),
+                BoxTypes.DinfTag => ReadContainer(location, sr, static (l, r, b) => new DataInformationBox(l, r, b)),
+                BoxTypes.DrefTag => ReadContainer(location, sr, static (l, r, b) => new DataReferenceBox(l, r, b)),
                 BoxTypes.UrlTag => new DataEntryLocationBox(location, sr, hasName: false),
                 BoxTypes.UrnTag => new DataEntryLocationBox(location, sr, hasName: true),
                 BoxTypes.PitmTag => new PrimaryItemBox(location, sr),
-                BoxTypes.Iinftag => new ItemInformationBox(location, sr),
+                BoxTypes.Iinftag => ReadContainer(location, sr, static (l, r, b) => new ItemInformationBox(l, r, b)),
                 BoxTypes.InfeTag => new ItemInfoEntryBox(location, sr),
                 BoxTypes.IrefTag => new ItemReferenceBox(location, sr),
-                BoxTypes.IprpTag => new ItemPropertyBox(location, sr),
-                BoxTypes.IpcoTag => new ItemPropertyContainerBox(location, sr),
+                BoxTypes.IprpTag => ReadContainer(location, sr, static (l, r, b) => new ItemPropertyBox(l, r, b)),
+                BoxTypes.IpcoTag => ReadContainer(location, sr, static (l, r, b) => new ItemPropertyContainerBox(l, r, b)),
                 BoxTypes.IspeTag => new ImageSpatialExtentsBox(location, sr),
                 BoxTypes.HvcCTag => new DecoderConfigurationBox(location, sr),
                 BoxTypes.ColrTag => new ColorInformationBox(location, sr),
@@ -63,6 +70,26 @@ internal static class BoxReader
                 BoxTypes.IpmaTag => new ItemPropertyAssociationBox(location, sr),
                 _ => new Box(location)
             };
+        }
+    }
+
+    private Box ReadContainer(BoxLocation location, SequentialReader reader, Func<BoxLocation, SequentialReader, BoxReader, Box> parseBox)
+    {
+        if (_depth >= MaxBoxDepth)
+        {
+            errorHandler("Box nesting too deep.");
+            // ReadBox skips the payload using the absolute end, including extended-size headers.
+            return new Box(location);
+        }
+
+        _depth++;
+        try
+        {
+            return parseBox(location, reader, this);
+        }
+        finally
+        {
+            _depth--;
         }
     }
 

@@ -5,17 +5,22 @@ using MetadataExtractor.Formats.Iso14496;
 namespace MetadataExtractor.Formats.QuickTime;
 
 /// <summary>
-/// Models data provided to callbacks invoked when reading QuickTime atoms via <see cref="QuickTimeReader.ProcessAtoms"/>.
+/// Models data provided to callbacks invoked when reading QuickTime atoms via <see cref="QuickTimeReader.ProcessAtoms(Stream, Action{AtomCallbackArgs}, long)"/>.
 /// </summary>
 public sealed class AtomCallbackArgs(uint type, long size, Stream stream, long startPosition, SequentialStreamReader reader)
 {
+    private const int MaxAtomDepth = 100;
+
+    internal int Depth { get; init; }
+
     /// <summary>
     /// Gets the 32-bit unsigned integer that identifies the atom's type.
     /// </summary>
     public uint Type { get; } = type;
 
     /// <summary>
-    /// The length of the atom data, in bytes. If the atom extends to the end of the file, this value is zero.
+    /// Gets the length of the atom, including its header, in bytes.
+    /// If the atom extends to the end of the file, this value is zero.
     /// </summary>
     public long Size { get; } = size;
 
@@ -25,7 +30,7 @@ public sealed class AtomCallbackArgs(uint type, long size, Stream stream, long s
     public Stream Stream { get; } = stream;
 
     /// <summary>
-    /// Gets the position within <see cref="Stream"/> at which this atom's data started.
+    /// Gets the position within <see cref="Stream"/> at which this atom's header started.
     /// </summary>
     public long StartPosition { get; } = startPosition;
 
@@ -51,6 +56,24 @@ public sealed class AtomCallbackArgs(uint type, long size, Stream stream, long s
     /// Computes the number of bytes remaining in the atom, given the <see cref="Stream"/> position.
     /// </summary>
     public long BytesLeft => Size - (Stream.Position - StartPosition);
+
+    /// <summary>
+    /// Reads this atom's remaining contents as child atoms, allowing at most 100 levels of nested containers.
+    /// </summary>
+    /// <param name="handler">A callback function to handle each child atom.</param>
+    /// <param name="errorHandler">Receives an error if the nesting limit is exceeded. The remaining contents are then skipped.</param>
+    public void ProcessChildren(Action<AtomCallbackArgs> handler, Action<string> errorHandler)
+    {
+        if (Depth >= MaxAtomDepth)
+        {
+            errorHandler("Atom nesting too deep.");
+            // BytesLeft accounts for both 8-byte and 16-byte atom headers.
+            Reader.Skip(BytesLeft);
+            return;
+        }
+
+        QuickTimeReader.ProcessAtoms(Stream, handler, BytesLeft, Depth + 1);
+    }
 }
 
 /// <summary>
@@ -64,10 +87,18 @@ public static class QuickTimeReader
     /// <summary>
     /// Reads atom data from <paramref name="stream"/>, invoking <paramref name="handler"/> for each atom encountered.
     /// </summary>
+    /// <remarks>
+    /// Use <see cref="AtomCallbackArgs.ProcessChildren"/> within callbacks to process nested containers with bounded depth.
+    /// </remarks>
     /// <param name="stream">The stream to read atoms from.</param>
     /// <param name="handler">A callback function to handle each atom.</param>
     /// <param name="stopByBytes">The maximum number of bytes to process before discontinuing.</param>
     public static void ProcessAtoms(Stream stream, Action<AtomCallbackArgs> handler, long stopByBytes = -1)
+    {
+        ProcessAtoms(stream, handler, stopByBytes, depth: 0);
+    }
+
+    internal static void ProcessAtoms(Stream stream, Action<AtomCallbackArgs> handler, long stopByBytes, int depth)
     {
         var reader = new SequentialStreamReader(stream);
 
@@ -105,7 +136,7 @@ public static class QuickTimeReader
                     return;
                 }
 
-                var args = new AtomCallbackArgs(atomType, atomSize, stream, atomStartPos, reader);
+                var args = new AtomCallbackArgs(atomType, atomSize, stream, atomStartPos, reader) { Depth = depth };
 
                 handler(args);
 

@@ -6,10 +6,10 @@ internal class ItemPropertyContainerBox : Box
 {
     public IList<Box> Boxes { get; }
 
-    public ItemPropertyContainerBox(BoxLocation loc, SequentialReader sr)
+    public ItemPropertyContainerBox(BoxLocation loc, SequentialReader sr, BoxReader boxReader)
         : base(loc)
     {
-        Boxes = BoxReader.ReadBoxes(sr, loc);
+        Boxes = boxReader.ReadBoxes(sr, loc);
     }
 
     public override IEnumerable<Box> Children() => Boxes;

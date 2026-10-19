@@ -6,10 +6,10 @@ internal class DataInformationBox : Box
 {
     public IList<Box> Boxes { get; }
 
-    public DataInformationBox(BoxLocation loc, SequentialReader sr)
+    public DataInformationBox(BoxLocation loc, SequentialReader sr, BoxReader boxReader)
         : base(loc)
     {
-        Boxes = BoxReader.ReadBoxes(sr, loc);
+        Boxes = boxReader.ReadBoxes(sr, loc);
     }
 
     public override IEnumerable<Box> Children() => Boxes;

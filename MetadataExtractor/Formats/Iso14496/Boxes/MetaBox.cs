@@ -6,10 +6,10 @@ internal sealed class MetaBox : FullBox
 {
     public IList<Box> Boxes { get; }
 
-    public MetaBox(BoxLocation location, SequentialReader reader)
+    public MetaBox(BoxLocation location, SequentialReader reader, BoxReader boxReader)
         : base(location, reader)
     {
-        Boxes = BoxReader.ReadBoxes(reader, location);
+        Boxes = boxReader.ReadBoxes(reader, location);
     }
 
     public override IEnumerable<Box> Children() => Boxes;

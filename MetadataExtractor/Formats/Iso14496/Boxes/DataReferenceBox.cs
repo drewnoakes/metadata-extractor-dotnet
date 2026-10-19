@@ -7,11 +7,11 @@ internal sealed class DataReferenceBox : FullBox
     public IList<Box> Boxes { get; }
     public uint BoxCount { get; }
 
-    public DataReferenceBox(BoxLocation location, SequentialReader reader)
+    public DataReferenceBox(BoxLocation location, SequentialReader reader, BoxReader boxReader)
         : base(location, reader)
     {
         BoxCount = reader.GetUInt32();
-        Boxes = BoxReader.ReadBoxes(reader, location);
+        Boxes = boxReader.ReadBoxes(reader, location);
     }
 
     public override IEnumerable<Box> Children() => Boxes;

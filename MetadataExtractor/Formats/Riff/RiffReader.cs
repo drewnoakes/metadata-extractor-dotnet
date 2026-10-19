@@ -16,7 +16,13 @@ namespace MetadataExtractor.Formats.Riff;
 /// <author>Drew Noakes https://drewnoakes.com</author>
 public sealed class RiffReader
 {
+    private const int MaxChunkDepth = 100;
+
     /// <summary>Processes a RIFF data sequence.</summary>
+    /// <remarks>
+    /// At most 100 levels of nested LIST or RIFF containers are processed.
+    /// Excess nesting is reported to the handler and the remaining container contents are skipped.
+    /// </remarks>
     /// <param name="reader">The <see cref="SequentialReader"/> from which the data should be read.</param>
     /// <param name="handler">The <see cref="IRiffHandler"/> that will coordinate processing and accept read values.</param>
     public void ProcessRiff(SequentialReader reader, IRiffHandler handler)
@@ -44,7 +50,7 @@ public sealed class RiffReader
                 return;
 
             var maxPosition = reader.Position + sizeLeft;
-            ProcessChunks(reader, maxPosition, handler);
+            ProcessChunks(reader, maxPosition, handler, depth: 0);
         }
         catch (Exception e) when (e is ImageProcessingException or IOException)
         {
@@ -53,8 +59,15 @@ public sealed class RiffReader
     }
 
     // PROCESS CHUNKS
-    private static void ProcessChunks(SequentialReader reader, long maxPosition, IRiffHandler handler)
+    private static void ProcessChunks(SequentialReader reader, long maxPosition, IRiffHandler handler, int depth)
     {
+        if (depth > MaxChunkDepth)
+        {
+            handler.AddError("RIFF nesting too deep.");
+            reader.Skip(maxPosition - reader.Position);
+            return;
+        }
+
         // Processing chunks. Each chunk is 8 bytes header (4 bytes CC code + 4 bytes length of chunk) + data of the chunk
 
         Span<byte> listName = stackalloc byte[4];
@@ -74,7 +87,7 @@ public sealed class RiffReader
                     break;
                 listName = reader.GetBytes(4);
                 if (handler.ShouldAcceptList(listName))
-                    ProcessChunks(reader, reader.Position + chunkSize - 4, handler);
+                    ProcessChunks(reader, reader.Position + chunkSize - 4, handler, depth + 1);
                 else
                     reader.Skip(chunkSize - 4);
             }

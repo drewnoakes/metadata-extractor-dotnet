@@ -25,7 +25,8 @@ public static class HeifMetadataReader
 
         var reader = new SequentialStreamReader(stream);
 
-        var boxes = BoxReader.ReadBoxes(reader);
+        var boxReader = new BoxReader(error => directories.Add(new ErrorDirectory(error)));
+        var boxes = boxReader.ReadBoxes(reader);
 
         //
         // Map those boxes to directories

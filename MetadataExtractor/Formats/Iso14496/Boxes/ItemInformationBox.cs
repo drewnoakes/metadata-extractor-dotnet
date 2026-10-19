@@ -7,11 +7,11 @@ internal sealed class ItemInformationBox : FullBox
     public uint Count { get; }
     public IList<Box> Boxes { get; }
 
-    public ItemInformationBox(BoxLocation location, SequentialReader reader)
+    public ItemInformationBox(BoxLocation location, SequentialReader reader, BoxReader boxReader)
         : base(location, reader)
     {
         Count = Version == 0 ? reader.GetUInt16() : reader.GetUInt32();
-        Boxes = BoxReader.ReadBoxes(reader, location);
+        Boxes = boxReader.ReadBoxes(reader, location);
     }
 
     public override IEnumerable<Box> Children() => Boxes;
