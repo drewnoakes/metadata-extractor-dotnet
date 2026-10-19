@@ -1,5 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Globalization;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Tiff;
@@ -14,6 +15,14 @@ public static class QuickTimeMetadataReader
 {
     private static readonly DateTime _epoch = new(1904, 1, 1);
     private static readonly int[] _supportedAtomValueTypes = [1, 13, 14, 23, 27];
+    private static readonly string[] _itemListDatePatterns =
+    [
+        "yyyy-MM-dd",
+        "yyyy:MM:dd",
+        "yyyy-MM-dd'T'HH:mm:ss.FFFFFFF",
+        "yyyy-MM-dd HH:mm:ss.FFFFFFF",
+        "yyyy:MM:dd HH:mm:ss.FFFFFFF"
+    ];
 
     public static IReadOnlyList<Directory> ReadMetadata(Stream stream)
     {
@@ -195,6 +204,7 @@ public static class QuickTimeMetadataReader
 
                 value = tag switch
                 {
+                    QuickTimeMetadataHeaderDirectory.TagCreationDate when !keyShouldBeValid && key == "day" => ParseItemListDate(value),
                     QuickTimeMetadataHeaderDirectory.TagCreationDate or
                     QuickTimeMetadataHeaderDirectory.TagLocationDate => ParseDate(((StringValue)value).ToString()),
                     _ => value,
@@ -214,6 +224,20 @@ public static class QuickTimeMetadataReader
                         return offset;
 
                     return DateTime.Parse(text);
+                }
+
+                static object ParseItemListDate(object value)
+                {
+                    if (value is not StringValue stringValue)
+                        return value;
+
+                    var text = stringValue.ToString();
+                    if (DirectoryExtensions.TryParseDateTimeOffset(text, out var offset))
+                        return offset;
+
+                    // Exact formats require a complete date, rather than filling in missing components.
+                    return DateTime.TryParseExact(text, _itemListDatePatterns, CultureInfo.InvariantCulture,
+                        DateTimeStyles.AllowWhiteSpaces, out var date) ? date : value;
                 }
             });
         }

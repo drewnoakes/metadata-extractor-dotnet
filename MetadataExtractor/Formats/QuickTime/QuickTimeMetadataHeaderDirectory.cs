@@ -10,7 +10,12 @@ public sealed class QuickTimeMetadataHeaderDirectory : Directory
     public const int TagAuthor = 4;
     public const int TagComment = 5;
     public const int TagCopyright = 6;
+
+    /// <summary>
+    /// A creation date. Partial or unparseable ItemList dates are retained as <see cref="StringValue"/>.
+    /// </summary>
     public const int TagCreationDate = 7;
+
     public const int TagDescription = 8;
     public const int TagDirector = 9;
     public const int TagTitle = 10;
@@ -143,13 +148,11 @@ public sealed class QuickTimeMetadataHeaderDirectory : Directory
         { "nam",                                    TagTitle },
         { "titl",                                   TagTitle },
         { "gen",                                    TagGenre },
-        { "gnre",                                   TagGenre },
         { "keyw",                                   TagKeywords },
         { "xyz",                                    TagGpsLocation },
         { "prd",                                    TagProducer },
         { "pub",                                    TagPublisher },
         { "yrrc",                                   TagYear },
-        { "rtng",                                   TagRating },
     };
 
     public QuickTimeMetadataHeaderDirectory() : base(_tagNameMap)
