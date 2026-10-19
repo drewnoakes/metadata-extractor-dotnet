@@ -153,8 +153,6 @@ public static class QuickTimeMetadataReader
                     directories.Add(xmpDirectory);
                     break;
                 case 0x6D657461: // "meta" (iTunes-style user-data metadata)
-                    // MP4/ISO 'meta' is a FullBox: skip its 1-byte version and 3-byte flags.
-                    a.Reader.Skip(4);
                     ReadMetaData(a, itemListByDefault: true);
                     break;
                 case 0x58747261: // "Xtra" (Windows Media metadata, surfaced in the Windows Properties dialog)
@@ -177,19 +175,19 @@ public static class QuickTimeMetadataReader
 
         void ReadMetadataItem(AtomCallbackArgs item, string key, bool keyShouldBeValid)
         {
+            if (!QuickTimeMetadataHeaderDirectory.TryGetTag(key, out int tag))
+            {
+                if (keyShouldBeValid)
+                    AddError($"Unsupported ilst key \"{key}\"");
+                return;
+            }
+
             ReadDataAtoms(item, (dataTypeIndicator, data) =>
             {
                 if (!_supportedAtomValueTypes.Contains((int)dataTypeIndicator))
                 {
                     if (keyShouldBeValid)
                         AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
-                    return;
-                }
-
-                if (!QuickTimeMetadataHeaderDirectory.TryGetTag(key, out int tag))
-                {
-                    if (keyShouldBeValid)
-                        AddError($"Unsupported ilst key \"{key}\"");
                     return;
                 }
 
@@ -328,6 +326,23 @@ public static class QuickTimeMetadataReader
 
         void ReadMetaData(AtomCallbackArgs container, bool itemListByDefault = false)
         {
+            var bytesLeft = container.BytesLeft;
+            if (bytesLeft >= 8)
+            {
+                var position = container.Stream.Position;
+                var versionAndFlags = container.Reader.GetUInt32();
+                var firstChildSize = container.Reader.GetUInt32();
+                container.Stream.Position = position;
+
+                // MP4/ISO 'meta' is a FullBox: skip its 1-byte version and 3-byte flags.
+                // QuickTime may omit them; a size-zero child instead has its 4CC in the second word.
+                if (versionAndFlags == 0 &&
+                    (firstChildSize is 0 or 1 || (firstChildSize >= 8 && firstChildSize <= bytesLeft - 4)))
+                {
+                    container.Reader.Skip(4);
+                }
+            }
+
             var metaDataKeys = new List<string>();
             var metaDataHandlerType = string.Empty;
             container.ProcessChildren(MetaDataHandler, AddError);
@@ -338,6 +353,11 @@ public static class QuickTimeMetadataReader
                 switch (a.TypeString)
                 {
                     case "hdlr":
+                        if (a.BytesLeft < 12)
+                        {
+                            AddError("Invalid metadata handler atom size");
+                            break;
+                        }
                         a.Reader.Skip(8); // version/flags and pre-defined
                         // 'mdir' identifies ItemList metadata; 'mdta' identifies keyed metadata.
                         metaDataHandlerType = a.Reader.Get4ccString();

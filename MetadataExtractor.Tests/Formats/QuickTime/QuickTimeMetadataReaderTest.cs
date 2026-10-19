@@ -6,6 +6,90 @@ public sealed class QuickTimeMetadataReaderTest
 {
     [Theory]
     [CombinatorialData]
+    public void ReadsMetadataWithOrWithoutFullBoxPrefix(
+        bool inUserData, bool fullBox, bool keyed, bool extended, bool extendedHandler)
+    {
+        var handler = Box("hdlr", Concat(new byte[8], Encoding.ASCII.GetBytes(keyed ? "mdta" : "mdir")), extendedHandler);
+        var keys = keyed ? Box("keys", Concat(new byte[4], [0, 0, 0, 2],
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.title")),
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.year"))), extended) : [];
+        var ilst = Box("ilst", Concat(
+            Box(keyed ? "\0\0\0\u0001" : "\u00a9nam", DataAtom("Title", extended), extended),
+            Box(keyed ? "\0\0\0\u0002" : "yrrc", DataAtom("2024", extended), extended)), extended);
+        var meta = Box("meta", Concat(fullBox ? new byte[4] : [], handler, keys, ilst), extended);
+        var bytes = Box("moov", inUserData ? Box("udta", meta, extended) : meta, extended);
+        using var stream = new MemoryStream(bytes);
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("Title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.Equal("2024", Assert.IsType<StringValue>(directory.GetObject(QuickTimeMetadataHeaderDirectory.TagYear)).ToString());
+        Assert.False(directory.HasError);
+        Assert.Equal(stream.Length, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void ReadsZeroSizedFirstMetadataChildWithOrWithoutFullBoxPrefix(bool fullBox, bool extended)
+    {
+        var ilst = Box("ilst", Box("\u00a9nam", DataAtom("Title")));
+        WriteUInt32(ilst, 0, 0);
+        var meta = Box("meta", Concat(fullBox ? new byte[4] : [], ilst), extended);
+        using var stream = new MemoryStream(Box("moov", Box("udta", meta, extended), extended));
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("Title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.False(directory.HasError);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void RejectsShortMetadataHandlerWithoutConsumingFollowingSiblings(
+        [CombinatorialValues(0, 4, 8, 11)] int payloadLength, bool inUserData, bool extended)
+    {
+        var malformed = Box("hdlr", new byte[payloadLength], extended);
+        var handler = Box("hdlr", Concat(new byte[8], Encoding.ASCII.GetBytes("mdir")), extended);
+        var ilst = Box("ilst", Box("\u00a9nam", DataAtom("Following title", extended), extended), extended);
+        var meta = Box("meta", Concat(inUserData ? new byte[4] : [], malformed, handler, ilst), extended);
+        using var stream = new MemoryStream(Box("moov", inUserData ? Box("udta", meta, extended) : meta, extended));
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("Following title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        Assert.Equal("Invalid metadata handler atom size", Assert.Single(directory.Errors));
+        Assert.Equal(stream.Length, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void SkipsUnknownMetadataPayloadWithoutReadingIt(bool keyed, bool extended)
+    {
+        const int payloadLength = 128 * 1024;
+        var headerSize = extended ? 16 : 8;
+        var handler = Box("hdlr", Concat(new byte[8], Encoding.ASCII.GetBytes(keyed ? "mdta" : "mdir")), extended);
+        var keys = keyed ? Box("keys", Concat(new byte[4], [0, 0, 0, 2],
+            Box("mdta", Encoding.UTF8.GetBytes("com.example.unsupported")),
+            Box("mdta", Encoding.UTF8.GetBytes("com.apple.quicktime.title"))), extended) : [];
+        var prefix = Concat(new byte[4], handler, keys);
+        var ignoredItem = Box(keyed ? "\0\0\0\u0001" : "covr", TypedDataAtom(13, new byte[payloadLength], extended), extended);
+        var title = Box(keyed ? "\0\0\0\u0002" : "\u00a9nam", DataAtom("Following title", extended), extended);
+        var bytes = Box("moov", Box("udta", Box("meta", Concat(prefix,
+            Box("ilst", Concat(ignoredItem, title), extended)), extended), extended), extended);
+        using var stream = new PayloadGuardStream(bytes, 6 * headerSize + prefix.Length + 8, payloadLength);
+
+        var directory = Assert.Single(QuickTimeMetadataReader.ReadMetadata(stream).OfType<QuickTimeMetadataHeaderDirectory>());
+
+        Assert.Equal("Following title", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
+        if (keyed)
+            Assert.Equal("Unsupported ilst key \"com.example.unsupported\"", Assert.Single(directory.Errors));
+        else
+            Assert.False(directory.HasError);
+        Assert.Equal(stream.Length, stream.Position);
+    }
+
+    [Theory]
+    [CombinatorialData]
     public void ReadsItemListMetadataInBothContainers(bool inUserData, bool extended)
     {
         var handler = Box("hdlr", Concat(new byte[8], Encoding.ASCII.GetBytes("mdir")));
@@ -451,6 +535,23 @@ public sealed class QuickTimeMetadataReaderTest
         {
             Assert.Equal("", directory.GetString(QuickTimeMetadataHeaderDirectory.TagTitle));
             Assert.False(directory.HasError);
+        }
+    }
+
+    private sealed class PayloadGuardStream(byte[] bytes, long payloadStart, long payloadLength) : MemoryStream(bytes)
+    {
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            Assert.False(Position < payloadStart + payloadLength && Position + count > payloadStart,
+                "The unsupported metadata payload must be skipped, not read.");
+            return base.Read(buffer, offset, count);
+        }
+
+        public override int ReadByte()
+        {
+            Assert.False(Position >= payloadStart && Position < payloadStart + payloadLength,
+                "The unsupported metadata payload must be skipped, not read.");
+            return base.ReadByte();
         }
     }
 
