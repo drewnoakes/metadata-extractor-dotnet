@@ -4,6 +4,7 @@ abstract MetadataExtractor.IO.SequentialReader.GetBytes(System.Span<byte> bytes)
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagAcceleration = 37892 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagCameraElevationAngle = 37893 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagHumidity = 37889 -> int
+const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagModelTransformation = 34264 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagPressure = 37890 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagTemperature = 37888 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagWaterDepth = 37891 -> int

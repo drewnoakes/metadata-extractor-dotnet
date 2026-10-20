@@ -380,97 +380,164 @@ public class ExifTiffHandler : DirectoryTiffHandler
 
     public override void EndingIfd(in TiffReaderContext context)
     {
-        if (CurrentDirectory is ExifIfd0Directory directory)
+        if (CurrentDirectory is ExifIfd0Directory or ExifSubIfdDirectory or ExifThumbnailDirectory or ExifImageDirectory)
         {
-            if (directory.GetObject(ExifDirectoryBase.TagGeoTiffGeoKeys) is ushort[] geoKeys)
+            var directory = CurrentDirectory;
+            if (directory.ContainsTag(ExifDirectoryBase.TagGeoTiffGeoKeys))
             {
-                // GetTIFF stores data in its own format within TIFF. It is TIFF-like, but different.
-                // It can reference data from tags that have not been visited yet, so we must unpack it
-                // once the directory is complete.
-                ProcessGeoTiff(geoKeys, directory);
+                // Keys can reference tags that have not been visited yet.
+                ProcessGeoTiff(directory);
             }
         }
 
         base.EndingIfd(context);
     }
 
-#if NET7_0_OR_GREATER
-    [UnconditionalSuppressMessage("Aot", "IL3050:RequiresDynamicCode", Justification = "Array.CreateInstance is only called with known element types")]
-#endif
-    private void ProcessGeoTiff(ushort[] geoKeys, ExifIfd0Directory sourceDirectory)
+    private void ProcessGeoTiff(Directory sourceDirectory)
     {
-        if (geoKeys.Length < 4)
-            return;
-
-        var geoTiffDirectory = new GeoTiffDirectory { Parent = CurrentDirectory };
+        var geoTiffDirectory = new GeoTiffDirectory { Parent = sourceDirectory };
         Directories.Add(geoTiffDirectory);
 
-        var i = 0;
-
-        var directoryVersion = geoKeys[i++];
-        var revision = geoKeys[i++];
-        var minorRevision = geoKeys[i++];
-        var numberOfKeys = geoKeys[i++];
-
-        // TODO store these values in negative tag IDs
-
-        var sourceTags = new HashSet<int> { ExifDirectoryBase.TagGeoTiffGeoKeys };
-
-        for (var j = 0; j < numberOfKeys; j++)
+        var sourceKeys = sourceDirectory.GetObject(ExifDirectoryBase.TagGeoTiffGeoKeys);
+        // The CLR also matches short[] with "is ushort[]", but GeoTIFF requires unsigned SHORT.
+        if (sourceKeys is not ushort[] geoKeys || sourceKeys.GetType() != typeof(ushort[]))
         {
-            var keyId = geoKeys[i++];
-            var tiffTagLocation = geoKeys[i++];
-            var valueCount = geoKeys[i++];
-            var valueOffset = geoKeys[i++];
-
-            if (tiffTagLocation == 0)
-            {
-                // Identifies the tag containing the value. If zero, then the value is ushort and stored
-                // in valueOffset directly, and the value count is implied as 1.
-                geoTiffDirectory.Set(keyId, valueOffset);
-            }
-            else
-            {
-                // The value is stored in another tag.
-                var sourceTagId = tiffTagLocation;
-                sourceTags.Add(sourceTagId);
-                var sourceValue = sourceDirectory.GetObject(sourceTagId);
-                if (sourceValue is StringValue sourceString)
-                {
-                    if (valueOffset + valueCount <= sourceString.Bytes.Length)
-                    {
-                        // ASCII values appear to have a | character and the end, so we trim it off here
-                        geoTiffDirectory.Set(keyId, sourceString.ToString(valueOffset, valueCount).TrimEnd('|'));
-                    }
-                    else
-                    {
-                        geoTiffDirectory.AddError($"GeoTIFF key {keyId} with offset {valueOffset} and count {valueCount} extends beyond length of source value ({sourceString.Bytes.Length})");
-                    }
-                }
-                else if (sourceValue is Array sourceArray)
-                {
-                    if (valueOffset + valueCount <= sourceArray.Length)
-                    {
-                        Type? elementType = sourceArray.GetType().GetElementType();
-                        var array = Array.CreateInstance(elementType!, valueCount);
-                        Array.Copy(sourceArray, valueOffset, array, 0, valueCount);
-                        geoTiffDirectory.Set(keyId, array);
-                    }
-                    else
-                    {
-                        geoTiffDirectory.AddError($"GeoTIFF key {keyId} with offset {valueOffset} and count {valueCount} extends beyond length of source value ({sourceArray.Length})");
-                    }
-                }
-                else
-                {
-                    geoTiffDirectory.AddError($"GeoTIFF key {keyId} references tag {sourceTagId} which has unsupported type of {sourceValue?.GetType().ToString() ?? "null"}");
-                }
-            }
+            geoTiffDirectory.AddError(sourceKeys is ushort
+                ? "GeoTIFF key directory header is truncated"
+                : "GeoTIFF key directory must have type SHORT");
+            return;
         }
 
-        foreach (var sourceTag in sourceTags)
+        if (geoKeys.Length < 4)
         {
-            sourceDirectory.RemoveTag(sourceTag);
+            geoTiffDirectory.AddError("GeoTIFF key directory header is truncated");
+            return;
+        }
+
+        if (geoKeys[0] != 1 || geoKeys[1] != 1 || geoKeys[2] > 1)
+        {
+            geoTiffDirectory.AddError($"Unsupported GeoTIFF key directory version {geoKeys[0]}.{geoKeys[1]}.{geoKeys[2]}");
+            return;
+        }
+
+        var numberOfKeys = geoKeys[3];
+        var keyTableEnd = 4 + 4 * numberOfKeys;
+        if (keyTableEnd > geoKeys.Length)
+        {
+            geoTiffDirectory.AddError($"GeoTIFF key directory declares {numberOfKeys} keys but its key table is truncated");
+            return;
+        }
+
+        var seenKeys = new HashSet<ushort>();
+        for (var i = 4; i < keyTableEnd; i += 4)
+        {
+            var keyId = geoKeys[i];
+            var tiffTagLocation = geoKeys[i + 1];
+            var valueCount = geoKeys[i + 2];
+            var valueOffset = geoKeys[i + 3];
+
+            if (!seenKeys.Add(keyId))
+            {
+                geoTiffDirectory.AddError($"Duplicate GeoTIFF key {keyId}");
+                continue;
+            }
+
+            if (valueCount == 0)
+            {
+                geoTiffDirectory.AddError($"GeoTIFF key {keyId} has zero count");
+                continue;
+            }
+
+            switch (tiffTagLocation)
+            {
+                case 0:
+                    if (valueCount != 1)
+                        geoTiffDirectory.AddError($"Inline GeoTIFF key {keyId} must have count 1");
+                    else
+                        geoTiffDirectory.Set(keyId, valueOffset);
+                    break;
+
+                case ExifDirectoryBase.TagGeoTiffGeoKeys:
+                    // SHORT parameters follow the complete key table, never its header or entries.
+                    if (valueOffset < keyTableEnd)
+                        geoTiffDirectory.AddError($"GeoTIFF key {keyId} SHORT values overlap the key directory header or entries");
+                    else if (CheckBounds(geoKeys.Length))
+                    {
+                        var values = new ushort[valueCount];
+                        Array.Copy(geoKeys, valueOffset, values, 0, valueCount);
+                        geoTiffDirectory.Set(keyId, values);
+                    }
+                    break;
+
+                case ExifDirectoryBase.TagGeoTiffGeoDoubleParams:
+                    var doubleSource = sourceDirectory.GetObject(tiffTagLocation);
+                    if (doubleSource is double[] doubles)
+                    {
+                        if (CheckBounds(doubles.Length))
+                        {
+                            var values = new double[valueCount];
+                            Array.Copy(doubles, valueOffset, values, 0, valueCount);
+                            geoTiffDirectory.Set(keyId, values);
+                        }
+                    }
+                    else if (doubleSource is double singleDouble)
+                    {
+                        if (CheckBounds(1))
+                            geoTiffDirectory.Set(keyId, new[] { singleDouble });
+                    }
+                    else
+                        InvalidSource();
+                    break;
+
+                case ExifDirectoryBase.TagGeoTiffGeoAsciiParams:
+                    if (sourceDirectory.GetObject(tiffTagLocation) is StringValue ascii)
+                    {
+                        if (CheckBounds(ascii.Bytes.Length))
+                        {
+                            var valid = true;
+                            for (int j = valueOffset; j < valueOffset + valueCount; j++)
+                            {
+                                if (ascii.Bytes[j] == 0 || ascii.Bytes[j] > 127)
+                                {
+                                    valid = false;
+                                    break;
+                                }
+                            }
+
+                            if (!valid)
+                            {
+                                geoTiffDirectory.AddError($"GeoTIFF key {keyId} contains invalid ASCII parameters");
+                                break;
+                            }
+
+                            var count = ascii.Bytes[valueOffset + valueCount - 1] == (byte)'|' ? valueCount - 1 : valueCount;
+                            geoTiffDirectory.Set(keyId, Encoding.ASCII.GetString(ascii.Bytes, valueOffset, count));
+                        }
+                    }
+                    else
+                        InvalidSource();
+                    break;
+
+                default:
+                    geoTiffDirectory.AddError($"GeoTIFF key {keyId} references unsupported TIFF tag {tiffTagLocation}");
+                    break;
+            }
+
+            bool CheckBounds(int length)
+            {
+                if (valueOffset <= length && valueCount <= length - valueOffset)
+                    return true;
+
+                geoTiffDirectory.AddError($"GeoTIFF key {keyId} with offset {valueOffset} and count {valueCount} extends beyond length of source value ({length})");
+                return false;
+            }
+
+            void InvalidSource()
+            {
+                geoTiffDirectory.AddError(sourceDirectory.ContainsTag(tiffTagLocation)
+                    ? $"GeoTIFF key {keyId} references tag {tiffTagLocation} with an invalid type"
+                    : $"GeoTIFF key {keyId} references missing tag {tiffTagLocation}");
+            }
         }
     }
 

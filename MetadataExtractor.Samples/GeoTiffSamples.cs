@@ -137,7 +137,7 @@ internal static class GeoTiffSamples
 
         Console.Out.WriteLine($"Pixel scale: {xScale}, {yScale}");
 
-        // We multiple the pixel scale by the image dimensions to compute the width
+        // We multiply the pixel scale by the image dimensions to compute the width
         // and height of the image in meters.
 
         var width = ifd0.GetInt32(ExifDirectoryBase.TagImageWidth);
@@ -153,9 +153,10 @@ internal static class GeoTiffSamples
         // By combining the tie point with our width and height, we can compute the
         // position of all corners in model space.
 
+        // Positive Y pixel scale maps increasing raster rows to decreasing model Y.
         var upperLeftUtm  = (X: x,      Y: y     );
-        var lowerLeftUtm  = (X: x,      Y: y + dy);
-        var lowerRightUtm = (X: x + dx, Y: y + dy);
+        var lowerLeftUtm  = (X: x,      Y: y - dy);
+        var lowerRightUtm = (X: x + dx, Y: y - dy);
         var upperRightUtm = (X: x + dx, Y: y     );
 
         Console.Out.WriteLine($"Corners (WGS84 UTM): [\n  [{upperLeftUtm}],\n  [{lowerLeftUtm}],\n  [{lowerRightUtm}],\n  [{upperRightUtm}]\n]");
