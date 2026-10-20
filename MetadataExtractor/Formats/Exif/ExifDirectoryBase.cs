@@ -213,6 +213,9 @@ public abstract class ExifDirectoryBase : Directory
 
     public const int TagModelTiePoint = 0x8482;
 
+    /// <summary>A 4 by 4 raster-to-model transformation matrix stored as 16 doubles in row-major order.</summary>
+    public const int TagModelTransformation = 0x85D8;
+
     public const int TagPhotoshopSettings = 0x8649;
 
     public const int TagInterColorProfile = 0x8773;
@@ -820,6 +823,10 @@ public abstract class ExifDirectoryBase : Directory
         map[TagPixelScale] = "Pixel Scale";
         map[TagIptcNaa] = "IPTC/NAA";
         map[TagModelTiePoint] = "Model Tie Point";
+        map[TagModelTransformation] = "Model Transformation";
+        map[TagGeoTiffGeoKeys] = "GeoTIFF GeoKeys";
+        map[TagGeoTiffGeoDoubleParams] = "GeoTIFF GeoDoubleParams";
+        map[TagGeoTiffGeoAsciiParams] = "GeoTIFF GeoAsciiParams";
         map[TagPhotoshopSettings] = "Photoshop Settings";
         map[TagInterColorProfile] = "Inter Color Profile";
         map[TagExposureProgram] = "Exposure Program";
