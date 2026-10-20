@@ -92,32 +92,6 @@ preserving the previous QuickTime date conversion behavior. Use the offset-aware
 to retain the original offset, then `.DateTime` for the shooting-local clock time or
 `.UtcDateTime` for UTC.
 
-### GeoTIFF
-
-GeoTIFF 1.0 and 1.1 keys are decoded according to the
-[OGC GeoTIFF standard](https://github.com/opengeospatial/geotiff/tree/master/GeoTIFF_Standard/standard/requirements)
-into a `GeoTiffDirectory` whose `Parent` is
-the image IFD containing them. Each image IFD (including sub-IFDs and subsequent
-pages) uses its own parameter tags. Unknown and private key IDs are retained;
-unknown enumeration values remain available numerically.
-
-Inline SHORT keys are stored as `ushort` values. Referenced SHORT and DOUBLE
-keys are stored as `ushort[]` and `double[]`, even when they contain one value.
-ASCII keys use byte offsets and ASCII decoding; only the final pipe terminator
-is removed, not internal separators. Non-ASCII bytes are reported as invalid
-parameters. Unsupported versions, truncated key tables,
-and invalid key references are reported through `GeoTiffDirectory.Errors`
-without discarding unrelated metadata. Invalid individual keys are skipped;
-duplicate keys report an error and keep the first occurrence.
-
-Raw GeoTIFF source tags now remain in the source IFD on both success and failure,
-so callers enumerating all tags will see these in addition to the decoded keys.
-This includes the GeoKey directory and its DOUBLE/ASCII parameter pools, which
-were previously removed after decoding. Pixel scale, tie points, and the
-16-double row-major `ExifDirectoryBase.TagModelTransformation` matrix also
-remain available there. The library extracts this metadata; it does not perform
-general coordinate-system transformations.
-
 ## Features
 
 The library understands several formats of metadata, many of which may be present in a single image:
