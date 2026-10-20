@@ -824,9 +824,9 @@ public abstract class ExifDirectoryBase : Directory
         map[TagIptcNaa] = "IPTC/NAA";
         map[TagModelTiePoint] = "Model Tie Point";
         map[TagModelTransformation] = "Model Transformation";
-        map[TagGeoTiffGeoKeys] = "GeoTIFF GeoKeys";
-        map[TagGeoTiffGeoDoubleParams] = "GeoTIFF GeoDoubleParams";
-        map[TagGeoTiffGeoAsciiParams] = "GeoTIFF GeoAsciiParams";
+        map[TagGeoTiffGeoKeys] = "GeoTIFF Geo Keys";
+        map[TagGeoTiffGeoDoubleParams] = "GeoTIFF Geo Double Params";
+        map[TagGeoTiffGeoAsciiParams] = "GeoTIFF Geo ASCII Params";
         map[TagPhotoshopSettings] = "Photoshop Settings";
         map[TagInterColorProfile] = "Inter Color Profile";
         map[TagExposureProgram] = "Exposure Program";
