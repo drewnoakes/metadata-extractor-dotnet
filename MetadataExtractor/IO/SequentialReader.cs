@@ -92,6 +92,7 @@ public abstract class SequentialReader(bool isMotorolaByteOrder)
 
     /// <summary>Returns the next unsigned byte from the sequence.</summary>
     /// <returns>the 8 bit int value, between 0 and 255</returns>
+    /// <exception cref="EndOfStreamException">The end of the sequence has been reached.</exception>
     /// <exception cref="IOException"/>
     public abstract byte GetByte();
 

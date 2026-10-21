@@ -41,7 +41,7 @@ public abstract class SequentialReaderTestBase
     {
         var reader = CreateReader(new byte[1]);
         reader.GetByte();
-        var ex = Assert.Throws<IOException>(() => reader.GetByte());
+        var ex = Assert.ThrowsAny<IOException>(() => reader.GetByte());
         Assert.Equal("End of data reached.", ex.Message);
     }
 
@@ -303,7 +303,7 @@ public abstract class SequentialReaderTestBase
 
         reader = CreateReader(new byte[1]);
         reader.GetByte();
-        Assert.Throws<IOException>(() => reader.GetByte());
+        Assert.ThrowsAny<IOException>(() => reader.GetByte());
     }
 
     [Fact]
