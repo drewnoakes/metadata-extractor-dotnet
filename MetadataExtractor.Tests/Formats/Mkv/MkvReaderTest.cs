@@ -8,10 +8,8 @@ namespace MetadataExtractor.Formats.Mkv;
 public sealed class MkvReaderTest
 {
     [Theory]
-    [InlineData(2)]
-    [InlineData(3)]
-    [InlineData(4)]
-    public void PreservesRepeatedTracksAndParentage(int count)
+    [CombinatorialData]
+    public void PreservesRepeatedTracksAndParentage([CombinatorialRange(2, 3)] int count)
     {
         var tracks = new[] { Video(1) }.Concat(Enumerable.Range(2, count - 1).Select(i => Audio((ulong)i))).ToArray();
         var metadata = Extract(Document(Element(Id.Tracks, tracks)));
@@ -35,9 +33,8 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(1)]
-    [InlineData(8)]
-    public void ReadsUnknownSizedSegmentAndClusterBeforeTracks(int width)
+    [CombinatorialData]
+    public void ReadsUnknownSizedSegmentAndClusterBeforeTracks([CombinatorialValues(1, 8)] int width)
     {
         var bytes = Concat(Header("webm"), Unknown(Id.Segment, width,
             Unknown(Id.Cluster, width, Unsigned(0xE7, 0), Element(Id.Void, new byte[4])),
@@ -52,8 +49,7 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
+    [CombinatorialData]
     public void NewRootEndsUnknownMasters(bool secondHeader)
     {
         var bytes = Concat(Header(), Unknown(Id.Segment, 8,
@@ -83,8 +79,7 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
+    [CombinatorialData]
     public void UsesDefaultsForAbsentAndEmptyElements(bool empty)
     {
         var metadata = Extract(Document(
@@ -217,9 +212,8 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(Id.DocTypeVersion)]
-    [InlineData(Id.Version)]
-    public void RejectsVersionLowerThanReadVersion(int versionId)
+    [CombinatorialData]
+    public void RejectsVersionLowerThanReadVersion([CombinatorialValues(Id.DocTypeVersion, Id.Version)] int versionId)
     {
         var metadata = Extract(Concat(Element(Id.Header, Text(Id.DocType, "matroska"),
             Unsigned(versionId, 0)), Element(Id.Segment)));
@@ -229,8 +223,7 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
+    [CombinatorialData]
     public void RejectsUnsupportedDocTypeAndMissingHeader(bool missingHeader)
     {
         var segment = Element(Id.Segment, Element(Id.Tracks, Video(1)));
@@ -271,11 +264,8 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(0xFF)]
-    [InlineData(0x7FFF)]
-    [InlineData(0x3FFFFF)]
-    [InlineData(0x1FFFFFFF)]
-    public void RejectsReservedElementIdentifiers(int id)
+    [CombinatorialData]
+    public void RejectsReservedElementIdentifiers([CombinatorialValues(0xFF, 0x7FFF, 0x3FFFFF, 0x1FFFFFFF)] int id)
     {
         var metadata = Extract(Document(Element(id)));
 
@@ -293,11 +283,8 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(0)]
-    [InlineData(1)]
-    [InlineData(2)]
-    [InlineData(3)]
-    public void ReportsMalformedHeadersWithoutDiscardingEarlierMetadata(int kind)
+    [CombinatorialData]
+    public void ReportsMalformedHeadersWithoutDiscardingEarlierMetadata([CombinatorialRange(0, 4)] int kind)
     {
         byte[][] malformed =
         [
@@ -313,15 +300,8 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(1)]
-    [InlineData(2)]
-    [InlineData(3)]
-    [InlineData(4)]
-    [InlineData(5)]
-    [InlineData(6)]
-    [InlineData(7)]
-    [InlineData(8)]
-    public void ReadsEverySizeVintWidth(int width)
+    [CombinatorialData]
+    public void ReadsEverySizeVintWidth([CombinatorialRange(1, 8)] int width)
     {
         var tracks = Element(Id.Tracks, Video(1));
         var metadata = Extract(Concat(Header(), Bytes(Id.Segment), Size((ulong)tracks.Length, width), tracks));
@@ -331,8 +311,7 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
+    [CombinatorialData]
     public void ReadsFloatingPointWidths(bool singlePrecision)
     {
         var metadata = Extract(Document(Element(Id.Info, Floating(Id.Duration, 1.25, singlePrecision))));
@@ -344,8 +323,7 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
+    [CombinatorialData]
     public void RejectsInvalidScalarWidth(bool floatingPoint)
     {
         var malformed = floatingPoint
@@ -398,10 +376,8 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(0)]
-    [InlineData(2)]
-    [InlineData(100)]
-    public void DetectsSkipPastEofAndRetainsEarlierMetadata(int actualSize)
+    [CombinatorialData]
+    public void DetectsSkipPastEofAndRetainsEarlierMetadata([CombinatorialValues(0, 2, 100)] int actualSize)
     {
         var payload = Concat(Element(Id.Info, Text(Id.MuxingApp, "mux")),
             Element(Id.Tracks, Video(1)), Bytes(Id.Cluster), Size(100), new byte[actualSize]);
@@ -417,10 +393,8 @@ public sealed class MkvReaderTest
     }
 
     [Theory]
-    [InlineData(0)]
-    [InlineData(2)]
-    [InlineData(100)]
-    public void VerifiesSkippedPayloadEvenWhenReaderClaimsSeekPastEofSucceeded(int actualSize)
+    [CombinatorialData]
+    public void VerifiesSkippedPayloadEvenWhenReaderClaimsSeekPastEofSucceeded([CombinatorialValues(0, 2, 100)] int actualSize)
     {
         var payload = Concat(Element(Id.Tracks, Video(1)), Bytes(Id.Cluster), Size(100), new byte[actualSize]);
         var bytes = Concat(Header(), Bytes(Id.Segment), Size((ulong)(payload.Length + 100 - actualSize)), payload);

@@ -74,8 +74,7 @@ public sealed class SequentialStreamReaderStreamingTest
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
+    [CombinatorialData]
     public void CountsBytesConsumedBeforeTruncatedRead(bool spanRead)
     {
         using var stream = new ForwardOnlyStream([1, 2, 3]);

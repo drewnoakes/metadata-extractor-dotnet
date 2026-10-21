@@ -84,8 +84,7 @@ public sealed class MkvTagReaderTest
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
+    [CombinatorialData]
     public void Bcp47OverridesLegacyLanguageRegardlessOfFieldOrder(bool bcp47First)
     {
         var legacy = Text(Id.TagLanguage, "deu");

@@ -144,11 +144,8 @@ public sealed class MkvFileTypeTest
     }
 
     [Theory]
-    [InlineData(0)]
-    [InlineData(1)]
-    [InlineData(2)]
-    [InlineData(3)]
-    public void TruncatedSignatureDoesNotMatchEbml(int length)
+    [CombinatorialData]
+    public void TruncatedSignatureDoesNotMatchEbml([CombinatorialRange(0, 4)] int length)
     {
         using var stream = new MemoryStream(new byte[] { 0x1A, 0x45, 0xDF, 0xA3 }.Take(length).ToArray());
 

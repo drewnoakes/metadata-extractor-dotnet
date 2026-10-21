@@ -7,8 +7,7 @@ namespace MetadataExtractor.Formats.Mkv;
 public sealed class MkvDescriptorTest
 {
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
+    [CombinatorialData]
     public void DerivesDurationWithNonDefaultScaleRegardlessOfFieldOrder(bool scaleFirst)
     {
         var scale = Unsigned(Id.TimestampScale, 2000000);

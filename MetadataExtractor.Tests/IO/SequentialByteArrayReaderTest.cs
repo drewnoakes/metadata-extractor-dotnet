@@ -14,10 +14,8 @@ public sealed class SequentialByteArrayReaderTest : SequentialReaderTestBase
     }
 
     [Theory]
-    [InlineData(0x100000000L)]
-    [InlineData(0x100000001L)]
-    [InlineData(long.MaxValue)]
-    public void HugeTrySkipReturnsFalseAndStopsAtArrayEnd(long count)
+    [CombinatorialData]
+    public void HugeTrySkipReturnsFalseAndStopsAtArrayEnd([CombinatorialValues(0x100000000L, 0x100000001L, long.MaxValue)] long count)
     {
         var reader = new SequentialByteArrayReader([0, 1, 2, 3], baseIndex: 1);
 
@@ -30,10 +28,8 @@ public sealed class SequentialByteArrayReaderTest : SequentialReaderTestBase
     }
 
     [Theory]
-    [InlineData(0x100000000L)]
-    [InlineData(0x100000001L)]
-    [InlineData(long.MaxValue)]
-    public void HugeSkipThrowsWithoutChangingPosition(long count)
+    [CombinatorialData]
+    public void HugeSkipThrowsWithoutChangingPosition([CombinatorialValues(0x100000000L, 0x100000001L, long.MaxValue)] long count)
     {
         var reader = new SequentialByteArrayReader([0, 1, 2, 3], baseIndex: 1);
 
@@ -46,8 +42,7 @@ public sealed class SequentialByteArrayReaderTest : SequentialReaderTestBase
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
+    [CombinatorialData]
     public void HugeGetBytesFromNonzeroIndexThrowsBeforeAllocationOrCopy(bool callerProvidedBuffer)
     {
         var reader = new SequentialByteArrayReader([0, 1, 2], baseIndex: 1);
