@@ -2,6 +2,7 @@
 
 using MetadataExtractor.Formats.Avi;
 using MetadataExtractor.Formats.Bmp;
+using MetadataExtractor.Formats.Ebml;
 using MetadataExtractor.Formats.Eps;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.FileType;
@@ -44,6 +45,7 @@ namespace MetadataExtractor;
 ///   <item><see cref="WebPMetadataReader"/> for WebP files</item>
 ///   <item><see cref="RafMetadataReader"/> for RAF files</item>
 ///   <item><see cref="QuickTimeMetadataReader"/> for QuickTime files</item>
+///   <item><see cref="EbmlMetadataReader"/> for Matroska and WebM files</item>
 /// </list>
 ///
 /// If you know the file type you're working with, you may use one of the above processors directly.
@@ -78,6 +80,7 @@ public static class ImageMetadataReader
             FileType.Crx       => QuickTimeMetadataReader.ReadMetadata(stream),
             FileType.Cr2       => TiffMetadataReader.ReadMetadata(stream),
             FileType.Dng       => TiffMetadataReader.ReadMetadata(stream),
+            FileType.Ebml      => EbmlMetadataReader.ReadMetadata(stream),
             FileType.Eps       => EpsMetadataReader.ReadMetadata(stream),
             FileType.Gif       => GifMetadataReader.ReadMetadata(stream),
             FileType.GoPro     => TiffMetadataReader.ReadMetadata(stream),
@@ -85,6 +88,7 @@ public static class ImageMetadataReader
             FileType.Ico       => IcoMetadataReader.ReadMetadata(stream),
             FileType.Jpeg      => JpegMetadataReader.ReadMetadata(stream),
             FileType.Kdc       => TiffMetadataReader.ReadMetadata(stream),
+            FileType.Mkv       => EbmlMetadataReader.ReadMetadata(stream),
             FileType.Mp3       => Mp3MetadataReader.ReadMetadata(stream),
             FileType.Mp4       => QuickTimeMetadataReader.ReadMetadata(stream),
             FileType.Nef       => TiffMetadataReader.ReadMetadata(stream),
@@ -102,6 +106,7 @@ public static class ImageMetadataReader
             FileType.ThreeFR   => TiffMetadataReader.ReadMetadata(stream),
             FileType.Tiff      => TiffMetadataReader.ReadMetadata(stream),
             FileType.Wav       => WavMetadataReader.ReadMetadata(stream),
+            FileType.WebM      => EbmlMetadataReader.ReadMetadata(stream),
             FileType.WebP      => WebPMetadataReader.ReadMetadata(stream),
 
             FileType.Unknown   => throw new ImageProcessingException("File format could not be determined"),

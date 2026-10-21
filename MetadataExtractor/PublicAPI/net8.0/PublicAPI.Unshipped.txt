@@ -75,6 +75,58 @@ const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.Tag
 const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.TagRetouchInfo = 187 -> int
 const MetadataExtractor.Formats.Exif.Makernotes.NikonType2MakernoteDirectory.TagToningEffect = 179 -> int
 const MetadataExtractor.Formats.GeoTiff.GeoTiffDirectory.TagGdalProjLinearUnitsInterpCorrect = 3059 -> int
+const MetadataExtractor.Formats.Mkv.EbmlDirectory.TagDocType = 17026 -> int
+const MetadataExtractor.Formats.Mkv.EbmlDirectory.TagDocTypeReadVersion = 17029 -> int
+const MetadataExtractor.Formats.Mkv.EbmlDirectory.TagDocTypeVersion = 17031 -> int
+const MetadataExtractor.Formats.Mkv.EbmlDirectory.TagEbmlMaxIdLength = 17138 -> int
+const MetadataExtractor.Formats.Mkv.EbmlDirectory.TagEbmlMaxSizeLength = 17139 -> int
+const MetadataExtractor.Formats.Mkv.EbmlDirectory.TagEbmlReadVersion = 17143 -> int
+const MetadataExtractor.Formats.Mkv.EbmlDirectory.TagEbmlVersion = 17030 -> int
+const MetadataExtractor.Formats.Mkv.MkvAudioDirectory.TagBitDepth = 25188 -> int
+const MetadataExtractor.Formats.Mkv.MkvAudioDirectory.TagChannels = 159 -> int
+const MetadataExtractor.Formats.Mkv.MkvAudioDirectory.TagSamplingFrequency = 181 -> int
+const MetadataExtractor.Formats.Mkv.MkvSegmentDirectory.TagDuration = 17545 -> int
+const MetadataExtractor.Formats.Mkv.MkvSegmentDirectory.TagDurationSeconds = 1 -> int
+const MetadataExtractor.Formats.Mkv.MkvSegmentDirectory.TagMuxingApp = 19840 -> int
+const MetadataExtractor.Formats.Mkv.MkvSegmentDirectory.TagSegmentUuid = 29604 -> int
+const MetadataExtractor.Formats.Mkv.MkvSegmentDirectory.TagTimestampScale = 2807729 -> int
+const MetadataExtractor.Formats.Mkv.MkvSegmentDirectory.TagWritingApp = 22337 -> int
+const MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory.TagBinary = 17541 -> int
+const MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory.TagDefault = 17540 -> int
+const MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory.TagLanguage = 17530 -> int
+const MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory.TagLanguageBcp47 = 17531 -> int
+const MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory.TagName = 17827 -> int
+const MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory.TagString = 17543 -> int
+const MetadataExtractor.Formats.Mkv.MkvTagDirectory.TagAttachmentUids = 25542 -> int
+const MetadataExtractor.Formats.Mkv.MkvTagDirectory.TagChapterUids = 25540 -> int
+const MetadataExtractor.Formats.Mkv.MkvTagDirectory.TagEditionUids = 25545 -> int
+const MetadataExtractor.Formats.Mkv.MkvTagDirectory.TagTargetType = 25546 -> int
+const MetadataExtractor.Formats.Mkv.MkvTagDirectory.TagTargetTypeValue = 26826 -> int
+const MetadataExtractor.Formats.Mkv.MkvTagDirectory.TagTrackUids = 25541 -> int
+const MetadataExtractor.Formats.Mkv.MkvTagsDirectory.TagUpdateNumber = 1 -> int
+const MetadataExtractor.Formats.Mkv.MkvTrackDirectory.TagCodecDelay = 22186 -> int
+const MetadataExtractor.Formats.Mkv.MkvTrackDirectory.TagCodecId = 134 -> int
+const MetadataExtractor.Formats.Mkv.MkvTrackDirectory.TagDefaultDuration = 2352003 -> int
+const MetadataExtractor.Formats.Mkv.MkvTrackDirectory.TagFlagLacing = 156 -> int
+const MetadataExtractor.Formats.Mkv.MkvTrackDirectory.TagLanguage = 2274716 -> int
+const MetadataExtractor.Formats.Mkv.MkvTrackDirectory.TagLanguageBcp47 = 2274717 -> int
+const MetadataExtractor.Formats.Mkv.MkvTrackDirectory.TagSeekPreRoll = 22203 -> int
+const MetadataExtractor.Formats.Mkv.MkvTrackDirectory.TagTrackNumber = 215 -> int
+const MetadataExtractor.Formats.Mkv.MkvTrackDirectory.TagTrackType = 131 -> int
+const MetadataExtractor.Formats.Mkv.MkvTrackDirectory.TagTrackUid = 29637 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagChromaSitingHorz = 21943 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagChromaSitingVert = 21944 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagDisplayHeight = 21690 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagDisplayUnit = 21682 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagDisplayWidth = 21680 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagFlagInterlaced = 154 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagFrameRate = 1 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagMatrixCoefficients = 21937 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagPixelHeight = 186 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagPixelWidth = 176 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagPrimaries = 21947 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagRange = 21945 -> int
+const MetadataExtractor.Formats.Mkv.MkvVideoDirectory.TagTransferCharacteristics = 21946 -> int
 MetadataExtractor.Age.Equals(MetadataExtractor.Age? other) -> bool
 MetadataExtractor.Face.Equals(MetadataExtractor.Face? other) -> bool
 MetadataExtractor.Formats.Apple.BplistReader
@@ -82,6 +134,7 @@ MetadataExtractor.Formats.Apple.BplistReader.BplistReader() -> void
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.Get(byte key) -> object!
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.GetTopObject() -> System.Collections.Generic.Dictionary<byte, byte>?
+MetadataExtractor.Formats.Ebml.EbmlMetadataReader
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetAccelerationDescription() -> string?
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetCameraElevationAngleDescription() -> string?
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetHumidityDescription() -> string?
@@ -115,6 +168,66 @@ MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.GetToni
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.NikonPictureControl2Descriptor(MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory! directory) -> void
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory
 MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory.NikonPictureControl2Directory() -> void
+MetadataExtractor.Formats.Mkv.EbmlDirectory
+MetadataExtractor.Formats.Mkv.EbmlDirectory.EbmlDirectory() -> void
+MetadataExtractor.Formats.Mkv.MkvAudioDescriptor
+MetadataExtractor.Formats.Mkv.MkvAudioDescriptor.GetBitDepthDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvAudioDescriptor.GetSamplingFrequencyDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvAudioDescriptor.MkvAudioDescriptor(MetadataExtractor.Formats.Mkv.MkvAudioDirectory! directory) -> void
+MetadataExtractor.Formats.Mkv.MkvAudioDirectory
+MetadataExtractor.Formats.Mkv.MkvAudioDirectory.MkvAudioDirectory() -> void
+MetadataExtractor.Formats.Mkv.MkvReader
+MetadataExtractor.Formats.Mkv.MkvReader.Extract(MetadataExtractor.IO.SequentialReader! reader) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
+MetadataExtractor.Formats.Mkv.MkvReader.MkvReader() -> void
+MetadataExtractor.Formats.Mkv.MkvSegmentDescriptor
+MetadataExtractor.Formats.Mkv.MkvSegmentDescriptor.GetDurationDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvSegmentDescriptor.GetDurationSecondsDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvSegmentDescriptor.GetSegmentUuidDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvSegmentDescriptor.GetTimestampScaleDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvSegmentDescriptor.MkvSegmentDescriptor(MetadataExtractor.Formats.Mkv.MkvSegmentDirectory! directory) -> void
+MetadataExtractor.Formats.Mkv.MkvSegmentDirectory
+MetadataExtractor.Formats.Mkv.MkvSegmentDirectory.MkvSegmentDirectory() -> void
+MetadataExtractor.Formats.Mkv.MkvSimpleTagDescriptor
+MetadataExtractor.Formats.Mkv.MkvSimpleTagDescriptor.GetDefaultDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvSimpleTagDescriptor.MkvSimpleTagDescriptor(MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory! directory) -> void
+MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory
+MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory.GetLanguage() -> string!
+MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory.GetTargets() -> MetadataExtractor.Formats.Mkv.MkvTagDirectory?
+MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory.MkvSimpleTagDirectory() -> void
+MetadataExtractor.Formats.Mkv.MkvTagDescriptor
+MetadataExtractor.Formats.Mkv.MkvTagDescriptor.GetAttachmentUidsDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvTagDescriptor.GetChapterUidsDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvTagDescriptor.GetEditionUidsDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvTagDescriptor.GetTargetTypeValueDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvTagDescriptor.GetTrackUidsDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvTagDescriptor.MkvTagDescriptor(MetadataExtractor.Formats.Mkv.MkvTagDirectory! directory) -> void
+MetadataExtractor.Formats.Mkv.MkvTagDirectory
+MetadataExtractor.Formats.Mkv.MkvTagDirectory.MkvTagDirectory() -> void
+MetadataExtractor.Formats.Mkv.MkvTagsDirectory
+MetadataExtractor.Formats.Mkv.MkvTagsDirectory.MkvTagsDirectory() -> void
+MetadataExtractor.Formats.Mkv.MkvTrackDescriptor<T>
+MetadataExtractor.Formats.Mkv.MkvTrackDescriptor<T>.GetCodecDelayDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvTrackDescriptor<T>.GetDefaultDurationDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvTrackDescriptor<T>.GetFlagLacingDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvTrackDescriptor<T>.GetSeekPreRollDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvTrackDescriptor<T>.GetTrackTypeDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvTrackDescriptor<T>.MkvTrackDescriptor(T! directory) -> void
+MetadataExtractor.Formats.Mkv.MkvTrackDirectory
+MetadataExtractor.Formats.Mkv.MkvTrackDirectory.MkvTrackDirectory() -> void
+MetadataExtractor.Formats.Mkv.MkvTrackDirectory.MkvTrackDirectory(System.Collections.Generic.Dictionary<int, string!>! tagNameMap) -> void
+MetadataExtractor.Formats.Mkv.MkvVideoDescriptor
+MetadataExtractor.Formats.Mkv.MkvVideoDescriptor.GetChromaSitingHorzDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvVideoDescriptor.GetChromaSitingVertDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvVideoDescriptor.GetDisplayUnitDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvVideoDescriptor.GetFlagInterlacedDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvVideoDescriptor.GetFrameRateDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvVideoDescriptor.GetMatrixCoefficientsDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvVideoDescriptor.GetPrimariesDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvVideoDescriptor.GetRangeDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvVideoDescriptor.GetTransferCharacteristicsDescription() -> string?
+MetadataExtractor.Formats.Mkv.MkvVideoDescriptor.MkvVideoDescriptor(MetadataExtractor.Formats.Mkv.MkvVideoDirectory! directory) -> void
+MetadataExtractor.Formats.Mkv.MkvVideoDirectory
+MetadataExtractor.Formats.Mkv.MkvVideoDirectory.MkvVideoDirectory() -> void
 MetadataExtractor.Formats.Png.PngChunk.ChunkType.get -> MetadataExtractor.Formats.Png.PngChunkType
 MetadataExtractor.Formats.Png.PngChunk.PngChunk(MetadataExtractor.Formats.Png.PngChunkType chunkType, byte[]! bytes) -> void
 MetadataExtractor.Formats.Png.PngChunkReader.Extract(MetadataExtractor.IO.SequentialReader! reader, System.Collections.Generic.ICollection<MetadataExtractor.Formats.Png.PngChunkType>? desiredChunkTypes) -> System.Collections.Generic.IEnumerable<MetadataExtractor.Formats.Png.PngChunk!>!
@@ -130,18 +243,35 @@ MetadataExtractor.IO.IndexedReader.GetByte(int index) -> byte
 MetadataExtractor.IO.IndexedReader.GetBytes(int index, int count) -> byte[]!
 MetadataExtractor.Util.FileType.Avif = 28 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Dng = 29 -> MetadataExtractor.Util.FileType
+MetadataExtractor.Util.FileType.Ebml = 36 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.GoPro = 30 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Kdc = 31 -> MetadataExtractor.Util.FileType
+MetadataExtractor.Util.FileType.Mkv = 37 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Pdf = 35 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.ThreeFR = 32 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Pef = 33 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Srw = 34 -> MetadataExtractor.Util.FileType
+MetadataExtractor.Util.FileType.WebM = 38 -> MetadataExtractor.Util.FileType
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Descriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Directory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Descriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl2Directory.Name.get -> string!
+override MetadataExtractor.Formats.Mkv.EbmlDirectory.Name.get -> string!
+override MetadataExtractor.Formats.Mkv.MkvAudioDescriptor.GetDescription(int tagType) -> string?
+override MetadataExtractor.Formats.Mkv.MkvAudioDirectory.Name.get -> string!
+override MetadataExtractor.Formats.Mkv.MkvSegmentDescriptor.GetDescription(int tagType) -> string?
+override MetadataExtractor.Formats.Mkv.MkvSegmentDirectory.Name.get -> string!
+override MetadataExtractor.Formats.Mkv.MkvSimpleTagDescriptor.GetDescription(int tagType) -> string?
+override MetadataExtractor.Formats.Mkv.MkvSimpleTagDirectory.Name.get -> string!
+override MetadataExtractor.Formats.Mkv.MkvTagDescriptor.GetDescription(int tagType) -> string?
+override MetadataExtractor.Formats.Mkv.MkvTagDirectory.Name.get -> string!
+override MetadataExtractor.Formats.Mkv.MkvTagsDirectory.Name.get -> string!
+override MetadataExtractor.Formats.Mkv.MkvTrackDescriptor<T>.GetDescription(int tagType) -> string?
+override MetadataExtractor.Formats.Mkv.MkvTrackDirectory.Name.get -> string!
+override MetadataExtractor.Formats.Mkv.MkvVideoDescriptor.GetDescription(int tagType) -> string?
+override MetadataExtractor.Formats.Mkv.MkvVideoDirectory.Name.get -> string!
 override MetadataExtractor.IO.ByteArrayReader.GetBytes(int index, System.Span<byte> bytes) -> void
 override MetadataExtractor.IO.IndexedCapturingReader.GetBytes(int index, System.Span<byte> bytes) -> void
 override MetadataExtractor.IO.IndexedSeekingReader.GetBytes(int index, System.Span<byte> bytes) -> void
@@ -151,11 +281,13 @@ static MetadataExtractor.DirectoryExtensions.GetDateTimeOffset(this MetadataExtr
 static MetadataExtractor.DirectoryExtensions.TryGetDateTimeOffset(this MetadataExtractor.Directory! directory, int tagType, out System.DateTimeOffset dateTimeOffset) -> bool
 static MetadataExtractor.Formats.Apple.BplistReader.IsValid(System.ReadOnlySpan<byte> bplist) -> bool
 static MetadataExtractor.Formats.Apple.BplistReader.Parse(System.ReadOnlySpan<byte> bplist) -> MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults!
+static MetadataExtractor.Formats.Ebml.EbmlMetadataReader.ReadMetadata(System.IO.Stream! stream) -> System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory!>!
 static MetadataExtractor.Formats.Exif.ExifReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 static MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Parse(byte[]! bytes) -> MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory!
 static MetadataExtractor.Formats.Icc.IccReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 static MetadataExtractor.Formats.Jfif.JfifReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 static MetadataExtractor.Formats.Jfxx.JfxxReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
+static MetadataExtractor.Formats.Mkv.MkvTrackDirectory.CreateTagNameMap() -> System.Collections.Generic.Dictionary<int, string!>!
 static MetadataExtractor.Formats.Photoshop.DuckyReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 static MetadataExtractor.Formats.Photoshop.PhotoshopReader.JpegSegmentPreamble.get -> System.ReadOnlySpan<byte>
 static MetadataExtractor.Formats.Png.PngChunkType.operator !=(MetadataExtractor.Formats.Png.PngChunkType left, MetadataExtractor.Formats.Png.PngChunkType right) -> bool

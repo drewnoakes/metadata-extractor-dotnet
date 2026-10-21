@@ -1,0 +1,71 @@
+// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+namespace MetadataExtractor.Formats.Mkv;
+
+internal static class ElementIds
+{
+    public const int EbmlHeader = 0x1A45DFA3;
+    public const int EbmlVersion = 0x4286;
+    public const int EbmlReadVersion = 0x42F7;
+    public const int EbmlMaxIdLength = 0x42F2;
+    public const int EbmlMaxSizeLength = 0x42F3;
+    public const int DocType = 0x4282;
+    public const int DocTypeVersion = 0x4287;
+    public const int DocTypeReadVersion = 0x4285;
+    public const int Segment = 0x18538067;
+    public const int SegmentInfo = 0x1549A966;
+    public const int SeekHead = 0x114D9B74;
+    public const int MuxingApp = 0x4D80;
+    public const int WritingApp = 0x5741;
+    public const int CodecId = 0x86;
+    public const int TimestampScale = 0x2AD7B1;
+    public const int Duration = 0x4489;
+    public const int Cluster = 0x1F43B675;
+    public const int SegmentUuid = 0x73A4;
+    public const int Tracks = 0x1654AE6B;
+    public const int TrackEntry = 0xAE;
+    public const int TrackNumber = 0xD7;
+    public const int TrackUid = 0x73C5;
+    public const int TrackType = 0x83;
+    public const int FlagLacing = 0x9C;
+    public const int Audio = 0xE1;
+    public const int Channels = 0x9F;
+    public const int SamplingFrequency = 0xB5;
+    public const int BitDepth = 0x6264;
+    public const int Cues = 0x1C53BB6B;
+    public const int Language = 0x22B59C;
+    public const int LanguageBcp47 = 0x22B59D;
+    public const int DefaultDuration = 0x23E383;
+    public const int Video = 0xE0;
+    public const int DisplayWidth = 0x54B0;
+    public const int DisplayHeight = 0x54BA;
+    public const int DisplayUnit = 0x54B2;
+    public const int PixelWidth = 0xB0;
+    public const int PixelHeight = 0xBA;
+    public const int FlagInterlaced = 0x9A;
+    public const int Colour = 0x55B0;
+    public const int TransferCharacteristics = 0x55BA;
+    public const int MatrixCoefficients = 0x55B1;
+    public const int Primaries = 0x55BB;
+    public const int ColourRange = 0x55B9;
+    public const int ChromaSitingHorz = 0x55B7;
+    public const int ChromaSitingVert = 0x55B8;
+    public const int CodecDelay = 0x56AA;
+    public const int SeekPreRoll = 0x56BB;
+    public const int Tags = 0x1254C367;
+    public const int TagElement = 0x7373;
+    public const int Targets = 0x63C0;
+    public const int SimpleTag = 0x67C8;
+    public const int TagName = 0x45A3;
+    public const int TagLanguage = 0x447A;
+    public const int TagString = 0x4487;
+    public const int TagLanguageBcp47 = 0x447B;
+    public const int TagTrackUid = 0x63C5;
+    public const int TargetTypeValue = 0x68CA;
+    public const int TargetType = 0x63CA;
+    public const int TagEditionUid = 0x63C9;
+    public const int TagChapterUid = 0x63C4;
+    public const int TagAttachmentUid = 0x63C6;
+    public const int TagDefault = 0x4484;
+    public const int TagBinary = 0x4485;
+}

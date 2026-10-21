@@ -7,3 +7,8 @@ internal interface ITypeChecker
     int ByteCount { get; }
     FileType CheckType(byte[] bytes);
 }
+
+internal interface IStreamTypeChecker : ITypeChecker
+{
+    FileType CheckType(byte[] bytes, Stream stream);
+}
