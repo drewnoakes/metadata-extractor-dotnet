@@ -122,9 +122,7 @@ public static class FileTypeDetector
             {
                 if (bytesRead >= checker.ByteCount)
                 {
-                    fileType = checker is IStreamTypeChecker streamChecker
-                        ? streamChecker.CheckType(bytes, stream)
-                        : checker.CheckType(bytes);
+                    fileType = checker.CheckType(bytes, stream);
 
                     if (fileType != FileType.Unknown)
                     {

@@ -7,7 +7,7 @@ internal sealed class TgaTypeChecker : ITypeChecker
 {
     public int ByteCount => TgaHeaderReader.HeaderSize;
 
-    public Util.FileType CheckType(byte[] bytes)
+    public Util.FileType CheckType(byte[] bytes, Stream stream)
     {
         return TgaHeaderReader.TryExtract(bytes, out _)
             ? Util.FileType.Tga

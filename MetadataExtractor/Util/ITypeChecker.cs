@@ -5,10 +5,7 @@ namespace MetadataExtractor.Util;
 internal interface ITypeChecker
 {
     int ByteCount { get; }
-    FileType CheckType(byte[] bytes);
-}
 
-internal interface IStreamTypeChecker : ITypeChecker
-{
+    /// <summary>Checks the buffered prefix and, if needed, probes the seekable stream without changing its position.</summary>
     FileType CheckType(byte[] bytes, Stream stream);
 }

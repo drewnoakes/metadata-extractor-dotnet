@@ -7,19 +7,15 @@ namespace MetadataExtractor.Formats.Ebml;
 using FileType = Util.FileType;
 
 /// <summary>Probes at most 64 KiB of an EBML header for its DocType, leaving unresolved schemas as generic EBML.</summary>
-internal sealed class EbmlTypeChecker : IStreamTypeChecker
+internal sealed class EbmlTypeChecker : ITypeChecker
 {
     private const int HeaderProbeLimit = 65536;
 
     public int ByteCount => 4;
 
-    public FileType CheckType(byte[] bytes)
-        => bytes.Length >= 4 && bytes[0] == 0x1A && bytes[1] == 0x45 && bytes[2] == 0xDF && bytes[3] == 0xA3
-            ? FileType.Ebml : FileType.Unknown;
-
     public FileType CheckType(byte[] bytes, Stream stream)
     {
-        if (CheckType(bytes) == FileType.Unknown)
+        if (bytes.Length < 4 || bytes[0] != 0x1A || bytes[1] != 0x45 || bytes[2] != 0xDF || bytes[3] != 0xA3)
             return FileType.Unknown;
 
         long position = stream.Position;

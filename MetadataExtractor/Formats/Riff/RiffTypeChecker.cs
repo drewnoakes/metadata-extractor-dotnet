@@ -7,7 +7,7 @@ internal sealed class RiffTypeChecker : ITypeChecker
 {
     public int ByteCount => 12;
 
-    public Util.FileType CheckType(byte[] bytes)
+    public Util.FileType CheckType(byte[] bytes, Stream stream)
     {
         if (!bytes.AsSpan().StartsWith("RIFF"u8))
             return Util.FileType.Unknown;

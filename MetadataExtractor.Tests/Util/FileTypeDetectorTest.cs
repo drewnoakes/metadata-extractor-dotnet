@@ -5,6 +5,23 @@ namespace MetadataExtractor.Util;
 public sealed class FileTypeDetectorTest
 {
     [Theory]
+    [InlineData(new byte[] { 0x49, 0x44, 0x33 }, FileType.Mp3)]
+    [InlineData(new byte[] { 0x52, 0x49, 0x46, 0x46, 0, 0, 0, 0, 0x57, 0x41, 0x56, 0x45 }, FileType.Wav)]
+    [InlineData(new byte[] { 0, 0, 0, 16, 0x66, 0x74, 0x79, 0x70, 0x69, 0x73, 0x6F, 0x6D, 0, 0, 0, 0 }, FileType.Mp4)]
+    [InlineData(new byte[] { 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 24, 0 }, FileType.Tga)]
+    public void DetectsCheckerFormatsWithShortReadsAndRestoresPosition(byte[] header, FileType expected)
+    {
+        var bytes = new byte[7].Concat(header).ToArray();
+        using var stream = new ShortReadStream(bytes, chunkSize: 1);
+        stream.Position = 7;
+
+        Assert.Equal(expected, FileTypeDetector.DetectFileType(stream));
+
+        Assert.Equal(7, stream.Position);
+        Assert.Equal(header[0], stream.ReadByte());
+    }
+
+    [Theory]
     [CombinatorialData]
     public void HandlesShortFilesAndShortReadsWithoutConsumingInput(
         [CombinatorialValues(0, 1, 2, 4, 18, 64)] int length,
