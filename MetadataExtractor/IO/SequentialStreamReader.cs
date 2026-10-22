@@ -107,7 +107,7 @@ public class SequentialStreamReader(Stream stream, bool isMotorolaByteOrder = tr
             if (n == 0)
                 return;
 
-            var buffer = ArrayPool<byte>.Shared.Rent(8192);
+            var buffer = ArrayPool<byte>.Shared.Rent((int)Math.Min(n, 8192));
             try
             {
                 while (n > 0)
