@@ -87,6 +87,9 @@ public static class FileTypeDetector
 
         try
         {
+#if NET8_0_OR_GREATER
+            var bytesRead = stream.ReadAtLeast(bytes.AsSpan(0, _bytesNeeded), _bytesNeeded, throwOnEndOfStream: false);
+#else
             var bytesRead = 0;
             while (bytesRead < _bytesNeeded)
             {
@@ -95,6 +98,7 @@ public static class FileTypeDetector
                     break;
                 bytesRead += count;
             }
+#endif
 
             if (bytesRead == 0)
             {
