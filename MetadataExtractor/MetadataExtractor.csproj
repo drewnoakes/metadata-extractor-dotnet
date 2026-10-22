@@ -17,6 +17,7 @@ Camera manufacturer-specific support exists for Agfa, Apple, Canon, Casio, DJI, 
     <PackageReadmeFile>README.md</PackageReadmeFile>
 
     <AllowUnsafeBlocks Condition=" '$(TargetFramework)' == 'netstandard2.0' ">true</AllowUnsafeBlocks>
+    <PolySharpIncludeGeneratedTypes>System.Index</PolySharpIncludeGeneratedTypes>
 
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
@@ -44,6 +45,7 @@ Camera manufacturer-specific support exists for Agfa, Apple, Canon, Casio, DJI, 
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="PolySharp" PrivateAssets="all" />
     <PackageReference Include="System.Memory" />
     <PackageReference Include="System.ValueTuple" />
   </ItemGroup>

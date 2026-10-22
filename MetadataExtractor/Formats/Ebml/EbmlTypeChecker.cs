@@ -15,11 +15,7 @@ internal sealed class EbmlTypeChecker : ITypeChecker
 
     public FileType CheckType(byte[] bytes, Stream stream)
     {
-#if NETSTANDARD2_0
-        if (bytes.Length < 4 || bytes[0] != 0x1A || bytes[1] != 0x45 || bytes[2] != 0xDF || bytes[3] != 0xA3)
-#else
         if (bytes is not [0x1A, 0x45, 0xDF, 0xA3, ..])
-#endif
             return FileType.Unknown;
 
         long position = stream.Position;
