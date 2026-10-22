@@ -23,6 +23,19 @@
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 
     <ModernDotNetTargetFrameworkAlias>net8.0</ModernDotNetTargetFrameworkAlias>
+    <PolySharpIncludeGeneratedTypes>
+      System.Index;
+      System.Runtime.CompilerServices.IsExternalInit;
+      System.Diagnostics.CodeAnalysis.AllowNullAttribute;
+      System.Diagnostics.CodeAnalysis.DisallowNullAttribute;
+      System.Diagnostics.CodeAnalysis.MaybeNullAttribute;
+      System.Diagnostics.CodeAnalysis.NotNullAttribute;
+      System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute;
+      System.Diagnostics.CodeAnalysis.NotNullWhenAttribute;
+      System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute;
+      System.Diagnostics.CodeAnalysis.DoesNotReturnAttribute;
+      System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute
+    </PolySharpIncludeGeneratedTypes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,10 +50,7 @@
   <ItemGroup>
     <PackageReference Include="CSharpIsNullAnalyzer" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" />
-    <PackageReference Include="IsExternalInit">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="PolySharp" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
