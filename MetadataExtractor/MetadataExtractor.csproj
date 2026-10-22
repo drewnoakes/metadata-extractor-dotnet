@@ -3,15 +3,15 @@
   <PropertyGroup>
     <Description>Easily and efficiently read metadata from images, video and audio files.
 
-MetadataExtractor reads Exif, IPTC, XMP, ICC, Photoshop, WebP, PNG, BMP, GIF, ICO, PCX metadata from JPEG, TIFF WebP, PSD, PNG, BMP, GIF, ICO, PCX and camera RAW files.
-MOV and related QuickTime video formats such as MP4, M4V, 3G2, 3GP are supported, as are Matroska, WebM, MP3 and WAV files.
+MetadataExtractor reads Exif, IPTC, XMP, ICC, Photoshop and other metadata from JPEG, TIFF, BigTIFF, WebP, PSD, PNG, BMP, GIF, ICO, PCX, EPS, TGA, Netpbm, HEIF/HEIC, AVIF and camera RAW files.
+MOV and related QuickTime formats such as MP4, M4A, M4V, 3G2 and 3GP are supported, as are AVI, Matroska (MKV/MKA), WebM, MP3 and WAV files.
 
-Camera manufacturer specific support exists for Agfa, Canon, Casio, DJI, Epson, Fujifilm, Kodak, Kyocera, Leica, Minolta, Nikon, Olympus, Panasonic, Pentax, Reconyx, Sanyo, Sigma/Foveon and Sony models.</Description>
+Camera manufacturer-specific support exists for Agfa, Apple, Canon, Casio, DJI, Epson, FLIR, Fujifilm, Kodak, Kyocera, Leica, Minolta, Nikon, Olympus, Panasonic, Pentax, Reconyx, Ricoh, Samsung, Sanyo, Sigma/Foveon and Sony models.</Description>
     <AssemblyTitle>Metadata Extractor</AssemblyTitle>
     <TargetFrameworks>$(ModernDotNetTargetFrameworkAlias);netstandard2.0;netstandard2.1</TargetFrameworks>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageTags>Metadata;Exif;IPTC;XMP;ICC;Photoshop;WebP;PNG;BMP;ICO;PCX;JPEG;TIFF;PSD;Photography;QuickTime;MOV;MP4;M4V;Video;MP3;WAV;Matroska;MKV;WebM;Imaging;Video;Audio</PackageTags>
+    <PackageTags>Metadata;Exif;IPTC;XMP;ICC;Photoshop;WebP;PNG;BMP;GIF;ICO;PCX;JPEG;TIFF;BigTIFF;PSD;EPS;TGA;Netpbm;HEIF;HEIC;AVIF;Photography;QuickTime;MOV;MP4;M4A;M4V;3G2;3GP;AVI;MP3;WAV;Matroska;MKV;MKA;WebM;Imaging;Video;Audio</PackageTags>
     <AssemblyOriginatorKeyFile>../MetadataExtractor.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PackageReadmeFile>README.md</PackageReadmeFile>
