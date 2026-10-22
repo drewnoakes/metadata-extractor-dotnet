@@ -1,6 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Buffers;
+using System.Runtime.CompilerServices;
 
 namespace MetadataExtractor.IO;
 
@@ -11,14 +12,9 @@ public class SequentialStreamReader(Stream stream, bool isMotorolaByteOrder = tr
     : SequentialReader(isMotorolaByteOrder)
 {
     private readonly Stream _stream = stream ?? throw new ArgumentNullException(nameof(stream));
-    private readonly StreamPosition _position = new();
+    private readonly StrongBox<long> _position = new();
 
-    private sealed class StreamPosition
-    {
-        public long Value { get; set; }
-    }
-
-    private SequentialStreamReader(Stream stream, bool isMotorolaByteOrder, StreamPosition position)
+    private SequentialStreamReader(Stream stream, bool isMotorolaByteOrder, StrongBox<long> position)
         : this(stream, isMotorolaByteOrder)
     {
         _position = position;
