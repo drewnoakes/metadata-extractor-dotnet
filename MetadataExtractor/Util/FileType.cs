@@ -111,7 +111,16 @@ public enum FileType
     /// <summary>SRW (Samsung) Image File Format.</summary>
     Srw = 34,
 
-    Pdf = 35
+    Pdf = 35,
+
+    /// <summary>Extensible Binary Meta Language with an unresolved or unsupported schema.</summary>
+    Ebml = 36,
+
+    /// <summary>Matroska multimedia container.</summary>
+    Mkv = 37,
+
+    /// <summary>WebM multimedia container.</summary>
+    WebM = 38
 }
 
 public static class FileTypeExtensions
@@ -153,7 +162,10 @@ public static class FileTypeExtensions
         "3FR",
         "PEF",
         "SRW",
-        "PDF"
+        "PDF",
+        "EBML",
+        "MKV",
+        "WebM"
     ];
 
     private static readonly string[] _longNames =
@@ -193,7 +205,10 @@ public static class FileTypeExtensions
         "Hasselblad Raw",
         "Pentax Raw",
         "Samsung Raw",
-        "Portable Document Format"
+        "Portable Document Format",
+        "Extensible Binary Meta Language",
+        "Matroska Container",
+        "WebM Container"
     ];
 
     private static readonly string?[] _mimeTypes =
@@ -233,7 +248,10 @@ public static class FileTypeExtensions
         "image/x-hasselblad-3fr",
         "image/x-pentax-pef",
         "image/x-samsung-srw",
-        "application/pdf"
+        "application/pdf",
+        null,
+        "video/x-matroska",
+        "video/webm"
     ];
 
     private static readonly string[]?[] _extensions =
@@ -273,7 +291,10 @@ public static class FileTypeExtensions
         ["3fr"],
         ["pef"],
         ["srw"],
-        ["pdf"]
+        ["pdf"],
+        null,
+        ["mkv", "mka", "mks", "mk3d"],
+        ["webm"]
     ];
 
     public static string GetName(this FileType fileType)

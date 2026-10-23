@@ -21,7 +21,7 @@ public class SequentialByteArrayReader : SequentialReader
     public override byte GetByte()
     {
         if (_index >= _bytes.Length)
-            throw new IOException("End of data reached.");
+            throw new EndOfStreamException("End of data reached.");
 
         return _bytes[_index++];
     }
@@ -30,7 +30,7 @@ public class SequentialByteArrayReader : SequentialReader
 
     public override byte[] GetBytes(int count)
     {
-        if (_index + count > _bytes.Length)
+        if (count > _bytes.Length - _index)
             throw new IOException("End of data reached.");
 
         var bytes = new byte[count];
@@ -41,7 +41,7 @@ public class SequentialByteArrayReader : SequentialReader
 
     public override void GetBytes(Span<byte> bytes)
     {
-        if (_index + bytes.Length > _bytes.Length)
+        if (bytes.Length > _bytes.Length - _index)
             throw new IOException("End of data reached.");
 
         _bytes.AsSpan(_index, bytes.Length).CopyTo(bytes);
@@ -50,7 +50,7 @@ public class SequentialByteArrayReader : SequentialReader
 
     public override void GetBytes(byte[] buffer, int offset, int count)
     {
-        if (_index + count > _bytes.Length)
+        if (count > _bytes.Length - _index)
             throw new IOException("End of data reached.");
 
         Array.Copy(_bytes, _index, buffer, offset, count);
@@ -62,7 +62,7 @@ public class SequentialByteArrayReader : SequentialReader
         if (n < 0)
             throw new ArgumentException("n must be zero or greater.");
 
-        if (_index + n > _bytes.Length)
+        if (n > _bytes.Length - (long)_index)
             throw new IOException("End of data reached.");
 
         _index += unchecked((int)n);
@@ -73,14 +73,13 @@ public class SequentialByteArrayReader : SequentialReader
         if (n < 0)
             throw new ArgumentException("n must be zero or greater.");
 
-        _index += unchecked((int)n);
-
-        if (_index > _bytes.Length)
+        if (n > _bytes.Length - (long)_index)
         {
             _index = _bytes.Length;
             return false;
         }
 
+        _index += (int)n;
         return true;
     }
 

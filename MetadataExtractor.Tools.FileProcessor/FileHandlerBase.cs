@@ -12,6 +12,7 @@ internal abstract class FileHandlerBase : IFileHandler
         "mp3",
         "j2c", "jp2", "jpf", "jpm", "mj2",
         "3g2", "3gp", "m4v", "mov", "mp4", "m2v", "m2ts", "mts",
+        "ebml", "mkv", "mka", "mks", "mk3d", "webm",
         "pbm", "pnm", "pgm", "ppm",
         "tga", "icb", "vda", "vst"
     };

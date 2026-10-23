@@ -28,7 +28,7 @@ internal sealed class MpegAudioTypeChecker : ITypeChecker
 
     public int ByteCount => 3;
 
-    public Util.FileType CheckType(byte[] bytes)
+    public Util.FileType CheckType(byte[] bytes, Stream stream)
     {
         // MP3-File with "ID3" at start
         if (bytes.AsSpan(0, 3).SequenceEqual("ID3"u8))

@@ -138,8 +138,10 @@ It supports various file types.
 * Movies
   * [AVCI](https://en.wikipedia.org/wiki/Advanced_Video_Coding)
   * [AVI](https://en.wikipedia.org/wiki/Audio_Video_Interleave)
+  * [MKV](https://en.wikipedia.org/wiki/Matroska) (Matroska)
   * [MOV](https://en.wikipedia.org/wiki/QuickTime_File_Format) (QuickTime)
   * [MP4](https://en.wikipedia.org/wiki/MP4_file_format)
+  * [WebM](https://en.wikipedia.org/wiki/WebM)
 
 * Audio
   * [WAV](https://en.wikipedia.org/wiki/WAV)

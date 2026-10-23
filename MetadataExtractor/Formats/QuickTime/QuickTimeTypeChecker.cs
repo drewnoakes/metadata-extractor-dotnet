@@ -65,7 +65,7 @@ internal sealed class QuickTimeTypeChecker : ITypeChecker
 
     public int ByteCount => 16;
 
-    public Util.FileType CheckType(byte[] bytes)
+    public Util.FileType CheckType(byte[] bytes, Stream stream)
     {
         // for standard apple quicktime format
         // 00000000: 0000 0014 6674 7970 7174 2020 0000 0000  ....ftypqt  ....

@@ -1,6 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Buffers;
+using MetadataExtractor.Formats.Ebml;
 using MetadataExtractor.Formats.Mpeg;
 using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.Formats.Riff;
@@ -66,7 +67,8 @@ public static class FileTypeDetector
         new QuickTimeTypeChecker(),
         new RiffTypeChecker(),
         new TgaTypeChecker(),
-        new MpegAudioTypeChecker()
+        new MpegAudioTypeChecker(),
+        new EbmlTypeChecker()
     ];
 
     private static readonly int _bytesNeeded = Math.Max(
@@ -85,7 +87,18 @@ public static class FileTypeDetector
 
         try
         {
-            var bytesRead = stream.Read(bytes, 0, _bytesNeeded);
+#if NET8_0_OR_GREATER
+            var bytesRead = stream.ReadAtLeast(bytes.AsSpan(0, _bytesNeeded), _bytesNeeded, throwOnEndOfStream: false);
+#else
+            var bytesRead = 0;
+            while (bytesRead < _bytesNeeded)
+            {
+                var count = stream.Read(bytes, bytesRead, _bytesNeeded - bytesRead);
+                if (count == 0)
+                    break;
+                bytesRead += count;
+            }
+#endif
 
             if (bytesRead == 0)
             {
@@ -97,7 +110,7 @@ public static class FileTypeDetector
             stream.Seek(-bytesRead, SeekOrigin.Current);
 
             // Use the prefix trie to match bytes.
-            var fileType = _root.Find(bytes);
+            var fileType = _root.Find(bytes.AsSpan(0, bytesRead));
 
             if (fileType != FileType.Unknown)
             {
@@ -109,7 +122,7 @@ public static class FileTypeDetector
             {
                 if (bytesRead >= checker.ByteCount)
                 {
-                    fileType = checker.CheckType(bytes);
+                    fileType = checker.CheckType(bytes, stream);
 
                     if (fileType != FileType.Unknown)
                     {

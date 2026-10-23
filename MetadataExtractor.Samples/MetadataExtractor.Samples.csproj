@@ -12,13 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nullable">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
