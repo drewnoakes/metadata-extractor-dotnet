@@ -9,6 +9,7 @@ namespace MetadataExtractor.Formats.Mkv;
 /// Traversal is forward-only, uses 64-bit element sizes, and supports unknown-sized Segments and
 /// Clusters, including concatenated documents. Truncation and unsupported EBML schemas are reported
 /// as directory errors, retaining metadata already extracted.
+/// Individual text and binary metadata values are limited to 16 MiB.
 /// See RFC 8794 and https://www.matroska.org/technical/elements.html.
 /// </remarks>
 public sealed class MkvReader
@@ -59,6 +60,8 @@ public sealed class MkvReader
 
     private sealed class Parser
     {
+        private const int MaximumScalarBytes = 16 * 1024 * 1024;
+
         private readonly SequentialReader _reader;
         private readonly bool _headerOnly;
         private readonly List<Directory> _directories = [];
@@ -356,6 +359,15 @@ public sealed class MkvReader
         {
             if (size == 0 && GetDefaultValue(id) is { } value)
                 return value;
+            if (type is ValueType.String or ValueType.Utf8 or ValueType.Binary)
+            {
+                if (size > MaximumScalarBytes)
+                    throw new IOException("EBML value is too large to store in memory: the limit is 16 MiB.");
+                if (id == SegmentUuid && size != 16)
+                    throw new IOException("SegmentUUID must contain exactly 16 bytes.");
+                if (_reader.IsCloserToEnd(size))
+                    throw new EndOfStreamException("EBML value exceeds the remaining input.");
+            }
             return type switch
             {
                 ValueType.Integer => DataParser.GetUnsignedInteger(_reader, size),
@@ -397,16 +409,19 @@ public sealed class MkvReader
                 return;
             // Seeking can succeed past EOF. Reserve the final byte for an actual read.
             size--;
-            while (size > 0)
+            if (size > 0)
             {
                 long start = _reader.Position;
-                if (_reader.TrySkip(size))
-                    break;
-                size -= _reader.Position - start;
-                if (size > 0)
+                if (!_reader.TrySkip(size))
                 {
-                    _reader.GetByte();
-                    size--;
+                    size -= _reader.Position - start;
+                    Span<byte> buffer = stackalloc byte[4096];
+                    while (size > 0)
+                    {
+                        int count = (int)Math.Min(size, buffer.Length);
+                        _reader.GetBytes(buffer.Slice(0, count));
+                        size -= count;
+                    }
                 }
             }
             _reader.GetByte();

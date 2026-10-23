@@ -364,6 +364,88 @@ public sealed class MkvReaderTest
         Assert.False(segment.ContainsTag(MkvSegmentDirectory.TagSegmentUuid));
     }
 
+    [Theory]
+    [CombinatorialData]
+    public void RejectsOversizedScalarBeforeReadingPayload(
+        [CombinatorialValues(Id.SegmentUuid, Id.MuxingApp, Id.TagString, Id.TagBinary)] int id,
+        [CombinatorialValues(16 * 1024 * 1024 + 1, 1024 * 1024 * 1024)] int declaredSize,
+        bool seekable)
+    {
+        var scalar = Concat(Bytes((uint)id), Size((ulong)declaredSize));
+        byte[] body = id is Id.TagString or Id.TagBinary
+            ? Concat(Bytes(Id.Tags), Size((ulong)declaredSize + 64),
+                Bytes(Id.Tag), Size((ulong)declaredSize + 48),
+                Bytes(Id.SimpleTag), Size((ulong)declaredSize + 32), Text(Id.TagName, "VALUE"), scalar)
+            : Concat(Bytes(Id.Info), Size((ulong)declaredSize + 32), scalar);
+        var bytes = Concat(Header(), Unknown(Id.Segment, 8),
+            Element(Id.Tracks, Video(1)), body);
+        using Stream stream = seekable ? new MemoryStream(bytes) : new NonSeekableStream(bytes);
+
+        var metadata = EbmlMetadataReader.ReadMetadata(stream);
+
+        Assert.Contains(metadata.SelectMany(directory => directory.Errors),
+            error => error.Contains("the limit is 16 MiB"));
+        Assert.Equal(32UL, UInt(Assert.Single(metadata.OfType<MkvVideoDirectory>()), MkvVideoDirectory.TagPixelWidth));
+        Assert.DoesNotContain(metadata, directory => directory.ContainsTag(id));
+    }
+
+    [Theory]
+    [CombinatorialData]
+    public void RejectsInvalidSegmentUuidSizeBeforeReadingPayload(
+        [CombinatorialValues(0, 1, 15, 17, 1024)] int declaredSize,
+        bool seekable)
+    {
+        var bytes = Concat(Header(), Unknown(Id.Segment, 8),
+            Bytes(Id.Info), Size((ulong)declaredSize + 16),
+            Bytes(Id.SegmentUuid), Size((ulong)declaredSize));
+        using Stream stream = seekable ? new MemoryStream(bytes) : new NonSeekableStream(bytes);
+
+        var metadata = EbmlMetadataReader.ReadMetadata(stream);
+
+        var segment = Assert.Single(metadata.OfType<MkvSegmentDirectory>());
+        Assert.Contains(segment.Errors, error => error.Contains("SegmentUUID must contain exactly 16 bytes"));
+        Assert.False(segment.ContainsTag(MkvSegmentDirectory.TagSegmentUuid));
+    }
+
+    [Fact]
+    public void RejectsTruncatedScalarBeforeAllocatingItsBufferWhenLengthIsKnown()
+    {
+        const int DeclaredSize = 16 * 1024 * 1024;
+        var bytes = Concat(Header(), Unknown(Id.Segment, 8),
+            Bytes(Id.Info), Size(DeclaredSize + 16),
+            Bytes(Id.MuxingApp), Size(DeclaredSize));
+        using var stream = new MemoryStream(bytes);
+        var reader = new ScalarAllocationGuardReader(stream);
+
+        var metadata = new MkvReader().Extract(reader);
+
+        var segment = Assert.Single(metadata.OfType<MkvSegmentDirectory>());
+        Assert.Contains(segment.Errors, error => error.Contains("exceeds the remaining input"));
+        Assert.False(segment.ContainsTag(MkvSegmentDirectory.TagMuxingApp));
+    }
+
+    [Fact]
+    public void AcceptsBinaryValueAtTheScalarSizeLimit()
+    {
+        const int ScalarSize = 16 * 1024 * 1024;
+        var simplePayload = Concat(Text(Id.TagName, "BINARY"), Bytes(Id.TagBinary), Size(ScalarSize));
+        var tagPayload = Concat(Bytes(Id.SimpleTag), Size((ulong)(ScalarSize + simplePayload.Length)), simplePayload);
+        var tagsPayload = Concat(Bytes(Id.Tag), Size((ulong)(ScalarSize + tagPayload.Length)), tagPayload);
+        var prefix = Concat(Header(), Unknown(Id.Segment, 8),
+            Bytes(Id.Tags), Size((ulong)(ScalarSize + tagsPayload.Length)), tagsPayload);
+        using var stream = new SparseStream(prefix, ScalarSize, [], maximumReadRequest: ScalarSize);
+
+        var metadata = EbmlMetadataReader.ReadMetadata(stream);
+
+        var tag = Assert.Single(metadata.OfType<MkvSimpleTagDirectory>());
+        var value = Assert.IsType<byte[]>(tag.GetObject(MkvSimpleTagDirectory.TagBinary));
+        Assert.Equal(ScalarSize, value.Length);
+        Assert.Equal(0, value[0]);
+        Assert.Equal(0, value[value.Length - 1]);
+        Assert.Equal(stream.Length, stream.BytesRead);
+        NoErrors(metadata);
+    }
+
     [Fact]
     public void ReportsDuplicateScalarButRetainsLastValue()
     {
@@ -461,6 +543,32 @@ public sealed class MkvReaderTest
         NoErrors(metadata);
     }
 
+    [Theory]
+    [CombinatorialData]
+    public void FallsBackToBlockReadsAfterOneFailedSkip(
+        bool truncated,
+        bool partialSkip)
+    {
+        const int PayloadSize = 1024 * 1024;
+        int actualSize = truncated ? 64 * 1024 : PayloadSize;
+        var prefix = Concat(Header(), Unknown(Id.Segment, 8),
+            Element(Id.Info, Text(Id.MuxingApp, "mux")),
+            Bytes(Id.Cluster), Size(PayloadSize));
+        var suffix = truncated ? [] : Element(Id.Tracks, Video(1));
+        using var stream = new MemoryStream(Concat(prefix, new byte[actualSize], suffix));
+        var reader = new FailedSkipCountingReader(stream, partialSkip);
+
+        var metadata = new MkvReader().Extract(reader);
+
+        Assert.Equal(1, reader.SkipAttempts);
+        Assert.InRange(reader.BlockReads, 1, actualSize / 4096 + 1);
+        Assert.Equal(truncated, metadata.Any(directory => directory.HasError));
+        Assert.Equal("mux", Assert.Single(metadata.OfType<MkvSegmentDirectory>()).GetString(MkvSegmentDirectory.TagMuxingApp));
+        if (!truncated)
+            Assert.Equal(32UL, UInt(Assert.Single(metadata.OfType<MkvVideoDirectory>()), MkvVideoDirectory.TagPixelWidth));
+        Assert.Equal(stream.Length, reader.Position);
+    }
+
     [Fact]
     public void ReportsIoFailureAtElementBoundaryRatherThanTreatingItAsCleanEof()
     {
@@ -491,7 +599,7 @@ public sealed class MkvReaderTest
         NoErrors(metadata);
     }
 
-    private sealed class SparseStream(byte[] prefix, long padding, byte[] suffix) : Stream
+    private sealed class SparseStream(byte[] prefix, long padding, byte[] suffix, int maximumReadRequest = 4096) : Stream
     {
         public long BytesRead { get; private set; }
         public override bool CanRead => true;
@@ -510,7 +618,7 @@ public sealed class MkvReaderTest
         }
         public override int Read(byte[] buffer, int offset, int count)
         {
-            Assert.InRange(count, 0, 4096);
+            Assert.InRange(count, 0, maximumReadRequest);
             int read = 0;
             while (read < count && Position < Length)
                 buffer[offset + read++] = (byte)ReadByte();
@@ -526,6 +634,36 @@ public sealed class MkvReaderTest
     private sealed class NoSkipReader(Stream stream) : SequentialStreamReader(stream)
     {
         public override bool TrySkip(long n) => false;
+    }
+
+    private sealed class FailedSkipCountingReader(Stream stream, bool partialSkip) : SequentialStreamReader(stream)
+    {
+        public int SkipAttempts { get; private set; }
+        public int BlockReads { get; private set; }
+
+        public override bool TrySkip(long n)
+        {
+            SkipAttempts++;
+            if (partialSkip)
+                Skip(7);
+            return false;
+        }
+
+        public override void GetBytes(Span<byte> bytes)
+        {
+            BlockReads++;
+            Assert.InRange(bytes.Length, 1, 4096);
+            base.GetBytes(bytes);
+        }
+    }
+
+    private sealed class ScalarAllocationGuardReader(Stream stream) : SequentialStreamReader(stream)
+    {
+        public override byte[] GetBytes(int count)
+        {
+            Assert.InRange(count, 0, 1024);
+            return base.GetBytes(count);
+        }
     }
 
     private sealed class PermissiveSkipReader : SequentialStreamReader
