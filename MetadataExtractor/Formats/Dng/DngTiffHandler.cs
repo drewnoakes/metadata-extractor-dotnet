@@ -8,31 +8,38 @@ namespace MetadataExtractor.Formats.Dng;
 internal sealed class DngTiffHandler(List<Directory> directories) : ExifTiffHandler(directories, exifStartOffset: 0)
 {
     private readonly List<Directory> _imageDirectories = [];
+    private readonly HashSet<Directory> _imageDirectorySet = [];
 
     public override TiffStandard ProcessTiffMarker(ushort marker)
     {
         var standard = base.ProcessTiffMarker(marker);
         if (marker is 0x002A or 0x002B)
-            _imageDirectories.Add(CurrentDirectory!);
+            AddImageDirectory(CurrentDirectory!);
         return standard;
     }
 
     public override bool TryEnterSubIfd(int tagId)
     {
-        var isImage = tagId == ExifDirectoryBase.TagSubIfdOffset && _imageDirectories.Contains(CurrentDirectory!);
+        var isImage = tagId == ExifDirectoryBase.TagSubIfdOffset && _imageDirectorySet.Contains(CurrentDirectory!);
         var entered = base.TryEnterSubIfd(tagId);
         if (entered && isImage)
-            _imageDirectories.Add(CurrentDirectory!);
+            AddImageDirectory(CurrentDirectory!);
         return entered;
     }
 
     public override bool HasFollowerIfd()
     {
-        var isImage = _imageDirectories.Contains(CurrentDirectory!);
+        var isImage = _imageDirectorySet.Contains(CurrentDirectory!);
         var entered = base.HasFollowerIfd();
         if (entered && isImage)
-            _imageDirectories.Add(CurrentDirectory!);
+            AddImageDirectory(CurrentDirectory!);
         return entered;
+    }
+
+    private void AddImageDirectory(Directory directory)
+    {
+        _imageDirectories.Add(directory);
+        _imageDirectorySet.Add(directory);
     }
 
     public override void EndingIfd(in TiffReaderContext context)

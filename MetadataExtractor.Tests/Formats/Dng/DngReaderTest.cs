@@ -168,6 +168,39 @@ public sealed class DngReaderTest
 
     [Theory]
     [CombinatorialData]
+    public void PreservesImageDirectoryOrderForWideSubIfdTrees(bool isDng)
+    {
+        var root = isDng
+            ? new ImageIfd(Bytes(Version, 1, 1, 4, 0, 0), Ascii(Model, "Root"))
+            : new ImageIfd(Ascii(Model, "Root"));
+        var children = Enumerable.Range(0, 64)
+            .Select(i => new ImageIfd(Ascii(Model, $"Branch {i}"))).ToArray();
+        root.Links[0x014A] = children;
+        var images = new List<ImageIfd> { root };
+        foreach (var child in children)
+        {
+            var leaf = new ImageIfd(Ascii(Model, "Leaf"));
+            child.Links[0x014A] = [leaf];
+            images.Add(child);
+            images.Add(leaf);
+        }
+        var bytes = Build(false, false, images.ToArray());
+
+        var directories = Read(bytes);
+
+        var sources = directories.Where(directory => directory is not DngDirectory).ToArray();
+        var companions = directories.OfType<DngDirectory>().ToArray();
+        Assert.Equal(images.Count, sources.Length);
+        if (isDng)
+            Assert.Equal(sources, companions.Select(directory => directory.Parent));
+        else
+            Assert.Empty(companions);
+        Assert.All(directories, directory => Assert.Empty(directory.Errors));
+        AssertSourcesUnchanged(bytes, directories);
+    }
+
+    [Theory]
+    [CombinatorialData]
     public void ExcludesTrueExifGpsInteropAndMakernoteBranches(bool bigTiff, bool bigEndian)
     {
         var root = new ImageIfd(Bytes(Version, 1, 1, 4, 0, 0), Ascii(Model, "Root"));
