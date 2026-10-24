@@ -1,6 +1,5 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System.Buffers;
 using MetadataExtractor.Formats.Jpeg;
 
 namespace MetadataExtractor.Formats.Icc;
@@ -8,6 +7,9 @@ namespace MetadataExtractor.Formats.Icc;
 /// <summary>Reads ICC profile data.</summary>
 /// <remarks>
 /// ICC is the International Color Consortium.
+/// Profiles larger than 16 MiB are rejected to bound buffering of compressed profiles.
+/// Profiles with more than 4096 tag entries are rejected to bound cache and directory overhead.
+/// Identical tag data ranges share a byte array; total copied tag data cannot exceed the profile size.
 /// <list type="bullet">
 ///   <item>http://en.wikipedia.org/wiki/ICC_profile</item>
 ///   <item>http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ICC_Profile.html</item>
@@ -22,6 +24,8 @@ public sealed class IccReader : IJpegSegmentMetadataReader
 
     // NOTE the header is 14 bytes, while "ICC_PROFILE" is 11
     private const int JpegSegmentPreambleLength = 14;
+    private const int MaxProfileByteCount = 16 * 1024 * 1024;
+    private const int MaxTagCount = 4096;
 
     IReadOnlyCollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes { get; } = [JpegSegmentType.App2];
 
@@ -35,30 +39,34 @@ public sealed class IccReader : IJpegSegmentMetadataReader
         if (iccSegments.Count == 0)
             return [];
 
-        byte[] buffer;
-        if (iccSegments.Count == 1)
+        long totalLength = 0;
+        foreach (var segment in iccSegments)
         {
-            buffer = ArrayPool<byte>.Shared.Rent(iccSegments[0].Bytes.Length - JpegSegmentPreambleLength);
-            Array.Copy(iccSegments[0].Bytes, JpegSegmentPreambleLength, buffer, 0, iccSegments[0].Bytes.Length - JpegSegmentPreambleLength);
-        }
-        else
-        {
-            // Concatenate all buffers
-            var totalLength = iccSegments.Sum(s => s.Bytes.Length - JpegSegmentPreambleLength);
-            buffer = ArrayPool<byte>.Shared.Rent(totalLength);
-            for (int i = 0, pos = 0; i < iccSegments.Count; i++)
+            if (segment.Bytes.Length < JpegSegmentPreambleLength)
             {
-                var segment = iccSegments[i];
-                Array.Copy(segment.Bytes, JpegSegmentPreambleLength, buffer, pos, segment.Bytes.Length - JpegSegmentPreambleLength);
-                pos += segment.Bytes.Length - JpegSegmentPreambleLength;
+                var directory = new IccDirectory();
+                directory.AddError("ICC JPEG segment is shorter than its header.");
+                return [directory];
+            }
+            totalLength += segment.Bytes.Length - JpegSegmentPreambleLength;
+            if (totalLength > MaxProfileByteCount)
+            {
+                var directory = new IccDirectory();
+                directory.AddError("ICC profile exceeds the 16 MiB size limit.");
+                return [directory];
             }
         }
 
-        Directory directory = Extract(new ByteArrayReader(buffer));
+        var buffer = new byte[(int)totalLength];
+        var position = 0;
+        foreach (var segment in iccSegments)
+        {
+            var length = segment.Bytes.Length - JpegSegmentPreambleLength;
+            Array.Copy(segment.Bytes, JpegSegmentPreambleLength, buffer, position, length);
+            position += length;
+        }
 
-        ArrayPool<byte>.Shared.Return(buffer);
-
-        return [directory];
+        return [Extract(new ByteArrayReader(buffer))];
     }
 
     public IccDirectory Extract(IndexedReader reader)
@@ -70,6 +78,8 @@ public sealed class IccReader : IJpegSegmentMetadataReader
         {
             var profileByteCount = reader.GetInt32(IccDirectory.TagProfileByteCount);
             directory.Set(IccDirectory.TagProfileByteCount, profileByteCount);
+            if (profileByteCount < IccDirectory.TagTagCount + 4 || profileByteCount > MaxProfileByteCount)
+                throw new IOException("ICC profile size must be between 132 bytes and 16 MiB.");
 
             // For these tags, the int value of the tag is in fact its offset within the buffer.
             Set4ByteString(directory, IccDirectory.TagCmmType, reader);
@@ -100,6 +110,13 @@ public sealed class IccReader : IJpegSegmentMetadataReader
             // Process 'ICC tags'
             var tagCount = reader.GetInt32(IccDirectory.TagTagCount);
             directory.Set(IccDirectory.TagTagCount, tagCount);
+            if (tagCount < 0 || tagCount > (profileByteCount - IccDirectory.TagTagCount - 4) / 12)
+                throw new IOException("ICC tag table exceeds the declared profile size.");
+            if (tagCount > MaxTagCount)
+                throw new IOException("ICC tag count exceeds the 4096 entry limit.");
+
+            var tagData = new Dictionary<(int Offset, int Length), byte[]>();
+            var remainingBytes = profileByteCount;
 
             for (var i = 0; i < tagCount; i++)
             {
@@ -107,11 +124,23 @@ public sealed class IccReader : IJpegSegmentMetadataReader
                 var tagType = reader.GetInt32(pos);
                 var tagPtr = reader.GetInt32(pos + 4);
                 var tagLen = reader.GetInt32(pos + 8);
-                var b = reader.GetBytes(tagPtr, tagLen);
+                if (tagPtr < 0 || tagLen < 0 || tagPtr > profileByteCount - tagLen)
+                    throw new IOException("ICC tag data exceeds the declared profile size.");
+                if (!tagData.TryGetValue((tagPtr, tagLen), out var b))
+                {
+                    if (tagLen > remainingBytes)
+                        throw new IOException("ICC copied tag data exceeds the declared profile size.");
+                    b = reader.GetBytes(tagPtr, tagLen);
+                    tagData.Add((tagPtr, tagLen), b);
+                    remainingBytes -= tagLen;
+                }
                 directory.Set(tagType, b);
             }
+
+            // Do not ask for reader.Length: a capturing reader would buffer an unbounded stream.
+            reader.GetByte(profileByteCount - 1);
         }
-        catch (Exception ex)
+        catch (IOException ex)
         {
             directory.AddError("Exception reading ICC profile: " + ex.Message);
         }
