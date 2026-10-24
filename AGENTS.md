@@ -22,6 +22,7 @@ capability gaps rather than conceal them in documentation.
 
 | Format | Documentation |
 | --- | --- |
+| Adobe Digital Negative | [DNG.md](docs/formats/DNG.md) |
 | EBML detection | [EBML.md](docs/formats/EBML.md) |
 | HEIF / HEIC / AVIF references | [HEIF.md](docs/formats/HEIF.md) |
 | ICC profiles | [ICC.md](docs/formats/ICC.md) |

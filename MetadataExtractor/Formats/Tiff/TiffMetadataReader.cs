@@ -1,6 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Dng;
 using MetadataExtractor.Formats.FileSystem;
 
 namespace MetadataExtractor.Formats.Tiff;
@@ -9,6 +9,7 @@ namespace MetadataExtractor.Formats.Tiff;
 /// <remarks>
 /// Obtains all available metadata from TIFF formatted files.  Note that TIFF files include many digital camera RAW
 /// formats, including Canon (CRW, CR2), Nikon (NEF), Olympus (ORF) and Panasonic (RW2).
+/// DNG-specific tags are exposed in separate <see cref="DngDirectory"/> instances when IFD0 identifies the data as DNG.
 /// </remarks>
 /// <author>Darren Salomons</author>
 /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -22,7 +23,7 @@ public static class TiffMetadataReader
 
         using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.RandomAccess))
         {
-            var handler = new ExifTiffHandler(directories, exifStartOffset: 0);
+            var handler = new DngTiffHandler(directories);
             TiffReader.ProcessTiff(new IndexedSeekingReader(stream), handler);
         }
 
@@ -37,7 +38,7 @@ public static class TiffMetadataReader
     {
         var directories = new List<Directory>();
 
-        var handler = new ExifTiffHandler(directories, exifStartOffset: 0);
+        var handler = new DngTiffHandler(directories);
 
         // TIFF processing requires random access, as directories can be scattered throughout the byte sequence.
         // Stream does not support seeking backwards, so we wrap it with IndexedCapturingReader, which
