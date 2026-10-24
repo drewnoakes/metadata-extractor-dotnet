@@ -6,6 +6,11 @@ Always reference these instructions first and fallback to search or bash command
 
 ## Working Effectively
 
+Read [AGENTS.md](../AGENTS.md) and the relevant `docs/formats/<FORMAT>.md` before
+changing parsers, directories, descriptors, or their tests. Keep format-specific
+details there, not in the root README. AGENTS.md also links the focused parity
+and parser-value-validation custom agents.
+
 ### Prerequisites and Environment Setup
 - Ensure .NET 8.0 SDK is installed (`dotnet --version` should show 8.0.x)
 - The repository is a standard .NET solution with multiple projects

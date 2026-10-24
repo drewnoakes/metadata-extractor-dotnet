@@ -94,6 +94,9 @@ to retain the original offset, then `.DateTime` for the shooting-local clock tim
 
 ## Features
 
+See the [format documentation](https://github.com/drewnoakes/metadata-extractor-dotnet/tree/main/docs/formats) for
+format-specific behavior, limitations, and references.
+
 The library understands several formats of metadata, many of which may be present in a single image:
 
 * [Exif](http://en.wikipedia.org/wiki/Exchangeable_image_file_format)
