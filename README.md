@@ -229,7 +229,7 @@ An easier way to help is to contribute to the [sample image file library](https:
 
 ## Credits
 
-This library is developed by [Drew Noakes](https://drewnoakes.com/code/exif/) and contributors.
+This library is developed by [Drew Noakes](https://github.com/drewnoakes) and contributors.
 
 Thanks are due to the many [users](https://github.com/drewnoakes/metadata-extractor/wiki/UsedBy) who sent in suggestions, bug reports,
 [sample images](https://github.com/drewnoakes/metadata-extractor-images/wiki) from their cameras as well as encouragement.
@@ -249,5 +249,4 @@ Both projects are now developed in unison and aim to be functionally equivalent.
 
 More information about this project is available at:
 
-* https://drewnoakes.com/code/exif/
 * https://github.com/drewnoakes/metadata-extractor-dotnet/

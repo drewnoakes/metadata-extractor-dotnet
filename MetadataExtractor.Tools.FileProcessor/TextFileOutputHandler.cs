@@ -122,7 +122,7 @@ internal class TextFileOutputHandler : FileHandlerBase
             finally
             {
                 writer.Write("Generated using metadata-extractor\n");
-                writer.Write("https://drewnoakes.com/code/exif/\n");
+                writer.Write("https://github.com/drewnoakes/metadata-extractor-dotnet/\n");
             }
         }
         catch (Exception e)
@@ -141,7 +141,7 @@ internal class TextFileOutputHandler : FileHandlerBase
             writer.Write("EXCEPTION: {0}\n", exception.Message);
             writer.Write('\n');
             writer.Write("Generated using metadata-extractor\n");
-            writer.Write("https://drewnoakes.com/code/exif/\n");
+            writer.Write("https://github.com/drewnoakes/metadata-extractor-dotnet/\n");
         }
         catch (Exception e)
         {
