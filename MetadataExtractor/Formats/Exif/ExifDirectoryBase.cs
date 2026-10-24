@@ -2,7 +2,7 @@
 
 namespace MetadataExtractor.Formats.Exif;
 
-/// <summary>Base class for several Exif format tag directories.</summary>
+/// <summary>Common Exif and TIFF tags shared by several metadata directories.</summary>
 /// <author>Drew Noakes https://drewnoakes.com</author>
 public abstract class ExifDirectoryBase : Directory
 {

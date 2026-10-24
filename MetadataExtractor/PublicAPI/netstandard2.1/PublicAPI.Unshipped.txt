@@ -1,6 +1,95 @@
 ﻿#nullable enable
 abstract MetadataExtractor.IO.IndexedReader.GetBytes(int index, System.Span<byte> bytes) -> void
 abstract MetadataExtractor.IO.SequentialReader.GetBytes(System.Span<byte> bytes) -> void
+const MetadataExtractor.Formats.Dng.DngDirectory.TagActiveArea = 50829 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagAnalogBalance = 50727 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagAntiAliasStrength = 50738 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagAsShotIccProfile = 50831 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagAsShotNeutral = 50728 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagAsShotPreProfileMatrix = 50832 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagAsShotProfileName = 50934 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagAsShotWhiteXY = 50729 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagBaselineExposure = 50730 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagBaselineExposureOffset = 51109 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagBaselineNoise = 50731 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagBaselineSharpness = 50732 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagBayerGreenSplit = 50733 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagBestQualityScale = 50780 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagBlackLevel = 50714 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagBlackLevelDeltaH = 50715 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagBlackLevelDeltaV = 50716 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagBlackLevelRepeatDim = 50713 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagCalibrationIlluminant1 = 50778 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagCalibrationIlluminant2 = 50779 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagCameraCalibration1 = 50723 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagCameraCalibration2 = 50724 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagCameraCalibrationSignature = 50931 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagCameraSerialNumber = 50735 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagCfaLayout = 50711 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagCfaPlaneColor = 50710 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagChromaBlurRadius = 50737 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagColorimetricReference = 50879 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagColorMatrix1 = 50721 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagColorMatrix2 = 50722 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagCurrentIccProfile = 50833 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagCurrentPreProfileMatrix = 50834 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagDefaultBlackRender = 51110 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagDefaultCropOrigin = 50719 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagDefaultCropSize = 50720 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagDefaultScale = 50718 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagDefaultUserCrop = 51125 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagDngBackwardVersion = 50707 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagDngPrivateData = 50740 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagDngVersion = 50706 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagExtraCameraProfiles = 50933 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagForwardMatrix1 = 50964 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagForwardMatrix2 = 50965 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagLensInfo = 50736 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagLinearizationTable = 50712 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagLinearResponseLimit = 50734 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagLocalizedCameraModel = 50709 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagMakerNoteSafety = 50741 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagMaskedAreas = 50830 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagNewRawImageDigest = 51111 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagNoiseProfile = 51041 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagNoiseReductionApplied = 50935 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagOpcodeList1 = 51008 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagOpcodeList2 = 51009 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagOpcodeList3 = 51022 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagOriginalBestQualityFinalSize = 51090 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagOriginalDefaultCropSize = 51091 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagOriginalDefaultFinalSize = 51089 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagOriginalRawFileData = 50828 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagOriginalRawFileDigest = 50973 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagOriginalRawFileName = 50827 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagPreviewApplicationName = 50966 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagPreviewApplicationVersion = 50967 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagPreviewColorSpace = 50970 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagPreviewDateTime = 50971 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagPreviewSettingsDigest = 50969 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagPreviewSettingsName = 50968 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileCalibrationSignature = 50932 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileCopyright = 50942 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileEmbedPolicy = 50941 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileHueSatMapData1 = 50938 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileHueSatMapData2 = 50939 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileHueSatMapDims = 50937 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileHueSatMapEncoding = 51107 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileLookTableData = 50982 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileLookTableDims = 50981 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileLookTableEncoding = 51108 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileName = 50936 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagProfileToneCurve = 50940 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagRawDataUniqueId = 50781 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagRawImageDigest = 50972 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagRawToPreviewGain = 51112 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagReductionMatrix1 = 50725 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagReductionMatrix2 = 50726 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagRowInterleaveFactor = 50975 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagShadowScale = 50739 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagSubTileBlockSize = 50974 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagUniqueCameraModel = 50708 -> int
+const MetadataExtractor.Formats.Dng.DngDirectory.TagWhiteLevel = 50717 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagAcceleration = 37892 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagCameraElevationAngle = 37893 -> int
 const MetadataExtractor.Formats.Exif.ExifDirectoryBase.TagHumidity = 37889 -> int
@@ -134,6 +223,19 @@ MetadataExtractor.Formats.Apple.BplistReader.BplistReader() -> void
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.Get(byte key) -> object!
 MetadataExtractor.Formats.Apple.BplistReader.PropertyListResults.GetTopObject() -> System.Collections.Generic.Dictionary<byte, byte>?
+MetadataExtractor.Formats.Dng.DngDescriptor
+MetadataExtractor.Formats.Dng.DngDescriptor.DngDescriptor(MetadataExtractor.Formats.Dng.DngDirectory! directory) -> void
+MetadataExtractor.Formats.Dng.DngDescriptor.GetColorimetricReferenceDescription() -> string?
+MetadataExtractor.Formats.Dng.DngDescriptor.GetDefaultBlackRenderDescription() -> string?
+MetadataExtractor.Formats.Dng.DngDescriptor.GetDngBackwardVersionDescription() -> string?
+MetadataExtractor.Formats.Dng.DngDescriptor.GetDngVersionDescription() -> string?
+MetadataExtractor.Formats.Dng.DngDescriptor.GetMakerNoteSafetyDescription() -> string?
+MetadataExtractor.Formats.Dng.DngDescriptor.GetPreviewColorSpaceDescription() -> string?
+MetadataExtractor.Formats.Dng.DngDescriptor.GetProfileEmbedPolicyDescription() -> string?
+MetadataExtractor.Formats.Dng.DngDescriptor.GetProfileHueSatMapEncodingDescription() -> string?
+MetadataExtractor.Formats.Dng.DngDescriptor.GetProfileLookTableEncodingDescription() -> string?
+MetadataExtractor.Formats.Dng.DngDirectory
+MetadataExtractor.Formats.Dng.DngDirectory.DngDirectory() -> void
 MetadataExtractor.Formats.Ebml.EbmlMetadataReader
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetAccelerationDescription() -> string?
 MetadataExtractor.Formats.Exif.ExifDescriptorBase<T>.GetCameraElevationAngleDescription() -> string?
@@ -252,6 +354,8 @@ MetadataExtractor.Util.FileType.ThreeFR = 32 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Pef = 33 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.Srw = 34 -> MetadataExtractor.Util.FileType
 MetadataExtractor.Util.FileType.WebM = 38 -> MetadataExtractor.Util.FileType
+override MetadataExtractor.Formats.Dng.DngDescriptor.GetDescription(int tagType) -> string?
+override MetadataExtractor.Formats.Dng.DngDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDescriptor.GetDescription(int tagType) -> string?
 override MetadataExtractor.Formats.Exif.Makernotes.AppleRunTimeMakernoteDirectory.Name.get -> string!
 override MetadataExtractor.Formats.Exif.Makernotes.NikonPictureControl1Descriptor.GetDescription(int tagType) -> string?
