@@ -135,6 +135,71 @@ After making changes, always verify:
 3. **Performance**: Ensure metadata extraction completes in reasonable time
 4. **Cross-format support**: Test with JPEG, PNG, TIFF, and RAW files if available
 
+### Related repositories and shared guidance
+
+The language implementations and sample corpus normally live in sibling checkouts,
+not as submodules of one another:
+
+| Checkout | Repository | Agent guidance |
+| --- | --- | --- |
+| `metadata-extractor-dotnet` | [C#/.NET implementation](https://github.com/drewnoakes/metadata-extractor-dotnet) | `.github/copilot-instructions.md` |
+| `metadata-extractor` | [Java implementation](https://github.com/drewnoakes/metadata-extractor) | `.github/copilot-instructions.md` |
+| `metadata-extractor-images` | [Shared sample corpus](https://github.com/drewnoakes/metadata-extractor-images) | `AGENTS.md` |
+
+- Choose checkout/worktree paths explicitly. A sibling's default checkout is not
+  necessarily the revision being investigated. Check its status and guidance before
+  using it; do not switch, reset, clean, or overwrite another session's work.
+- Before changing a format reader, tag directory, or descriptor, inspect the
+  corresponding Java code and tests for prior art, fixes and edge cases. Java
+  format implementations are in `Source/com/drew/metadata/`, TIFF parsing is in
+  `Source/com/drew/imaging/tiff/`, and tests are in `Tests/com/drew/`.
+- Compare the same sample bytes when investigating cross-language differences.
+  Neither implementation is automatically the oracle. Verify against the format
+  specification and preserve each language's API and intentional behavior.
+  Identify related fixes/test cases worth porting without mechanically copying
+  whole files or expanding the requested scope.
+- Keep sibling discovery, corpus safety, and regression-comparison guidance aligned
+  across the three repositories. The images repo's `AGENTS.md` owns detailed corpus
+  procedures; link to it rather than maintaining divergent copies. Keep build
+  commands, test frameworks, API compatibility rules and code style specific to
+  each language repository. Cross-repo discovery is not permission to commit or
+  publish changes in another repository.
+
+### Sample media corpus
+
+- Use [drewnoakes/metadata-extractor-images](https://github.com/drewnoakes/metadata-extractor-images)
+  for real-world samples and broader regression checks, in addition to the small
+  `MetadataExtractor.Tests/Data/` fixtures.
+- The corpus is multi-gigabyte (over 2 GB). Cloning or copying it can consume
+  substantial disk space and bandwidth. Reuse an existing checkout and avoid
+  duplicating the entire corpus for each worktree or validation run; use a focused
+  subset or isolated input-only hard links where appropriate.
+- Prefer a **sibling checkout**, not a submodule of this repository. For example,
+  keep `metadata-extractor-dotnet` and `metadata-extractor-images` under the same
+  parent directory. Reuse an existing checkout; clone a missing one only with
+  approval. Do not reset, clean, or update someone else's checkout.
+- Read the corpus's [`AGENTS.md`](https://github.com/drewnoakes/metadata-extractor-images/blob/main/AGENTS.md)
+  and [`README.md`](https://github.com/drewnoakes/metadata-extractor-images/blob/main/README.md),
+  plus the linked [working-with-test-images guide](https://github.com/drewnoakes/metadata-extractor/wiki/Working-with-test-images),
+  before using its generators.
+- Start with the affected format folder, such as `dng/`, and representative
+  unrelated controls. Run this worktree's `MetadataExtractor.Tools.FileProcessor`
+  against those files for read-only checks. A worktree may not be adjacent to the
+  corpus: choose both checkout paths explicitly and ensure the binary being tested
+  comes from the active worktree, not a different sibling checkout.
+- Corpus tooling lives in
+  [`src/dotnet/MetadataExtractor.MediaLibraryProcessor/`](https://github.com/drewnoakes/metadata-extractor-images/tree/main/src/dotnet/MetadataExtractor.MediaLibraryProcessor):
+  `Program.cs` selects the runners, `DotNet/DotNetRunner.cs` performs extraction,
+  `DotNet/TextFileOutputHandler.cs` writes snapshots, and `DiffRunner.cs` compares
+  Java with .NET output. Inspect their current paths, project references and
+  enabled runners before executing them.
+- Do not regenerate the corpus's tracked `metadata/dotnet`, `metadata/java`, or
+  `metadata/diff` outputs for a smoke test. Use fresh isolated trees for generation
+  and keep logs, manifests and baseline-versus-change comparisons in session
+  artifacts. Java-versus-.NET diffs and historical snapshots are useful references,
+  not substitutes for a fresh same-runtime baseline. Inspect extraction errors
+  and output changes; a zero process exit code alone does not establish success.
+
 Always run the complete validation cycle before committing changes. The library should extract comprehensive metadata including camera settings, GPS coordinates, color profiles, and embedded thumbnails from supported image files.
 
 ---
