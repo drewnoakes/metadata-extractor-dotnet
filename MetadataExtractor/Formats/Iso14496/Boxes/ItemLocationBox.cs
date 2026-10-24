@@ -60,7 +60,7 @@ internal sealed class ItemLocationBox : FullBox
             0 => 0,
             4 => sr.GetUInt32(),
             8 => sr.GetUInt64(),
-            _ => throw new InvalidDataException("Pointer size must be 0, 4, or 8 bytes")
+            _ => throw new IOException($"Pointer size must be 0, 4, or 8 bytes, but was {pointerSize}")
         };
 
     private ItemLocationExtent[] ReadExtentList(SequentialReader sr)

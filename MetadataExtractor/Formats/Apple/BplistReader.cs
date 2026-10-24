@@ -19,6 +19,8 @@ public sealed class BplistReader
         return bplist.StartsWith("bplist00"u8);
     }
 
+    /// <summary>Parses a binary property list with one- or two-byte offsets and one-byte object references.</summary>
+    /// <exception cref="IOException">The trailer or object offsets are invalid or use unsupported widths.</exception>
     public static PropertyListResults Parse(ReadOnlySpan<byte> bplist)
     {
         if (!IsValid(bplist))
@@ -26,14 +28,28 @@ public sealed class BplistReader
             throw new ArgumentException("Input is not a bplist.", nameof(bplist));
         }
 
-        Trailer trailer = ReadTrailer(bplist);
+        if (bplist.Length < 8 + Trailer.SizeBytes)
+            throw new IOException("Binary plist trailer is missing.");
 
-        int offset = checked((int)(trailer.OffsetTableOffset + trailer.TopObject));
-        var reader = new BufferReader(bplist.Slice(offset), isBigEndian: true);
+        Trailer trailer = ReadTrailer(bplist);
+        var trailerOffset = bplist.Length - Trailer.SizeBytes;
+
+        if (trailer.OffsetIntSize is not (1 or 2) || trailer.ObjectRefSize != 1)
+            throw new IOException("Unsupported binary plist offset or object reference size.");
+        if (trailer.OffsetTableOffset < 8 || trailer.OffsetTableOffset > trailerOffset)
+            throw new IOException("Binary plist offset table is outside the object data.");
+        if (trailer.NumObjects <= 0 ||
+            trailer.NumObjects > (trailerOffset - trailer.OffsetTableOffset) / trailer.OffsetIntSize)
+            throw new IOException("Binary plist object count exceeds the offset table.");
+        if (trailer.TopObject < 0 || trailer.TopObject >= trailer.NumObjects)
+            throw new IOException("Binary plist top object is outside the object table.");
+
+        int offset = (int)trailer.OffsetTableOffset;
+        var reader = new BufferReader(bplist.Slice(offset, trailerOffset - offset), isBigEndian: true);
 
         var offsets = new int[(int)trailer.NumObjects];
 
-        for (int i = 0; i < (int)trailer.NumObjects; i++)
+        for (int i = 0; i < offsets.Length; i++)
         {
             if (trailer.OffsetIntSize == 1)
             {
@@ -43,13 +59,16 @@ public sealed class BplistReader
             {
                 offsets[i] = reader.GetUInt16();
             }
+
+            if (offsets[i] < 8 || offsets[i] >= offset)
+                throw new IOException("Binary plist object offset is outside the object data.");
         }
 
         List<object> objects = [];
 
         for (int i = 0; i < offsets.Length; i++)
         {
-            reader = new BufferReader(bplist.Slice(offsets[i]), isBigEndian: true);
+            reader = new BufferReader(bplist.Slice(offsets[i], offset - offsets[i]), isBigEndian: true);
 
             byte b = reader.GetByte();
 
