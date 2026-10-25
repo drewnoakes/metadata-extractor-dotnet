@@ -102,8 +102,8 @@ internal static class Program
                 Console.Out.WriteLine();
                 Console.Out.WriteLine("# {0} - {1}", make, model);
                 Console.Out.WriteLine();
-                Console.Out.WriteLine("<a href=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/{0}\">", urlName);
-                Console.Out.WriteLine("<img src=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/{0}\" width=\"300\"/><br/>", urlName);
+                Console.Out.WriteLine("<a href=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/main/{0}\">", urlName);
+                Console.Out.WriteLine("<img src=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/main/{0}\" width=\"300\"/><br/>", urlName);
                 Console.Out.WriteLine(fileName);
                 Console.Out.WriteLine("</a>");
                 Console.Out.WriteLine();
