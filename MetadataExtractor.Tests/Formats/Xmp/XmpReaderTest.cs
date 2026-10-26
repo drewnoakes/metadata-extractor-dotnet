@@ -87,6 +87,23 @@ public sealed class XmpReaderTest
         Assert.Equal(2, directory.GetInt32(XmpDirectory.TagXmpValueCount));
     }
 
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(8)]
+    public void ReadJpegSegments_ReportsErrorForSegmentWithNoXmpPayload(int trailingNullCount)
+    {
+        // https://github.com/drewnoakes/metadata-extractor-dotnet/issues/435
+        // A segment holding only the preamble, optionally followed by padding, has nothing to parse.
+        var bytes = new byte[XmpReader.JpegSegmentPreamble.Length + trailingNullCount];
+        XmpReader.JpegSegmentPreamble.CopyTo(bytes);
+        var segment = new JpegSegment(JpegSegmentType.App1, bytes, offset: 0);
+
+        var directory = Assert.IsType<XmpDirectory>(Assert.Single(new XmpReader().ReadJpegSegments([segment])));
+
+        Assert.True(directory.HasError);
+    }
+
     private static JpegSegment ExtensionSegment(byte[] xml, uint fullLength, uint offset)
     {
         const string guid = "0123456789ABCDEF0123456789ABCDEF";
