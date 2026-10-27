@@ -78,7 +78,9 @@ public sealed class XmpReader : IJpegSegmentMetadataReader
         // https://github.com/drewnoakes/metadata-extractor-dotnet/issues/154
         while (bytes.Length > 0 && bytes[bytes.Length - 1] == 0)
             bytes = bytes.Slice(0, bytes.Length - 1);
-        length = bytes.Length;
+        // Only an empty payload changes the length: trimming single bytes would cut a UTF-16 code unit in half.
+        if (bytes.Length == 0)
+            length = 0;
 
         // Validate the end of the XMP package
         // https://github.com/drewnoakes/metadata-extractor-dotnet/issues/356
