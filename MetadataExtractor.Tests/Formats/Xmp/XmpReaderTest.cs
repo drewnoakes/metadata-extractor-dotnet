@@ -1,6 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Buffers.Binary;
+using System.Text;
 using MetadataExtractor.Formats.Jpeg;
 
 namespace MetadataExtractor.Formats.Xmp;
@@ -85,6 +86,36 @@ public sealed class XmpReaderTest
         Assert.Equal("17", properties["tiff:ImageWidth"]);
         Assert.Equal("23", properties["tiff:ImageLength"]);
         Assert.Equal(2, directory.GetInt32(XmpDirectory.TagXmpValueCount));
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(8)]
+    public void ReadJpegSegments_ReportsErrorForSegmentWithNoXmpPayload(int trailingNullCount)
+    {
+        // https://github.com/drewnoakes/metadata-extractor-dotnet/issues/435
+        // A segment holding only the preamble, optionally followed by padding, has nothing to parse.
+        var bytes = new byte[XmpReader.JpegSegmentPreamble.Length + trailingNullCount];
+        XmpReader.JpegSegmentPreamble.CopyTo(bytes);
+        var segment = new JpegSegment(JpegSegmentType.App1, bytes, offset: 0);
+
+        var directory = Assert.IsType<XmpDirectory>(Assert.Single(new XmpReader().ReadJpegSegments([segment])));
+
+        Assert.True(directory.HasError);
+    }
+
+    [Fact]
+    public void Extract_ParsesUtf16LittleEndianXmp()
+    {
+        // Trimming trailing null bytes must not cut the final UTF-16 code unit ("3E 00") in half.
+        const string xml = "<x:xmpmeta xmlns:x=\"adobe:ns:meta/\"><rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><rdf:Description rdf:about=\"\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\"><dc:format>image/jpeg</dc:format></rdf:Description></rdf:RDF></x:xmpmeta>";
+        var bytes = Encoding.Unicode.GetPreamble().Concat(Encoding.Unicode.GetBytes(xml)).ToArray();
+
+        var directory = new XmpReader().Extract(bytes);
+
+        Assert.False(directory.HasError, string.Join("; ", directory.Errors));
+        Assert.Equal(1, directory.GetInt32(XmpDirectory.TagXmpValueCount));
     }
 
     private static JpegSegment ExtensionSegment(byte[] xml, uint fullLength, uint offset)
