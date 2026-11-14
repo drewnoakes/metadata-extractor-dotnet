@@ -158,4 +158,21 @@ public sealed class IptcReaderTest
         Assert.Equal(37, tags.Count);
         Assert.Equal("MEDWAS,MEDLON,MEDTOR,RONL,ASIA,AONL,APC,USA,CAN,SAM,BIZ", directory.GetString(IptcDirectory.TagDestination));
     }
+
+    [Fact]
+    public void ExtendedDatasetLengthOverflow()
+    {
+        // First dataset: Object Name (2:05), length 9, "Site plan"
+        // Second dataset: Caption (2:120), extended length 0x7FFFFFF0 (would overflow offset + tagByteCount)
+        byte[] bytes =
+        [
+            0x1C, 0x02, 0x05, 0x00, 0x09, (byte)'S', (byte)'i', (byte)'t', (byte)'e', (byte)' ', (byte)'p', (byte)'l', (byte)'a', (byte)'n',
+            0x1C, 0x02, 0x78, 0xFF, 0xFF, 0xFF, 0xF0, (byte)'C', (byte)'a', (byte)'p', (byte)'t', (byte)'i', (byte)'o', (byte)'n'
+        ];
+
+        var directory = new IptcReader().Extract(new SequentialByteArrayReader(bytes), bytes.Length);
+
+        Assert.Equal("Site plan", directory.GetString(IptcDirectory.TagObjectName));
+        Assert.Contains("Data for tag extends beyond end of IPTC segment", directory.Errors);
+    }
 }
