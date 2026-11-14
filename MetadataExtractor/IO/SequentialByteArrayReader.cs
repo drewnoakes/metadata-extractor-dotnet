@@ -30,6 +30,9 @@ public class SequentialByteArrayReader : SequentialReader
 
     public override byte[] GetBytes(int count)
     {
+        if (count < 0)
+            throw new ArgumentOutOfRangeException(nameof(count), "Must be non-negative.");
+
         if (count > _bytes.Length - _index)
             throw new IOException("End of data reached.");
 
@@ -50,6 +53,9 @@ public class SequentialByteArrayReader : SequentialReader
 
     public override void GetBytes(byte[] buffer, int offset, int count)
     {
+        if (count < 0)
+            throw new ArgumentOutOfRangeException(nameof(count), "Must be non-negative.");
+
         if (count > _bytes.Length - _index)
             throw new IOException("End of data reached.");
 

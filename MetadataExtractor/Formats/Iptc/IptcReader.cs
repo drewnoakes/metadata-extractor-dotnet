@@ -77,7 +77,7 @@ public sealed class IptcReader : IJpegSegmentMetadataReader
             }
 
             // we need at least four bytes left to read a tag
-            if (offset + 4 > length)
+            if (4 > length - offset)
             {
                 directory.AddError("Too few bytes remain for a valid IPTC tag");
                 break;
@@ -105,7 +105,7 @@ public sealed class IptcReader : IJpegSegmentMetadataReader
                 break;
             }
 
-            if (offset + tagByteCount > length)
+            if (tagByteCount < 0 || tagByteCount > length - offset)
             {
                 directory.AddError("Data for tag extends beyond end of IPTC segment");
                 break;
